@@ -1,0 +1,278 @@
+{
+  "v": 0,
+  "components": {
+    "cc-v4-ccv4root": {
+      "id": "cc-v4-ccv4root",
+      "name": "CcV4Root",
+      "path": "./src/stories/CcV4Root.stories.jsx",
+      "jsDocTags": {
+        "type": [
+          "{import('@storybook/react-vite').Meta}"
+        ]
+      },
+      "description": "",
+      "reactDocgen": {
+        "description": "Корневой контейнер CC-V4: scope для всех v4-стилей (`company-card-v4`).\r\n\r\n@param {React.ReactNode} children — разметка страницы (header-card, dash-card, списки).\r\n@param {boolean} [withMainPage=false] — добавить класс `main-page`.\r\n@param {string} [pageVariant] — модификатор страницы (`company-list-page-v4`, …).\r\n@param {string} [className] — дополнительные классы.\r\n@param {keyof JSX.IntrinsicElements | React.ElementType} [as='div'] — тег корня.",
+        "methods": [],
+        "displayName": "CcV4Root",
+        "definedInFile": "C:\\Frontend\\dmc-ui\\src\\lib\\components\\cc-v4\\CcV4Root.jsx",
+        "actualName": "CcV4Root",
+        "exportName": "CcV4Root",
+        "props": {
+          "withMainPage": {
+            "defaultValue": {
+              "value": "false",
+              "computed": false
+            },
+            "required": false
+          },
+          "as": {
+            "defaultValue": {
+              "value": "\"div\"",
+              "computed": false
+            },
+            "required": false
+          }
+        }
+      },
+      "stories": [
+        {
+          "id": "cc-v4-ccv4root--page-shell",
+          "name": "Страница с main-page",
+          "snippet": "const PageShell = () => <CcV4Root\r\n    withMainPage\r\n    pageVariant=\"company-list-page-v4\"\r\n    style={{ padding: 16, minHeight: 280 }}>\r\n    <header className=\"card header-card\">\r\n        <div className=\"header-top\">\r\n            <div className=\"company-title\">\r\n                <div className=\"compamy-title-name-container\">\r\n                    <span className=\"req-label\">Каталог</span>\r\n                    <h1>Компании</h1>\r\n                </div>\r\n            </div>\r\n        </div>\r\n    </header>\r\n    <p className=\"description-text\" style={{ marginTop: 10 }}>Все дочерние блоки наследуют стили `.company-card-v4`.\r\n              </p>\r\n</CcV4Root>;"
+        },
+        {
+          "id": "cc-v4-ccv4root--section-only",
+          "name": "Только секция (без main-page)",
+          "snippet": "const SectionOnly = () => <div className=\"main-page\" style={{ padding: 16, background: \"#e2e8f0\" }}>\r\n    <p className=\"req-label\">Родитель уже main-page — внутри CcV4Root без withMainPage</p>\r\n    <CcV4Root\r\n        withMainPage={false}\r\n        className=\"company-card-v4-soft-section\"\r\n        style={{ marginTop: 8 }}>\r\n        <div className=\"card dash-card\">\r\n            <span className=\"dash-card-title\">Блок внутри company-card-v4</span>\r\n        </div>\r\n    </CcV4Root>\r\n</div>;"
+        }
+      ],
+      "import": "import { CcV4Root } from '@dmc/ui';"
+    },
+    "cc-v4-button": {
+      "id": "cc-v4-button",
+      "name": "CcV4Button",
+      "path": "./src/stories/CcV4Button.stories.jsx",
+      "jsDocTags": {
+        "type": [
+          "{import('@storybook/react-vite').Meta}"
+        ]
+      },
+      "description": "",
+      "reactDocgen": {
+        "description": "Единая кнопка v4: primary | outline | icon (mobile «+»).\r\n@deprecated Используйте CcV4Button напрямую; BtnPrimaryv4/BtnOutlineV4 — re-export.",
+        "methods": [],
+        "displayName": "CcV4Button",
+        "definedInFile": "C:\\Frontend\\dmc-ui\\src\\lib\\components\\cc-v4\\CcV4Button.jsx",
+        "actualName": "CcV4Button",
+        "exportName": "CcV4Button",
+        "props": {
+          "variant": {
+            "defaultValue": {
+              "value": "\"primary\"",
+              "computed": false
+            },
+            "required": false
+          },
+          "type": {
+            "defaultValue": {
+              "value": "\"button\"",
+              "computed": false
+            },
+            "required": false
+          }
+        }
+      },
+      "stories": [
+        {
+          "id": "cc-v4-button--primary",
+          "name": "Primary",
+          "snippet": "const Primary = () => <CcV4Button variant=\"primary\" text=\"Добавить\" />;"
+        },
+        {
+          "id": "cc-v4-button--outline",
+          "name": "Outline",
+          "snippet": "const Outline = () => <CcV4Button variant=\"outline\" text=\"Отмена\" />;"
+        },
+        {
+          "id": "cc-v4-button--icon",
+          "name": "Icon",
+          "snippet": "const Icon = () => <CcV4Button variant=\"icon\" onClick={() => {}} />;"
+        }
+      ],
+      "import": "import { CcV4Button, CcV4Root } from '@dmc/ui';"
+    },
+    "cc-v4-input": {
+      "id": "cc-v4-input",
+      "name": "CcV4Input",
+      "path": "./src/stories/CcV4Input.stories.jsx",
+      "jsDocTags": {
+        "type": [
+          "{import('@storybook/react-vite').Meta}"
+        ]
+      },
+      "description": "",
+      "reactDocgen": {
+        "description": "",
+        "methods": [],
+        "displayName": "CcV4Input",
+        "definedInFile": "C:\\Frontend\\dmc-ui\\src\\lib\\components\\cc-v4\\CcV4Input.jsx",
+        "actualName": "CcV4Input",
+        "exportName": "CcV4Input",
+        "props": {
+          "legacy": {
+            "defaultValue": {
+              "value": "false",
+              "computed": false
+            },
+            "required": false
+          },
+          "v4": {
+            "defaultValue": {
+              "value": "true",
+              "computed": false
+            },
+            "required": false
+          }
+        }
+      },
+      "stories": [
+        {
+          "id": "cc-v4-input--default",
+          "name": "Default",
+          "snippet": "const Default = () => <div className=\"site-form-field\">\r\n    <span className=\"site-form-label\">ИНН</span>\r\n    <CcV4Input value=\"\" legacy v4 placeholder=\"10 цифр\" />\r\n</div>;"
+        }
+      ],
+      "import": "import { CcV4Input, CcV4Root } from '@dmc/ui';"
+    },
+    "cc-v4-sidedrawer": {
+      "id": "cc-v4-sidedrawer",
+      "name": "CcV4SideDrawer",
+      "path": "./src/stories/CcV4SideDrawer.stories.jsx",
+      "jsDocTags": {
+        "type": [
+          "{import('@storybook/react-vite').Meta}"
+        ]
+      },
+      "description": "",
+      "reactDocgen": {
+        "description": "Боковая панель v4: `posi-abs` + `subscription-drawer-v4`.\r\nПо умолчанию `open={true}` — родитель монтирует/размонтирует.",
+        "methods": [],
+        "displayName": "CcV4SideDrawer",
+        "definedInFile": "C:\\Frontend\\dmc-ui\\src\\lib\\components\\cc-v4\\CcV4SideDrawer.jsx",
+        "actualName": "CcV4SideDrawer",
+        "exportName": "CcV4SideDrawer",
+        "props": {
+          "open": {
+            "defaultValue": {
+              "value": "true",
+              "computed": false
+            },
+            "required": false
+          },
+          "usePortal": {
+            "defaultValue": {
+              "value": "true",
+              "computed": false
+            },
+            "required": false
+          },
+          "closeOnBackdrop": {
+            "defaultValue": {
+              "value": "true",
+              "computed": false
+            },
+            "required": false
+          }
+        }
+      },
+      "stories": [
+        {
+          "id": "cc-v4-sidedrawer--default",
+          "name": "Default",
+          "snippet": "const Default = () => <DrawerDemo />;"
+        }
+      ],
+      "import": "import { CcV4Button, CcV4Root, CcV4SideDrawer } from '@dmc/ui';"
+    },
+    "cc-v4-softlist": {
+      "id": "cc-v4-softlist",
+      "name": "CcV4SoftList",
+      "path": "./src/stories/CcV4SoftList.stories.tsx",
+      "jsDocTags": {},
+      "reactDocgen": {
+        "description": "",
+        "methods": [],
+        "displayName": "CcV4SoftList",
+        "definedInFile": "C:\\Frontend\\dmc-ui\\src\\lib\\components\\cc-v4\\CcV4SoftList.jsx",
+        "actualName": "CcV4SoftList",
+        "exportName": "CcV4SoftList"
+      },
+      "stories": [
+        {
+          "id": "cc-v4-softlist--three-columns",
+          "name": "Три колонки",
+          "snippet": "const ThreeColumns = () => (\r\n  <CcV4SoftList>\r\n    <CcV4SoftListHeader\r\n      gridClass={GRID}\r\n      columns={[\r\n        { key: \"a\", label: \"Название\" },\r\n        { key: \"b\", label: \"ИНН\" },\r\n        { key: \"c\", label: \"Адрес\" },\r\n      ]}\r\n    />\r\n    <CcV4SoftListBody>\r\n      <CcV4SoftListRow gridClass={GRID}>\r\n        <span>ООО Пример</span>\r\n        <span className=\"company-card-v4-mono\">7700000000</span>\r\n        <span>Москва</span>\r\n      </CcV4SoftListRow>\r\n    </CcV4SoftListBody>\r\n  </CcV4SoftList>\r\n);"
+        }
+      ],
+      "import": "import { CcV4Root, CcV4SoftList, CcV4SoftListBody, CcV4SoftListHeader, CcV4SoftListRow } from '@dmc/ui';"
+    },
+    "cc-v4-toggle": {
+      "id": "cc-v4-toggle",
+      "name": "CcV4Toggle",
+      "path": "./src/stories/CcV4Toggle.stories.jsx",
+      "jsDocTags": {
+        "type": [
+          "{import('@storybook/react-vite').Meta}"
+        ]
+      },
+      "description": "",
+      "reactDocgen": {
+        "description": "",
+        "methods": [],
+        "displayName": "CcV4Toggle",
+        "definedInFile": "C:\\Frontend\\dmc-ui\\src\\lib\\components\\cc-v4\\CcV4Toggle.jsx",
+        "actualName": "CcV4Toggle",
+        "exportName": "CcV4Toggle",
+        "props": {
+          "className": {
+            "defaultValue": {
+              "value": "\"\"",
+              "computed": false
+            },
+            "required": false
+          },
+          "disabled": {
+            "defaultValue": {
+              "value": "false",
+              "computed": false
+            },
+            "required": false
+          }
+        }
+      },
+      "stories": [
+        {
+          "id": "cc-v4-toggle--label-only",
+          "name": "Label Only",
+          "snippet": "const LabelOnly = () => <CcV4Toggle active label=\"Мои\" />;"
+        },
+        {
+          "id": "cc-v4-toggle--with-description",
+          "name": "With Description",
+          "snippet": "const WithDescription = () => <CcV4Toggle\r\n    active={false}\r\n    label=\"Только мои\"\r\n    description=\"Показывать уведомления, где вы ответственный менеджер\" />;"
+        },
+        {
+          "id": "cc-v4-toggle--switch-only",
+          "name": "Switch Only",
+          "snippet": "const SwitchOnly = () => <CcV4Toggle active />;"
+        }
+      ],
+      "import": "import { CcV4Root, CcV4Toggle } from '@dmc/ui';"
+    }
+  },
+  "meta": {
+    "docgen": "react-docgen",
+    "durationMs": 330
+  }
+}

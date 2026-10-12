@@ -1,0 +1,1392 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Components Manifest</title>
+  <style>
+      :root {
+          --bg: #0b0c10;
+          --panel: #121318;
+          --muted: #9aa0a6;
+          --fg: #e8eaed;
+          --ok: #22c55e;
+          --info: #1e88e5;
+          --err: #c62828;
+          --ok-bg: #0c1a13;
+          --info-bg: #0c1624;
+          --err-bg: #1a0e0e;
+          --chip: #1f2330;
+          --border: #2b2f3a;
+          --link: #8ab4f8;
+          --active-ring: 1px; /* 1px active ring for pills and toggles */
+      }
+
+      * {
+          box-sizing: border-box;
+      }
+
+      html,
+      body {
+          margin: 0;
+          background: var(--bg);
+          color: var(--fg);
+          font: 14px/1.5 system-ui,
+          -apple-system,
+          Segoe UI,
+          Roboto,
+          Ubuntu,
+          Cantarell,
+          'Helvetica Neue',
+          Arial,
+          'Noto Sans';
+      }
+
+      .wrap {
+          max-width: 1100px;
+          margin: 0 auto;
+          padding: 16px 20px;
+      }
+
+      header {
+          position: sticky;
+          top: 0;
+          backdrop-filter: blur(6px);
+          background: color-mix(in srgb, var(--bg) 84%, transparent);
+          border-bottom: 1px solid var(--border);
+          z-index: 10;
+      }
+
+      h1 {
+          font-size: 20px;
+          margin: 0 0 6px;
+      }
+
+      .summary {
+          display: flex;
+          gap: 12px;
+          flex-wrap: wrap;
+          align-items: center;
+      }
+
+      /* Top filter pills */
+      .filter-pill {
+          display: inline-flex;
+          align-items: center;
+          gap: 6px;
+          padding: 6px 12px;
+          border: 1px solid var(--border);
+          border-radius: 999px;
+          background: var(--panel);
+          text-decoration: none;
+          cursor: pointer;
+          user-select: none;
+          color: var(--fg);
+      }
+
+      .filter-pill.ok {
+          color: #b9f6ca;
+          border-color: color-mix(in srgb, var(--ok) 55%, var(--border));
+          background: color-mix(in srgb, var(--ok) 18%, #000);
+      }
+
+      .filter-pill.info {
+          color: #b3d9ff;
+          border-color: color-mix(in srgb, var(--info) 55%, var(--border));
+          background: var(--info-bg);
+      }
+
+      .filter-pill.err {
+          color: #ff9aa0;
+          border-color: color-mix(in srgb, var(--err) 55%, var(--border));
+          background: var(--err-bg);
+      }
+
+      .filter-pill.all {
+          color: #d7dbe0;
+          border-color: var(--border);
+          background: var(--panel);
+      }
+
+      .filter-pill[aria-disabled='true'] {
+          cursor: default;
+          text-decoration: none;
+      }
+
+      .filter-pill:focus,
+      .filter-pill:active {
+          outline: none;
+          box-shadow: none;
+      }
+
+      /* Selected top pill ring via :target */
+      #filter-all:target ~ header .filter-pill[data-k='all'],
+      #filter-errors:target ~ header .filter-pill[data-k='errors'],
+      #filter-infos:target ~ header .filter-pill[data-k='infos'],
+      #filter-story-errors:target ~ header .filter-pill[data-k='story-errors'],
+      #filter-story-warnings:target ~ header .filter-pill[data-k='story-warnings'],
+      #filter-no-api:target ~ header .filter-pill[data-k='no-api'],
+      #filter-doc-errors:target ~ header .filter-pill[data-k='docs'],
+      #filter-docs:target ~ header .filter-pill[data-k='docs'] {
+          box-shadow: 0 0 0 var(--active-ring) currentColor;
+          border-color: currentColor;
+      }
+
+      /* Hidden targets for filtering */
+      #filter-all,
+      #filter-errors,
+      #filter-infos,
+      #filter-story-errors,
+      #filter-story-warnings,
+      #filter-no-api,
+      #filter-doc-errors,
+      #filter-docs {
+          display: none;
+      }
+
+      main {
+          padding: 36px 0 40px;
+      }
+
+      .grid {
+          display: grid;
+          grid-template-columns: 1fr;
+          gap: 18px;
+      }
+
+      /* one card per row */
+
+      .card {
+          border: 1px solid var(--border);
+          background: var(--panel);
+          border-radius: 14px;
+          padding: 14px;
+          display: flex;
+          flex-direction: column;
+          gap: 10px;
+          /* Keep a deep-linked card clear of the sticky header when scrolled into view */
+          scroll-margin-top: 110px;
+      }
+
+      /* Highlight the card deep-linked via components.html#<manifest-id> */
+      .card:target {
+          box-shadow: 0 0 0 2px var(--info);
+          border-color: var(--info);
+      }
+
+      .head {
+          display: flex;
+          flex-direction: column;
+          gap: 8px;
+      }
+
+      .title {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          gap: 10px;
+      }
+
+      .title h2 {
+          font-size: 16px;
+          margin: 0;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          white-space: nowrap;
+      }
+
+      .meta {
+          font-size: 12px;
+          color: var(--muted);
+          overflow: hidden;
+          text-overflow: ellipsis;
+          white-space: nowrap;
+      }
+
+      .kv {
+          display: flex;
+          flex-wrap: wrap;
+          gap: 6px;
+      }
+
+      .chip {
+          font-size: 12px;
+          padding: 4px 8px;
+          border-radius: 999px;
+          background: var(--chip);
+          border: 1px solid var(--border);
+      }
+
+      .hint {
+          color: var(--muted);
+          font-size: 12px;
+      }
+
+      .badges {
+          display: flex;
+          gap: 8px;
+          flex-wrap: wrap;
+      }
+
+      /* Per-card badges: labels become toggles when clickable */
+      .badge {
+          font-size: 12px;
+          padding: 3px 8px;
+          border-radius: 999px;
+          border: 1px solid var(--border);
+          background: var(--chip);
+          color: #d7dbe0;
+      }
+
+      .badge.ok {
+          color: #b9f6ca;
+          border-color: color-mix(in srgb, var(--ok) 55%, var(--border));
+      }
+
+      .badge.info {
+          color: #b3d9ff;
+          border-color: color-mix(in srgb, var(--info) 55%, var(--border));
+      }
+
+      .badge.err {
+          color: #ff9aa0;
+          border-color: color-mix(in srgb, var(--err) 55%, var(--border));
+      }
+
+      .snippet-warning {
+          margin-top: 8px;
+          padding: 8px 10px;
+          border-radius: 8px;
+          border: 1px solid color-mix(in srgb, var(--info) 45%, var(--border));
+          background: var(--info-bg);
+          color: #b3d9ff;
+          font-size: 12px;
+      }
+
+      .as-toggle {
+          cursor: pointer;
+      }
+
+      /* 1px ring on active toggle */
+      .tg-err:checked + label.as-toggle,
+      .tg-info:checked + label.as-toggle,
+      .tg-stories:checked + label.as-toggle,
+      .tg-docs:checked + label.as-toggle,
+      .tg-subcomponents:checked + label.as-toggle,
+      .tg-content:checked + label.as-toggle,
+      .tg-props:checked + label.as-toggle {
+          box-shadow: 0 0 0 var(--active-ring) currentColor;
+          border-color: currentColor;
+      }
+
+      /* Panels: hidden by default, shown when respective toggle checked */
+      .panels {
+          display: grid;
+          gap: 10px;
+      }
+
+      .panel {
+          display: none;
+      }
+
+      .tg-err:checked ~ .panels .panel-err {
+          display: grid;
+      }
+
+      .tg-info:checked ~ .panels .panel-info {
+          display: grid;
+          gap: 8px;
+      }
+
+      .tg-stories:checked ~ .panels .panel-stories {
+          display: grid;
+          gap: 8px;
+      }
+
+      .tg-docs:checked ~ .panels .panel-docs {
+          display: grid;
+          gap: 8px;
+      }
+
+      .tg-subcomponents:checked ~ .panels .panel-subcomponents {
+          display: grid;
+          gap: 8px;
+      }
+
+      .tg-content:checked ~ .panels .panel-content {
+          display: grid;
+          gap: 8px;
+      }
+
+      .tg-props:checked ~ .panels .panel-props {
+          display: grid;
+      }
+
+      /* Colored notes for API error + info */
+      .note {
+          padding: 12px;
+          border: 1px solid var(--border);
+          border-radius: 10px;
+      }
+
+      .note.err {
+          border-color: color-mix(in srgb, var(--err) 55%, var(--border));
+          background: var(--err-bg);
+          color: #ffd1d4;
+      }
+
+      .note.info {
+          border-color: color-mix(in srgb, var(--info) 55%, var(--border));
+          background: var(--info-bg);
+          color: #d6e8ff;
+      }
+
+      .note.ok {
+          border-color: color-mix(in srgb, var(--ok) 55%, var(--border));
+          background: var(--ok-bg);
+          color: var(--fg);
+      }
+
+      .note-title {
+          font-weight: 600;
+          margin-bottom: 6px;
+      }
+
+      .note-body {
+          white-space: normal;
+      }
+
+      /* Story error cards */
+      .ex {
+          padding: 10px;
+          border: 1px solid var(--border);
+          border-radius: 10px;
+          background: #0f131b;
+      }
+
+      .ex.err {
+          border-color: color-mix(in srgb, var(--err) 55%, var(--border));
+      }
+
+      .row {
+          display: flex;
+          align-items: center;
+          gap: 8px;
+          flex-wrap: wrap;
+      }
+
+      .status-dot {
+          width: 8px;
+          height: 8px;
+          border-radius: 50%;
+          display: inline-block;
+      }
+
+      .dot-ok {
+          background: var(--ok);
+      }
+
+      .dot-err {
+          background: var(--err);
+      }
+
+      .ex-name {
+          font-weight: 600;
+      }
+
+      /* Error groups (visible in errors filter) */
+      .error-groups {
+          display: none;
+          margin-bottom: 16px;
+      }
+
+      .group {
+          border: 1px solid var(--border);
+          background: var(--panel);
+          border-radius: 14px;
+          overflow: hidden;
+      }
+
+      .group + .group {
+          margin-top: 12px;
+      }
+
+      .group-header {
+          display: flex;
+          align-items: center;
+          gap: 10px;
+          padding: 12px 14px;
+          cursor: pointer;
+          border-bottom: 1px solid var(--border);
+      }
+
+      .group-header:hover {
+          background: #141722;
+      }
+
+      .group-title {
+          font-weight: 600;
+          flex: 1;
+      }
+
+      .group-count {
+          font-size: 12px;
+          color: var(--muted);
+      }
+
+      .group-cards {
+          display: none;
+          padding: 12px;
+      }
+
+      .group .card {
+          margin: 12px 0;
+      }
+
+      .group .card:first-child {
+          margin-top: 0;
+      }
+
+      .group .card:last-child {
+          margin-bottom: 0;
+      }
+
+      /* caret rotation */
+      .group-tg:checked + label .caret {
+          transform: rotate(90deg);
+      }
+
+      .caret {
+          transition: transform 0.15s ease;
+      }
+
+      /* toggle body */
+      .group-tg:checked ~ .group-cards {
+          display: block;
+      }
+
+      /* CSS-only filtering of cards via top pills */
+      #filter-errors:target ~ main .card:not(.has-error):not(.has-story-error) {
+          display: none;
+      }
+
+      #filter-infos:target ~ main .card:not(.has-info) {
+          display: none;
+      }
+
+      #filter-story-errors:target ~ main .card:not(.has-story-error) {
+          display: none;
+      }
+
+      #filter-story-warnings:target ~ main .card:not(.has-story-warning) {
+          display: none;
+      }
+
+      #filter-no-api:target ~ main .card:not(.missing-api) {
+          display: none;
+      }
+
+      #filter-doc-errors:target ~ main .card:not(.has-doc-error) {
+          display: none;
+      }
+
+      #filter-docs:target ~ main .card:has(> .tg-docs),
+      #filter-docs:target ~ main .card.is-doc {
+          display: block;
+      }
+
+      #filter-docs:target ~ main .card:not(:has(> .tg-docs)):not(.is-doc) {
+          display: none;
+      }
+
+      #filter-all:target ~ main .card {
+          display: block;
+      }
+
+      /* In errors view, hide standalone component-error cards in the regular grid (they will appear in groups) */
+      #filter-errors:target ~ main .grid .card.has-error {
+          display: none;
+      }
+
+      /* Show grouped section only in errors view */
+      #filter-errors:target ~ main .error-groups {
+          display: block;
+      }
+
+      /* Section titles */
+      .section-title {
+          font-size: 16px;
+          font-weight: 600;
+          color: var(--muted);
+          margin: 24px 0 12px;
+          padding-bottom: 8px;
+          border-bottom: 1px solid var(--border);
+      }
+      .section-title:first-child {
+          margin-top: 0;
+      }
+
+      /* When a toggle is checked, show the corresponding panel */
+      .card > .tg-err:checked ~ .panels .panel-err {
+          display: grid;
+      }
+      
+      .card > .tg-info:checked ~ .panels .panel-info {
+          display: grid;
+      }
+      
+      .card > .tg-stories:checked ~ .panels .panel-stories {
+          display: grid;
+      }
+
+      .card > .tg-docs:checked ~ .panels .panel-docs {
+          display: grid;
+      }
+
+      .card > .tg-subcomponents:checked ~ .panels .panel-subcomponents {
+          display: grid;
+      }
+
+      .card > .tg-content:checked ~ .panels .panel-content {
+          display: grid;
+      }
+
+      /* Add vertical spacing around panels only when any panel is visible */
+      .card > .tg-err:checked ~ .panels,
+      .card > .tg-info:checked ~ .panels,
+      .card > .tg-stories:checked ~ .panels,
+      .card > .tg-docs:checked ~ .panels,
+      .card > .tg-subcomponents:checked ~ .panels,
+      .card > .tg-content:checked ~ .panels,
+      .card > .tg-props:checked ~ .panels {
+          margin: 10px 0;
+      }
+
+      /* Optional: a subtle 1px ring on the active badge, using :has() if available */
+      @supports selector(.card:has(.tg-err:checked)) {
+          .card:has(.tg-err:checked) label[for$='-err'],
+          .card:has(.tg-info:checked) label[for$='-info'],
+          .card:has(.tg-stories:checked) label[for$='-stories'],
+          .card:has(.tg-docs:checked) label[for$='-docs'],
+          .card:has(.tg-subcomponents:checked) label[for$='-subcomponents'],
+          .card:has(.tg-content:checked) label[for$='-content'],
+          .card:has(.tg-props:checked) label[for$='-props'] {
+              box-shadow: 0 0 0 1px currentColor;
+              border-color: currentColor;
+          }
+      }
+
+      /* Wrap long lines in code blocks at ~120 characters */
+      pre, code {
+          font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      }
+      pre {
+          white-space: pre-wrap;
+          overflow-wrap: anywhere;
+          word-break: break-word;
+          overflow-x: auto; /* fallback for extremely long tokens */
+          margin: 8px 0 0;
+      }
+      pre > code {
+          display: block;
+          white-space: inherit;
+          overflow-wrap: inherit;
+          word-break: inherit;
+          inline-size: min(100%, 120ch);
+      }
+
+      /* MDX content container for docs */
+      .mdx-content {
+          background: #0f131b;
+          border: 1px solid var(--border);
+          border-radius: 10px;
+          padding: 12px;
+          max-height: 400px;
+          overflow-y: auto;
+          margin-top: 8px;
+      }
+  </style>
+</head>
+<body>
+<!-- Hidden targets for the top-level filters -->
+<span id="filter-all"></span>
+<span id="filter-errors"></span>
+<span id="filter-infos"></span>
+<span id="filter-story-errors"></span>
+<span id="filter-story-warnings"></span>
+<span id="filter-no-api"></span>
+<span id="filter-doc-errors"></span>
+<span id="filter-docs"></span>
+<header>
+  <div class="wrap">
+    <h1>Manifest Debugger</h1>
+    <div class="summary"><a class="filter-pill all" data-k="all" href="#filter-all">All</a><span class="filter-pill ok" aria-disabled="true">6 components ok</span><a class="filter-pill info" data-k="infos" href="#filter-infos">6/6 infos</a><a class="filter-pill" data-k="no-api" href="#filter-no-api">1/6 without API description</a><span class="filter-pill ok" aria-disabled="true">11 stories ok</span><a class="filter-pill ok" data-k="docs" href="#filter-docs">2 docs ok</a></div>
+  </div>
+</header>
+<main>
+  <div class="wrap">
+    <div class="note info" style="margin-bottom: 16px;">
+            <strong>Tip:</strong> You are using <code>react-docgen</code> (the default). Generation took <strong>0.3s</strong>. For higher quality prop types, consider switching to <code>react-docgen-typescript</code> in your <code>main.ts</code>:
+            <pre><code>typescript: {
+  reactDocgen: 'react-docgen-typescript',
+}</code></pre>
+            Note: <code>react-docgen-typescript</code> can be slower. If performance is acceptable for your project, it generally produces better results.
+            <a href="https://storybook.js.org/docs/api/main-config/main-config-typescript#reactdocgen" target="_blank">Learn more</a>
+          </div>
+    <h2 class="section-title">Components</h2>
+    <div class="grid" role="list">
+      
+<article
+  id="cc-v4-button"
+  class="card 
+  no-error
+  has-info
+  no-story-error
+  no-story-warning
+  
+  no-doc-error"
+  role="listitem"
+  aria-label="CcV4Button">
+  <div class="head">
+    <div class="title">
+      <h2><span class="status-dot dot-ok"></span> CcV4Button</h2>
+      <div class="badges">
+        <label for="c-0-cc-v4-button-props" class="badge ok as-toggle">2 prop types</label>
+        <label for="c-0-cc-v4-button-info" class="badge info as-toggle">1 info</label>
+        <label for="c-0-cc-v4-button-stories" class="badge ok as-toggle">3 stories</label>
+        
+        
+      </div>
+    </div>
+    <div class="meta" title="./src/stories/CcV4Button.stories.jsx">cc-v4-button · ./src/stories/CcV4Button.stories.jsx</div>
+    
+    
+    <div class="kv"><span class="chip">type: {import(&#39;@storybook/react-vite&#39;).Meta}</span></div>
+  </div>
+
+  <!-- ⬇️ Hidden toggles must be siblings BEFORE .panels -->
+  
+  <input id="c-0-cc-v4-button-info" class="tg tg-info" type="checkbox" hidden />
+  <input id="c-0-cc-v4-button-stories" class="tg tg-stories" type="checkbox" hidden />
+  
+  
+  <input id="c-0-cc-v4-button-props" class="tg tg-props" type="checkbox" hidden />
+
+  <div class="panels">
+    
+    
+        <div class="panel panel-info">
+          
+    <div class="note info">
+      <div class="note-title">Info</div>
+      <div class="note-body">No description found. Write a jsdoc comment such as /** Component description */.</div>
+    </div>
+        </div>
+    
+        <div class="panel panel-props">
+          <div class="note ok">
+            <div class="row">
+              <span class="ex-name">Prop types <small>(react-docgen)</small></span>
+              <span class="badge ok">2 prop types</span>
+            </div>
+            <pre><code>Component: src\lib\components\cc-v4\CcV4Button.jsx::CcV4Button</code></pre>
+            <pre><code>Props:</code></pre>
+            <pre><code>type?: any = &quot;button&quot;
+
+variant?: any = &quot;primary&quot;</code></pre>
+          </div>
+        </div>
+    
+        <div class="panel panel-stories">
+          
+          
+          
+          <div class="note ok">
+                <div class="row">
+                  <span class="ex-name">Imports</span>
+                </div>
+                <pre><code>import { CcV4Button, CcV4Root } from '@dmc/ui';</code></pre>
+              </div>
+          
+          
+            <div class="note ok">
+              <div class="row">
+                <span class="ex-name">Primary</span>
+                <span class="badge ok">story ok</span>
+              </div>
+              
+              
+              <pre><code>const Primary = () =&gt; &lt;CcV4Button variant=&quot;primary&quot; text=&quot;Добавить&quot; /&gt;;</code></pre>
+              
+            </div>
+            <div class="note ok">
+              <div class="row">
+                <span class="ex-name">Outline</span>
+                <span class="badge ok">story ok</span>
+              </div>
+              
+              
+              <pre><code>const Outline = () =&gt; &lt;CcV4Button variant=&quot;outline&quot; text=&quot;Отмена&quot; /&gt;;</code></pre>
+              
+            </div>
+            <div class="note ok">
+              <div class="row">
+                <span class="ex-name">Icon</span>
+                <span class="badge ok">story ok</span>
+              </div>
+              
+              
+              <pre><code>const Icon = () =&gt; &lt;CcV4Button variant=&quot;icon&quot; onClick={() =&gt; {}} /&gt;;</code></pre>
+              
+            </div>
+        </div>
+    
+    
+  </div>
+</article>
+<article
+  id="cc-v4-input"
+  class="card 
+  no-error
+  has-info
+  no-story-error
+  no-story-warning
+  
+  no-doc-error"
+  role="listitem"
+  aria-label="CcV4Input">
+  <div class="head">
+    <div class="title">
+      <h2><span class="status-dot dot-ok"></span> CcV4Input</h2>
+      <div class="badges">
+        <label for="c-1-cc-v4-input-props" class="badge ok as-toggle">2 prop types</label>
+        <label for="c-1-cc-v4-input-info" class="badge info as-toggle">1 info</label>
+        <label for="c-1-cc-v4-input-stories" class="badge ok as-toggle">1 story</label>
+        
+        
+      </div>
+    </div>
+    <div class="meta" title="./src/stories/CcV4Input.stories.jsx">cc-v4-input · ./src/stories/CcV4Input.stories.jsx</div>
+    
+    
+    <div class="kv"><span class="chip">type: {import(&#39;@storybook/react-vite&#39;).Meta}</span></div>
+  </div>
+
+  <!-- ⬇️ Hidden toggles must be siblings BEFORE .panels -->
+  
+  <input id="c-1-cc-v4-input-info" class="tg tg-info" type="checkbox" hidden />
+  <input id="c-1-cc-v4-input-stories" class="tg tg-stories" type="checkbox" hidden />
+  
+  
+  <input id="c-1-cc-v4-input-props" class="tg tg-props" type="checkbox" hidden />
+
+  <div class="panels">
+    
+    
+        <div class="panel panel-info">
+          
+    <div class="note info">
+      <div class="note-title">Info</div>
+      <div class="note-body">No description found. Write a jsdoc comment such as /** Component description */.</div>
+    </div>
+        </div>
+    
+        <div class="panel panel-props">
+          <div class="note ok">
+            <div class="row">
+              <span class="ex-name">Prop types <small>(react-docgen)</small></span>
+              <span class="badge ok">2 prop types</span>
+            </div>
+            <pre><code>Component: src\lib\components\cc-v4\CcV4Input.jsx::CcV4Input</code></pre>
+            <pre><code>Props:</code></pre>
+            <pre><code>legacy?: any = false
+
+v4?: any = true</code></pre>
+          </div>
+        </div>
+    
+        <div class="panel panel-stories">
+          
+          
+          
+          <div class="note ok">
+                <div class="row">
+                  <span class="ex-name">Imports</span>
+                </div>
+                <pre><code>import { CcV4Input, CcV4Root } from '@dmc/ui';</code></pre>
+              </div>
+          
+          
+            <div class="note ok">
+              <div class="row">
+                <span class="ex-name">Default</span>
+                <span class="badge ok">story ok</span>
+              </div>
+              
+              
+              <pre><code>const Default = () =&gt; &lt;div className=&quot;site-form-field&quot;&gt;
+    &lt;span className=&quot;site-form-label&quot;&gt;ИНН&lt;/span&gt;
+    &lt;CcV4Input value=&quot;&quot; legacy v4 placeholder=&quot;10 цифр&quot; /&gt;
+&lt;/div&gt;;</code></pre>
+              
+            </div>
+        </div>
+    
+    
+  </div>
+</article>
+<article
+  id="cc-v4-ccv4root"
+  class="card 
+  no-error
+  has-info
+  no-story-error
+  no-story-warning
+  
+  no-doc-error"
+  role="listitem"
+  aria-label="CcV4Root">
+  <div class="head">
+    <div class="title">
+      <h2><span class="status-dot dot-ok"></span> CcV4Root</h2>
+      <div class="badges">
+        <label for="c-2-cc-v4-ccv4root-props" class="badge ok as-toggle">2 prop types</label>
+        <label for="c-2-cc-v4-ccv4root-info" class="badge info as-toggle">1 info</label>
+        <label for="c-2-cc-v4-ccv4root-stories" class="badge ok as-toggle">2 stories</label>
+        
+        
+      </div>
+    </div>
+    <div class="meta" title="./src/stories/CcV4Root.stories.jsx">cc-v4-ccv4root · ./src/stories/CcV4Root.stories.jsx</div>
+    
+    
+    <div class="kv"><span class="chip">type: {import(&#39;@storybook/react-vite&#39;).Meta}</span></div>
+  </div>
+
+  <!-- ⬇️ Hidden toggles must be siblings BEFORE .panels -->
+  
+  <input id="c-2-cc-v4-ccv4root-info" class="tg tg-info" type="checkbox" hidden />
+  <input id="c-2-cc-v4-ccv4root-stories" class="tg tg-stories" type="checkbox" hidden />
+  
+  
+  <input id="c-2-cc-v4-ccv4root-props" class="tg tg-props" type="checkbox" hidden />
+
+  <div class="panels">
+    
+    
+        <div class="panel panel-info">
+          
+    <div class="note info">
+      <div class="note-title">Info</div>
+      <div class="note-body">No description found. Write a jsdoc comment such as /** Component description */.</div>
+    </div>
+        </div>
+    
+        <div class="panel panel-props">
+          <div class="note ok">
+            <div class="row">
+              <span class="ex-name">Prop types <small>(react-docgen)</small></span>
+              <span class="badge ok">2 prop types</span>
+            </div>
+            <pre><code>Component: src\lib\components\cc-v4\CcV4Root.jsx::CcV4Root</code></pre>
+            <pre><code>Props:</code></pre>
+            <pre><code>as?: any = &quot;div&quot;
+
+withMainPage?: any = false</code></pre>
+          </div>
+        </div>
+    
+        <div class="panel panel-stories">
+          
+          
+          
+          <div class="note ok">
+                <div class="row">
+                  <span class="ex-name">Imports</span>
+                </div>
+                <pre><code>import { CcV4Root } from '@dmc/ui';</code></pre>
+              </div>
+          
+          
+            <div class="note ok">
+              <div class="row">
+                <span class="ex-name">Страница с main-page</span>
+                <span class="badge ok">story ok</span>
+              </div>
+              
+              
+              <pre><code>const PageShell = () =&gt; &lt;CcV4Root
+    withMainPage
+    pageVariant=&quot;company-list-page-v4&quot;
+    style={{ padding: 16, minHeight: 280 }}&gt;
+    &lt;header className=&quot;card header-card&quot;&gt;
+        &lt;div className=&quot;header-top&quot;&gt;
+            &lt;div className=&quot;company-title&quot;&gt;
+                &lt;div className=&quot;compamy-title-name-container&quot;&gt;
+                    &lt;span className=&quot;req-label&quot;&gt;Каталог&lt;/span&gt;
+                    &lt;h1&gt;Компании&lt;/h1&gt;
+                &lt;/div&gt;
+            &lt;/div&gt;
+        &lt;/div&gt;
+    &lt;/header&gt;
+    &lt;p className=&quot;description-text&quot; style={{ marginTop: 10 }}&gt;Все дочерние блоки наследуют стили `.company-card-v4`.
+              &lt;/p&gt;
+&lt;/CcV4Root&gt;;</code></pre>
+              
+            </div>
+            <div class="note ok">
+              <div class="row">
+                <span class="ex-name">Только секция (без main-page)</span>
+                <span class="badge ok">story ok</span>
+              </div>
+              
+              
+              <pre><code>const SectionOnly = () =&gt; &lt;div className=&quot;main-page&quot; style={{ padding: 16, background: &quot;#e2e8f0&quot; }}&gt;
+    &lt;p className=&quot;req-label&quot;&gt;Родитель уже main-page — внутри CcV4Root без withMainPage&lt;/p&gt;
+    &lt;CcV4Root
+        withMainPage={false}
+        className=&quot;company-card-v4-soft-section&quot;
+        style={{ marginTop: 8 }}&gt;
+        &lt;div className=&quot;card dash-card&quot;&gt;
+            &lt;span className=&quot;dash-card-title&quot;&gt;Блок внутри company-card-v4&lt;/span&gt;
+        &lt;/div&gt;
+    &lt;/CcV4Root&gt;
+&lt;/div&gt;;</code></pre>
+              
+            </div>
+        </div>
+    
+    
+  </div>
+</article>
+<article
+  id="cc-v4-sidedrawer"
+  class="card 
+  no-error
+  has-info
+  no-story-error
+  no-story-warning
+  
+  no-doc-error"
+  role="listitem"
+  aria-label="CcV4SideDrawer">
+  <div class="head">
+    <div class="title">
+      <h2><span class="status-dot dot-ok"></span> CcV4SideDrawer</h2>
+      <div class="badges">
+        <label for="c-3-cc-v4-sidedrawer-props" class="badge ok as-toggle">3 prop types</label>
+        <label for="c-3-cc-v4-sidedrawer-info" class="badge info as-toggle">1 info</label>
+        <label for="c-3-cc-v4-sidedrawer-stories" class="badge ok as-toggle">1 story</label>
+        
+        
+      </div>
+    </div>
+    <div class="meta" title="./src/stories/CcV4SideDrawer.stories.jsx">cc-v4-sidedrawer · ./src/stories/CcV4SideDrawer.stories.jsx</div>
+    
+    
+    <div class="kv"><span class="chip">type: {import(&#39;@storybook/react-vite&#39;).Meta}</span></div>
+  </div>
+
+  <!-- ⬇️ Hidden toggles must be siblings BEFORE .panels -->
+  
+  <input id="c-3-cc-v4-sidedrawer-info" class="tg tg-info" type="checkbox" hidden />
+  <input id="c-3-cc-v4-sidedrawer-stories" class="tg tg-stories" type="checkbox" hidden />
+  
+  
+  <input id="c-3-cc-v4-sidedrawer-props" class="tg tg-props" type="checkbox" hidden />
+
+  <div class="panels">
+    
+    
+        <div class="panel panel-info">
+          
+    <div class="note info">
+      <div class="note-title">Info</div>
+      <div class="note-body">No description found. Write a jsdoc comment such as /** Component description */.</div>
+    </div>
+        </div>
+    
+        <div class="panel panel-props">
+          <div class="note ok">
+            <div class="row">
+              <span class="ex-name">Prop types <small>(react-docgen)</small></span>
+              <span class="badge ok">3 prop types</span>
+            </div>
+            <pre><code>Component: src\lib\components\cc-v4\CcV4SideDrawer.jsx::CcV4SideDrawer</code></pre>
+            <pre><code>Props:</code></pre>
+            <pre><code>closeOnBackdrop?: any = true
+
+open?: any = true
+
+usePortal?: any = true</code></pre>
+          </div>
+        </div>
+    
+        <div class="panel panel-stories">
+          
+          
+          
+          <div class="note ok">
+                <div class="row">
+                  <span class="ex-name">Imports</span>
+                </div>
+                <pre><code>import { CcV4Button, CcV4Root, CcV4SideDrawer } from '@dmc/ui';</code></pre>
+              </div>
+          
+          
+            <div class="note ok">
+              <div class="row">
+                <span class="ex-name">Default</span>
+                <span class="badge ok">story ok</span>
+              </div>
+              
+              
+              <pre><code>const Default = () =&gt; &lt;DrawerDemo /&gt;;</code></pre>
+              
+            </div>
+        </div>
+    
+    
+  </div>
+</article>
+<article
+  id="cc-v4-softlist"
+  class="card 
+  no-error
+  has-info
+  no-story-error
+  no-story-warning
+  missing-api
+  no-doc-error"
+  role="listitem"
+  aria-label="CcV4SoftList">
+  <div class="head">
+    <div class="title">
+      <h2><span class="status-dot dot-ok"></span> CcV4SoftList</h2>
+      <div class="badges">
+        <span class="badge">no API description</span>
+        <label for="c-4-cc-v4-softlist-info" class="badge info as-toggle">1 info</label>
+        <label for="c-4-cc-v4-softlist-stories" class="badge ok as-toggle">1 story</label>
+        
+        
+      </div>
+    </div>
+    <div class="meta" title="./src/stories/CcV4SoftList.stories.tsx">cc-v4-softlist · ./src/stories/CcV4SoftList.stories.tsx</div>
+    
+    
+    
+  </div>
+
+  <!-- ⬇️ Hidden toggles must be siblings BEFORE .panels -->
+  
+  <input id="c-4-cc-v4-softlist-info" class="tg tg-info" type="checkbox" hidden />
+  <input id="c-4-cc-v4-softlist-stories" class="tg tg-stories" type="checkbox" hidden />
+  
+  
+  
+
+  <div class="panels">
+    
+    
+        <div class="panel panel-info">
+          
+    <div class="note info">
+      <div class="note-title">Info</div>
+      <div class="note-body">No description found. Write a jsdoc comment such as /** Component description */.</div>
+    </div>
+        </div>
+    
+    
+        <div class="panel panel-stories">
+          
+          
+          
+          <div class="note ok">
+                <div class="row">
+                  <span class="ex-name">Imports</span>
+                </div>
+                <pre><code>import { CcV4Root, CcV4SoftList, CcV4SoftListBody, CcV4SoftListHeader, CcV4SoftListRow } from '@dmc/ui';</code></pre>
+              </div>
+          
+          
+            <div class="note ok">
+              <div class="row">
+                <span class="ex-name">Три колонки</span>
+                <span class="badge ok">story ok</span>
+              </div>
+              
+              
+              <pre><code>const ThreeColumns = () =&gt; (
+  &lt;CcV4SoftList&gt;
+    &lt;CcV4SoftListHeader
+      gridClass={GRID}
+      columns={[
+        { key: &quot;a&quot;, label: &quot;Название&quot; },
+        { key: &quot;b&quot;, label: &quot;ИНН&quot; },
+        { key: &quot;c&quot;, label: &quot;Адрес&quot; },
+      ]}
+    /&gt;
+    &lt;CcV4SoftListBody&gt;
+      &lt;CcV4SoftListRow gridClass={GRID}&gt;
+        &lt;span&gt;ООО Пример&lt;/span&gt;
+        &lt;span className=&quot;company-card-v4-mono&quot;&gt;7700000000&lt;/span&gt;
+        &lt;span&gt;Москва&lt;/span&gt;
+      &lt;/CcV4SoftListRow&gt;
+    &lt;/CcV4SoftListBody&gt;
+  &lt;/CcV4SoftList&gt;
+);</code></pre>
+              
+            </div>
+        </div>
+    
+    
+  </div>
+</article>
+<article
+  id="cc-v4-toggle"
+  class="card 
+  no-error
+  has-info
+  no-story-error
+  no-story-warning
+  
+  no-doc-error"
+  role="listitem"
+  aria-label="CcV4Toggle">
+  <div class="head">
+    <div class="title">
+      <h2><span class="status-dot dot-ok"></span> CcV4Toggle</h2>
+      <div class="badges">
+        <label for="c-5-cc-v4-toggle-props" class="badge ok as-toggle">2 prop types</label>
+        <label for="c-5-cc-v4-toggle-info" class="badge info as-toggle">1 info</label>
+        <label for="c-5-cc-v4-toggle-stories" class="badge ok as-toggle">3 stories</label>
+        
+        
+      </div>
+    </div>
+    <div class="meta" title="./src/stories/CcV4Toggle.stories.jsx">cc-v4-toggle · ./src/stories/CcV4Toggle.stories.jsx</div>
+    
+    
+    <div class="kv"><span class="chip">type: {import(&#39;@storybook/react-vite&#39;).Meta}</span></div>
+  </div>
+
+  <!-- ⬇️ Hidden toggles must be siblings BEFORE .panels -->
+  
+  <input id="c-5-cc-v4-toggle-info" class="tg tg-info" type="checkbox" hidden />
+  <input id="c-5-cc-v4-toggle-stories" class="tg tg-stories" type="checkbox" hidden />
+  
+  
+  <input id="c-5-cc-v4-toggle-props" class="tg tg-props" type="checkbox" hidden />
+
+  <div class="panels">
+    
+    
+        <div class="panel panel-info">
+          
+    <div class="note info">
+      <div class="note-title">Info</div>
+      <div class="note-body">No description found. Write a jsdoc comment such as /** Component description */.</div>
+    </div>
+        </div>
+    
+        <div class="panel panel-props">
+          <div class="note ok">
+            <div class="row">
+              <span class="ex-name">Prop types <small>(react-docgen)</small></span>
+              <span class="badge ok">2 prop types</span>
+            </div>
+            <pre><code>Component: src\lib\components\cc-v4\CcV4Toggle.jsx::CcV4Toggle</code></pre>
+            <pre><code>Props:</code></pre>
+            <pre><code>className?: any = &quot;&quot;
+
+disabled?: any = false</code></pre>
+          </div>
+        </div>
+    
+        <div class="panel panel-stories">
+          
+          
+          
+          <div class="note ok">
+                <div class="row">
+                  <span class="ex-name">Imports</span>
+                </div>
+                <pre><code>import { CcV4Root, CcV4Toggle } from '@dmc/ui';</code></pre>
+              </div>
+          
+          
+            <div class="note ok">
+              <div class="row">
+                <span class="ex-name">Label Only</span>
+                <span class="badge ok">story ok</span>
+              </div>
+              
+              
+              <pre><code>const LabelOnly = () =&gt; &lt;CcV4Toggle active label=&quot;Мои&quot; /&gt;;</code></pre>
+              
+            </div>
+            <div class="note ok">
+              <div class="row">
+                <span class="ex-name">With Description</span>
+                <span class="badge ok">story ok</span>
+              </div>
+              
+              
+              <pre><code>const WithDescription = () =&gt; &lt;CcV4Toggle
+    active={false}
+    label=&quot;Только мои&quot;
+    description=&quot;Показывать уведомления, где вы ответственный менеджер&quot; /&gt;;</code></pre>
+              
+            </div>
+            <div class="note ok">
+              <div class="row">
+                <span class="ex-name">Switch Only</span>
+                <span class="badge ok">story ok</span>
+              </div>
+              
+              
+              <pre><code>const SwitchOnly = () =&gt; &lt;CcV4Toggle active /&gt;;</code></pre>
+              
+            </div>
+        </div>
+    
+    
+  </div>
+</article>
+    </div>
+    
+    <h2 class="section-title">Unattached Docs</h2>
+    <div class="grid" role="list">
+      
+<article
+  class="card is-doc no-doc-error"
+  role="listitem"
+  aria-label="Docs">
+  <div class="head">
+    <div class="title">
+      <h2><span class="status-dot dot-ok"></span> CC-V4/Введение</h2>
+      <div class="badges">
+        
+        <label for="doc-0-cc-v4-docs-content" class="badge ok as-toggle">view content</label>
+      </div>
+    </div>
+    <div class="meta" title="./src/stories/CcV4Introduction.mdx">cc-v4-введение--docs · ./src/stories/CcV4Introduction.mdx</div>
+    <div># CC-V4 — дизайн-система DMC Библиотека `@dmc/ui` повторяет канон карточки компании v4: об...</div>
+  </div>
+
+  <!-- Hidden toggles must be siblings BEFORE .panels -->
+  
+  <input id="doc-0-cc-v4-docs-content" class="tg tg-content" type="checkbox" hidden />
+
+  <div class="panels">
+    
+    
+        <div class="panel panel-content">
+          <div class="mdx-content">
+            <pre><code>import { Meta } from &quot;@storybook/addon-docs/blocks&quot;;
+
+&lt;Meta title=&quot;CC-V4/Введение&quot; /&gt;
+
+# CC-V4 — дизайн-система DMC
+
+Библиотека `@dmc/ui` повторяет канон карточки компании v4: обёртка `company-card-v4`, кнопки, soft-таблицы, переключатели, поля ввода и боковые панели.
+
+## Быстрый старт
+
+1. Установите пакет (из монорепозитория):
+
+```bash
+npm install file:../dmc-ui
+```
+
+2. Подключите стили **один раз** в корне приложения (например `App.css` или `index.js`):
+
+```js
+import &quot;@dmc/ui/styles.css&quot;;
+```
+
+3. Оберните страницу в контейнер **[CcV4Root](./?path=/docs/cc-v4-cc-v4-root--docs)** — без него часть токенов и сеток не применится:
+
+```jsx
+import { CcV4Root } from &quot;@dmc/ui&quot;;
+
+export function CompanyListPage() {
+  return (
+    &lt;CcV4Root withMainPage pageVariant=&quot;company-list-page-v4&quot;&gt;
+      {/* header-card, dash-card, списки CcV4SoftList* … */}
+    &lt;/CcV4Root&gt;
+  );
+}
+```
+
+## Компоненты
+
+| Компонент | Назначение |
+|-----------|------------|
+| [CcV4Root](?path=/docs/cc-v4-cc-v4-root--docs) | Контейнер `.company-card-v4` (+ опционально `main-page`, модификатор страницы) |
+| [CcV4Button](?path=/docs/cc-v4-button--docs) | Кнопки primary / outline / icon |
+| [CcV4Toggle](?path=/docs/cc-v4-toggle--docs) | Переключатель с label и опциональным описанием |
+| [CcV4SoftList](?path=/docs/cc-v4-soft-list--docs) | Таблица-список: header / body / row |
+| [CcV4Input](?path=/docs/cc-v4-input--docs) | Поле ввода v4 (`site-form-control`) |
+| [CcV4SideDrawer](?path=/docs/cc-v4-side-drawer--docs) | Боковая модальная панель |
+
+## Модификаторы страниц (`pageVariant`)
+
+Примеры значений `pageVariant` на `CcV4Root` (как в dmc-lk):
+
+- `company-list-page-v4` — каталог компаний / партнёров
+- `my-companies-page-v4` — «Мои компании»
+- `alert-center-v4` — центр уведомлений
+- `reports-page-v4` — отчёты
+
+Дополнительные классы можно передать через `className`.
+</code></pre>
+          </div>
+        </div>
+  </div>
+</article>
+<article
+  class="card is-doc no-doc-error"
+  role="listitem"
+  aria-label="Docs">
+  <div class="head">
+    <div class="title">
+      <h2><span class="status-dot dot-ok"></span> Configure your project</h2>
+      <div class="badges">
+        
+        <label for="doc-1-configure-your-project-docs-content" class="badge ok as-toggle">view content</label>
+      </div>
+    </div>
+    <div class="meta" title="./src/stories/Configure.mdx">configure-your-project--docs · ./src/stories/Configure.mdx</div>
+    <div># Устаревшая страница Документация перенесена в раздел **[CC-V4 / Введение](?path=/docs/cc...</div>
+  </div>
+
+  <!-- Hidden toggles must be siblings BEFORE .panels -->
+  
+  <input id="doc-1-configure-your-project-docs-content" class="tg tg-content" type="checkbox" hidden />
+
+  <div class="panels">
+    
+    
+        <div class="panel panel-content">
+          <div class="mdx-content">
+            <pre><code>import { Meta } from &quot;@storybook/addon-docs/blocks&quot;;
+
+&lt;Meta title=&quot;Configure your project&quot; /&gt;
+
+# Устаревшая страница
+
+Документация перенесена в раздел **[CC-V4 / Введение](?path=/docs/cc-v4-введение--docs)**.
+
+Там же описаны подключение `@dmc/ui`, стили и контейнер **CcV4Root** (`company-card-v4`).
+</code></pre>
+          </div>
+        </div>
+  </div>
+</article>
+    </div>
+    
+  </div>
+</main>
+</body>
+</html>  

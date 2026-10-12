@@ -1,0 +1,21 @@
+{
+  "v": 0,
+  "docs": {
+    "cc-v4-введение--docs": {
+      "id": "cc-v4-введение--docs",
+      "name": "Docs",
+      "path": "./src/stories/CcV4Introduction.mdx",
+      "title": "CC-V4/Введение",
+      "content": "import { Meta } from \"@storybook/addon-docs/blocks\";\r\n\r\n<Meta title=\"CC-V4/Введение\" />\r\n\r\n# CC-V4 — дизайн-система DMC\r\n\r\nБиблиотека `@dmc/ui` повторяет канон карточки компании v4: обёртка `company-card-v4`, кнопки, soft-таблицы, переключатели, поля ввода и боковые панели.\r\n\r\n## Быстрый старт\r\n\r\n1. Установите пакет (из монорепозитория):\r\n\r\n```bash\r\nnpm install file:../dmc-ui\r\n```\r\n\r\n2. Подключите стили **один раз** в корне приложения (например `App.css` или `index.js`):\r\n\r\n```js\r\nimport \"@dmc/ui/styles.css\";\r\n```\r\n\r\n3. Оберните страницу в контейнер **[CcV4Root](./?path=/docs/cc-v4-cc-v4-root--docs)** — без него часть токенов и сеток не применится:\r\n\r\n```jsx\r\nimport { CcV4Root } from \"@dmc/ui\";\r\n\r\nexport function CompanyListPage() {\r\n  return (\r\n    <CcV4Root withMainPage pageVariant=\"company-list-page-v4\">\r\n      {/* header-card, dash-card, списки CcV4SoftList* … */}\r\n    </CcV4Root>\r\n  );\r\n}\r\n```\r\n\r\n## Компоненты\r\n\r\n| Компонент | Назначение |\r\n|-----------|------------|\r\n| [CcV4Root](?path=/docs/cc-v4-cc-v4-root--docs) | Контейнер `.company-card-v4` (+ опционально `main-page`, модификатор страницы) |\r\n| [CcV4Button](?path=/docs/cc-v4-button--docs) | Кнопки primary / outline / icon |\r\n| [CcV4Toggle](?path=/docs/cc-v4-toggle--docs) | Переключатель с label и опциональным описанием |\r\n| [CcV4SoftList](?path=/docs/cc-v4-soft-list--docs) | Таблица-список: header / body / row |\r\n| [CcV4Input](?path=/docs/cc-v4-input--docs) | Поле ввода v4 (`site-form-control`) |\r\n| [CcV4SideDrawer](?path=/docs/cc-v4-side-drawer--docs) | Боковая модальная панель |\r\n\r\n## Модификаторы страниц (`pageVariant`)\r\n\r\nПримеры значений `pageVariant` на `CcV4Root` (как в dmc-lk):\r\n\r\n- `company-list-page-v4` — каталог компаний / партнёров\r\n- `my-companies-page-v4` — «Мои компании»\r\n- `alert-center-v4` — центр уведомлений\r\n- `reports-page-v4` — отчёты\r\n\r\nДополнительные классы можно передать через `className`.\r\n",
+      "summary": "# CC-V4 — дизайн-система DMC Библиотека `@dmc/ui` повторяет канон карточки компании v4: об..."
+    },
+    "configure-your-project--docs": {
+      "id": "configure-your-project--docs",
+      "name": "Docs",
+      "path": "./src/stories/Configure.mdx",
+      "title": "Configure your project",
+      "content": "import { Meta } from \"@storybook/addon-docs/blocks\";\r\n\r\n<Meta title=\"Configure your project\" />\r\n\r\n# Устаревшая страница\r\n\r\nДокументация перенесена в раздел **[CC-V4 / Введение](?path=/docs/cc-v4-введение--docs)**.\r\n\r\nТам же описаны подключение `@dmc/ui`, стили и контейнер **CcV4Root** (`company-card-v4`).\r\n",
+      "summary": "# Устаревшая страница Документация перенесена в раздел **[CC-V4 / Введение](?path=/docs/cc..."
+    }
+  }
+}
