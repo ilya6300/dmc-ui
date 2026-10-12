@@ -33,11 +33,11 @@ export function Layout({ children, style, animate = false, ...rest }) {
       window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
     if (reduceMotion) {
-      setEntered(false);
+      setEntered(true);
       return;
     }
 
-    const frame = requestAnimationFrame(() => setEntered(false));
+    const frame = requestAnimationFrame(() => setEntered(true));
     return () => cancelAnimationFrame(frame);
   }, [animate]);
 

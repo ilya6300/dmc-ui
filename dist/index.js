@@ -72,10 +72,10 @@ function Z({ children: e, style: t, animate: o = !1, ...r }) {
   b(() => {
     if (!o) return;
     if (typeof window < "u" && window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-      l(!1);
+      l(!0);
       return;
     }
-    const u = requestAnimationFrame(() => l(!1));
+    const u = requestAnimationFrame(() => l(!0));
     return () => cancelAnimationFrame(u);
   }, [o]);
   const d = o && !s ? { ...M, transition: L } : o ? Y : null;

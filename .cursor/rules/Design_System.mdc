@@ -107,7 +107,7 @@ Storybook: группа каталога — **`Design System`** (или `Compon
 
 **Назначение:** flex-колонка контента под `Main`: `padding: 0 2% 4%`, вход с `translateX(100%)` → `0` за 0.6s (inline `transition`, не CSS keyframes).
 
-- Пропсы: `children`, опционально `animate` (по умолчанию `true`), `style`.
+- Пропсы: `children`, опционально `animate` (по умолчанию `false`), `style`.
 
 ## SideDrawer
 
