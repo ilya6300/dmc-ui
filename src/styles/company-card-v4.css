@@ -497,11 +497,13 @@
 }
 
 @keyframes animation_move_list {
-  from {
+  0% {
     transform: translateX(100%);
+    opacity: 0.92;
   }
-  to {
+  100% {
     transform: translateX(0);
+    opacity: 1;
   }
 }
 
@@ -4585,4 +4587,158 @@ s {
   .license-calculator-drawer-v4 .license-1c-calculator-list--scroll {
     max-height: min(50vh, 480px);
   }
+}
+
+/* CC-V4 public components — toggle (toggle-wrapper), main scrollbar, drawer portal */
+
+.company-card-v4 .toggle-wrapper,
+.posi-abs.subscription-drawer-v4 .toggle-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  font-size: 14px;
+  -webkit-user-select: none;
+  user-select: none;
+  margin: 0;
+}
+
+.company-card-v4 button.toggle-wrapper,
+.posi-abs.subscription-drawer-v4 button.toggle-wrapper {
+  border: none;
+  background: none;
+  padding: 0;
+  font: inherit;
+  color: inherit;
+  text-align: left;
+}
+
+.company-card-v4 button.toggle-wrapper:focus-visible,
+.posi-abs.subscription-drawer-v4 button.toggle-wrapper:focus-visible {
+  outline: 2px solid var(--main-blue-1);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+.company-card-v4 button.toggle-wrapper:disabled,
+.posi-abs.subscription-drawer-v4 button.toggle-wrapper:disabled {
+  cursor: not-allowed;
+  opacity: 0.55;
+}
+
+.company-card-v4 .toggle,
+.posi-abs.subscription-drawer-v4 .toggle {
+  position: relative;
+  width: 36px;
+  height: 20px;
+  background-color: #cbd5e1;
+  border-radius: 20px;
+  transition: background-color 0.2s;
+  flex-shrink: 0;
+}
+
+.company-card-v4 .toggle.active,
+.posi-abs.subscription-drawer-v4 .toggle.active {
+  background-color: var(--main-blue-1);
+}
+
+.company-card-v4 .toggle::after,
+.posi-abs.subscription-drawer-v4 .toggle::after {
+  content: "";
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 16px;
+  height: 16px;
+  background-color: white;
+  border-radius: 50%;
+  transition: transform 0.2s;
+}
+
+.company-card-v4 .toggle.active::after,
+.posi-abs.subscription-drawer-v4 .toggle.active::after {
+  transform: translateX(16px);
+}
+
+.company-card-v4 .toggle-label,
+.posi-abs.subscription-drawer-v4 .toggle-label {
+  color: var(--cc-v4-text-main);
+  font-weight: 400;
+}
+
+.main-page ::-webkit-scrollbar,
+.company-card-v4 ::-webkit-scrollbar {
+  background-color: #f1f1f100;
+  width: 6px;
+  padding: 5px 2px;
+  scroll-behavior: smooth;
+}
+
+.main-page ::-webkit-scrollbar-thumb,
+.company-card-v4 ::-webkit-scrollbar-thumb {
+  background-color: var(--main-blue-1);
+  border-radius: 3px 0 0 3px;
+}
+
+.posi-abs.subscription-drawer-v4 .site-modal {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-height: 0;
+  gap: 16px;
+  width: 100%;
+}
+
+.posi-abs.subscription-drawer-v4 .site-modal-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+  flex-shrink: 0;
+}
+
+.posi-abs.subscription-drawer-v4 .site-modal-title {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--mast-blue);
+  line-height: 1.3;
+}
+
+.posi-abs.subscription-drawer-v4 .site-modal-toolbar {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-shrink: 0;
+}
+
+.posi-abs.subscription-drawer-v4 .site-modal-icon-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  padding: 0;
+  border: 1px solid #e2e8f0;
+  border-radius: 6px;
+  background: #fff;
+  color: var(--cc-v4-text-muted);
+  cursor: pointer;
+  transition:
+    border-color 0.15s ease,
+    color 0.15s ease,
+    background-color 0.15s ease;
+}
+
+.posi-abs.subscription-drawer-v4 .site-modal-icon-btn:hover,
+.posi-abs.subscription-drawer-v4 .site-modal-icon-btn:focus-visible {
+  border-color: var(--main-blue-1);
+  color: var(--main-blue-1);
+  background-color: #f0f7ff;
+  outline: none;
+}
+
+.posi-abs.subscription-drawer-v4 .site-modal-body {
+  flex: 1;
+  min-height: 0;
 }

@@ -1,250 +1,379 @@
-import { jsx as a, jsxs as p } from "react/jsx-runtime";
-import { useEffect as w } from "react";
-import { createPortal as x } from "react-dom";
-const s = (...e) => e.filter(Boolean).join(" ");
-function S({
+import { jsx as i, jsxs as f } from "react/jsx-runtime";
+import { useState as h, useEffect as S } from "react";
+import { createPortal as v } from "react-dom";
+const n = {
+  mainBlue1: "#2196f3",
+  mastBlue: "#236192",
+  mastYellow: "#f0b323",
+  error: "#df2727",
+  textMain: "#1e293b",
+  textMuted: "#64748b",
+  bgCard: "#ffffff",
+  cardShadow: "0 4px 12px rgba(0, 0, 0, 0.25)",
+  borderLight: "1px solid rgba(0, 0, 0, 0.08)",
+  toggleTrackOff: "#cbd5e1",
+  focusBg: "#f0f7ff",
+  borderInput: "#e2e8f0"
+};
+function s(...e) {
+  return Object.assign({}, ...e.filter(Boolean));
+}
+const _ = {
+  display: "flex",
+  flexDirection: "column",
+  gap: 10,
+  textAlign: "left",
+  boxSizing: "border-box"
+};
+function V({
   children: e,
-  className: t,
-  pageVariant: r,
-  withMainPage: n = !1,
-  as: c = "div",
-  ...i
+  style: t,
+  as: o = "div",
+  ...r
 }) {
-  return /* @__PURE__ */ a(
-    c,
+  return /* @__PURE__ */ i(
+    o,
     {
-      className: s(
-        n && "main-page",
-        "company-card-v4",
-        r,
-        t
-      ),
-      ...i,
+      style: s(_, t),
+      ...r,
       children: e
     }
   );
 }
-function D({
-  variant: e = "primary",
-  onClick: t,
-  text: r,
-  children: n,
-  className: c,
-  type: i = "button",
-  disabled: o,
-  compact: d,
-  footerSize: m,
-  ...u
+const C = {
+  display: "flex",
+  flexDirection: "column",
+  justifyContent: "flex-start",
+  gap: 10,
+  backgroundColor: n.bgCard,
+  borderRadius: 12,
+  padding: 24,
+  boxShadow: n.cardShadow,
+  border: n.borderLight,
+  boxSizing: "border-box"
+}, A = {
+  fontSize: 16,
+  fontWeight: 600,
+  color: n.mastBlue
+};
+function G({
+  children: e,
+  style: t,
+  title: o,
+  w: r,
+  as: l = "div",
+  ...d
 }) {
-  return e === "icon" ? /* @__PURE__ */ p(
-    "div",
+  return /* @__PURE__ */ f(
+    l,
     {
-      className: s("btn_func_container_v4", c),
-      onClick: o ? void 0 : t,
-      role: "button",
-      tabIndex: o ? -1 : 0,
-      onKeyDown: (f) => {
-        !o && (f.key === "Enter" || f.key === " ") && (f.preventDefault(), t == null || t(f));
-      },
-      ...u,
+      style: s(C, { width: r ?? "100%" }, t),
+      ...d,
       children: [
-        /* @__PURE__ */ a("span", { className: "btn_func_container_v4_span", children: "+" }),
-        r !== void 0 ? /* @__PURE__ */ a("span", { className: "btn_func_container_v4_text", children: r }) : null
+        o ? /* @__PURE__ */ i("span", { style: A, children: o }) : null,
+        e
       ]
-    }
-  ) : /* @__PURE__ */ a(
-    "button",
-    {
-      type: i,
-      className: s(e === "outline" ? "btn-outline-v4" : e === "primary" && !(m || d) ? "btn-primary-v4 sub-status-action-btn" : "btn-primary-v4", c),
-      onClick: t,
-      disabled: o,
-      ...u,
-      children: n ?? r ?? (e === "primary" ? "Добавить" : null)
     }
   );
 }
-function E({
+const O = {
+  minHeight: "100%",
+  boxSizing: "border-box"
+};
+function J({ children: e, style: t, ...o }) {
+  return /* @__PURE__ */ i("div", { style: s(O, t), ...o, children: e });
+}
+const T = {
+  color: n.textMain,
+  fontWeight: 400,
+  fontSize: 14
+}, R = {
+  display: "flex",
+  alignItems: "center",
+  gap: 8,
+  cursor: "pointer",
+  fontSize: 14,
+  margin: 0,
+  padding: 0,
+  border: "none",
+  background: "none",
+  font: "inherit",
+  color: "inherit",
+  textAlign: "left"
+}, Y = {
+  position: "relative",
+  width: 36,
+  height: 20,
+  borderRadius: 20,
+  flexShrink: 0,
+  transition: "background-color 0.2s"
+}, D = {
+  position: "absolute",
+  top: 2,
+  left: 2,
+  width: 16,
+  height: 16,
+  backgroundColor: "#ffffff",
+  borderRadius: "50%",
+  transition: "transform 0.2s"
+};
+function Q({
   active: e,
   label: t,
-  description: r,
-  onClick: n,
-  onChange: c,
-  className: i = "",
-  disabled: o = !1
+  variant: o = "switch",
+  onClick: r,
+  onChange: l,
+  style: d,
+  disabled: c = !1
 }) {
-  const d = (u) => {
-    u.preventDefault(), !o && (n == null || n(u), c == null || c(!e));
-  }, m = !!(t || r);
-  return /* @__PURE__ */ p(
+  const [g, p] = h(!1);
+  if (o === "text")
+    return t ? /* @__PURE__ */ i("span", { style: s(T, d), children: t }) : null;
+  const b = (u) => {
+    u.preventDefault(), !c && (r == null || r(u), l == null || l(!e));
+  }, x = s(Y, {
+    backgroundColor: e ? n.mainBlue1 : n.toggleTrackOff
+  }), m = s(D, {
+    transform: e ? "translateX(16px)" : "translateX(0)"
+  }), y = s(
+    R,
+    c && { cursor: "not-allowed", opacity: 0.55 },
+    g && {
+      outline: `2px solid ${n.mainBlue1}`,
+      outlineOffset: 2,
+      borderRadius: 4
+    },
+    d
+  );
+  return /* @__PURE__ */ f(
     "button",
     {
       type: "button",
-      className: s(
-        "cc-v4-toggle-wrapper",
-        m && "cc-v4-toggle-wrapper--with-text",
-        i
-      ),
-      onClick: d,
+      style: y,
+      onClick: b,
       "aria-pressed": !!e,
-      disabled: o,
+      disabled: c,
+      onFocus: () => p(!0),
+      onBlur: () => p(!1),
       children: [
-        /* @__PURE__ */ a(
-          "span",
-          {
-            className: s(
-              "cc-v4-toggle",
-              e && "cc-v4-toggle--on"
-            ),
-            "aria-hidden": "true"
-          }
-        ),
-        m ? /* @__PURE__ */ p("span", { className: "cc-v4-toggle-text", children: [
-          t ? /* @__PURE__ */ a("span", { className: "cc-v4-toggle-label", children: t }) : null,
-          r ? /* @__PURE__ */ a("span", { className: "cc-v4-toggle-description", children: r }) : null
-        ] }) : null
+        /* @__PURE__ */ i("span", { style: x, "aria-hidden": "true", children: /* @__PURE__ */ i("span", { style: m }) }),
+        t ? /* @__PURE__ */ i("span", { style: T, children: t }) : null
       ]
     }
   );
 }
-function j({ children: e, className: t }) {
-  return /* @__PURE__ */ a("div", { className: s("cc-v4-soft-list-root", t), children: e });
-}
-function T({ gridClass: e, columns: t, children: r, className: n }) {
-  return /* @__PURE__ */ a(
-    "div",
+const M = {
+  display: "flex",
+  alignItems: "flex-start",
+  justifyContent: "space-between",
+  gap: 12,
+  flexShrink: 0
+}, j = {
+  margin: 0,
+  fontSize: 16,
+  fontWeight: 600,
+  color: n.mastBlue,
+  lineHeight: 1.3
+}, H = {
+  display: "flex",
+  alignItems: "center",
+  gap: 6,
+  flexShrink: 0
+}, I = ({
+  title: e,
+  titleId: t,
+  toolbar: o,
+  toolbarWrap: r = !0,
+  style: l
+}) => /* @__PURE__ */ f("header", { style: s(M, l), children: [
+  /* @__PURE__ */ i("h2", { id: t, style: j, children: e }),
+  o ? r ? /* @__PURE__ */ i("div", { style: H, children: o }) : o : null
+] }), z = {
+  display: "inline-flex",
+  alignItems: "center",
+  justifyContent: "center",
+  width: 36,
+  height: 36,
+  padding: 0,
+  border: `1px solid ${n.borderInput}`,
+  borderRadius: 6,
+  background: n.bgCard,
+  color: n.textMuted,
+  cursor: "pointer",
+  transition: "border-color 0.15s ease, color 0.15s ease, background-color 0.15s ease"
+}, F = {
+  borderColor: n.mainBlue1,
+  color: n.mainBlue1,
+  backgroundColor: n.focusBg
+};
+function Z({ onClick: e, title: t = "Закрыть", style: o }) {
+  const [r, l] = h(!1), [d, c] = h(!1);
+  return /* @__PURE__ */ i(
+    "button",
     {
-      className: s("cc-v4-soft-header", e, n),
-      children: r ?? (t == null ? void 0 : t.map((c) => /* @__PURE__ */ a("span", { className: "cc-v4-soft-th-static", children: /* @__PURE__ */ a("span", { className: "cc-v4-soft-th-label", children: c.label }) }, c.key)))
-    }
-  );
-}
-function k({ children: e, className: t }) {
-  return /* @__PURE__ */ a("div", { className: s("cc-v4-soft-body", t), children: e });
-}
-function A({
-  as: e = "div",
-  gridClass: t,
-  className: r,
-  children: n,
-  ...c
-}) {
-  return /* @__PURE__ */ a(
-    e,
-    {
-      className: s(
-        "cc-v4-soft-row",
-        t,
-        "reports-soft-row",
-        r
+      type: "button",
+      title: t,
+      "aria-label": t,
+      onClick: e,
+      style: s(
+        z,
+        (r || d) && F,
+        d && { outline: "none" },
+        o
       ),
-      ...c,
-      children: n
+      onMouseEnter: () => l(!0),
+      onMouseLeave: () => l(!1),
+      onFocus: () => c(!0),
+      onBlur: () => c(!1),
+      children: /* @__PURE__ */ i("svg", { width: "16", height: "16", viewBox: "0 0 16 16", "aria-hidden": "true", children: /* @__PURE__ */ i(
+        "path",
+        {
+          d: "M4 4l8 8M12 4l-8 8",
+          fill: "none",
+          stroke: "currentColor",
+          strokeWidth: "1.5",
+          strokeLinecap: "round"
+        }
+      ) })
     }
   );
 }
-function H({
-  className: e,
-  legacy: t = !1,
-  v4: r = !0,
-  error: n,
-  ...c
-}) {
-  const i = s(
-    t && "input_edit_v1",
-    r && "site-form-control",
-    n && "cc-v4-input--error",
-    e
-  );
-  return /* @__PURE__ */ a("input", { className: i, ...c });
-}
-const V = ({ title: e, titleId: t, toolbar: r, toolbarWrap: n = !0 }) => /* @__PURE__ */ p("header", { className: "site-modal-header", children: [
-  /* @__PURE__ */ a("h2", { id: t, className: "site-modal-title", children: e }),
-  r ? n ? /* @__PURE__ */ a("div", { className: "site-modal-toolbar", children: r }) : r : null
-] });
-function K({
+const W = {
+  position: "fixed",
+  zIndex: 3,
+  top: 0,
+  right: 0,
+  bottom: 0,
+  boxShadow: "0 0 10px 1px #00000070",
+  borderRadius: 3,
+  background: n.bgCard,
+  height: "100%",
+  minHeight: 500,
+  padding: "20px 24px",
+  overflowY: "auto",
+  overflowX: "hidden",
+  display: "flex",
+  alignItems: "center",
+  flexDirection: "column",
+  boxSizing: "border-box",
+  transition: "transform 0.6s ease, opacity 0.6s ease"
+}, X = {
+  display: "flex",
+  flexDirection: "column",
+  alignItems: "center",
+  justifyContent: "center",
+  width: "100%",
+  flex: 1,
+  minHeight: 0
+}, N = {
+  display: "flex",
+  flexDirection: "column",
+  flex: 1,
+  minHeight: 0,
+  gap: 16,
+  width: "100%"
+}, P = {
+  display: "flex",
+  flexWrap: "wrap",
+  gap: 8,
+  justifyContent: "flex-end",
+  width: "100%",
+  marginTop: 16
+};
+function ee({
   open: e = !0,
   onClose: t,
-  title: r,
-  titleId: n,
-  toolbar: c,
-  headerActions: i,
-  children: o,
-  footer: d,
-  className: m,
-  style: u,
-  layoutStyle: v,
-  rootClassName: y,
-  usePortal: b = !0,
-  closeOnBackdrop: f = !0
+  title: o,
+  titleId: r,
+  toolbar: l,
+  headerActions: d,
+  children: c,
+  footer: g,
+  style: p,
+  layoutStyle: b,
+  rootStyle: x,
+  usePortal: m = !0,
+  closeOnBackdrop: y = !0
 }) {
-  if (w(() => {
+  const [u, w] = h(!1);
+  if (S(() => {
+    if (!e) {
+      w(!1);
+      return;
+    }
+    const a = requestAnimationFrame(() => w(!0));
+    return () => cancelAnimationFrame(a);
+  }, [e]), S(() => {
     if (!e)
       return;
-    const l = document.body.style.overflow;
+    const a = document.body.style.overflow;
     return document.body.style.overflow = "hidden", () => {
-      document.body.style.overflow = l;
+      document.body.style.overflow = a;
     };
-  }, [e]), w(() => {
+  }, [e]), S(() => {
     if (!e || !t)
       return;
-    const l = (_) => {
-      _.key === "Escape" && t();
+    const a = (k) => {
+      k.key === "Escape" && t();
     };
-    return window.addEventListener("keydown", l), () => window.removeEventListener("keydown", l);
+    return window.addEventListener("keydown", a), () => window.removeEventListener("keydown", a);
   }, [e, t]), !e)
     return null;
-  const N = (l) => {
-    f && t && l.target === l.currentTarget && t();
-  }, g = c ?? i, h = /* @__PURE__ */ a(
+  const L = (a) => {
+    y && t && a.target === a.currentTarget && t();
+  }, B = l ?? d, E = /* @__PURE__ */ i(
     "div",
     {
-      className: s("posi-abs", "subscription-drawer-v4", y),
       role: "dialog",
       "aria-modal": "true",
-      "aria-labelledby": n,
-      onClick: N,
-      children: /* @__PURE__ */ p("div", { className: "flex_center subscription-drawer-layout", style: v, children: [
-        /* @__PURE__ */ p(
-          "section",
-          {
-            className: s(
-              "subscription-drawer-main",
-              "site-modal",
-              m
+      "aria-labelledby": r,
+      onClick: L,
+      style: s(W, {
+        transform: u ? "translateX(0)" : "translateX(100%)",
+        opacity: u ? 1 : 0.92
+      }, x),
+      children: /* @__PURE__ */ f(
+        "div",
+        {
+          style: s(X, b),
+          onClick: (a) => a.stopPropagation(),
+          children: [
+            /* @__PURE__ */ f(
+              "section",
+              {
+                style: s(N, p),
+                "aria-labelledby": r,
+                children: [
+                  o ? /* @__PURE__ */ i(
+                    I,
+                    {
+                      title: o,
+                      titleId: r,
+                      toolbar: B
+                    }
+                  ) : null,
+                  c
+                ]
+              }
             ),
-            style: u,
-            "aria-labelledby": n,
-            onClick: (l) => l.stopPropagation(),
-            children: [
-              r ? /* @__PURE__ */ a(
-                V,
-                {
-                  title: r,
-                  titleId: n,
-                  toolbar: g
-                }
-              ) : null,
-              o
-            ]
-          }
-        ),
-        d ? /* @__PURE__ */ a("div", { className: "btn-container-new-company subscription-drawer-actions", children: d }) : null
-      ] })
+            g ? /* @__PURE__ */ i("div", { style: P, children: g }) : null
+          ]
+        }
+      )
     }
   );
-  return b ? x(h, document.body) : h;
+  return m ? v(E, document.body) : E;
 }
+const te = (...e) => e.filter(Boolean).join(" ");
 export {
-  S as Box,
-  D as CcV4Button,
-  H as CcV4Input,
-  K as CcV4SideDrawer,
-  j as CcV4SoftList,
-  k as CcV4SoftListBody,
-  T as CcV4SoftListHeader,
-  A as CcV4SoftListRow,
-  E as CcV4Toggle,
-  V as SiteModalHeader,
-  s as joinClass
+  V as Box,
+  G as DashCard,
+  J as Main,
+  ee as SideDrawer,
+  Z as SideDrawerCloseButton,
+  I as SiteModalHeader,
+  Q as Toggle,
+  te as joinClass,
+  s as mergeStyle,
+  n as tokens
 };
