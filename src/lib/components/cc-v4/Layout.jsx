@@ -4,7 +4,7 @@ import { mergeStyle } from "./tokens";
 const LAYOUT_STYLE = {
   display: "flex",
   flexDirection: "column",
-  padding: "1% 2%",
+  padding: "0 2% 4%",
   boxSizing: "border-box",
 };
 

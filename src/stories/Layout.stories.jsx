@@ -33,7 +33,7 @@ ${importBlock("Layout", "Main", "Box")}
   argTypes: {
     children: { control: false },
     animate: {
-      description: "Входная анимация; по умолчанию выключена.",
+      description: "Входная анимация; при `false` — только базовый layout.",
       control: "boolean",
     },
     style: { control: false },
@@ -43,23 +43,22 @@ ${importBlock("Layout", "Main", "Box")}
 export default meta;
 
 export const Default = {
-  name: "По умолчанию",
+  name: "С анимацией",
   render: () => (
-    <Main style={{ minHeight: 200, background: "#e2e8f0" }}>
-      <Layout>
+    <Main style={{ minHeight: 320, background: "#e2e8f0" }}>
+      <Layout animate>
         <Box title="Список">Контент внутри Layout</Box>
       </Layout>
     </Main>
   ),
 };
 
-export const WithAnimation = {
-  name: "С анимацией",
-  args: { animate: true },
-  render: (args) => (
-    <Main style={{ minHeight: 320, background: "#e2e8f0" }}>
-      <Layout {...args}>
-        <Box title="Список">Входная анимация при `animate`</Box>
+export const Minimal = {
+  name: "Минимальный",
+  render: () => (
+    <Main style={{ minHeight: 200, background: "#e2e8f0" }}>
+      <Layout>
+        <p style={{ margin: 0, fontSize: 14 }}>Только Layout без анимации</p>
       </Layout>
     </Main>
   ),

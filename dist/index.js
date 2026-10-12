@@ -57,7 +57,7 @@ function Q({
 const A = {
   display: "flex",
   flexDirection: "column",
-  padding: "1% 2%",
+  padding: "0 2% 4%",
   boxSizing: "border-box"
 }, L = "transform 0.6s ease, opacity 0.6s ease", M = {
   transform: "translateX(100%)",
