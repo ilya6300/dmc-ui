@@ -13,14 +13,12 @@ npm install github:ilya6300/dmc-ui
 ```
 
 ```jsx
-import { Box, Main, DashCard } from "@dmc/ui";
+import { Main, Box } from "@dmc/ui";
 
 export function Page() {
   return (
-    <Main style={{ minHeight: "100vh" }}>
-      <Box style={{ padding: 24 }}>
-        <DashCard>…</DashCard>
-      </Box>
+    <Main style={{ minHeight: "100vh", padding: 24 }}>
+      <Box title="Раздел">…</Box>
     </Main>
   );
 }
@@ -31,8 +29,8 @@ export function Page() {
 | Компонент | Назначение |
 |-----------|------------|
 | [Main](?path=/docs/design-system-main--docs) | Обёртка страницы |
-| [Box](?path=/docs/design-system-box--docs) | Корневой layout |
-| [DashCard](?path=/docs/design-system-dash-card--docs) | Карточка |
+| [Layout](?path=/docs/design-system-layout--docs) | Колонка контента с входной анимацией |
+| [Box](?path=/docs/design-system-box--docs) | Карточка контента |
 | [Toggle](?path=/docs/design-system-toggle--docs) | Переключатель |
 | [SideDrawer](?path=/docs/design-system-side-drawer--docs) | Боковая панель |
 

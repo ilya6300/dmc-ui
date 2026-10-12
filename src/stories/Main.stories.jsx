@@ -1,4 +1,4 @@
-import { Box, DashCard, Main } from "../index.js";
+import { Box, Main } from "../index.js";
 import { importBlock, ROOT_NOTE } from "./docsFragments.js";
 
 /** @type { import('@storybook/react-vite').Meta } */
@@ -18,8 +18,8 @@ ${ROOT_NOTE}
 ${importBlock("Main", "Box")}
 
 \`\`\`jsx
-<Main style={{ minHeight: "100vh" }}>
-  <Box style={{ padding: 24 }}>…</Box>
+<Main style={{ minHeight: "100vh", padding: 24 }}>
+  <Box title="Раздел">…</Box>
 </Main>
 \`\`\`
         `,
@@ -37,14 +37,12 @@ export default meta;
 export const ScrollablePage = {
   name: "Страница со скроллом",
   render: () => (
-    <Main style={{ height: 320, overflow: "auto", background: "#e2e8f0" }}>
-      <Box style={{ padding: 24 }}>
-        {Array.from({ length: 8 }, (_, i) => (
-          <DashCard key={i} style={{ marginBottom: 10 }}>
-            Блок {i + 1}
-          </DashCard>
-        ))}
-      </Box>
+    <Main style={{ height: 320, overflow: "auto", background: "#e2e8f0", padding: 24 }}>
+      {Array.from({ length: 8 }, (_, i) => (
+        <Box key={i} style={{ marginBottom: 10 }}>
+          Блок {i + 1}
+        </Box>
+      ))}
     </Main>
   ),
 };

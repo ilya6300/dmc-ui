@@ -1,5 +1,5 @@
 export { Box } from "./Box";
-export { DashCard } from "./DashCard";
+export { Layout } from "./Layout";
 export { Main } from "./Main";
 export { Toggle } from "./Toggle";
 export { SideDrawer, SideDrawerCloseButton } from "./SideDrawer";

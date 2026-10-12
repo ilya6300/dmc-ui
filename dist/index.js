@@ -1,6 +1,6 @@
-import { jsx as i, jsxs as f } from "react/jsx-runtime";
-import { useState as h, useEffect as S } from "react";
-import { createPortal as v } from "react-dom";
+import { jsxs as g, jsx as i } from "react/jsx-runtime";
+import { useState as h, useEffect as b } from "react";
+import { createPortal as _ } from "react-dom";
 const n = {
   mainBlue1: "#2196f3",
   mastBlue: "#236192",
@@ -15,32 +15,10 @@ const n = {
   focusBg: "#f0f7ff",
   borderInput: "#e2e8f0"
 };
-function s(...e) {
+function a(...e) {
   return Object.assign({}, ...e.filter(Boolean));
 }
-const _ = {
-  display: "flex",
-  flexDirection: "column",
-  gap: 10,
-  textAlign: "left",
-  boxSizing: "border-box"
-};
-function V({
-  children: e,
-  style: t,
-  as: o = "div",
-  ...r
-}) {
-  return /* @__PURE__ */ i(
-    o,
-    {
-      style: s(_, t),
-      ...r,
-      children: e
-    }
-  );
-}
-const C = {
+const O = {
   display: "flex",
   flexDirection: "column",
   justifyContent: "flex-start",
@@ -51,43 +29,70 @@ const C = {
   boxShadow: n.cardShadow,
   border: n.borderLight,
   boxSizing: "border-box"
-}, A = {
+}, R = {
   fontSize: 16,
   fontWeight: 600,
   color: n.mastBlue
 };
-function G({
+function Q({
   children: e,
   style: t,
   title: o,
   w: r,
-  as: l = "div",
-  ...d
+  as: s = "div",
+  ...l
 }) {
-  return /* @__PURE__ */ f(
-    l,
+  return /* @__PURE__ */ g(
+    s,
     {
-      style: s(C, { width: r ?? "100%" }, t),
-      ...d,
+      style: a(O, { width: r ?? "100%" }, t),
+      ...l,
       children: [
-        o ? /* @__PURE__ */ i("span", { style: A, children: o }) : null,
+        o ? /* @__PURE__ */ i("span", { style: R, children: o }) : null,
         e
       ]
     }
   );
 }
-const O = {
+const A = {
+  display: "flex",
+  flexDirection: "column",
+  padding: "0 2% 4%",
+  boxSizing: "border-box"
+}, L = "transform 0.6s ease, opacity 0.6s ease", M = {
+  transform: "translateX(100%)",
+  opacity: 0.92
+}, Y = {
+  transform: "translateX(0)",
+  opacity: 1,
+  transition: L
+};
+function Z({ children: e, style: t, animate: o = !0, ...r }) {
+  const [s, l] = h(!o);
+  b(() => {
+    if (!o) return;
+    if (typeof window < "u" && window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      l(!0);
+      return;
+    }
+    const u = requestAnimationFrame(() => l(!0));
+    return () => cancelAnimationFrame(u);
+  }, [o]);
+  const d = o && !s ? { ...M, transition: L } : o ? Y : null;
+  return /* @__PURE__ */ i("div", { style: a(A, d, t), ...r, children: e });
+}
+const C = {
   minHeight: "100%",
   boxSizing: "border-box"
 };
-function J({ children: e, style: t, ...o }) {
-  return /* @__PURE__ */ i("div", { style: s(O, t), ...o, children: e });
+function ee({ children: e, style: t, ...o }) {
+  return /* @__PURE__ */ i("div", { style: a(C, t), ...o, children: e });
 }
 const T = {
   color: n.textMain,
   fontWeight: 400,
   fontSize: 14
-}, R = {
+}, I = {
   display: "flex",
   alignItems: "center",
   gap: 8,
@@ -100,7 +105,7 @@ const T = {
   font: "inherit",
   color: "inherit",
   textAlign: "left"
-}, Y = {
+}, j = {
   position: "relative",
   width: 36,
   height: 20,
@@ -117,78 +122,78 @@ const T = {
   borderRadius: "50%",
   transition: "transform 0.2s"
 };
-function Q({
+function te({
   active: e,
   label: t,
   variant: o = "switch",
   onClick: r,
-  onChange: l,
-  style: d,
-  disabled: c = !1
+  onChange: s,
+  style: l,
+  disabled: d = !1
 }) {
-  const [g, p] = h(!1);
+  const [f, u] = h(!1);
   if (o === "text")
-    return t ? /* @__PURE__ */ i("span", { style: s(T, d), children: t }) : null;
-  const b = (u) => {
-    u.preventDefault(), !c && (r == null || r(u), l == null || l(!e));
-  }, x = s(Y, {
+    return t ? /* @__PURE__ */ i("span", { style: a(T, l), children: t }) : null;
+  const m = (p) => {
+    p.preventDefault(), !d && (r == null || r(p), s == null || s(!e));
+  }, y = a(j, {
     backgroundColor: e ? n.mainBlue1 : n.toggleTrackOff
-  }), m = s(D, {
+  }), x = a(D, {
     transform: e ? "translateX(16px)" : "translateX(0)"
-  }), y = s(
-    R,
-    c && { cursor: "not-allowed", opacity: 0.55 },
-    g && {
+  }), S = a(
+    I,
+    d && { cursor: "not-allowed", opacity: 0.55 },
+    f && {
       outline: `2px solid ${n.mainBlue1}`,
       outlineOffset: 2,
       borderRadius: 4
     },
-    d
+    l
   );
-  return /* @__PURE__ */ f(
+  return /* @__PURE__ */ g(
     "button",
     {
       type: "button",
-      style: y,
-      onClick: b,
+      style: S,
+      onClick: m,
       "aria-pressed": !!e,
-      disabled: c,
-      onFocus: () => p(!0),
-      onBlur: () => p(!1),
+      disabled: d,
+      onFocus: () => u(!0),
+      onBlur: () => u(!1),
       children: [
-        /* @__PURE__ */ i("span", { style: x, "aria-hidden": "true", children: /* @__PURE__ */ i("span", { style: m }) }),
+        /* @__PURE__ */ i("span", { style: y, "aria-hidden": "true", children: /* @__PURE__ */ i("span", { style: x }) }),
         t ? /* @__PURE__ */ i("span", { style: T, children: t }) : null
       ]
     }
   );
 }
-const M = {
+const F = {
   display: "flex",
   alignItems: "flex-start",
   justifyContent: "space-between",
   gap: 12,
   flexShrink: 0
-}, j = {
+}, N = {
   margin: 0,
   fontSize: 16,
   fontWeight: 600,
   color: n.mastBlue,
   lineHeight: 1.3
-}, H = {
+}, z = {
   display: "flex",
   alignItems: "center",
   gap: 6,
   flexShrink: 0
-}, I = ({
+}, H = ({
   title: e,
   titleId: t,
   toolbar: o,
   toolbarWrap: r = !0,
-  style: l
-}) => /* @__PURE__ */ f("header", { style: s(M, l), children: [
-  /* @__PURE__ */ i("h2", { id: t, style: j, children: e }),
-  o ? r ? /* @__PURE__ */ i("div", { style: H, children: o }) : o : null
-] }), z = {
+  style: s
+}) => /* @__PURE__ */ g("header", { style: a(F, s), children: [
+  /* @__PURE__ */ i("h2", { id: t, style: N, children: e }),
+  o ? r ? /* @__PURE__ */ i("div", { style: z, children: o }) : o : null
+] }), X = {
   display: "inline-flex",
   alignItems: "center",
   justifyContent: "center",
@@ -201,13 +206,13 @@ const M = {
   color: n.textMuted,
   cursor: "pointer",
   transition: "border-color 0.15s ease, color 0.15s ease, background-color 0.15s ease"
-}, F = {
+}, W = {
   borderColor: n.mainBlue1,
   color: n.mainBlue1,
   backgroundColor: n.focusBg
 };
-function Z({ onClick: e, title: t = "Закрыть", style: o }) {
-  const [r, l] = h(!1), [d, c] = h(!1);
+function oe({ onClick: e, title: t = "Закрыть", style: o }) {
+  const [r, s] = h(!1), [l, d] = h(!1);
   return /* @__PURE__ */ i(
     "button",
     {
@@ -215,16 +220,16 @@ function Z({ onClick: e, title: t = "Закрыть", style: o }) {
       title: t,
       "aria-label": t,
       onClick: e,
-      style: s(
-        z,
-        (r || d) && F,
-        d && { outline: "none" },
+      style: a(
+        X,
+        (r || l) && W,
+        l && { outline: "none" },
         o
       ),
-      onMouseEnter: () => l(!0),
-      onMouseLeave: () => l(!1),
-      onFocus: () => c(!0),
-      onBlur: () => c(!1),
+      onMouseEnter: () => s(!0),
+      onMouseLeave: () => s(!1),
+      onFocus: () => d(!0),
+      onBlur: () => d(!1),
       children: /* @__PURE__ */ i("svg", { width: "16", height: "16", viewBox: "0 0 16 16", "aria-hidden": "true", children: /* @__PURE__ */ i(
         "path",
         {
@@ -238,7 +243,7 @@ function Z({ onClick: e, title: t = "Закрыть", style: o }) {
     }
   );
 }
-const W = {
+const P = {
   position: "fixed",
   zIndex: 3,
   top: 0,
@@ -257,7 +262,7 @@ const W = {
   flexDirection: "column",
   boxSizing: "border-box",
   transition: "transform 0.6s ease, opacity 0.6s ease"
-}, X = {
+}, K = {
   display: "flex",
   flexDirection: "column",
   alignItems: "center",
@@ -265,14 +270,14 @@ const W = {
   width: "100%",
   flex: 1,
   minHeight: 0
-}, N = {
+}, $ = {
   display: "flex",
   flexDirection: "column",
   flex: 1,
   minHeight: 0,
   gap: 16,
   width: "100%"
-}, P = {
+}, q = {
   display: "flex",
   flexWrap: "wrap",
   gap: 8,
@@ -280,100 +285,100 @@ const W = {
   width: "100%",
   marginTop: 16
 };
-function ee({
+function ne({
   open: e = !0,
   onClose: t,
   title: o,
   titleId: r,
-  toolbar: l,
-  headerActions: d,
-  children: c,
-  footer: g,
-  style: p,
-  layoutStyle: b,
-  rootStyle: x,
-  usePortal: m = !0,
-  closeOnBackdrop: y = !0
+  toolbar: s,
+  headerActions: l,
+  children: d,
+  footer: f,
+  style: u,
+  layoutStyle: m,
+  rootStyle: y,
+  usePortal: x = !0,
+  closeOnBackdrop: S = !0
 }) {
-  const [u, w] = h(!1);
-  if (S(() => {
+  const [p, E] = h(!1);
+  if (b(() => {
     if (!e) {
-      w(!1);
+      E(!1);
       return;
     }
-    const a = requestAnimationFrame(() => w(!0));
-    return () => cancelAnimationFrame(a);
-  }, [e]), S(() => {
+    const c = requestAnimationFrame(() => E(!0));
+    return () => cancelAnimationFrame(c);
+  }, [e]), b(() => {
     if (!e)
       return;
-    const a = document.body.style.overflow;
+    const c = document.body.style.overflow;
     return document.body.style.overflow = "hidden", () => {
-      document.body.style.overflow = a;
+      document.body.style.overflow = c;
     };
-  }, [e]), S(() => {
+  }, [e]), b(() => {
     if (!e || !t)
       return;
-    const a = (k) => {
-      k.key === "Escape" && t();
+    const c = (v) => {
+      v.key === "Escape" && t();
     };
-    return window.addEventListener("keydown", a), () => window.removeEventListener("keydown", a);
+    return window.addEventListener("keydown", c), () => window.removeEventListener("keydown", c);
   }, [e, t]), !e)
     return null;
-  const L = (a) => {
-    y && t && a.target === a.currentTarget && t();
-  }, B = l ?? d, E = /* @__PURE__ */ i(
+  const B = (c) => {
+    S && t && c.target === c.currentTarget && t();
+  }, k = s ?? l, w = /* @__PURE__ */ i(
     "div",
     {
       role: "dialog",
       "aria-modal": "true",
       "aria-labelledby": r,
-      onClick: L,
-      style: s(W, {
-        transform: u ? "translateX(0)" : "translateX(100%)",
-        opacity: u ? 1 : 0.92
-      }, x),
-      children: /* @__PURE__ */ f(
+      onClick: B,
+      style: a(P, {
+        transform: p ? "translateX(0)" : "translateX(100%)",
+        opacity: p ? 1 : 0.92
+      }, y),
+      children: /* @__PURE__ */ g(
         "div",
         {
-          style: s(X, b),
-          onClick: (a) => a.stopPropagation(),
+          style: a(K, m),
+          onClick: (c) => c.stopPropagation(),
           children: [
-            /* @__PURE__ */ f(
+            /* @__PURE__ */ g(
               "section",
               {
-                style: s(N, p),
+                style: a($, u),
                 "aria-labelledby": r,
                 children: [
                   o ? /* @__PURE__ */ i(
-                    I,
+                    H,
                     {
                       title: o,
                       titleId: r,
-                      toolbar: B
+                      toolbar: k
                     }
                   ) : null,
-                  c
+                  d
                 ]
               }
             ),
-            g ? /* @__PURE__ */ i("div", { style: P, children: g }) : null
+            f ? /* @__PURE__ */ i("div", { style: q, children: f }) : null
           ]
         }
       )
     }
   );
-  return m ? v(E, document.body) : E;
+  return x ? _(w, document.body) : w;
 }
-const te = (...e) => e.filter(Boolean).join(" ");
+const re = (...e) => e.filter(Boolean).join(" ");
 export {
-  V as Box,
-  G as DashCard,
-  J as Main,
-  ee as SideDrawer,
-  Z as SideDrawerCloseButton,
-  I as SiteModalHeader,
-  Q as Toggle,
-  te as joinClass,
-  s as mergeStyle,
+  Q as Box,
+  Z as Layout,
+  ee as Main,
+  ne as SideDrawer,
+  oe as SideDrawerCloseButton,
+  H as SiteModalHeader,
+  te as Toggle,
+  re as joinClass,
+  a as mergeStyle,
   n as tokens
 };

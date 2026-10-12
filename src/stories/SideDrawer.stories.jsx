@@ -1,5 +1,5 @@
 import { useId, useState } from "react";
-import { Box, SideDrawer, SideDrawerCloseButton, tokens } from "../index.js";
+import { Main, SideDrawer, SideDrawerCloseButton, tokens } from "../index.js";
 import { importBlock, ROOT_NOTE } from "./docsFragments.js";
 
 const bodyStyle = { flex: 1, minHeight: 0 };
@@ -28,7 +28,7 @@ const meta = {
 
 ${ROOT_NOTE}
 
-${importBlock("SideDrawer", "SideDrawerCloseButton", "Box")}
+${importBlock("SideDrawer", "SideDrawerCloseButton", "Main")}
         `,
       },
     },
@@ -51,7 +51,7 @@ function DrawerDemo({ usePortal = false }) {
   const [open, setOpen] = useState(true);
 
   return (
-    <Box style={{ padding: 24, minHeight: 400 }}>
+    <Main style={{ padding: 24, minHeight: 400 }}>
       {!open ? (
         <button type="button" style={openBtn} onClick={() => setOpen(true)}>
           Открыть drawer
@@ -69,7 +69,7 @@ function DrawerDemo({ usePortal = false }) {
           <p style={muted}>Контент боковой панели.</p>
         </div>
       </SideDrawer>
-    </Box>
+    </Main>
   );
 }
 
@@ -85,10 +85,10 @@ export const WithPortal = {
 export const Minimal = {
   name: "Минимальный (без title)",
   render: () => (
-    <Box style={{ padding: 24, minHeight: 200 }}>
+    <Main style={{ padding: 24, minHeight: 200 }}>
       <SideDrawer open usePortal={false}>
         <div style={bodyStyle}>Только тело панели</div>
       </SideDrawer>
-    </Box>
+    </Main>
   ),
 };

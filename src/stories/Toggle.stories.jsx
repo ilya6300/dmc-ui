@@ -1,4 +1,4 @@
-import { Box, Toggle } from "../index.js";
+import { Main, Toggle } from "../index.js";
 import { importBlock, ROOT_NOTE } from "./docsFragments.js";
 
 /** @type { import('@storybook/react-vite').Meta } */
@@ -8,9 +8,9 @@ const meta = {
   tags: ["autodocs"],
   decorators: [
     (Story) => (
-      <Box style={{ padding: 24 }}>
+      <Main style={{ padding: 24 }}>
         <Story />
-      </Box>
+      </Main>
     ),
   ],
   parameters: {
@@ -21,7 +21,7 @@ const meta = {
 
 ${ROOT_NOTE}
 
-${importBlock("Toggle", "Box")}
+${importBlock("Toggle", "Main")}
 
 \`\`\`jsx
 <Toggle active={on} label="Мои" onChange={setOn} />
