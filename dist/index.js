@@ -58,7 +58,8 @@ const A = {
   display: "flex",
   flexDirection: "column",
   padding: "0 2% 4%",
-  boxSizing: "border-box"
+  boxSizing: "border-box",
+  gap: "10px"
 }, L = "transform 0.6s ease, opacity 0.6s ease", M = {
   transform: "translateX(100%)",
   opacity: 0.92

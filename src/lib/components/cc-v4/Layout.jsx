@@ -6,6 +6,7 @@ const LAYOUT_STYLE = {
   flexDirection: "column",
   padding: "0 2% 4%",
   boxSizing: "border-box",
+  gap: "10px",
 };
 
 const ENTER_TRANSITION = "transform 0.6s ease, opacity 0.6s ease";
