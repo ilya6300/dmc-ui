@@ -8,10 +8,24 @@ import { Meta } from "@storybook/addon-docs/blocks";
 
 ## Быстрый старт
 
-1. Установите пакет (из монорепозитория):
+1. Установите пакет из Git (репозиторий [dmc-ui](https://github.com/ilya6300/dmc-ui)):
 
 ```bash
-npm install file:../dmc-ui
+npm install github:ilya6300/dmc-ui
+```
+
+Ветка или тег (при необходимости):
+
+```bash
+npm install github:ilya6300/dmc-ui#main
+```
+
+То же в `package.json`:
+
+```json
+"dependencies": {
+  "@dmc/ui": "github:ilya6300/dmc-ui"
+}
 ```
 
 2. Подключите стили **один раз** в корне приложения (например `App.css` или `index.js`):
