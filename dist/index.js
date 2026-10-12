@@ -57,7 +57,7 @@ function Q({
 const A = {
   display: "flex",
   flexDirection: "column",
-  padding: "0 2% 4%",
+  padding: "1% 2%",
   boxSizing: "border-box"
 }, L = "transform 0.6s ease, opacity 0.6s ease", M = {
   transform: "translateX(100%)",
@@ -67,15 +67,15 @@ const A = {
   opacity: 1,
   transition: L
 };
-function Z({ children: e, style: t, animate: o = !0, ...r }) {
+function Z({ children: e, style: t, animate: o = !1, ...r }) {
   const [s, l] = h(!o);
   b(() => {
     if (!o) return;
     if (typeof window < "u" && window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-      l(!0);
+      l(!1);
       return;
     }
-    const u = requestAnimationFrame(() => l(!0));
+    const u = requestAnimationFrame(() => l(!1));
     return () => cancelAnimationFrame(u);
   }, [o]);
   const d = o && !s ? { ...M, transition: L } : o ? Y : null;

@@ -4,7 +4,7 @@ import { mergeStyle } from "./tokens";
 const LAYOUT_STYLE = {
   display: "flex",
   flexDirection: "column",
-  padding: "0 2% 4%",
+  padding: "1% 2%",
   boxSizing: "border-box",
 };
 
@@ -22,7 +22,7 @@ const ENTER_TO = {
 };
 
 /** Колонка контента страницы с входной анимацией (аналог legacy `animation_move_list`). */
-export function Layout({ children, style, animate = true, ...rest }) {
+export function Layout({ children, style, animate = false, ...rest }) {
   const [entered, setEntered] = useState(!animate);
 
   useEffect(() => {
@@ -33,11 +33,11 @@ export function Layout({ children, style, animate = true, ...rest }) {
       window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
     if (reduceMotion) {
-      setEntered(true);
+      setEntered(false);
       return;
     }
 
-    const frame = requestAnimationFrame(() => setEntered(true));
+    const frame = requestAnimationFrame(() => setEntered(false));
     return () => cancelAnimationFrame(frame);
   }, [animate]);
 
