@@ -1,6 +1,7 @@
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
+import react from '@vitejs/plugin-react';
 import { defineConfig } from 'vitest/config';
 
 import { storybookTest } from '@storybook/addon-vitest/vitest-plugin';
@@ -14,6 +15,15 @@ const dirname =
 export default defineConfig({
   test: {
     projects: [
+      {
+        extends: true,
+        plugins: [react()],
+        test: {
+          name: 'unit',
+          environment: 'jsdom',
+          include: ['src/**/*.test.{js,jsx}'],
+        },
+      },
       {
         extends: true,
         plugins: [

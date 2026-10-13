@@ -23,7 +23,7 @@ ${ROOT_NOTE}
 
 ${importBlock("Box", "Main")}
 
-**Состав:** \`children\` — содержимое; опционально \`title\` (заголовок), \`w\` (ширина CSS-строкой; без \`w\` — \`100%\`), \`style\`, \`as\`.
+**Состав:** \`children\` — содержимое; опционально \`title\` (заголовок), \`w\` (ширина CSS-строкой; без \`w\` — \`100%\`), \`shadow\` (размытие тени в px, по умолчанию \`12\`; \`0\` — без тени), \`style\`, \`as\`.
 
 \`\`\`jsx
 <Box title="Подписка" w="320px">
@@ -37,6 +37,10 @@ ${importBlock("Box", "Main")}
   argTypes: {
     title: { description: "Заголовок; без значения заголовок не показывается." },
     w: { description: "Ширина (`100%`, `320px`, `auto`…); по умолчанию `100%`." },
+    shadow: {
+      control: { type: "number", min: 0, step: 1 },
+      description: "Размытие тени карточки в px; по умолчанию 12; 0 — `box-shadow: none`.",
+    },
     children: { control: false },
     style: { control: false },
     as: { control: "text" },
@@ -67,6 +71,15 @@ export const CustomWidth = {
   render: () => (
     <Box title="Узкая карточка" w="280px">
       <p style={{ margin: 0, fontSize: 14 }}>Ширина задаётся пропом w.</p>
+    </Box>
+  ),
+};
+
+export const NoShadow = {
+  name: "Без тени",
+  render: () => (
+    <Box title="shadow={0}" shadow={0}>
+      <p style={{ margin: 0, fontSize: 14 }}>Тень отключена пропом shadow.</p>
     </Box>
   ),
 };

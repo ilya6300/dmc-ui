@@ -1,10 +1,10 @@
 {
   "v": 0,
   "components": {
-    "cc-v4-ccv4root": {
-      "id": "cc-v4-ccv4root",
-      "name": "CcV4Root",
-      "path": "./src/stories/CcV4Root.stories.jsx",
+    "design-system-box": {
+      "id": "design-system-box",
+      "name": "Box",
+      "path": "./src/stories/Box.stories.jsx",
       "jsDocTags": {
         "type": [
           "{import('@storybook/react-vite').Meta}"
@@ -12,47 +12,200 @@
       },
       "description": "",
       "reactDocgen": {
-        "description": "Корневой контейнер CC-V4: scope для всех v4-стилей (`company-card-v4`).\r\n\r\n@param {React.ReactNode} children — разметка страницы (header-card, dash-card, списки).\r\n@param {boolean} [withMainPage=false] — добавить класс `main-page`.\r\n@param {string} [pageVariant] — модификатор страницы (`company-list-page-v4`, …).\r\n@param {string} [className] — дополнительные классы.\r\n@param {keyof JSX.IntrinsicElements | React.ElementType} [as='div'] — тег корня.",
+        "description": "Карточка контента — inline-стили в компоненте.",
         "methods": [],
-        "displayName": "CcV4Root",
-        "definedInFile": "C:\\Frontend\\dmc-ui\\src\\lib\\components\\cc-v4\\CcV4Root.jsx",
-        "actualName": "CcV4Root",
-        "exportName": "CcV4Root",
+        "displayName": "Box",
+        "definedInFile": "C:\\Frontend\\dmc-ui\\src\\lib\\components\\cc-v4\\Box.jsx",
+        "actualName": "Box",
+        "exportName": "Box"
+      },
+      "stories": [
+        {
+          "id": "design-system-box--default",
+          "name": "С заголовком",
+          "snippet": "const Default = () => <Box title=\"Подписка\">\r\n    <p style={{ margin: 0, color: tokens.textMuted, fontSize: 14 }}>Пример содержимого.\r\n              </p>\r\n</Box>;"
+        },
+        {
+          "id": "design-system-box--minimal",
+          "name": "Минимальный",
+          "snippet": "const Minimal = () => <Box>Только текст в карточке</Box>;"
+        },
+        {
+          "id": "design-system-box--custom-width",
+          "name": "Ширина w",
+          "snippet": "const CustomWidth = () => (\r\n  <Box title=\"Узкая карточка\" w=\"280px\">\r\n    <p style={{ margin: 0, fontSize: 14 }}>Ширина задаётся пропом w.</p>\r\n  </Box>\r\n);"
+        }
+      ],
+      "import": "import { Box, Main } from '@dmc/ui';"
+    },
+    "design-system-container": {
+      "id": "design-system-container",
+      "name": "Container",
+      "path": "./src/stories/Container.stories.jsx",
+      "jsDocTags": {
+        "type": [
+          "{import('@storybook/react-vite').Meta}"
+        ]
+      },
+      "description": "",
+      "reactDocgen": {
+        "description": "Flex-строка или колонка для группировки контента (отступы и gap по умолчанию).",
+        "methods": [],
+        "displayName": "Container",
+        "definedInFile": "C:\\Frontend\\dmc-ui\\src\\lib\\components\\cc-v4\\Container.jsx",
+        "actualName": "Container",
+        "exportName": "Container",
         "props": {
-          "withMainPage": {
+          "direction": {
+            "defaultValue": {
+              "value": "\"row\"",
+              "computed": false
+            },
+            "required": false
+          },
+          "justify": {
+            "defaultValue": {
+              "value": "\"start\"",
+              "computed": false
+            },
+            "required": false
+          },
+          "align": {
+            "defaultValue": {
+              "value": "\"stretch\"",
+              "computed": false
+            },
+            "required": false
+          },
+          "gap": {
+            "defaultValue": {
+              "value": "10",
+              "computed": false
+            },
+            "required": false
+          }
+        }
+      },
+      "stories": [
+        {
+          "id": "design-system-container--default",
+          "name": "Строка",
+          "snippet": "const Default = () => (\r\n  <Container>\r\n    {demoBox(\"1\")}\r\n    {demoBox(\"2\")}\r\n  </Container>\r\n);"
+        },
+        {
+          "id": "design-system-container--column",
+          "name": "Колонка",
+          "snippet": "const Column = () => (\r\n  <Container direction=\"col\">\r\n    {demoBox(\"1\")}\r\n    {demoBox(\"2\")}\r\n  </Container>\r\n);"
+        },
+        {
+          "id": "design-system-container--row-between",
+          "name": "Строка, расход по сторонам",
+          "snippet": "const RowBetween = () => (\r\n  <Container direction=\"row\" justify=\"between\">\r\n    {demoBox(\"Слева\")}\r\n    {demoBox(\"Справа\")}\r\n  </Container>\r\n);"
+        },
+        {
+          "id": "design-system-container--minimal",
+          "name": "Минимальный",
+          "snippet": "const Minimal = () => <Container>Только текст</Container>;"
+        }
+      ],
+      "import": "import { Box, Container, Main } from '@dmc/ui';"
+    },
+    "design-system-icon": {
+      "id": "design-system-icon",
+      "name": "Icon",
+      "path": "./src/stories/Icon.stories.jsx",
+      "jsDocTags": {
+        "type": [
+          "{import('@storybook/react-vite').Meta}"
+        ]
+      },
+      "description": "",
+      "reactDocgen": {
+        "description": "Иконка: img (src / darkSrc) или React-компонент (component / darkComponent).",
+        "methods": [],
+        "displayName": "Icon",
+        "definedInFile": "C:\\Frontend\\dmc-ui\\src\\lib\\components\\cc-v4\\Icon.jsx",
+        "actualName": "Icon",
+        "exportName": "Icon",
+        "props": {
+          "alt": {
+            "defaultValue": {
+              "value": "\"\"",
+              "computed": false
+            },
+            "required": false
+          }
+        }
+      },
+      "stories": [
+        {
+          "id": "design-system-icon--image-pair",
+          "name": "Img с darkSrc",
+          "snippet": "const ImagePair = () => (\r\n  <Icon\r\n    src=\"https://placehold.co/32x32/236192/ffffff?text=L\"\r\n    darkSrc=\"https://placehold.co/32x32/7c9cff/121212?text=D\"\r\n    alt=\"Демо\"\r\n    width={32}\r\n    height={32}\r\n  />\r\n);"
+        },
+        {
+          "id": "design-system-icon--image-fallback",
+          "name": "Img без darkSrc",
+          "snippet": "const ImageFallback = () => (\r\n  <Icon\r\n    src=\"https://placehold.co/32x32/2196f3/ffffff?text=1\"\r\n    alt=\"Одна картинка\"\r\n    width={32}\r\n    height={32}\r\n  />\r\n);"
+        },
+        {
+          "id": "design-system-icon--component-pair",
+          "name": "React-компоненты",
+          "snippet": "const ComponentPair = () => (\r\n  <Icon\r\n    component={SunIcon}\r\n    darkComponent={MoonIcon}\r\n    style={{ color: \"#236192\" }}\r\n  />\r\n);"
+        },
+        {
+          "id": "design-system-icon--minimal",
+          "name": "Минимальный",
+          "snippet": "const Minimal = () => (\r\n  <Icon\r\n    src=\"https://placehold.co/24x24/000000/ffffff?text=i\"\r\n    alt=\"\"\r\n    width={24}\r\n    height={24}\r\n  />\r\n);"
+        }
+      ],
+      "import": "import { Icon, Main, ThemeToggle } from '@dmc/ui';"
+    },
+    "design-system-layout": {
+      "id": "design-system-layout",
+      "name": "Layout",
+      "path": "./src/stories/Layout.stories.jsx",
+      "jsDocTags": {
+        "type": [
+          "{import('@storybook/react-vite').Meta}"
+        ]
+      },
+      "description": "",
+      "reactDocgen": {
+        "description": "Колонка контента страницы с входной анимацией (аналог legacy `animation_move_list`).",
+        "methods": [],
+        "displayName": "Layout",
+        "definedInFile": "C:\\Frontend\\dmc-ui\\src\\lib\\components\\cc-v4\\Layout.jsx",
+        "actualName": "Layout",
+        "exportName": "Layout",
+        "props": {
+          "animate": {
             "defaultValue": {
               "value": "false",
               "computed": false
             },
             "required": false
-          },
-          "as": {
-            "defaultValue": {
-              "value": "\"div\"",
-              "computed": false
-            },
-            "required": false
           }
         }
       },
       "stories": [
         {
-          "id": "cc-v4-ccv4root--page-shell",
-          "name": "Страница с main-page",
-          "snippet": "const PageShell = () => <CcV4Root\r\n    withMainPage\r\n    pageVariant=\"company-list-page-v4\"\r\n    style={{ padding: 16, minHeight: 280 }}>\r\n    <header className=\"card header-card\">\r\n        <div className=\"header-top\">\r\n            <div className=\"company-title\">\r\n                <div className=\"compamy-title-name-container\">\r\n                    <span className=\"req-label\">Каталог</span>\r\n                    <h1>Компании</h1>\r\n                </div>\r\n            </div>\r\n        </div>\r\n    </header>\r\n    <p className=\"description-text\" style={{ marginTop: 10 }}>Все дочерние блоки наследуют стили `.company-card-v4`.\r\n              </p>\r\n</CcV4Root>;"
+          "id": "design-system-layout--default",
+          "name": "С анимацией",
+          "snippet": "const Default = () => (\r\n  <Main style={{ minHeight: 320, background: \"#e2e8f0\" }}>\r\n    <Layout animate>\r\n      <Box title=\"Список\">Контент внутри Layout</Box>\r\n    </Layout>\r\n  </Main>\r\n);"
         },
         {
-          "id": "cc-v4-ccv4root--section-only",
-          "name": "Только секция (без main-page)",
-          "snippet": "const SectionOnly = () => <div className=\"main-page\" style={{ padding: 16, background: \"#e2e8f0\" }}>\r\n    <p className=\"req-label\">Родитель уже main-page — внутри CcV4Root без withMainPage</p>\r\n    <CcV4Root\r\n        withMainPage={false}\r\n        className=\"company-card-v4-soft-section\"\r\n        style={{ marginTop: 8 }}>\r\n        <div className=\"card dash-card\">\r\n            <span className=\"dash-card-title\">Блок внутри company-card-v4</span>\r\n        </div>\r\n    </CcV4Root>\r\n</div>;"
+          "id": "design-system-layout--minimal",
+          "name": "Минимальный",
+          "snippet": "const Minimal = () => (\r\n  <Main style={{ minHeight: 200, background: \"#e2e8f0\" }}>\r\n    <Layout>\r\n      <p style={{ margin: 0, fontSize: 14 }}>Только Layout без анимации</p>\r\n    </Layout>\r\n  </Main>\r\n);"
         }
       ],
-      "import": "import { CcV4Root } from '@dmc/ui';"
+      "import": "import { Box, Layout, Main } from '@dmc/ui';"
     },
-    "cc-v4-button": {
-      "id": "cc-v4-button",
-      "name": "CcV4Button",
-      "path": "./src/stories/CcV4Button.stories.jsx",
+    "design-system-main": {
+      "id": "design-system-main",
+      "name": "Main",
+      "path": "./src/stories/Main.stories.jsx",
       "jsDocTags": {
         "type": [
           "{import('@storybook/react-vite').Meta}"
@@ -60,52 +213,31 @@
       },
       "description": "",
       "reactDocgen": {
-        "description": "Единая кнопка v4: primary | outline | icon (mobile «+»).\r\n@deprecated Используйте CcV4Button напрямую; BtnPrimaryv4/BtnOutlineV4 — re-export.",
+        "description": "Обёртка страницы ЛК; оформление только через `style`.",
         "methods": [],
-        "displayName": "CcV4Button",
-        "definedInFile": "C:\\Frontend\\dmc-ui\\src\\lib\\components\\cc-v4\\CcV4Button.jsx",
-        "actualName": "CcV4Button",
-        "exportName": "CcV4Button",
-        "props": {
-          "variant": {
-            "defaultValue": {
-              "value": "\"primary\"",
-              "computed": false
-            },
-            "required": false
-          },
-          "type": {
-            "defaultValue": {
-              "value": "\"button\"",
-              "computed": false
-            },
-            "required": false
-          }
-        }
+        "displayName": "Main",
+        "definedInFile": "C:\\Frontend\\dmc-ui\\src\\lib\\components\\cc-v4\\Main.jsx",
+        "actualName": "Main",
+        "exportName": "Main"
       },
       "stories": [
         {
-          "id": "cc-v4-button--primary",
-          "name": "Primary",
-          "snippet": "const Primary = () => <CcV4Button variant=\"primary\" text=\"Добавить\" />;"
+          "id": "design-system-main--scrollable-page",
+          "name": "Страница со скроллом",
+          "snippet": "const ScrollablePage = () => (\r\n  <Main style={{ height: 320, overflow: \"auto\", background: \"#e2e8f0\", padding: 24 }}>\r\n    {Array.from({ length: 8 }, (_, i) => (\r\n      <Box key={i} style={{ marginBottom: 10 }}>\r\n        Блок {i + 1}\r\n      </Box>\r\n    ))}\r\n  </Main>\r\n);"
         },
         {
-          "id": "cc-v4-button--outline",
-          "name": "Outline",
-          "snippet": "const Outline = () => <CcV4Button variant=\"outline\" text=\"Отмена\" />;"
-        },
-        {
-          "id": "cc-v4-button--icon",
-          "name": "Icon",
-          "snippet": "const Icon = () => <CcV4Button variant=\"icon\" onClick={() => {}} />;"
+          "id": "design-system-main--minimal",
+          "name": "Минимальный",
+          "snippet": "const Minimal = () => (\r\n  <Main style={{ padding: 16 }}>\r\n    <p style={{ margin: 0, fontSize: 12 }}>Main без вложенного Box</p>\r\n  </Main>\r\n);"
         }
       ],
-      "import": "import { CcV4Button, CcV4Root } from '@dmc/ui';"
+      "import": "import { Box, Main } from '@dmc/ui';"
     },
-    "cc-v4-input": {
-      "id": "cc-v4-input",
-      "name": "CcV4Input",
-      "path": "./src/stories/CcV4Input.stories.jsx",
+    "design-system-sidedrawer": {
+      "id": "design-system-sidedrawer",
+      "name": "SideDrawer",
+      "path": "./src/stories/SideDrawer.stories.jsx",
       "jsDocTags": {
         "type": [
           "{import('@storybook/react-vite').Meta}"
@@ -115,53 +247,10 @@
       "reactDocgen": {
         "description": "",
         "methods": [],
-        "displayName": "CcV4Input",
-        "definedInFile": "C:\\Frontend\\dmc-ui\\src\\lib\\components\\cc-v4\\CcV4Input.jsx",
-        "actualName": "CcV4Input",
-        "exportName": "CcV4Input",
-        "props": {
-          "legacy": {
-            "defaultValue": {
-              "value": "false",
-              "computed": false
-            },
-            "required": false
-          },
-          "v4": {
-            "defaultValue": {
-              "value": "true",
-              "computed": false
-            },
-            "required": false
-          }
-        }
-      },
-      "stories": [
-        {
-          "id": "cc-v4-input--default",
-          "name": "Default",
-          "snippet": "const Default = () => <div className=\"site-form-field\">\r\n    <span className=\"site-form-label\">ИНН</span>\r\n    <CcV4Input value=\"\" legacy v4 placeholder=\"10 цифр\" />\r\n</div>;"
-        }
-      ],
-      "import": "import { CcV4Input, CcV4Root } from '@dmc/ui';"
-    },
-    "cc-v4-sidedrawer": {
-      "id": "cc-v4-sidedrawer",
-      "name": "CcV4SideDrawer",
-      "path": "./src/stories/CcV4SideDrawer.stories.jsx",
-      "jsDocTags": {
-        "type": [
-          "{import('@storybook/react-vite').Meta}"
-        ]
-      },
-      "description": "",
-      "reactDocgen": {
-        "description": "Боковая панель v4: `posi-abs` + `subscription-drawer-v4`.\r\nПо умолчанию `open={true}` — родитель монтирует/размонтирует.",
-        "methods": [],
-        "displayName": "CcV4SideDrawer",
-        "definedInFile": "C:\\Frontend\\dmc-ui\\src\\lib\\components\\cc-v4\\CcV4SideDrawer.jsx",
-        "actualName": "CcV4SideDrawer",
-        "exportName": "CcV4SideDrawer",
+        "displayName": "SideDrawer",
+        "definedInFile": "C:\\Frontend\\dmc-ui\\src\\lib\\components\\cc-v4\\SideDrawer.jsx",
+        "actualName": "SideDrawer",
+        "exportName": "SideDrawer",
         "props": {
           "open": {
             "defaultValue": {
@@ -188,39 +277,27 @@
       },
       "stories": [
         {
-          "id": "cc-v4-sidedrawer--default",
+          "id": "design-system-sidedrawer--default",
           "name": "Default",
           "snippet": "const Default = () => <DrawerDemo />;"
-        }
-      ],
-      "import": "import { CcV4Button, CcV4Root, CcV4SideDrawer } from '@dmc/ui';"
-    },
-    "cc-v4-softlist": {
-      "id": "cc-v4-softlist",
-      "name": "CcV4SoftList",
-      "path": "./src/stories/CcV4SoftList.stories.tsx",
-      "jsDocTags": {},
-      "reactDocgen": {
-        "description": "",
-        "methods": [],
-        "displayName": "CcV4SoftList",
-        "definedInFile": "C:\\Frontend\\dmc-ui\\src\\lib\\components\\cc-v4\\CcV4SoftList.jsx",
-        "actualName": "CcV4SoftList",
-        "exportName": "CcV4SoftList"
-      },
-      "stories": [
+        },
         {
-          "id": "cc-v4-softlist--three-columns",
-          "name": "Три колонки",
-          "snippet": "const ThreeColumns = () => (\r\n  <CcV4SoftList>\r\n    <CcV4SoftListHeader\r\n      gridClass={GRID}\r\n      columns={[\r\n        { key: \"a\", label: \"Название\" },\r\n        { key: \"b\", label: \"ИНН\" },\r\n        { key: \"c\", label: \"Адрес\" },\r\n      ]}\r\n    />\r\n    <CcV4SoftListBody>\r\n      <CcV4SoftListRow gridClass={GRID}>\r\n        <span>ООО Пример</span>\r\n        <span className=\"company-card-v4-mono\">7700000000</span>\r\n        <span>Москва</span>\r\n      </CcV4SoftListRow>\r\n    </CcV4SoftListBody>\r\n  </CcV4SoftList>\r\n);"
+          "id": "design-system-sidedrawer--with-portal",
+          "name": "С portal в body",
+          "snippet": "const WithPortal = () => <DrawerDemo usePortal />;"
+        },
+        {
+          "id": "design-system-sidedrawer--minimal",
+          "name": "Минимальный (без title)",
+          "snippet": "const Minimal = () => (\r\n  <Main style={{ padding: 24, minHeight: 200 }}>\r\n    <SideDrawer open usePortal={false}>\r\n      <div style={bodyStyle}>Только тело панели</div>\r\n    </SideDrawer>\r\n  </Main>\r\n);"
         }
       ],
-      "import": "import { CcV4Root, CcV4SoftList, CcV4SoftListBody, CcV4SoftListHeader, CcV4SoftListRow } from '@dmc/ui';"
+      "import": "import { Main, SideDrawer, SideDrawerCloseButton } from '@dmc/ui';"
     },
-    "cc-v4-toggle": {
-      "id": "cc-v4-toggle",
-      "name": "CcV4Toggle",
-      "path": "./src/stories/CcV4Toggle.stories.jsx",
+    "design-system-themetoggle": {
+      "id": "design-system-themetoggle",
+      "name": "ThemeToggle",
+      "path": "./src/stories/ThemeToggle.stories.jsx",
       "jsDocTags": {
         "type": [
           "{import('@storybook/react-vite').Meta}"
@@ -228,16 +305,16 @@
       },
       "description": "",
       "reactDocgen": {
-        "description": "",
+        "description": "Переключатель светлой / тёмной темы (отдельный UI, не часть Layout).",
         "methods": [],
-        "displayName": "CcV4Toggle",
-        "definedInFile": "C:\\Frontend\\dmc-ui\\src\\lib\\components\\cc-v4\\CcV4Toggle.jsx",
-        "actualName": "CcV4Toggle",
-        "exportName": "CcV4Toggle",
+        "displayName": "ThemeToggle",
+        "definedInFile": "C:\\Frontend\\dmc-ui\\src\\lib\\components\\cc-v4\\ThemeToggle.jsx",
+        "actualName": "ThemeToggle",
+        "exportName": "ThemeToggle",
         "props": {
-          "className": {
+          "label": {
             "defaultValue": {
-              "value": "\"\"",
+              "value": "\"Тёмная тема\"",
               "computed": false
             },
             "required": false
@@ -253,26 +330,79 @@
       },
       "stories": [
         {
-          "id": "cc-v4-toggle--label-only",
-          "name": "Label Only",
-          "snippet": "const LabelOnly = () => <CcV4Toggle active label=\"Мои\" />;"
+          "id": "design-system-themetoggle--with-preview",
+          "name": "С Box",
+          "snippet": "const WithPreview = () => (\r\n  <Main style={{ padding: 24 }}>\r\n    <ThemeToggle />\r\n    <Box title=\"Карточка\" style={{ marginTop: 16 }}>\r\n      Контент меняет оформление при смене темы в toolbar или переключателе.\r\n    </Box>\r\n  </Main>\r\n);"
         },
         {
-          "id": "cc-v4-toggle--with-description",
-          "name": "With Description",
-          "snippet": "const WithDescription = () => <CcV4Toggle\r\n    active={false}\r\n    label=\"Только мои\"\r\n    description=\"Показывать уведомления, где вы ответственный менеджер\" />;"
+          "id": "design-system-themetoggle--minimal",
+          "name": "Минимальный",
+          "snippet": "const Minimal = () => <ThemeToggle label=\"\" />;"
         },
         {
-          "id": "cc-v4-toggle--switch-only",
-          "name": "Switch Only",
-          "snippet": "const SwitchOnly = () => <CcV4Toggle active />;"
+          "id": "design-system-themetoggle--controlled",
+          "name": "Controlled",
+          "snippet": "const Controlled = () => <ControlledDemo />;"
         }
       ],
-      "import": "import { CcV4Root, CcV4Toggle } from '@dmc/ui';"
+      "import": "import { Box, Main, ThemeProvider, ThemeToggle } from '@dmc/ui';"
+    },
+    "design-system-toggle": {
+      "id": "design-system-toggle",
+      "name": "Toggle",
+      "path": "./src/stories/Toggle.stories.jsx",
+      "jsDocTags": {
+        "type": [
+          "{import('@storybook/react-vite').Meta}"
+        ]
+      },
+      "description": "",
+      "reactDocgen": {
+        "description": "",
+        "methods": [],
+        "displayName": "Toggle",
+        "definedInFile": "C:\\Frontend\\dmc-ui\\src\\lib\\components\\cc-v4\\Toggle.jsx",
+        "actualName": "Toggle",
+        "exportName": "Toggle",
+        "props": {
+          "variant": {
+            "defaultValue": {
+              "value": "\"switch\"",
+              "computed": false
+            },
+            "required": false
+          },
+          "disabled": {
+            "defaultValue": {
+              "value": "false",
+              "computed": false
+            },
+            "required": false
+          }
+        }
+      },
+      "stories": [
+        {
+          "id": "design-system-toggle--with-label",
+          "name": "С подписью",
+          "snippet": "const WithLabel = () => <Toggle active label=\"Мои\" />;"
+        },
+        {
+          "id": "design-system-toggle--switch-only",
+          "name": "Только switch",
+          "snippet": "const SwitchOnly = () => <Toggle active={false} />;"
+        },
+        {
+          "id": "design-system-toggle--text-only",
+          "name": "Только текст",
+          "snippet": "const TextOnly = () => <Toggle variant=\"text\" label=\"Подпись без переключателя\" />;"
+        }
+      ],
+      "import": "import { Main, Toggle } from '@dmc/ui';"
     }
   },
   "meta": {
     "docgen": "react-docgen",
-    "durationMs": 330
+    "durationMs": 700
   }
 }

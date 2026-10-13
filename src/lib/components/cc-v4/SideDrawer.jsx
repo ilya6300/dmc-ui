@@ -1,32 +1,35 @@
 import React, { useEffect, useState } from "react";
 import { createPortal } from "react-dom";
-import { mergeStyle, tokens } from "./tokens";
+import { mergeStyle } from "./tokens";
+import { useTheme } from "./ThemeContext.jsx";
 import { SiteModalHeader } from "../SiteModalHeader";
 
-const CLOSE_BTN_BASE = {
-  display: "inline-flex",
-  alignItems: "center",
-  justifyContent: "center",
-  width: 36,
-  height: 36,
-  padding: 0,
-  border: `1px solid ${tokens.borderInput}`,
-  borderRadius: 6,
-  background: tokens.bgCard,
-  color: tokens.textMuted,
-  cursor: "pointer",
-  transition: "border-color 0.15s ease, color 0.15s ease, background-color 0.15s ease",
-};
-
-const CLOSE_BTN_HOVER = {
-  borderColor: tokens.mainBlue1,
-  color: tokens.mainBlue1,
-  backgroundColor: tokens.focusBg,
-};
-
 export function SideDrawerCloseButton({ onClick, title = "Закрыть", style }) {
+  const { colors } = useTheme();
   const [hover, setHover] = useState(false);
   const [focused, setFocused] = useState(false);
+
+  const closeBtnBase = {
+    display: "inline-flex",
+    alignItems: "center",
+    justifyContent: "center",
+    width: 36,
+    height: 36,
+    padding: 0,
+    border: `1px solid ${colors.borderInput}`,
+    borderRadius: 6,
+    background: colors.bgCard,
+    color: colors.textMuted,
+    cursor: "pointer",
+    transition:
+      "border-color 0.15s ease, color 0.15s ease, background-color 0.15s ease",
+  };
+
+  const closeBtnHover = {
+    borderColor: colors.mainBlue1,
+    color: colors.mainBlue1,
+    backgroundColor: colors.focusBg,
+  };
 
   return (
     <button
@@ -35,8 +38,8 @@ export function SideDrawerCloseButton({ onClick, title = "Закрыть", style
       aria-label={title}
       onClick={onClick}
       style={mergeStyle(
-        CLOSE_BTN_BASE,
-        (hover || focused) && CLOSE_BTN_HOVER,
+        closeBtnBase,
+        (hover || focused) && closeBtnHover,
         focused && { outline: "none" },
         style,
       )}
@@ -57,27 +60,6 @@ export function SideDrawerCloseButton({ onClick, title = "Закрыть", style
     </button>
   );
 }
-
-const ROOT_BASE = {
-  position: "fixed",
-  zIndex: 3,
-  top: 0,
-  right: 0,
-  bottom: 0,
-  boxShadow: "0 0 10px 1px #00000070",
-  borderRadius: 3,
-  background: tokens.bgCard,
-  height: "100%",
-  minHeight: 500,
-  padding: "20px 24px",
-  overflowY: "auto",
-  overflowX: "hidden",
-  display: "flex",
-  alignItems: "center",
-  flexDirection: "column",
-  boxSizing: "border-box",
-  transition: "transform 0.6s ease, opacity 0.6s ease",
-};
 
 const LAYOUT_STYLE = {
   display: "flex",
@@ -122,7 +104,29 @@ export function SideDrawer({
   usePortal = true,
   closeOnBackdrop = true,
 }) {
+  const { colors } = useTheme();
   const [entered, setEntered] = useState(false);
+
+  const rootBase = {
+    position: "fixed",
+    zIndex: 3,
+    top: 0,
+    right: 0,
+    bottom: 0,
+    boxShadow: "0 0 10px 1px #00000070",
+    borderRadius: 3,
+    background: colors.bgCard,
+    height: "100%",
+    minHeight: 500,
+    padding: "20px 24px",
+    overflowY: "auto",
+    overflowX: "hidden",
+    display: "flex",
+    alignItems: "center",
+    flexDirection: "column",
+    boxSizing: "border-box",
+    transition: "transform 0.6s ease, opacity 0.6s ease",
+  };
 
   useEffect(() => {
     if (!open) {
@@ -180,7 +184,7 @@ export function SideDrawer({
       aria-modal="true"
       aria-labelledby={titleId}
       onClick={handleBackdropClick}
-      style={mergeStyle(ROOT_BASE, rootMotion, rootStyle)}
+      style={mergeStyle(rootBase, rootMotion, rootStyle)}
     >
       <div
         style={mergeStyle(LAYOUT_STYLE, layoutStyle)}

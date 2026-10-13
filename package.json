@@ -20,7 +20,8 @@
     "build": "vite build",
     "prepare": "npm run build",
     "storybook": "storybook dev -p 6006",
-    "build-storybook": "storybook build"
+    "build-storybook": "storybook build",
+    "test": "vitest run --project unit"
   },
   "peerDependencies": {
     "react": ">=18.0.0",
@@ -36,6 +37,7 @@
     "@vitejs/plugin-react": "^4.3.4",
     "@vitest/browser-playwright": "latest",
     "@vitest/coverage-v8": "latest",
+    "jsdom": "^29.1.1",
     "playwright": "latest",
     "prop-types": "latest",
     "react": ">=18.0.0",

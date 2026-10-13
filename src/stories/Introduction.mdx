@@ -13,15 +13,40 @@ npm install github:ilya6300/dmc-ui
 ```
 
 ```jsx
-import { Main, Box } from "@dmc/ui";
+import { Main, Box, ThemeProvider, ThemeToggle } from "@dmc/ui";
 
 export function Page() {
   return (
-    <Main style={{ minHeight: "100vh", padding: 24 }}>
-      <Box title="Раздел">…</Box>
-    </Main>
+    <ThemeProvider>
+      <Main style={{ minHeight: "100vh", padding: 24 }}>
+        <ThemeToggle />
+        <Box title="Раздел">…</Box>
+      </Main>
+    </ThemeProvider>
   );
 }
+```
+
+## Тема
+
+Обёрните приложение в `ThemeProvider`. Компоненты (`Box`, `Toggle`, `SideDrawer`, …) читают палитру через `useTheme()` — проп `theme` по иерархии не нужен.
+
+```jsx
+import { useTheme, themes } from "@dmc/ui";
+
+const { theme, setTheme, colors } = useTheme();
+// colors — актуальная палитра; themes.light / themes.dark — справочник
+```
+
+Статический импорт `tokens` — только снимок **светлой** палитры; для тёмной темы используйте `useTheme().colors` или `themes[theme]`.
+
+Выбор пользователя (localStorage и т.д.) хранит **приложение-потребитель**:
+
+```jsx
+const [theme, setTheme] = useState("light");
+<ThemeProvider theme={theme} onThemeChange={setTheme}>
+  <ThemeToggle />
+</ThemeProvider>
 ```
 
 ## Компоненты
@@ -33,6 +58,8 @@ export function Page() {
 | [Box](?path=/docs/design-system-box--docs) | Карточка контента |
 | [Container](?path=/docs/design-system-container--docs) | Flex-группировка (колонка / строка) |
 | [Toggle](?path=/docs/design-system-toggle--docs) | Переключатель |
+| [ThemeToggle](?path=/docs/design-system-theme-toggle--docs) | Переключатель светлой / тёмной темы |
+| [Icon](?path=/docs/design-system-icon--docs) | Иконка (img или SVG-компонент, light/dark) |
 | [SideDrawer](?path=/docs/design-system-side-drawer--docs) | Боковая панель |
 
-Палитра для кастомного контента рядом с ДС: экспорт `tokens` из `@dmc/ui` (те же значения, что в компонентах).
+Палитры: `themes`, `getThemeColors`; legacy-снимок: `tokens` (только light).

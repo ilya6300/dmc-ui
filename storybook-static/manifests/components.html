@@ -620,13 +620,13 @@
 <header>
   <div class="wrap">
     <h1>Manifest Debugger</h1>
-    <div class="summary"><a class="filter-pill all" data-k="all" href="#filter-all">All</a><span class="filter-pill ok" aria-disabled="true">6 components ok</span><a class="filter-pill info" data-k="infos" href="#filter-infos">6/6 infos</a><a class="filter-pill" data-k="no-api" href="#filter-no-api">1/6 without API description</a><span class="filter-pill ok" aria-disabled="true">11 stories ok</span><a class="filter-pill ok" data-k="docs" href="#filter-docs">2 docs ok</a></div>
+    <div class="summary"><a class="filter-pill all" data-k="all" href="#filter-all">All</a><span class="filter-pill ok" aria-disabled="true">8 components ok</span><a class="filter-pill info" data-k="infos" href="#filter-infos">8/8 infos</a><a class="filter-pill" data-k="no-api" href="#filter-no-api">2/8 without API description</a><span class="filter-pill ok" aria-disabled="true">24 stories ok</span><a class="filter-pill ok" data-k="docs" href="#filter-docs">2 docs ok</a></div>
   </div>
 </header>
 <main>
   <div class="wrap">
     <div class="note info" style="margin-bottom: 16px;">
-            <strong>Tip:</strong> You are using <code>react-docgen</code> (the default). Generation took <strong>0.3s</strong>. For higher quality prop types, consider switching to <code>react-docgen-typescript</code> in your <code>main.ts</code>:
+            <strong>Tip:</strong> You are using <code>react-docgen</code> (the default). Generation took <strong>0.7s</strong>. For higher quality prop types, consider switching to <code>react-docgen-typescript</code> in your <code>main.ts</code>:
             <pre><code>typescript: {
   reactDocgen: 'react-docgen-typescript',
 }</code></pre>
@@ -637,28 +637,28 @@
     <div class="grid" role="list">
       
 <article
-  id="cc-v4-button"
+  id="design-system-box"
   class="card 
   no-error
   has-info
   no-story-error
   no-story-warning
-  
+  missing-api
   no-doc-error"
   role="listitem"
-  aria-label="CcV4Button">
+  aria-label="Box">
   <div class="head">
     <div class="title">
-      <h2><span class="status-dot dot-ok"></span> CcV4Button</h2>
+      <h2><span class="status-dot dot-ok"></span> Box</h2>
       <div class="badges">
-        <label for="c-0-cc-v4-button-props" class="badge ok as-toggle">2 prop types</label>
-        <label for="c-0-cc-v4-button-info" class="badge info as-toggle">1 info</label>
-        <label for="c-0-cc-v4-button-stories" class="badge ok as-toggle">3 stories</label>
+        <span class="badge">no API description</span>
+        <label for="c-0-design-system-box-info" class="badge info as-toggle">1 info</label>
+        <label for="c-0-design-system-box-stories" class="badge ok as-toggle">3 stories</label>
         
         
       </div>
     </div>
-    <div class="meta" title="./src/stories/CcV4Button.stories.jsx">cc-v4-button · ./src/stories/CcV4Button.stories.jsx</div>
+    <div class="meta" title="./src/stories/Box.stories.jsx">design-system-box · ./src/stories/Box.stories.jsx</div>
     
     
     <div class="kv"><span class="chip">type: {import(&#39;@storybook/react-vite&#39;).Meta}</span></div>
@@ -666,11 +666,11 @@
 
   <!-- ⬇️ Hidden toggles must be siblings BEFORE .panels -->
   
-  <input id="c-0-cc-v4-button-info" class="tg tg-info" type="checkbox" hidden />
-  <input id="c-0-cc-v4-button-stories" class="tg tg-stories" type="checkbox" hidden />
+  <input id="c-0-design-system-box-info" class="tg tg-info" type="checkbox" hidden />
+  <input id="c-0-design-system-box-stories" class="tg tg-stories" type="checkbox" hidden />
   
   
-  <input id="c-0-cc-v4-button-props" class="tg tg-props" type="checkbox" hidden />
+  
 
   <div class="panels">
     
@@ -683,19 +683,6 @@
     </div>
         </div>
     
-        <div class="panel panel-props">
-          <div class="note ok">
-            <div class="row">
-              <span class="ex-name">Prop types <small>(react-docgen)</small></span>
-              <span class="badge ok">2 prop types</span>
-            </div>
-            <pre><code>Component: src\lib\components\cc-v4\CcV4Button.jsx::CcV4Button</code></pre>
-            <pre><code>Props:</code></pre>
-            <pre><code>type?: any = &quot;button&quot;
-
-variant?: any = &quot;primary&quot;</code></pre>
-          </div>
-        </div>
     
         <div class="panel panel-stories">
           
@@ -705,253 +692,45 @@ variant?: any = &quot;primary&quot;</code></pre>
                 <div class="row">
                   <span class="ex-name">Imports</span>
                 </div>
-                <pre><code>import { CcV4Button, CcV4Root } from '@dmc/ui';</code></pre>
+                <pre><code>import { Box, Main } from '@dmc/ui';</code></pre>
               </div>
           
           
             <div class="note ok">
               <div class="row">
-                <span class="ex-name">Primary</span>
+                <span class="ex-name">С заголовком</span>
                 <span class="badge ok">story ok</span>
               </div>
               
               
-              <pre><code>const Primary = () =&gt; &lt;CcV4Button variant=&quot;primary&quot; text=&quot;Добавить&quot; /&gt;;</code></pre>
-              
-            </div>
-            <div class="note ok">
-              <div class="row">
-                <span class="ex-name">Outline</span>
-                <span class="badge ok">story ok</span>
-              </div>
-              
-              
-              <pre><code>const Outline = () =&gt; &lt;CcV4Button variant=&quot;outline&quot; text=&quot;Отмена&quot; /&gt;;</code></pre>
-              
-            </div>
-            <div class="note ok">
-              <div class="row">
-                <span class="ex-name">Icon</span>
-                <span class="badge ok">story ok</span>
-              </div>
-              
-              
-              <pre><code>const Icon = () =&gt; &lt;CcV4Button variant=&quot;icon&quot; onClick={() =&gt; {}} /&gt;;</code></pre>
-              
-            </div>
-        </div>
-    
-    
-  </div>
-</article>
-<article
-  id="cc-v4-input"
-  class="card 
-  no-error
-  has-info
-  no-story-error
-  no-story-warning
-  
-  no-doc-error"
-  role="listitem"
-  aria-label="CcV4Input">
-  <div class="head">
-    <div class="title">
-      <h2><span class="status-dot dot-ok"></span> CcV4Input</h2>
-      <div class="badges">
-        <label for="c-1-cc-v4-input-props" class="badge ok as-toggle">2 prop types</label>
-        <label for="c-1-cc-v4-input-info" class="badge info as-toggle">1 info</label>
-        <label for="c-1-cc-v4-input-stories" class="badge ok as-toggle">1 story</label>
-        
-        
-      </div>
-    </div>
-    <div class="meta" title="./src/stories/CcV4Input.stories.jsx">cc-v4-input · ./src/stories/CcV4Input.stories.jsx</div>
-    
-    
-    <div class="kv"><span class="chip">type: {import(&#39;@storybook/react-vite&#39;).Meta}</span></div>
-  </div>
-
-  <!-- ⬇️ Hidden toggles must be siblings BEFORE .panels -->
-  
-  <input id="c-1-cc-v4-input-info" class="tg tg-info" type="checkbox" hidden />
-  <input id="c-1-cc-v4-input-stories" class="tg tg-stories" type="checkbox" hidden />
-  
-  
-  <input id="c-1-cc-v4-input-props" class="tg tg-props" type="checkbox" hidden />
-
-  <div class="panels">
-    
-    
-        <div class="panel panel-info">
-          
-    <div class="note info">
-      <div class="note-title">Info</div>
-      <div class="note-body">No description found. Write a jsdoc comment such as /** Component description */.</div>
-    </div>
-        </div>
-    
-        <div class="panel panel-props">
-          <div class="note ok">
-            <div class="row">
-              <span class="ex-name">Prop types <small>(react-docgen)</small></span>
-              <span class="badge ok">2 prop types</span>
-            </div>
-            <pre><code>Component: src\lib\components\cc-v4\CcV4Input.jsx::CcV4Input</code></pre>
-            <pre><code>Props:</code></pre>
-            <pre><code>legacy?: any = false
-
-v4?: any = true</code></pre>
-          </div>
-        </div>
-    
-        <div class="panel panel-stories">
-          
-          
-          
-          <div class="note ok">
-                <div class="row">
-                  <span class="ex-name">Imports</span>
-                </div>
-                <pre><code>import { CcV4Input, CcV4Root } from '@dmc/ui';</code></pre>
-              </div>
-          
-          
-            <div class="note ok">
-              <div class="row">
-                <span class="ex-name">Default</span>
-                <span class="badge ok">story ok</span>
-              </div>
-              
-              
-              <pre><code>const Default = () =&gt; &lt;div className=&quot;site-form-field&quot;&gt;
-    &lt;span className=&quot;site-form-label&quot;&gt;ИНН&lt;/span&gt;
-    &lt;CcV4Input value=&quot;&quot; legacy v4 placeholder=&quot;10 цифр&quot; /&gt;
-&lt;/div&gt;;</code></pre>
-              
-            </div>
-        </div>
-    
-    
-  </div>
-</article>
-<article
-  id="cc-v4-ccv4root"
-  class="card 
-  no-error
-  has-info
-  no-story-error
-  no-story-warning
-  
-  no-doc-error"
-  role="listitem"
-  aria-label="CcV4Root">
-  <div class="head">
-    <div class="title">
-      <h2><span class="status-dot dot-ok"></span> CcV4Root</h2>
-      <div class="badges">
-        <label for="c-2-cc-v4-ccv4root-props" class="badge ok as-toggle">2 prop types</label>
-        <label for="c-2-cc-v4-ccv4root-info" class="badge info as-toggle">1 info</label>
-        <label for="c-2-cc-v4-ccv4root-stories" class="badge ok as-toggle">2 stories</label>
-        
-        
-      </div>
-    </div>
-    <div class="meta" title="./src/stories/CcV4Root.stories.jsx">cc-v4-ccv4root · ./src/stories/CcV4Root.stories.jsx</div>
-    
-    
-    <div class="kv"><span class="chip">type: {import(&#39;@storybook/react-vite&#39;).Meta}</span></div>
-  </div>
-
-  <!-- ⬇️ Hidden toggles must be siblings BEFORE .panels -->
-  
-  <input id="c-2-cc-v4-ccv4root-info" class="tg tg-info" type="checkbox" hidden />
-  <input id="c-2-cc-v4-ccv4root-stories" class="tg tg-stories" type="checkbox" hidden />
-  
-  
-  <input id="c-2-cc-v4-ccv4root-props" class="tg tg-props" type="checkbox" hidden />
-
-  <div class="panels">
-    
-    
-        <div class="panel panel-info">
-          
-    <div class="note info">
-      <div class="note-title">Info</div>
-      <div class="note-body">No description found. Write a jsdoc comment such as /** Component description */.</div>
-    </div>
-        </div>
-    
-        <div class="panel panel-props">
-          <div class="note ok">
-            <div class="row">
-              <span class="ex-name">Prop types <small>(react-docgen)</small></span>
-              <span class="badge ok">2 prop types</span>
-            </div>
-            <pre><code>Component: src\lib\components\cc-v4\CcV4Root.jsx::CcV4Root</code></pre>
-            <pre><code>Props:</code></pre>
-            <pre><code>as?: any = &quot;div&quot;
-
-withMainPage?: any = false</code></pre>
-          </div>
-        </div>
-    
-        <div class="panel panel-stories">
-          
-          
-          
-          <div class="note ok">
-                <div class="row">
-                  <span class="ex-name">Imports</span>
-                </div>
-                <pre><code>import { CcV4Root } from '@dmc/ui';</code></pre>
-              </div>
-          
-          
-            <div class="note ok">
-              <div class="row">
-                <span class="ex-name">Страница с main-page</span>
-                <span class="badge ok">story ok</span>
-              </div>
-              
-              
-              <pre><code>const PageShell = () =&gt; &lt;CcV4Root
-    withMainPage
-    pageVariant=&quot;company-list-page-v4&quot;
-    style={{ padding: 16, minHeight: 280 }}&gt;
-    &lt;header className=&quot;card header-card&quot;&gt;
-        &lt;div className=&quot;header-top&quot;&gt;
-            &lt;div className=&quot;company-title&quot;&gt;
-                &lt;div className=&quot;compamy-title-name-container&quot;&gt;
-                    &lt;span className=&quot;req-label&quot;&gt;Каталог&lt;/span&gt;
-                    &lt;h1&gt;Компании&lt;/h1&gt;
-                &lt;/div&gt;
-            &lt;/div&gt;
-        &lt;/div&gt;
-    &lt;/header&gt;
-    &lt;p className=&quot;description-text&quot; style={{ marginTop: 10 }}&gt;Все дочерние блоки наследуют стили `.company-card-v4`.
+              <pre><code>const Default = () =&gt; &lt;Box title=&quot;Подписка&quot;&gt;
+    &lt;p style={{ margin: 0, color: tokens.textMuted, fontSize: 14 }}&gt;Пример содержимого.
               &lt;/p&gt;
-&lt;/CcV4Root&gt;;</code></pre>
+&lt;/Box&gt;;</code></pre>
               
             </div>
             <div class="note ok">
               <div class="row">
-                <span class="ex-name">Только секция (без main-page)</span>
+                <span class="ex-name">Минимальный</span>
                 <span class="badge ok">story ok</span>
               </div>
               
               
-              <pre><code>const SectionOnly = () =&gt; &lt;div className=&quot;main-page&quot; style={{ padding: 16, background: &quot;#e2e8f0&quot; }}&gt;
-    &lt;p className=&quot;req-label&quot;&gt;Родитель уже main-page — внутри CcV4Root без withMainPage&lt;/p&gt;
-    &lt;CcV4Root
-        withMainPage={false}
-        className=&quot;company-card-v4-soft-section&quot;
-        style={{ marginTop: 8 }}&gt;
-        &lt;div className=&quot;card dash-card&quot;&gt;
-            &lt;span className=&quot;dash-card-title&quot;&gt;Блок внутри company-card-v4&lt;/span&gt;
-        &lt;/div&gt;
-    &lt;/CcV4Root&gt;
-&lt;/div&gt;;</code></pre>
+              <pre><code>const Minimal = () =&gt; &lt;Box&gt;Только текст в карточке&lt;/Box&gt;;</code></pre>
+              
+            </div>
+            <div class="note ok">
+              <div class="row">
+                <span class="ex-name">Ширина w</span>
+                <span class="badge ok">story ok</span>
+              </div>
+              
+              
+              <pre><code>const CustomWidth = () =&gt; (
+  &lt;Box title=&quot;Узкая карточка&quot; w=&quot;280px&quot;&gt;
+    &lt;p style={{ margin: 0, fontSize: 14 }}&gt;Ширина задаётся пропом w.&lt;/p&gt;
+  &lt;/Box&gt;
+);</code></pre>
               
             </div>
         </div>
@@ -960,7 +739,7 @@ withMainPage?: any = false</code></pre>
   </div>
 </article>
 <article
-  id="cc-v4-sidedrawer"
+  id="design-system-container"
   class="card 
   no-error
   has-info
@@ -969,19 +748,19 @@ withMainPage?: any = false</code></pre>
   
   no-doc-error"
   role="listitem"
-  aria-label="CcV4SideDrawer">
+  aria-label="Container">
   <div class="head">
     <div class="title">
-      <h2><span class="status-dot dot-ok"></span> CcV4SideDrawer</h2>
+      <h2><span class="status-dot dot-ok"></span> Container</h2>
       <div class="badges">
-        <label for="c-3-cc-v4-sidedrawer-props" class="badge ok as-toggle">3 prop types</label>
-        <label for="c-3-cc-v4-sidedrawer-info" class="badge info as-toggle">1 info</label>
-        <label for="c-3-cc-v4-sidedrawer-stories" class="badge ok as-toggle">1 story</label>
+        <label for="c-1-design-system-container-props" class="badge ok as-toggle">4 prop types</label>
+        <label for="c-1-design-system-container-info" class="badge info as-toggle">1 info</label>
+        <label for="c-1-design-system-container-stories" class="badge ok as-toggle">4 stories</label>
         
         
       </div>
     </div>
-    <div class="meta" title="./src/stories/CcV4SideDrawer.stories.jsx">cc-v4-sidedrawer · ./src/stories/CcV4SideDrawer.stories.jsx</div>
+    <div class="meta" title="./src/stories/Container.stories.jsx">design-system-container · ./src/stories/Container.stories.jsx</div>
     
     
     <div class="kv"><span class="chip">type: {import(&#39;@storybook/react-vite&#39;).Meta}</span></div>
@@ -989,11 +768,497 @@ withMainPage?: any = false</code></pre>
 
   <!-- ⬇️ Hidden toggles must be siblings BEFORE .panels -->
   
-  <input id="c-3-cc-v4-sidedrawer-info" class="tg tg-info" type="checkbox" hidden />
-  <input id="c-3-cc-v4-sidedrawer-stories" class="tg tg-stories" type="checkbox" hidden />
+  <input id="c-1-design-system-container-info" class="tg tg-info" type="checkbox" hidden />
+  <input id="c-1-design-system-container-stories" class="tg tg-stories" type="checkbox" hidden />
   
   
-  <input id="c-3-cc-v4-sidedrawer-props" class="tg tg-props" type="checkbox" hidden />
+  <input id="c-1-design-system-container-props" class="tg tg-props" type="checkbox" hidden />
+
+  <div class="panels">
+    
+    
+        <div class="panel panel-info">
+          
+    <div class="note info">
+      <div class="note-title">Info</div>
+      <div class="note-body">No description found. Write a jsdoc comment such as /** Component description */.</div>
+    </div>
+        </div>
+    
+        <div class="panel panel-props">
+          <div class="note ok">
+            <div class="row">
+              <span class="ex-name">Prop types <small>(react-docgen)</small></span>
+              <span class="badge ok">4 prop types</span>
+            </div>
+            <pre><code>Component: src\lib\components\cc-v4\Container.jsx::Container</code></pre>
+            <pre><code>Props:</code></pre>
+            <pre><code>align?: any = &quot;stretch&quot;
+
+direction?: any = &quot;row&quot;
+
+gap?: any = 10
+
+justify?: any = &quot;start&quot;</code></pre>
+          </div>
+        </div>
+    
+        <div class="panel panel-stories">
+          
+          
+          
+          <div class="note ok">
+                <div class="row">
+                  <span class="ex-name">Imports</span>
+                </div>
+                <pre><code>import { Box, Container, Main } from '@dmc/ui';</code></pre>
+              </div>
+          
+          
+            <div class="note ok">
+              <div class="row">
+                <span class="ex-name">Строка</span>
+                <span class="badge ok">story ok</span>
+              </div>
+              
+              
+              <pre><code>const Default = () =&gt; (
+  &lt;Container&gt;
+    {demoBox(&quot;1&quot;)}
+    {demoBox(&quot;2&quot;)}
+  &lt;/Container&gt;
+);</code></pre>
+              
+            </div>
+            <div class="note ok">
+              <div class="row">
+                <span class="ex-name">Колонка</span>
+                <span class="badge ok">story ok</span>
+              </div>
+              
+              
+              <pre><code>const Column = () =&gt; (
+  &lt;Container direction=&quot;col&quot;&gt;
+    {demoBox(&quot;1&quot;)}
+    {demoBox(&quot;2&quot;)}
+  &lt;/Container&gt;
+);</code></pre>
+              
+            </div>
+            <div class="note ok">
+              <div class="row">
+                <span class="ex-name">Строка, расход по сторонам</span>
+                <span class="badge ok">story ok</span>
+              </div>
+              
+              
+              <pre><code>const RowBetween = () =&gt; (
+  &lt;Container direction=&quot;row&quot; justify=&quot;between&quot;&gt;
+    {demoBox(&quot;Слева&quot;)}
+    {demoBox(&quot;Справа&quot;)}
+  &lt;/Container&gt;
+);</code></pre>
+              
+            </div>
+            <div class="note ok">
+              <div class="row">
+                <span class="ex-name">Минимальный</span>
+                <span class="badge ok">story ok</span>
+              </div>
+              
+              
+              <pre><code>const Minimal = () =&gt; &lt;Container&gt;Только текст&lt;/Container&gt;;</code></pre>
+              
+            </div>
+        </div>
+    
+    
+  </div>
+</article>
+<article
+  id="design-system-icon"
+  class="card 
+  no-error
+  has-info
+  no-story-error
+  no-story-warning
+  
+  no-doc-error"
+  role="listitem"
+  aria-label="Icon">
+  <div class="head">
+    <div class="title">
+      <h2><span class="status-dot dot-ok"></span> Icon</h2>
+      <div class="badges">
+        <label for="c-2-design-system-icon-props" class="badge ok as-toggle">1 prop type</label>
+        <label for="c-2-design-system-icon-info" class="badge info as-toggle">1 info</label>
+        <label for="c-2-design-system-icon-stories" class="badge ok as-toggle">4 stories</label>
+        
+        
+      </div>
+    </div>
+    <div class="meta" title="./src/stories/Icon.stories.jsx">design-system-icon · ./src/stories/Icon.stories.jsx</div>
+    
+    
+    <div class="kv"><span class="chip">type: {import(&#39;@storybook/react-vite&#39;).Meta}</span></div>
+  </div>
+
+  <!-- ⬇️ Hidden toggles must be siblings BEFORE .panels -->
+  
+  <input id="c-2-design-system-icon-info" class="tg tg-info" type="checkbox" hidden />
+  <input id="c-2-design-system-icon-stories" class="tg tg-stories" type="checkbox" hidden />
+  
+  
+  <input id="c-2-design-system-icon-props" class="tg tg-props" type="checkbox" hidden />
+
+  <div class="panels">
+    
+    
+        <div class="panel panel-info">
+          
+    <div class="note info">
+      <div class="note-title">Info</div>
+      <div class="note-body">No description found. Write a jsdoc comment such as /** Component description */.</div>
+    </div>
+        </div>
+    
+        <div class="panel panel-props">
+          <div class="note ok">
+            <div class="row">
+              <span class="ex-name">Prop types <small>(react-docgen)</small></span>
+              <span class="badge ok">1 prop type</span>
+            </div>
+            <pre><code>Component: src\lib\components\cc-v4\Icon.jsx::Icon</code></pre>
+            <pre><code>Props:</code></pre>
+            <pre><code>alt?: any = &quot;&quot;</code></pre>
+          </div>
+        </div>
+    
+        <div class="panel panel-stories">
+          
+          
+          
+          <div class="note ok">
+                <div class="row">
+                  <span class="ex-name">Imports</span>
+                </div>
+                <pre><code>import { Icon, Main, ThemeToggle } from '@dmc/ui';</code></pre>
+              </div>
+          
+          
+            <div class="note ok">
+              <div class="row">
+                <span class="ex-name">Img с darkSrc</span>
+                <span class="badge ok">story ok</span>
+              </div>
+              
+              
+              <pre><code>const ImagePair = () =&gt; (
+  &lt;Icon
+    src=&quot;https://placehold.co/32x32/236192/ffffff?text=L&quot;
+    darkSrc=&quot;https://placehold.co/32x32/7c9cff/121212?text=D&quot;
+    alt=&quot;Демо&quot;
+    width={32}
+    height={32}
+  /&gt;
+);</code></pre>
+              
+            </div>
+            <div class="note ok">
+              <div class="row">
+                <span class="ex-name">Img без darkSrc</span>
+                <span class="badge ok">story ok</span>
+              </div>
+              
+              
+              <pre><code>const ImageFallback = () =&gt; (
+  &lt;Icon
+    src=&quot;https://placehold.co/32x32/2196f3/ffffff?text=1&quot;
+    alt=&quot;Одна картинка&quot;
+    width={32}
+    height={32}
+  /&gt;
+);</code></pre>
+              
+            </div>
+            <div class="note ok">
+              <div class="row">
+                <span class="ex-name">React-компоненты</span>
+                <span class="badge ok">story ok</span>
+              </div>
+              
+              
+              <pre><code>const ComponentPair = () =&gt; (
+  &lt;Icon
+    component={SunIcon}
+    darkComponent={MoonIcon}
+    style={{ color: &quot;#236192&quot; }}
+  /&gt;
+);</code></pre>
+              
+            </div>
+            <div class="note ok">
+              <div class="row">
+                <span class="ex-name">Минимальный</span>
+                <span class="badge ok">story ok</span>
+              </div>
+              
+              
+              <pre><code>const Minimal = () =&gt; (
+  &lt;Icon
+    src=&quot;https://placehold.co/24x24/000000/ffffff?text=i&quot;
+    alt=&quot;&quot;
+    width={24}
+    height={24}
+  /&gt;
+);</code></pre>
+              
+            </div>
+        </div>
+    
+    
+  </div>
+</article>
+<article
+  id="design-system-layout"
+  class="card 
+  no-error
+  has-info
+  no-story-error
+  no-story-warning
+  
+  no-doc-error"
+  role="listitem"
+  aria-label="Layout">
+  <div class="head">
+    <div class="title">
+      <h2><span class="status-dot dot-ok"></span> Layout</h2>
+      <div class="badges">
+        <label for="c-3-design-system-layout-props" class="badge ok as-toggle">1 prop type</label>
+        <label for="c-3-design-system-layout-info" class="badge info as-toggle">1 info</label>
+        <label for="c-3-design-system-layout-stories" class="badge ok as-toggle">2 stories</label>
+        
+        
+      </div>
+    </div>
+    <div class="meta" title="./src/stories/Layout.stories.jsx">design-system-layout · ./src/stories/Layout.stories.jsx</div>
+    
+    
+    <div class="kv"><span class="chip">type: {import(&#39;@storybook/react-vite&#39;).Meta}</span></div>
+  </div>
+
+  <!-- ⬇️ Hidden toggles must be siblings BEFORE .panels -->
+  
+  <input id="c-3-design-system-layout-info" class="tg tg-info" type="checkbox" hidden />
+  <input id="c-3-design-system-layout-stories" class="tg tg-stories" type="checkbox" hidden />
+  
+  
+  <input id="c-3-design-system-layout-props" class="tg tg-props" type="checkbox" hidden />
+
+  <div class="panels">
+    
+    
+        <div class="panel panel-info">
+          
+    <div class="note info">
+      <div class="note-title">Info</div>
+      <div class="note-body">No description found. Write a jsdoc comment such as /** Component description */.</div>
+    </div>
+        </div>
+    
+        <div class="panel panel-props">
+          <div class="note ok">
+            <div class="row">
+              <span class="ex-name">Prop types <small>(react-docgen)</small></span>
+              <span class="badge ok">1 prop type</span>
+            </div>
+            <pre><code>Component: src\lib\components\cc-v4\Layout.jsx::Layout</code></pre>
+            <pre><code>Props:</code></pre>
+            <pre><code>animate?: any = false</code></pre>
+          </div>
+        </div>
+    
+        <div class="panel panel-stories">
+          
+          
+          
+          <div class="note ok">
+                <div class="row">
+                  <span class="ex-name">Imports</span>
+                </div>
+                <pre><code>import { Box, Layout, Main } from '@dmc/ui';</code></pre>
+              </div>
+          
+          
+            <div class="note ok">
+              <div class="row">
+                <span class="ex-name">С анимацией</span>
+                <span class="badge ok">story ok</span>
+              </div>
+              
+              
+              <pre><code>const Default = () =&gt; (
+  &lt;Main style={{ minHeight: 320, background: &quot;#e2e8f0&quot; }}&gt;
+    &lt;Layout animate&gt;
+      &lt;Box title=&quot;Список&quot;&gt;Контент внутри Layout&lt;/Box&gt;
+    &lt;/Layout&gt;
+  &lt;/Main&gt;
+);</code></pre>
+              
+            </div>
+            <div class="note ok">
+              <div class="row">
+                <span class="ex-name">Минимальный</span>
+                <span class="badge ok">story ok</span>
+              </div>
+              
+              
+              <pre><code>const Minimal = () =&gt; (
+  &lt;Main style={{ minHeight: 200, background: &quot;#e2e8f0&quot; }}&gt;
+    &lt;Layout&gt;
+      &lt;p style={{ margin: 0, fontSize: 14 }}&gt;Только Layout без анимации&lt;/p&gt;
+    &lt;/Layout&gt;
+  &lt;/Main&gt;
+);</code></pre>
+              
+            </div>
+        </div>
+    
+    
+  </div>
+</article>
+<article
+  id="design-system-main"
+  class="card 
+  no-error
+  has-info
+  no-story-error
+  no-story-warning
+  missing-api
+  no-doc-error"
+  role="listitem"
+  aria-label="Main">
+  <div class="head">
+    <div class="title">
+      <h2><span class="status-dot dot-ok"></span> Main</h2>
+      <div class="badges">
+        <span class="badge">no API description</span>
+        <label for="c-4-design-system-main-info" class="badge info as-toggle">1 info</label>
+        <label for="c-4-design-system-main-stories" class="badge ok as-toggle">2 stories</label>
+        
+        
+      </div>
+    </div>
+    <div class="meta" title="./src/stories/Main.stories.jsx">design-system-main · ./src/stories/Main.stories.jsx</div>
+    
+    
+    <div class="kv"><span class="chip">type: {import(&#39;@storybook/react-vite&#39;).Meta}</span></div>
+  </div>
+
+  <!-- ⬇️ Hidden toggles must be siblings BEFORE .panels -->
+  
+  <input id="c-4-design-system-main-info" class="tg tg-info" type="checkbox" hidden />
+  <input id="c-4-design-system-main-stories" class="tg tg-stories" type="checkbox" hidden />
+  
+  
+  
+
+  <div class="panels">
+    
+    
+        <div class="panel panel-info">
+          
+    <div class="note info">
+      <div class="note-title">Info</div>
+      <div class="note-body">No description found. Write a jsdoc comment such as /** Component description */.</div>
+    </div>
+        </div>
+    
+    
+        <div class="panel panel-stories">
+          
+          
+          
+          <div class="note ok">
+                <div class="row">
+                  <span class="ex-name">Imports</span>
+                </div>
+                <pre><code>import { Box, Main } from '@dmc/ui';</code></pre>
+              </div>
+          
+          
+            <div class="note ok">
+              <div class="row">
+                <span class="ex-name">Страница со скроллом</span>
+                <span class="badge ok">story ok</span>
+              </div>
+              
+              
+              <pre><code>const ScrollablePage = () =&gt; (
+  &lt;Main style={{ height: 320, overflow: &quot;auto&quot;, background: &quot;#e2e8f0&quot;, padding: 24 }}&gt;
+    {Array.from({ length: 8 }, (_, i) =&gt; (
+      &lt;Box key={i} style={{ marginBottom: 10 }}&gt;
+        Блок {i + 1}
+      &lt;/Box&gt;
+    ))}
+  &lt;/Main&gt;
+);</code></pre>
+              
+            </div>
+            <div class="note ok">
+              <div class="row">
+                <span class="ex-name">Минимальный</span>
+                <span class="badge ok">story ok</span>
+              </div>
+              
+              
+              <pre><code>const Minimal = () =&gt; (
+  &lt;Main style={{ padding: 16 }}&gt;
+    &lt;p style={{ margin: 0, fontSize: 12 }}&gt;Main без вложенного Box&lt;/p&gt;
+  &lt;/Main&gt;
+);</code></pre>
+              
+            </div>
+        </div>
+    
+    
+  </div>
+</article>
+<article
+  id="design-system-sidedrawer"
+  class="card 
+  no-error
+  has-info
+  no-story-error
+  no-story-warning
+  
+  no-doc-error"
+  role="listitem"
+  aria-label="SideDrawer">
+  <div class="head">
+    <div class="title">
+      <h2><span class="status-dot dot-ok"></span> SideDrawer</h2>
+      <div class="badges">
+        <label for="c-5-design-system-sidedrawer-props" class="badge ok as-toggle">3 prop types</label>
+        <label for="c-5-design-system-sidedrawer-info" class="badge info as-toggle">1 info</label>
+        <label for="c-5-design-system-sidedrawer-stories" class="badge ok as-toggle">3 stories</label>
+        
+        
+      </div>
+    </div>
+    <div class="meta" title="./src/stories/SideDrawer.stories.jsx">design-system-sidedrawer · ./src/stories/SideDrawer.stories.jsx</div>
+    
+    
+    <div class="kv"><span class="chip">type: {import(&#39;@storybook/react-vite&#39;).Meta}</span></div>
+  </div>
+
+  <!-- ⬇️ Hidden toggles must be siblings BEFORE .panels -->
+  
+  <input id="c-5-design-system-sidedrawer-info" class="tg tg-info" type="checkbox" hidden />
+  <input id="c-5-design-system-sidedrawer-stories" class="tg tg-stories" type="checkbox" hidden />
+  
+  
+  <input id="c-5-design-system-sidedrawer-props" class="tg tg-props" type="checkbox" hidden />
 
   <div class="panels">
     
@@ -1012,7 +1277,7 @@ withMainPage?: any = false</code></pre>
               <span class="ex-name">Prop types <small>(react-docgen)</small></span>
               <span class="badge ok">3 prop types</span>
             </div>
-            <pre><code>Component: src\lib\components\cc-v4\CcV4SideDrawer.jsx::CcV4SideDrawer</code></pre>
+            <pre><code>Component: src\lib\components\cc-v4\SideDrawer.jsx::SideDrawer</code></pre>
             <pre><code>Props:</code></pre>
             <pre><code>closeOnBackdrop?: any = true
 
@@ -1030,7 +1295,7 @@ usePortal?: any = true</code></pre>
                 <div class="row">
                   <span class="ex-name">Imports</span>
                 </div>
-                <pre><code>import { CcV4Button, CcV4Root, CcV4SideDrawer } from '@dmc/ui';</code></pre>
+                <pre><code>import { Main, SideDrawer, SideDrawerCloseButton } from '@dmc/ui';</code></pre>
               </div>
           
           
@@ -1044,96 +1309,29 @@ usePortal?: any = true</code></pre>
               <pre><code>const Default = () =&gt; &lt;DrawerDemo /&gt;;</code></pre>
               
             </div>
-        </div>
-    
-    
-  </div>
-</article>
-<article
-  id="cc-v4-softlist"
-  class="card 
-  no-error
-  has-info
-  no-story-error
-  no-story-warning
-  missing-api
-  no-doc-error"
-  role="listitem"
-  aria-label="CcV4SoftList">
-  <div class="head">
-    <div class="title">
-      <h2><span class="status-dot dot-ok"></span> CcV4SoftList</h2>
-      <div class="badges">
-        <span class="badge">no API description</span>
-        <label for="c-4-cc-v4-softlist-info" class="badge info as-toggle">1 info</label>
-        <label for="c-4-cc-v4-softlist-stories" class="badge ok as-toggle">1 story</label>
-        
-        
-      </div>
-    </div>
-    <div class="meta" title="./src/stories/CcV4SoftList.stories.tsx">cc-v4-softlist · ./src/stories/CcV4SoftList.stories.tsx</div>
-    
-    
-    
-  </div>
-
-  <!-- ⬇️ Hidden toggles must be siblings BEFORE .panels -->
-  
-  <input id="c-4-cc-v4-softlist-info" class="tg tg-info" type="checkbox" hidden />
-  <input id="c-4-cc-v4-softlist-stories" class="tg tg-stories" type="checkbox" hidden />
-  
-  
-  
-
-  <div class="panels">
-    
-    
-        <div class="panel panel-info">
-          
-    <div class="note info">
-      <div class="note-title">Info</div>
-      <div class="note-body">No description found. Write a jsdoc comment such as /** Component description */.</div>
-    </div>
-        </div>
-    
-    
-        <div class="panel panel-stories">
-          
-          
-          
-          <div class="note ok">
-                <div class="row">
-                  <span class="ex-name">Imports</span>
-                </div>
-                <pre><code>import { CcV4Root, CcV4SoftList, CcV4SoftListBody, CcV4SoftListHeader, CcV4SoftListRow } from '@dmc/ui';</code></pre>
-              </div>
-          
-          
             <div class="note ok">
               <div class="row">
-                <span class="ex-name">Три колонки</span>
+                <span class="ex-name">С portal в body</span>
                 <span class="badge ok">story ok</span>
               </div>
               
               
-              <pre><code>const ThreeColumns = () =&gt; (
-  &lt;CcV4SoftList&gt;
-    &lt;CcV4SoftListHeader
-      gridClass={GRID}
-      columns={[
-        { key: &quot;a&quot;, label: &quot;Название&quot; },
-        { key: &quot;b&quot;, label: &quot;ИНН&quot; },
-        { key: &quot;c&quot;, label: &quot;Адрес&quot; },
-      ]}
-    /&gt;
-    &lt;CcV4SoftListBody&gt;
-      &lt;CcV4SoftListRow gridClass={GRID}&gt;
-        &lt;span&gt;ООО Пример&lt;/span&gt;
-        &lt;span className=&quot;company-card-v4-mono&quot;&gt;7700000000&lt;/span&gt;
-        &lt;span&gt;Москва&lt;/span&gt;
-      &lt;/CcV4SoftListRow&gt;
-    &lt;/CcV4SoftListBody&gt;
-  &lt;/CcV4SoftList&gt;
+              <pre><code>const WithPortal = () =&gt; &lt;DrawerDemo usePortal /&gt;;</code></pre>
+              
+            </div>
+            <div class="note ok">
+              <div class="row">
+                <span class="ex-name">Минимальный (без title)</span>
+                <span class="badge ok">story ok</span>
+              </div>
+              
+              
+              <pre><code>const Minimal = () =&gt; (
+  &lt;Main style={{ padding: 24, minHeight: 200 }}&gt;
+    &lt;SideDrawer open usePortal={false}&gt;
+      &lt;div style={bodyStyle}&gt;Только тело панели&lt;/div&gt;
+    &lt;/SideDrawer&gt;
+  &lt;/Main&gt;
 );</code></pre>
               
             </div>
@@ -1143,7 +1341,7 @@ usePortal?: any = true</code></pre>
   </div>
 </article>
 <article
-  id="cc-v4-toggle"
+  id="design-system-themetoggle"
   class="card 
   no-error
   has-info
@@ -1152,19 +1350,19 @@ usePortal?: any = true</code></pre>
   
   no-doc-error"
   role="listitem"
-  aria-label="CcV4Toggle">
+  aria-label="ThemeToggle">
   <div class="head">
     <div class="title">
-      <h2><span class="status-dot dot-ok"></span> CcV4Toggle</h2>
+      <h2><span class="status-dot dot-ok"></span> ThemeToggle</h2>
       <div class="badges">
-        <label for="c-5-cc-v4-toggle-props" class="badge ok as-toggle">2 prop types</label>
-        <label for="c-5-cc-v4-toggle-info" class="badge info as-toggle">1 info</label>
-        <label for="c-5-cc-v4-toggle-stories" class="badge ok as-toggle">3 stories</label>
+        <label for="c-6-design-system-themetoggle-props" class="badge ok as-toggle">2 prop types</label>
+        <label for="c-6-design-system-themetoggle-info" class="badge info as-toggle">1 info</label>
+        <label for="c-6-design-system-themetoggle-stories" class="badge ok as-toggle">3 stories</label>
         
         
       </div>
     </div>
-    <div class="meta" title="./src/stories/CcV4Toggle.stories.jsx">cc-v4-toggle · ./src/stories/CcV4Toggle.stories.jsx</div>
+    <div class="meta" title="./src/stories/ThemeToggle.stories.jsx">design-system-themetoggle · ./src/stories/ThemeToggle.stories.jsx</div>
     
     
     <div class="kv"><span class="chip">type: {import(&#39;@storybook/react-vite&#39;).Meta}</span></div>
@@ -1172,11 +1370,11 @@ usePortal?: any = true</code></pre>
 
   <!-- ⬇️ Hidden toggles must be siblings BEFORE .panels -->
   
-  <input id="c-5-cc-v4-toggle-info" class="tg tg-info" type="checkbox" hidden />
-  <input id="c-5-cc-v4-toggle-stories" class="tg tg-stories" type="checkbox" hidden />
+  <input id="c-6-design-system-themetoggle-info" class="tg tg-info" type="checkbox" hidden />
+  <input id="c-6-design-system-themetoggle-stories" class="tg tg-stories" type="checkbox" hidden />
   
   
-  <input id="c-5-cc-v4-toggle-props" class="tg tg-props" type="checkbox" hidden />
+  <input id="c-6-design-system-themetoggle-props" class="tg tg-props" type="checkbox" hidden />
 
   <div class="panels">
     
@@ -1195,11 +1393,11 @@ usePortal?: any = true</code></pre>
               <span class="ex-name">Prop types <small>(react-docgen)</small></span>
               <span class="badge ok">2 prop types</span>
             </div>
-            <pre><code>Component: src\lib\components\cc-v4\CcV4Toggle.jsx::CcV4Toggle</code></pre>
+            <pre><code>Component: src\lib\components\cc-v4\ThemeToggle.jsx::ThemeToggle</code></pre>
             <pre><code>Props:</code></pre>
-            <pre><code>className?: any = &quot;&quot;
+            <pre><code>disabled?: any = false
 
-disabled?: any = false</code></pre>
+label?: any = &quot;Тёмная тема&quot;</code></pre>
           </div>
         </div>
     
@@ -1211,41 +1409,153 @@ disabled?: any = false</code></pre>
                 <div class="row">
                   <span class="ex-name">Imports</span>
                 </div>
-                <pre><code>import { CcV4Root, CcV4Toggle } from '@dmc/ui';</code></pre>
+                <pre><code>import { Box, Main, ThemeProvider, ThemeToggle } from '@dmc/ui';</code></pre>
               </div>
           
           
             <div class="note ok">
               <div class="row">
-                <span class="ex-name">Label Only</span>
+                <span class="ex-name">С Box</span>
                 <span class="badge ok">story ok</span>
               </div>
               
               
-              <pre><code>const LabelOnly = () =&gt; &lt;CcV4Toggle active label=&quot;Мои&quot; /&gt;;</code></pre>
+              <pre><code>const WithPreview = () =&gt; (
+  &lt;Main style={{ padding: 24 }}&gt;
+    &lt;ThemeToggle /&gt;
+    &lt;Box title=&quot;Карточка&quot; style={{ marginTop: 16 }}&gt;
+      Контент меняет оформление при смене темы в toolbar или переключателе.
+    &lt;/Box&gt;
+  &lt;/Main&gt;
+);</code></pre>
               
             </div>
             <div class="note ok">
               <div class="row">
-                <span class="ex-name">With Description</span>
+                <span class="ex-name">Минимальный</span>
                 <span class="badge ok">story ok</span>
               </div>
               
               
-              <pre><code>const WithDescription = () =&gt; &lt;CcV4Toggle
-    active={false}
-    label=&quot;Только мои&quot;
-    description=&quot;Показывать уведомления, где вы ответственный менеджер&quot; /&gt;;</code></pre>
+              <pre><code>const Minimal = () =&gt; &lt;ThemeToggle label=&quot;&quot; /&gt;;</code></pre>
               
             </div>
             <div class="note ok">
               <div class="row">
-                <span class="ex-name">Switch Only</span>
+                <span class="ex-name">Controlled</span>
                 <span class="badge ok">story ok</span>
               </div>
               
               
-              <pre><code>const SwitchOnly = () =&gt; &lt;CcV4Toggle active /&gt;;</code></pre>
+              <pre><code>const Controlled = () =&gt; &lt;ControlledDemo /&gt;;</code></pre>
+              
+            </div>
+        </div>
+    
+    
+  </div>
+</article>
+<article
+  id="design-system-toggle"
+  class="card 
+  no-error
+  has-info
+  no-story-error
+  no-story-warning
+  
+  no-doc-error"
+  role="listitem"
+  aria-label="Toggle">
+  <div class="head">
+    <div class="title">
+      <h2><span class="status-dot dot-ok"></span> Toggle</h2>
+      <div class="badges">
+        <label for="c-7-design-system-toggle-props" class="badge ok as-toggle">2 prop types</label>
+        <label for="c-7-design-system-toggle-info" class="badge info as-toggle">1 info</label>
+        <label for="c-7-design-system-toggle-stories" class="badge ok as-toggle">3 stories</label>
+        
+        
+      </div>
+    </div>
+    <div class="meta" title="./src/stories/Toggle.stories.jsx">design-system-toggle · ./src/stories/Toggle.stories.jsx</div>
+    
+    
+    <div class="kv"><span class="chip">type: {import(&#39;@storybook/react-vite&#39;).Meta}</span></div>
+  </div>
+
+  <!-- ⬇️ Hidden toggles must be siblings BEFORE .panels -->
+  
+  <input id="c-7-design-system-toggle-info" class="tg tg-info" type="checkbox" hidden />
+  <input id="c-7-design-system-toggle-stories" class="tg tg-stories" type="checkbox" hidden />
+  
+  
+  <input id="c-7-design-system-toggle-props" class="tg tg-props" type="checkbox" hidden />
+
+  <div class="panels">
+    
+    
+        <div class="panel panel-info">
+          
+    <div class="note info">
+      <div class="note-title">Info</div>
+      <div class="note-body">No description found. Write a jsdoc comment such as /** Component description */.</div>
+    </div>
+        </div>
+    
+        <div class="panel panel-props">
+          <div class="note ok">
+            <div class="row">
+              <span class="ex-name">Prop types <small>(react-docgen)</small></span>
+              <span class="badge ok">2 prop types</span>
+            </div>
+            <pre><code>Component: src\lib\components\cc-v4\Toggle.jsx::Toggle</code></pre>
+            <pre><code>Props:</code></pre>
+            <pre><code>disabled?: any = false
+
+variant?: any = &quot;switch&quot;</code></pre>
+          </div>
+        </div>
+    
+        <div class="panel panel-stories">
+          
+          
+          
+          <div class="note ok">
+                <div class="row">
+                  <span class="ex-name">Imports</span>
+                </div>
+                <pre><code>import { Main, Toggle } from '@dmc/ui';</code></pre>
+              </div>
+          
+          
+            <div class="note ok">
+              <div class="row">
+                <span class="ex-name">С подписью</span>
+                <span class="badge ok">story ok</span>
+              </div>
+              
+              
+              <pre><code>const WithLabel = () =&gt; &lt;Toggle active label=&quot;Мои&quot; /&gt;;</code></pre>
+              
+            </div>
+            <div class="note ok">
+              <div class="row">
+                <span class="ex-name">Только switch</span>
+                <span class="badge ok">story ok</span>
+              </div>
+              
+              
+              <pre><code>const SwitchOnly = () =&gt; &lt;Toggle active={false} /&gt;;</code></pre>
+              
+            </div>
+            <div class="note ok">
+              <div class="row">
+                <span class="ex-name">Только текст</span>
+                <span class="badge ok">story ok</span>
+              </div>
+              
+              
+              <pre><code>const TextOnly = () =&gt; &lt;Toggle variant=&quot;text&quot; label=&quot;Подпись без переключателя&quot; /&gt;;</code></pre>
               
             </div>
         </div>
@@ -1264,19 +1574,19 @@ disabled?: any = false</code></pre>
   aria-label="Docs">
   <div class="head">
     <div class="title">
-      <h2><span class="status-dot dot-ok"></span> CC-V4/Введение</h2>
+      <h2><span class="status-dot dot-ok"></span> Design System/Введение</h2>
       <div class="badges">
         
-        <label for="doc-0-cc-v4-docs-content" class="badge ok as-toggle">view content</label>
+        <label for="doc-0-design-system-docs-content" class="badge ok as-toggle">view content</label>
       </div>
     </div>
-    <div class="meta" title="./src/stories/CcV4Introduction.mdx">cc-v4-введение--docs · ./src/stories/CcV4Introduction.mdx</div>
-    <div># CC-V4 — дизайн-система DMC Библиотека `@dmc/ui` повторяет канон карточки компании v4: об...</div>
+    <div class="meta" title="./src/stories/Introduction.mdx">design-system-введение--docs · ./src/stories/Introduction.mdx</div>
+    <div># Дизайн-система DMC Библиотека `@dmc/ui`: **только импорт компонентов**, без отдельного C...</div>
   </div>
 
   <!-- Hidden toggles must be siblings BEFORE .panels -->
   
-  <input id="doc-0-cc-v4-docs-content" class="tg tg-content" type="checkbox" hidden />
+  <input id="doc-0-design-system-docs-content" class="tg tg-content" type="checkbox" hidden />
 
   <div class="panels">
     
@@ -1285,61 +1595,69 @@ disabled?: any = false</code></pre>
           <div class="mdx-content">
             <pre><code>import { Meta } from &quot;@storybook/addon-docs/blocks&quot;;
 
-&lt;Meta title=&quot;CC-V4/Введение&quot; /&gt;
+&lt;Meta title=&quot;Design System/Введение&quot; /&gt;
 
-# CC-V4 — дизайн-система DMC
+# Дизайн-система DMC
 
-Библиотека `@dmc/ui` повторяет канон карточки компании v4: обёртка `company-card-v4`, кнопки, soft-таблицы, переключатели, поля ввода и боковые панели.
+Библиотека `@dmc/ui`: **только импорт компонентов**, без отдельного CSS. Оформление — inline-стили внутри пакета.
 
 ## Быстрый старт
 
-1. Установите пакет (из монорепозитория):
-
 ```bash
-npm install file:../dmc-ui
+npm install github:ilya6300/dmc-ui
 ```
-
-2. Подключите стили **один раз** в корне приложения (например `App.css` или `index.js`):
-
-```js
-import &quot;@dmc/ui/styles.css&quot;;
-```
-
-3. Оберните страницу в контейнер **[CcV4Root](./?path=/docs/cc-v4-cc-v4-root--docs)** — без него часть токенов и сеток не применится:
 
 ```jsx
-import { CcV4Root } from &quot;@dmc/ui&quot;;
+import { Main, Box, ThemeProvider, ThemeToggle } from &quot;@dmc/ui&quot;;
 
-export function CompanyListPage() {
+export function Page() {
   return (
-    &lt;CcV4Root withMainPage pageVariant=&quot;company-list-page-v4&quot;&gt;
-      {/* header-card, dash-card, списки CcV4SoftList* … */}
-    &lt;/CcV4Root&gt;
+    &lt;ThemeProvider&gt;
+      &lt;Main style={{ minHeight: &quot;100vh&quot;, padding: 24 }}&gt;
+        &lt;ThemeToggle /&gt;
+        &lt;Box title=&quot;Раздел&quot;&gt;…&lt;/Box&gt;
+      &lt;/Main&gt;
+    &lt;/ThemeProvider&gt;
   );
 }
+```
+
+## Тема
+
+Обёрните приложение в `ThemeProvider`. Компоненты (`Box`, `Toggle`, `SideDrawer`, …) читают палитру через `useTheme()` — проп `theme` по иерархии не нужен.
+
+```jsx
+import { useTheme, themes } from &quot;@dmc/ui&quot;;
+
+const { theme, setTheme, colors } = useTheme();
+// colors — актуальная палитра; themes.light / themes.dark — справочник
+```
+
+Статический импорт `tokens` — только снимок **светлой** палитры; для тёмной темы используйте `useTheme().colors` или `themes[theme]`.
+
+Выбор пользователя (localStorage и т.д.) хранит **приложение-потребитель**:
+
+```jsx
+const [theme, setTheme] = useState(&quot;light&quot;);
+&lt;ThemeProvider theme={theme} onThemeChange={setTheme}&gt;
+  &lt;ThemeToggle /&gt;
+&lt;/ThemeProvider&gt;
 ```
 
 ## Компоненты
 
 | Компонент | Назначение |
 |-----------|------------|
-| [CcV4Root](?path=/docs/cc-v4-cc-v4-root--docs) | Контейнер `.company-card-v4` (+ опционально `main-page`, модификатор страницы) |
-| [CcV4Button](?path=/docs/cc-v4-button--docs) | Кнопки primary / outline / icon |
-| [CcV4Toggle](?path=/docs/cc-v4-toggle--docs) | Переключатель с label и опциональным описанием |
-| [CcV4SoftList](?path=/docs/cc-v4-soft-list--docs) | Таблица-список: header / body / row |
-| [CcV4Input](?path=/docs/cc-v4-input--docs) | Поле ввода v4 (`site-form-control`) |
-| [CcV4SideDrawer](?path=/docs/cc-v4-side-drawer--docs) | Боковая модальная панель |
+| [Main](?path=/docs/design-system-main--docs) | Обёртка страницы |
+| [Layout](?path=/docs/design-system-layout--docs) | Колонка контента с входной анимацией |
+| [Box](?path=/docs/design-system-box--docs) | Карточка контента |
+| [Container](?path=/docs/design-system-container--docs) | Flex-группировка (колонка / строка) |
+| [Toggle](?path=/docs/design-system-toggle--docs) | Переключатель |
+| [ThemeToggle](?path=/docs/design-system-theme-toggle--docs) | Переключатель светлой / тёмной темы |
+| [Icon](?path=/docs/design-system-icon--docs) | Иконка (img или SVG-компонент, light/dark) |
+| [SideDrawer](?path=/docs/design-system-side-drawer--docs) | Боковая панель |
 
-## Модификаторы страниц (`pageVariant`)
-
-Примеры значений `pageVariant` на `CcV4Root` (как в dmc-lk):
-
-- `company-list-page-v4` — каталог компаний / партнёров
-- `my-companies-page-v4` — «Мои компании»
-- `alert-center-v4` — центр уведомлений
-- `reports-page-v4` — отчёты
-
-Дополнительные классы можно передать через `className`.
+Палитры: `themes`, `getThemeColors`; legacy-снимок: `tokens` (только light).
 </code></pre>
           </div>
         </div>
@@ -1358,7 +1676,7 @@ export function CompanyListPage() {
       </div>
     </div>
     <div class="meta" title="./src/stories/Configure.mdx">configure-your-project--docs · ./src/stories/Configure.mdx</div>
-    <div># Устаревшая страница Документация перенесена в раздел **[CC-V4 / Введение](?path=/docs/cc...</div>
+    <div># Устаревшая страница Документация перенесена в раздел **[Design System / Введение](?path=...</div>
   </div>
 
   <!-- Hidden toggles must be siblings BEFORE .panels -->
@@ -1376,9 +1694,9 @@ export function CompanyListPage() {
 
 # Устаревшая страница
 
-Документация перенесена в раздел **[CC-V4 / Введение](?path=/docs/cc-v4-введение--docs)**.
+Документация перенесена в раздел **[Design System / Введение](?path=/docs/design-system-введение--docs)**.
 
-Там же описаны подключение `@dmc/ui`, стили и контейнер **CcV4Root** (`company-card-v4`).
+Там же описано подключение `@dmc/ui` (только компоненты, без CSS) и компоненты **Main**, **Box**.
 </code></pre>
           </div>
         </div>
