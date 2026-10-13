@@ -4,7 +4,7 @@ import { mergeStyle } from "./tokens";
 const CONTAINER_BASE = {
   display: "flex",
   boxSizing: "border-box",
-  padding: "2% 4%",
+  padding: 0,
 };
 
 const FLEX = {
