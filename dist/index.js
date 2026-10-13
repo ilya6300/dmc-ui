@@ -42,8 +42,7 @@ function oe({ children: e, style: t, title: n, w: o, ...r }) {
 }
 const Y = {
   display: "flex",
-  boxSizing: "border-box",
-  padding: 0
+  boxSizing: "border-box"
 }, T = {
   start: "flex-start",
   end: "flex-end",
