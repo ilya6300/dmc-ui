@@ -1,4 +1,5 @@
 export { Box } from "./Box";
+export { Container } from "./Container";
 export { Layout } from "./Layout";
 export { Main } from "./Main";
 export { Toggle } from "./Toggle";
