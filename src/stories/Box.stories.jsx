@@ -1,5 +1,15 @@
-import { Box, Main, tokens } from "../index.js";
+import React from "react";
+import { Box, Main, useTheme } from "../index.js";
 import { importBlock, ROOT_NOTE } from "./docsFragments.js";
+
+function SecondaryText({ children }) {
+  const { colors } = useTheme();
+  return (
+    <p style={{ margin: 0, color: colors.textSecondary, fontSize: 14 }}>
+      {children}
+    </p>
+  );
+}
 
 /** @type { import('@storybook/react-vite').Meta } */
 const meta = {
@@ -25,9 +35,12 @@ ${importBlock("Box", "Main")}
 
 **Состав:** \`children\` — содержимое; опционально \`title\` (заголовок), \`w\` (ширина CSS-строкой; без \`w\` — \`100%\`), \`shadow\` (размытие тени в px, по умолчанию \`12\`; \`0\` — без тени), \`style\`, \`as\`.
 
+Текст в \`children\` наследует \`textPrimary\` с карточки; вторичный — \`useTheme().colors.textSecondary\`.
+
 \`\`\`jsx
+const { colors } = useTheme();
 <Box title="Подписка" w="320px">
-  <p style={{ margin: 0, color: tokens.textMuted, fontSize: 14 }}>…</p>
+  <p style={{ margin: 0, color: colors.textSecondary, fontSize: 14 }}>…</p>
 </Box>
 \`\`\`
         `,
@@ -54,9 +67,7 @@ export const Default = {
   args: { title: "Подписка" },
   render: (args) => (
     <Box {...args}>
-      <p style={{ margin: 0, color: tokens.textMuted, fontSize: 14 }}>
-        Пример содержимого.
-      </p>
+      <SecondaryText>Пример содержимого.</SecondaryText>
     </Box>
   ),
 };

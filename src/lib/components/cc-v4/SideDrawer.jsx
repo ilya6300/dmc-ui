@@ -125,6 +125,7 @@ export function SideDrawer({
     alignItems: "center",
     flexDirection: "column",
     boxSizing: "border-box",
+    color: colors.textPrimary,
     transition: "transform 0.6s ease, opacity 0.6s ease",
   };
 

@@ -1,5 +1,6 @@
 import React from "react";
 import { mergeStyle } from "./tokens";
+import { useTheme } from "./ThemeContext.jsx";
 
 const CONTAINER_BASE = {
   display: "flex",
@@ -46,11 +47,14 @@ export function Container({
   gap = 10,
   ...rest
 }) {
+  const { colors } = useTheme();
+
   return (
     <div
       style={mergeStyle(
         CONTAINER_BASE,
         containerFlexStyle({ direction, justify, align, gap, w }),
+        { color: colors.textPrimary },
         style,
       )}
       {...rest}

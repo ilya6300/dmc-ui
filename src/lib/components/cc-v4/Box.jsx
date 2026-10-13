@@ -19,6 +19,7 @@ export function Box({ children, style, title, w, shadow = 12, ...rest }) {
     boxShadow: getCardShadow(colors, shadow),
     border: colors.borderLight,
     boxSizing: "border-box",
+    color: colors.textPrimary,
   };
 
   const titleStyle = {

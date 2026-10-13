@@ -1,5 +1,5 @@
-import { jsx as o, jsxs as g } from "react/jsx-runtime";
-import { createContext as z, useState as m, useCallback as N, useMemo as W, useContext as P, useEffect as T } from "react";
+import { jsx as n, jsxs as g } from "react/jsx-runtime";
+import { createContext as z, useState as m, useCallback as N, useMemo as P, useContext as W, useEffect as T } from "react";
 import { createPortal as X } from "react-dom";
 const $ = 4, C = "#2196f3", D = C, G = {
   background: "#ffffff",
@@ -34,10 +34,10 @@ function F(e, t = 12) {
   return t === 0 ? "none" : `0 ${$}px ${t}px ${e.cardShadowColor}`;
 }
 function A(e) {
-  const t = `1px solid ${e.border}`, n = { ...e };
+  const t = `1px solid ${e.border}`, o = { ...e };
   return {
-    ...n,
-    cardShadow: F(n, 12),
+    ...o,
+    cardShadow: F(o, 12),
     mainBlue1: e.primary,
     textMain: e.textPrimary,
     textMuted: e.textSecondary,
@@ -53,7 +53,7 @@ const B = {
 function H(e) {
   return B[e] ?? B.light;
 }
-const ye = B.light;
+const be = B.light;
 function u(...e) {
   return Object.assign({}, ...e.filter(Boolean));
 }
@@ -66,16 +66,16 @@ const q = () => {
 function xe({
   children: e,
   theme: t,
-  onThemeChange: n,
+  onThemeChange: o,
   defaultTheme: r = "light"
 }) {
   const [s, a] = m(r), i = t !== void 0, l = i ? t : s, c = N(
     (d) => {
       const p = typeof d == "function" ? d(l) : d;
-      i || a(p), n == null || n(p);
+      i || a(p), o == null || o(p);
     },
-    [i, n, l]
-  ), f = W(
+    [i, o, l]
+  ), f = P(
     () => ({
       theme: l,
       setTheme: c,
@@ -83,13 +83,13 @@ function xe({
     }),
     [l, c]
   );
-  return /* @__PURE__ */ o(Y.Provider, { value: f, children: e });
+  return /* @__PURE__ */ n(Y.Provider, { value: f, children: e });
 }
-function x() {
-  return P(Y);
+function b() {
+  return W(Y);
 }
-function me({ children: e, style: t, title: n, w: r, shadow: s = 12, ...a }) {
-  const { colors: i } = x(), l = {
+function me({ children: e, style: t, title: o, w: r, shadow: s = 12, ...a }) {
+  const { colors: i } = b(), l = {
     display: "flex",
     flexDirection: "column",
     justifyContent: "flex-start",
@@ -99,14 +99,15 @@ function me({ children: e, style: t, title: n, w: r, shadow: s = 12, ...a }) {
     padding: 24,
     boxShadow: F(i, s),
     border: i.borderLight,
-    boxSizing: "border-box"
+    boxSizing: "border-box",
+    color: i.textPrimary
   }, c = {
     fontSize: 16,
     fontWeight: 600,
     color: i.mastBlue
   };
   return /* @__PURE__ */ g("div", { style: u(l, { width: r ?? "100%" }, t), ...a, children: [
-    n ? /* @__PURE__ */ o("span", { style: c, children: n }) : null,
+    o ? /* @__PURE__ */ n("span", { style: c, children: o }) : null,
     e
   ] });
 }
@@ -129,11 +130,11 @@ function O(e, t) {
 function Z(e) {
   return e === "col" ? "column" : "row";
 }
-function J({ direction: e, justify: t, align: n, gap: r, w: s }) {
+function J({ direction: e, justify: t, align: o, gap: r, w: s }) {
   return {
     flexDirection: Z(e),
     justifyContent: O(t, "start"),
-    alignItems: O(n, "stretch"),
+    alignItems: O(o, "stretch"),
     gap: r,
     width: s ?? "100%"
   };
@@ -141,19 +142,21 @@ function J({ direction: e, justify: t, align: n, gap: r, w: s }) {
 function we({
   children: e,
   style: t,
-  w: n,
+  w: o,
   direction: r = "row",
   justify: s = "start",
   align: a = "stretch",
   gap: i = 10,
   ...l
 }) {
-  return /* @__PURE__ */ o(
+  const { colors: c } = b();
+  return /* @__PURE__ */ n(
     "div",
     {
       style: u(
         K,
-        J({ direction: r, justify: s, align: a, gap: i, w: n }),
+        J({ direction: r, justify: s, align: a, gap: i, w: o }),
+        { color: c.textPrimary },
         t
       ),
       ...l,
@@ -175,31 +178,31 @@ const Q = {
   opacity: 1,
   transition: j
 };
-function Se({ children: e, style: t, animate: n = !1, ...r }) {
-  const [s, a] = m(!n);
+function Se({ children: e, style: t, animate: o = !1, ...r }) {
+  const [s, a] = m(!o);
   T(() => {
-    if (!n) return;
+    if (!o) return;
     if (typeof window < "u" && window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
       a(!0);
       return;
     }
     const c = requestAnimationFrame(() => a(!0));
     return () => cancelAnimationFrame(c);
-  }, [n]);
-  const i = n && !s ? { ...V, transition: j } : n ? ee : null;
-  return /* @__PURE__ */ o("div", { style: u(Q, i, t), ...r, children: e });
+  }, [o]);
+  const i = o && !s ? { ...V, transition: j } : o ? ee : null;
+  return /* @__PURE__ */ n("div", { style: u(Q, i, t), ...r, children: e });
 }
 const te = {
   minHeight: "100%",
   boxSizing: "border-box"
 };
-function ve({ children: e, style: t, ...n }) {
-  return /* @__PURE__ */ o("div", { style: u(te, t), ...n, children: e });
+function ve({ children: e, style: t, ...o }) {
+  return /* @__PURE__ */ n("div", { style: u(te, t), ...o, children: e });
 }
-function ne({
+function oe({
   active: e,
   label: t,
-  variant: n = "switch",
+  variant: o = "switch",
   onClick: r,
   onChange: s,
   style: a,
@@ -208,7 +211,7 @@ function ne({
   trackStartIcon: c,
   trackEndIcon: f
 }) {
-  const { colors: d } = x(), [p, b] = m(!1), y = {
+  const { colors: d } = b(), [p, x] = m(!1), y = {
     color: d.textMain,
     fontWeight: 400,
     fontSize: 14
@@ -243,8 +246,8 @@ function ne({
     transition: "transform 0.2s",
     zIndex: 1
   };
-  if (n === "text")
-    return t ? /* @__PURE__ */ o("span", { style: u(y, a), children: t }) : null;
+  if (o === "text")
+    return t ? /* @__PURE__ */ n("span", { style: u(y, a), children: t }) : null;
   const L = (k) => {
     k.preventDefault(), !i && (r == null || r(k), s == null || s(!e));
   }, M = u(S, {
@@ -280,22 +283,22 @@ function ne({
       "aria-pressed": !!e,
       "aria-label": l || (t ? void 0 : "Переключатель"),
       disabled: i,
-      onFocus: () => b(!0),
-      onBlur: () => b(!1),
+      onFocus: () => x(!0),
+      onBlur: () => x(!1),
       children: [
         /* @__PURE__ */ g("span", { style: M, "aria-hidden": "true", children: [
           c || f ? /* @__PURE__ */ g("span", { style: I, children: [
-            /* @__PURE__ */ o("span", { style: { display: "flex", lineHeight: 0 }, children: c }),
-            /* @__PURE__ */ o("span", { style: { display: "flex", lineHeight: 0 }, children: f })
+            /* @__PURE__ */ n("span", { style: { display: "flex", lineHeight: 0 }, children: c }),
+            /* @__PURE__ */ n("span", { style: { display: "flex", lineHeight: 0 }, children: f })
           ] }) : null,
-          /* @__PURE__ */ o("span", { style: v })
+          /* @__PURE__ */ n("span", { style: v })
         ] }),
-        t ? /* @__PURE__ */ o("span", { style: y, children: t }) : null
+        t ? /* @__PURE__ */ n("span", { style: y, children: t }) : null
       ]
     }
   );
 }
-const oe = {
+const ne = {
   border: "none",
   outline: "none",
   boxShadow: "none"
@@ -315,21 +318,21 @@ function re() {
       strokeLinejoin: "round",
       "aria-hidden": "true",
       children: [
-        /* @__PURE__ */ o("circle", { cx: "12", cy: "12", r: "4" }),
-        /* @__PURE__ */ o("path", { d: "M12 2v2" }),
-        /* @__PURE__ */ o("path", { d: "M12 20v2" }),
-        /* @__PURE__ */ o("path", { d: "m4.93 4.93 1.42 1.42" }),
-        /* @__PURE__ */ o("path", { d: "m17.65 17.65 1.42 1.42" }),
-        /* @__PURE__ */ o("path", { d: "M2 12h2" }),
-        /* @__PURE__ */ o("path", { d: "M20 12h2" }),
-        /* @__PURE__ */ o("path", { d: "m6.35 17.65-1.42 1.42" }),
-        /* @__PURE__ */ o("path", { d: "m19.07 4.93-1.42 1.42" })
+        /* @__PURE__ */ n("circle", { cx: "12", cy: "12", r: "4" }),
+        /* @__PURE__ */ n("path", { d: "M12 2v2" }),
+        /* @__PURE__ */ n("path", { d: "M12 20v2" }),
+        /* @__PURE__ */ n("path", { d: "m4.93 4.93 1.42 1.42" }),
+        /* @__PURE__ */ n("path", { d: "m17.65 17.65 1.42 1.42" }),
+        /* @__PURE__ */ n("path", { d: "M2 12h2" }),
+        /* @__PURE__ */ n("path", { d: "M20 12h2" }),
+        /* @__PURE__ */ n("path", { d: "m6.35 17.65-1.42 1.42" }),
+        /* @__PURE__ */ n("path", { d: "m19.07 4.93-1.42 1.42" })
       ]
     }
   );
 }
 function ie() {
-  return /* @__PURE__ */ o(
+  return /* @__PURE__ */ n(
     "svg",
     {
       xmlns: "http://www.w3.org/2000/svg",
@@ -342,25 +345,25 @@ function ie() {
       strokeLinecap: "round",
       strokeLinejoin: "round",
       "aria-hidden": "true",
-      children: /* @__PURE__ */ o("path", { d: "M20.5 14.2A8.5 8.5 0 0 1 9.8 3.5 7.75 7.75 0 1 0 20.5 14.2Z" })
+      children: /* @__PURE__ */ n("path", { d: "M20.5 14.2A8.5 8.5 0 0 1 9.8 3.5 7.75 7.75 0 1 0 20.5 14.2Z" })
     }
   );
 }
 function ke({
   theme: e,
   onThemeChange: t,
-  label: n = "Тёмная тема",
+  label: o = "Тёмная тема",
   style: r,
   disabled: s = !1
 }) {
-  const { theme: a, setTheme: i } = x(), l = e ?? a, c = e !== void 0 && t !== void 0, f = l === "dark";
-  return /* @__PURE__ */ o(
-    ne,
+  const { theme: a, setTheme: i } = b(), l = e ?? a, c = e !== void 0 && t !== void 0, f = l === "dark";
+  return /* @__PURE__ */ n(
+    oe,
     {
       active: f,
-      label: n,
-      onChange: (b) => {
-        const y = b ? "dark" : "light";
+      label: o,
+      onChange: (x) => {
+        const y = x ? "dark" : "light";
         if (c) {
           t(y);
           return;
@@ -368,23 +371,23 @@ function ke({
         i(y);
       },
       disabled: s,
-      ariaLabel: n || (f ? "Включить светлую тему" : "Включить тёмную тему"),
-      trackStartIcon: /* @__PURE__ */ o("span", { style: _, children: /* @__PURE__ */ o(ie, {}) }),
-      trackEndIcon: /* @__PURE__ */ o("span", { style: _, children: /* @__PURE__ */ o(re, {}) }),
-      style: u(oe, r)
+      ariaLabel: o || (f ? "Включить светлую тему" : "Включить тёмную тему"),
+      trackStartIcon: /* @__PURE__ */ n("span", { style: _, children: /* @__PURE__ */ n(ie, {}) }),
+      trackEndIcon: /* @__PURE__ */ n("span", { style: _, children: /* @__PURE__ */ n(re, {}) }),
+      style: u(ne, r)
     }
   );
 }
-function se(e, { component: t, darkComponent: n }) {
-  return e === "dark" && n ? n : t || null;
+function se(e, { component: t, darkComponent: o }) {
+  return e === "dark" && o ? o : t || null;
 }
-function le(e, { src: t, darkSrc: n }) {
-  return e === "dark" && n || t;
+function le(e, { src: t, darkSrc: o }) {
+  return e === "dark" && o || t;
 }
 function Te({
   src: e,
   darkSrc: t,
-  component: n,
+  component: o,
   darkComponent: r,
   alt: s = "",
   style: a,
@@ -392,9 +395,9 @@ function Te({
   height: l,
   ...c
 }) {
-  const { theme: f } = x(), d = se(f, { component: n, darkComponent: r });
+  const { theme: f } = b(), d = se(f, { component: o, darkComponent: r });
   if (d)
-    return /* @__PURE__ */ o(
+    return /* @__PURE__ */ n(
       d,
       {
         style: u(
@@ -408,7 +411,7 @@ function Te({
       }
     );
   const p = le(f, { src: e, darkSrc: t });
-  return p ? /* @__PURE__ */ o(
+  return p ? /* @__PURE__ */ n(
     "img",
     {
       src: p,
@@ -435,11 +438,11 @@ const ae = {
 function de({
   title: e,
   titleId: t,
-  toolbar: n,
+  toolbar: o,
   toolbarWrap: r = !0,
   style: s
 }) {
-  const { colors: a } = x(), i = {
+  const { colors: a } = b(), i = {
     margin: 0,
     fontSize: 16,
     fontWeight: 600,
@@ -447,12 +450,12 @@ function de({
     lineHeight: 1.3
   };
   return /* @__PURE__ */ g("header", { style: u(ae, s), children: [
-    /* @__PURE__ */ o("h2", { id: t, style: i, children: e }),
-    n ? r ? /* @__PURE__ */ o("div", { style: ce, children: n }) : n : null
+    /* @__PURE__ */ n("h2", { id: t, style: i, children: e }),
+    o ? r ? /* @__PURE__ */ n("div", { style: ce, children: o }) : o : null
   ] });
 }
-function Ee({ onClick: e, title: t = "Закрыть", style: n }) {
-  const { colors: r } = x(), [s, a] = m(!1), [i, l] = m(!1), c = {
+function Ee({ onClick: e, title: t = "Закрыть", style: o }) {
+  const { colors: r } = b(), [s, a] = m(!1), [i, l] = m(!1), c = {
     display: "inline-flex",
     alignItems: "center",
     justifyContent: "center",
@@ -470,7 +473,7 @@ function Ee({ onClick: e, title: t = "Закрыть", style: n }) {
     color: r.mainBlue1,
     backgroundColor: r.focusBg
   };
-  return /* @__PURE__ */ o(
+  return /* @__PURE__ */ n(
     "button",
     {
       type: "button",
@@ -481,13 +484,13 @@ function Ee({ onClick: e, title: t = "Закрыть", style: n }) {
         c,
         (s || i) && f,
         i && { outline: "none" },
-        n
+        o
       ),
       onMouseEnter: () => a(!0),
       onMouseLeave: () => a(!1),
       onFocus: () => l(!0),
       onBlur: () => l(!1),
-      children: /* @__PURE__ */ o("svg", { width: "16", height: "16", viewBox: "0 0 16 16", "aria-hidden": "true", children: /* @__PURE__ */ o(
+      children: /* @__PURE__ */ n("svg", { width: "16", height: "16", viewBox: "0 0 16 16", "aria-hidden": "true", children: /* @__PURE__ */ n(
         "path",
         {
           d: "M4 4l8 8M12 4l-8 8",
@@ -526,7 +529,7 @@ const ue = {
 function Le({
   open: e = !0,
   onClose: t,
-  title: n,
+  title: o,
   titleId: r,
   toolbar: s,
   headerActions: a,
@@ -536,9 +539,9 @@ function Le({
   layoutStyle: f,
   rootStyle: d,
   usePortal: p = !0,
-  closeOnBackdrop: b = !0
+  closeOnBackdrop: x = !0
 }) {
-  const { colors: y } = x(), [w, S] = m(!1), E = {
+  const { colors: y } = b(), [w, S] = m(!1), E = {
     position: "fixed",
     zIndex: 3,
     top: 0,
@@ -556,6 +559,7 @@ function Le({
     alignItems: "center",
     flexDirection: "column",
     boxSizing: "border-box",
+    color: y.textPrimary,
     transition: "transform 0.6s ease, opacity 0.6s ease"
   };
   if (T(() => {
@@ -582,8 +586,8 @@ function Le({
   }, [e, t]), !e)
     return null;
   const L = (h) => {
-    b && t && h.target === h.currentTarget && t();
-  }, M = s ?? a, v = /* @__PURE__ */ o(
+    x && t && h.target === h.currentTarget && t();
+  }, M = s ?? a, v = /* @__PURE__ */ n(
     "div",
     {
       role: "dialog",
@@ -606,10 +610,10 @@ function Le({
                 style: u(fe, c),
                 "aria-labelledby": r,
                 children: [
-                  n ? /* @__PURE__ */ o(
+                  o ? /* @__PURE__ */ n(
                     de,
                     {
-                      title: n,
+                      title: o,
                       titleId: r,
                       toolbar: M
                     }
@@ -618,7 +622,7 @@ function Le({
                 ]
               }
             ),
-            l ? /* @__PURE__ */ o("div", { style: he, children: l }) : null
+            l ? /* @__PURE__ */ n("div", { style: he, children: l }) : null
           ]
         }
       )
@@ -639,13 +643,13 @@ export {
   de as SiteModalHeader,
   xe as ThemeProvider,
   ke as ThemeToggle,
-  ne as Toggle,
+  oe as Toggle,
   H as getThemeColors,
   Me as joinClass,
   u as mergeStyle,
   se as resolveIconComponent,
   le as resolveIconSrc,
   B as themes,
-  ye as tokens,
-  x as useTheme
+  be as tokens,
+  b as useTheme
 };

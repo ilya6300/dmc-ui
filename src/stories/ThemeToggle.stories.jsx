@@ -19,6 +19,27 @@ Uncontrolled — \`ThemeProvider\`; controlled: \`theme\` и \`onThemeChange\`.
 ${ROOT_NOTE}
 
 ${importBlock("ThemeProvider", "ThemeToggle", "Main", "Box")}
+
+**Состав:** опционально \`label\`; controlled — \`theme\` и \`onThemeChange\`; \`style\`, \`disabled\`.
+
+\`\`\`jsx
+<ThemeProvider>
+  <Main style={{ padding: 24 }}>
+    <ThemeToggle />
+    <Box title="Раздел">Контент</Box>
+  </Main>
+</ThemeProvider>
+\`\`\`
+
+Controlled (состояние темы в приложении):
+
+\`\`\`jsx
+const [theme, setTheme] = useState("light");
+
+<ThemeProvider theme={theme} onThemeChange={setTheme}>
+  <ThemeToggle theme={theme} onThemeChange={setTheme} label="Тёмная тема" />
+</ThemeProvider>
+\`\`\`
         `,
       },
     },
@@ -38,6 +59,16 @@ export default meta;
 
 export const WithPreview = {
   name: "С Box",
+  parameters: {
+    docs: {
+      source: {
+        code: `<Main style={{ padding: 24 }}>
+  <ThemeToggle />
+  <Box title="Карточка" style={{ marginTop: 16 }}>…</Box>
+</Main>`,
+      },
+    },
+  },
   render: () => (
     <Main style={{ padding: 24 }}>
       <ThemeToggle />
@@ -50,6 +81,9 @@ export const WithPreview = {
 
 export const Minimal = {
   name: "Минимальный",
+  parameters: {
+    docs: { source: { code: "<ThemeToggle />" } },
+  },
   render: () => <ThemeToggle label="" />,
 };
 
@@ -66,5 +100,16 @@ function ControlledDemo() {
 }
 
 export const Controlled = {
+  parameters: {
+    docs: {
+      source: {
+        code: `const [theme, setTheme] = useState("light");
+
+<ThemeProvider theme={theme} onThemeChange={setTheme}>
+  <ThemeToggle theme={theme} onThemeChange={setTheme} />
+</ThemeProvider>`,
+      },
+    },
+  },
   render: () => <ControlledDemo />,
 };
