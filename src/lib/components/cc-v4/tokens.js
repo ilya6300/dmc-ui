@@ -6,7 +6,7 @@ import { getThemeColors, themes } from "./themes.js";
  */
 export const tokens = themes.light;
 
-export { themes, getThemeColors, MAST_BLUE } from "./themes.js";
+export { themes, getThemeColors, MAST_BLUE, LIGHT_GREY } from "./themes.js";
 
 export function mergeStyle(...styles) {
   return Object.assign({}, ...styles.filter(Boolean));

@@ -26,6 +26,8 @@ const meta = {
         component: `
 Боковая панель — стили только в компоненте.
 
+**Состав:** обязательные — контент (\`children\`); опциональные — \`open\`, \`onClose\`, \`title\`, \`titleId\`, \`toolbar\` / \`headerActions\`, \`footer\`, \`w\` (ширина панели, CSS-строка), \`usePortal\`, \`closeOnBackdrop\`, \`style\`, \`layoutStyle\`, \`rootStyle\`.
+
 ${ROOT_NOTE}
 
 ${importBlock("SideDrawer", "SideDrawerCloseButton", "Main")}
@@ -41,6 +43,10 @@ ${importBlock("SideDrawer", "SideDrawerCloseButton", "Main")}
     toolbar: { control: false },
     children: { control: false },
     usePortal: { control: "boolean" },
+    w: {
+      control: "text",
+      description: "Ширина панели (CSS, например 400px или 40%). Без значения — по контенту.",
+    },
   },
 };
 
@@ -88,6 +94,19 @@ export const Minimal = {
     <Main style={{ padding: 24, minHeight: 200 }}>
       <SideDrawer open usePortal={false}>
         <div style={bodyStyle}>Только тело панели</div>
+      </SideDrawer>
+    </Main>
+  ),
+};
+
+export const CustomWidth = {
+  name: "Ширина (w)",
+  render: () => (
+    <Main style={{ padding: 24, minHeight: 200 }}>
+      <SideDrawer open usePortal={false} w="360px" title="Узкая панель">
+        <div style={bodyStyle}>
+          <p style={muted}>Ширина задана через w=&quot;360px&quot;.</p>
+        </div>
       </SideDrawer>
     </Main>
   ),

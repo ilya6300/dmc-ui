@@ -1,0 +1,27 @@
+[16:56:10.114] [INFO] storybook v10.6.1
+[16:56:10.558] [DEBUG] Getting package.json info for C:/Frontend/dmc-ui/package.json...
+[16:56:10.885] [DEBUG] Could not determine @babel/preset-env version in use. In case of runtime errors with @babel/preset-env, you may need to set the babelRemoveBugfixes feature flag in your `main.ts` file.
+[16:56:11.593] [WARN] 🚨 Unable to index ./src/stories/SideDrawer.stories.jsx:
+  SyntaxError: Unexpected token, expected "," (29:37)
+    at constructor (file:///C:/Frontend/dmc-ui/node_modules/storybook/dist/_node-chunks/chunk-KHMLZPHF.js:12167:21)
+    at Parser.raise (file:///C:/Frontend/dmc-ui/node_modules/storybook/dist/_node-chunks/chunk-KHMLZPHF.js:16360:71)
+    at Parser.unexpected (file:///C:/Frontend/dmc-ui/node_modules/storybook/dist/_node-chunks/chunk-KHMLZPHF.js:16377:20)
+    at Parser.expect (file:///C:/Frontend/dmc-ui/node_modules/storybook/dist/_node-chunks/chunk-KHMLZPHF.js:16585:32)
+    at Parser.parseObjectLike (file:///C:/Frontend/dmc-ui/node_modules/storybook/dist/_node-chunks/chunk-KHMLZPHF.js:19579:25)
+    at Parser.parseExprAtom (file:///C:/Frontend/dmc-ui/node_modules/storybook/dist/_node-chunks/chunk-KHMLZPHF.js:19310:25)
+    at Parser.parseExprAtom (file:///C:/Frontend/dmc-ui/node_modules/storybook/dist/_node-chunks/chunk-KHMLZPHF.js:15092:181)
+    at Parser.parseExprSubscripts (file:///C:/Frontend/dmc-ui/node_modules/storybook/dist/_node-chunks/chunk-KHMLZPHF.js:19169:105)
+    at Parser.parseUpdate (file:///C:/Frontend/dmc-ui/node_modules/storybook/dist/_node-chunks/chunk-KHMLZPHF.js:19160:57)
+    at Parser.parseMaybeUnary (file:///C:/Frontend/dmc-ui/node_modules/storybook/dist/_node-chunks/chunk-KHMLZPHF.js:19145:25)
+[16:56:11.599] [ERROR] Error: Unable to index ./src/stories/SideDrawer.stories.jsx
+    at _StoryIndexGenerator.getIndexAndStats (file:///C:/Frontend/dmc-ui/node_modules/storybook/dist/core-server/index.js:16828:15)
+    at async _StoryIndexGenerator.getIndex (file:///C:/Frontend/dmc-ui/node_modules/storybook/dist/core-server/index.js:16817:13)
+    at async createTestRunnerStore (file:///C:/Frontend/dmc-ui/node_modules/@storybook/addon-vitest/dist/preset.js:459:14)
+    at async Object.experimental_serverChannel (file:///C:/Frontend/dmc-ui/node_modules/@storybook/addon-vitest/dist/preset.js:1554:176)
+    at async buildDevStandalone (file:///C:/Frontend/dmc-ui/node_modules/storybook/dist/core-server/index.js:9314:72)
+    at async withTelemetry (file:///C:/Frontend/dmc-ui/node_modules/storybook/dist/_node-chunks/chunk-IRB26IIA.js:142:12)
+    at async dev (file:///C:/Frontend/dmc-ui/node_modules/storybook/dist/bin/core.js:4877:3)
+    at async _Command.<anonymous> (file:///C:/Frontend/dmc-ui/node_modules/storybook/dist/bin/core.js:4985:3)
+[16:56:11.611] [WARN] Broken build, fix the error above.
+You may need to refresh the browser.
+[16:56:22.987] [PROMPT] Would you like to send anonymous crash reports to improve Storybook and fix bugs faster? {"choice":true}

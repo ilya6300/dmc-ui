@@ -22,8 +22,13 @@ function resolveFlex(key, fallback) {
   return FLEX[key] ?? FLEX[fallback];
 }
 
+const DIRECTIONS = {
+  row: "row",
+  col: "column",
+};
+
 function flexDirectionFrom(direction) {
-  return direction === "col" ? "column" : "row";
+  return DIRECTIONS[direction] ?? "row";
 }
 
 function containerFlexStyle({ direction, justify, align, gap, w }) {

@@ -98,6 +98,7 @@ export function SideDrawer({
   headerActions,
   children,
   footer,
+  w,
   style,
   layoutStyle,
   rootStyle,
@@ -185,7 +186,7 @@ export function SideDrawer({
       aria-modal="true"
       aria-labelledby={titleId}
       onClick={handleBackdropClick}
-      style={mergeStyle(rootBase, rootMotion, rootStyle)}
+      style={mergeStyle(rootBase, rootMotion, w != null && { width: w }, rootStyle)}
     >
       <div
         style={mergeStyle(LAYOUT_STYLE, layoutStyle)}

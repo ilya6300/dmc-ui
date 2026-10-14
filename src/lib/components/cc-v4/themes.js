@@ -4,6 +4,8 @@ const CARD_SHADOW_OFFSET_Y = 4;
 
 /** Brand-синий и интерактивный primary — одинаковые в light и dark. */
 export const MAST_BLUE = "#2196f3";
+/** Светло-серая рамка полей ввода (и связанный UI). */
+export const LIGHT_GREY = "#e2e8f0";
 const PRIMARY = MAST_BLUE;
 
 const LIGHT_SEMANTIC = {
@@ -11,7 +13,7 @@ const LIGHT_SEMANTIC = {
   surface: "#ffffff",
   textPrimary: "#1e293b",
   textSecondary: "#64748b",
-  border: "#e2e8f0",
+  border: LIGHT_GREY,
   primary: PRIMARY,
   error: "#df2727",
   mastBlue: MAST_BLUE,
@@ -55,6 +57,7 @@ function withLegacyAliases(semantic) {
     textMuted: semantic.textSecondary,
     bgCard: semantic.surface,
     borderLight,
+    lightGrey: LIGHT_GREY,
     borderInput: semantic.border,
   };
 }
