@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { mergeStyle } from "./tokens";
 import { useTheme } from "./ThemeContext.jsx";
+import { DARK_UI_TEXT, themes } from "./themes.js";
 
 const GROUP_BASE = {
   display: "flex",
@@ -28,12 +29,27 @@ const CHIP_BASE = {
     "border-color 0.15s ease, background-color 0.15s ease, color 0.15s ease",
 };
 
+function isDarkPalette(colors) {
+  return colors.background === themes.dark.background;
+}
+
 function chipColors(active, accentHover, colors) {
   const highlighted = active || accentHover;
+  const idleMuted = isDarkPalette(colors) ? DARK_UI_TEXT : colors.toggleTrackOff;
+  const idleText = isDarkPalette(colors) ? DARK_UI_TEXT : colors.textPrimary;
+
+  if (!active && isDarkPalette(colors)) {
+    return {
+      borderColor: highlighted ? colors.primary : idleMuted,
+      color: highlighted ? colors.primary : idleText,
+      backgroundColor: "transparent",
+    };
+  }
+
   return {
     borderColor: highlighted ? colors.primary : colors.toggleTrackOff,
     color: highlighted ? colors.primary : colors.textPrimary,
-    backgroundColor: active ? colors.focusBg : colors.surface,
+    backgroundColor: active ? colors.focusBg : "transparent",
   };
 }
 

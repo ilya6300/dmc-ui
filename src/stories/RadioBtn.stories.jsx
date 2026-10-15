@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Main, RadioBtn, ThemeProvider } from "../index.js";
+import { Main, RadioBtn } from "../index.js";
 import { importBlock, ROOT_NOTE } from "./docsFragments.js";
 
 function ComparisonDemo() {
@@ -33,11 +33,9 @@ const meta = {
   tags: ["autodocs"],
   decorators: [
     (Story) => (
-      <ThemeProvider>
-        <Main style={{ padding: 24 }}>
-          <Story />
-        </Main>
-      </ThemeProvider>
+      <Main style={{ padding: 24 }}>
+        <Story />
+      </Main>
     ),
   ],
   parameters: {
@@ -48,7 +46,7 @@ const meta = {
 
 ${ROOT_NOTE}
 
-${importBlock("RadioBtn", "Main", "ThemeProvider")}
+${importBlock("RadioBtn", "Main")}
 
 \`\`\`jsx
 const [value, setValue] = useState("more");

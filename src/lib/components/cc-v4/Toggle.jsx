@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { mergeStyle } from "./tokens";
 import { useTheme } from "./ThemeContext.jsx";
 
@@ -15,7 +15,6 @@ export function Toggle({
   trackEndIcon,
 }) {
   const { colors } = useTheme();
-  const [focused, setFocused] = useState(false);
 
   const labelStyle = {
     color: colors.textMain,
@@ -32,6 +31,7 @@ export function Toggle({
     margin: 0,
     padding: 0,
     border: "none",
+    outline: "none",
     background: "none",
     font: "inherit",
     color: "inherit",
@@ -97,11 +97,6 @@ export function Toggle({
   const buttonStyle = mergeStyle(
     wrapperStyle,
     disabled && { cursor: "not-allowed", opacity: 0.55 },
-    focused && {
-      outline: `2px solid ${colors.mainBlue1}`,
-      outlineOffset: 2,
-      borderRadius: 4,
-    },
     style,
   );
 
@@ -113,8 +108,6 @@ export function Toggle({
       aria-pressed={!!active}
       aria-label={ariaLabel || (label ? undefined : "Переключатель")}
       disabled={disabled}
-      onFocus={() => setFocused(true)}
-      onBlur={() => setFocused(false)}
     >
       <span style={trackStyle} aria-hidden="true">
         {(trackStartIcon || trackEndIcon) ? (

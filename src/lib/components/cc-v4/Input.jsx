@@ -32,7 +32,7 @@ function KeypadButton({ digit, disabled, onPress, colors, gridColumn }) {
   const [pressed, setPressed] = useState(false);
 
   const borderColor = pressed && !disabled ? colors.mastBlue : colors.lightGrey;
-  const textColor = pressed && !disabled ? colors.mastBlue : colors.textMain;
+  const textColor = pressed && !disabled ? colors.mastBlue : colors.inputTextPrimary;
 
   const buttonStyle = {
     boxSizing: "border-box",
@@ -159,14 +159,14 @@ export function Input({
     gap: 4,
     minWidth: 140,
     flex: "0 0 auto",
-    color: colors.textPrimary,
+    color: colors.inputTextPrimary,
     justifyContent: "space-between",
     height: "100%",
   };
 
   const captionStyle = {
     fontSize: 12,
-    color: colors.textMuted,
+    color: colors.inputTextMuted,
   };
 
   const inputFocused = !disabled && focused;
@@ -201,7 +201,7 @@ export function Input({
     fontSize: 14,
     lineHeight: 1.35,
     fontFamily: MONO_FONT,
-    color: colors.textMain,
+    color: colors.inputTextPrimary,
     backgroundColor: colors.surface,
     outline: "none",
     boxShadow:
@@ -223,7 +223,7 @@ export function Input({
     display: "flex",
     alignItems: "center",
     pointerEvents: "none",
-    color: colors.textMuted,
+    color: colors.inputTextMuted,
     fontSize: 14,
     lineHeight: 1.35,
     fontFamily: MONO_FONT,
@@ -330,7 +330,7 @@ export function Input({
       border: `1px solid ${colors.lightGrey}`,
       borderRadius: 8,
       backgroundColor: colors.surface,
-      color: colors.textPrimary,
+      color: colors.inputTextPrimary,
       flex: "0 0 auto",
       height: "165px",
     };
