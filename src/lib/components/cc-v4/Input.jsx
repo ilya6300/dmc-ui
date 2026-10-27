@@ -1,6 +1,7 @@
 import React, { useId, useRef, useState } from "react";
 import { mergeStyle } from "./tokens";
-import { useTheme } from "./ThemeContext.jsx";
+import { joinClass } from "./joinClass.js";
+import { resolveSize } from "./sizes.js";
 
 /** Семантика пропа `type` → нативный `input.type`. */
 export const INPUT_NATIVE_TYPE = {
@@ -21,48 +22,25 @@ const KEYPAD_ROWS = [
   ["1", "2", "3"],
 ];
 
-const MONO_FONT =
-  'source-code-pro, Menlo, Monaco, Consolas, "Courier New", monospace';
-
 function resolveSemanticType(type) {
   return Object.hasOwn(INPUT_NATIVE_TYPE, type) ? type : "text";
 }
 
-function KeypadButton({ digit, disabled, onPress, colors, gridColumn }) {
+function KeypadButton({ digit, disabled, onPress, gridColumn }) {
   const [pressed, setPressed] = useState(false);
-
-  const borderColor = pressed && !disabled ? colors.mastBlue : colors.lightGrey;
-  const textColor = pressed && !disabled ? colors.mastBlue : colors.inputTextPrimary;
-
-  const buttonStyle = {
-    boxSizing: "border-box",
-    minHeight: 36,
-    minWidth: 36,
-    padding: "6px 8px",
-    borderRadius: 6,
-    border: `1px solid ${borderColor}`,
-    backgroundColor: colors.surface,
-    color: textColor,
-    fontSize: 14,
-    fontWeight: 500,
-    fontFamily: "inherit",
-    cursor: disabled ? "not-allowed" : "pointer",
-    opacity: disabled ? 0.55 : 1,
-    outline: "none",
-    boxShadow: "none",
-    WebkitTapHighlightColor: "transparent",
-    transition: "border-color 0.15s ease, color 0.15s ease",
-    ...(gridColumn ? { gridColumn } : {}),
-  };
-
   const clearPressed = () => setPressed(false);
 
   return (
     <button
       type="button"
+      className={joinClass(
+        "dmc-input__keypad-btn",
+        gridColumn ? "dmc-input__keypad-btn--wide" : null,
+      )}
+      data-pressed={pressed && !disabled ? "true" : "false"}
       disabled={disabled}
       aria-label={`Цифра ${digit}`}
-      style={buttonStyle}
+      style={gridColumn ? { gridColumn } : undefined}
       onMouseDown={(e) => {
         if (disabled) return;
         e.preventDefault();
@@ -86,23 +64,15 @@ function KeypadButton({ digit, disabled, onPress, colors, gridColumn }) {
   );
 }
 
-function NumericKeypad({ disabled, onDigit, colors }) {
-  const gridStyle = {
-    display: "grid",
-    gridTemplateColumns: "repeat(3, 1fr)",
-    gap: 6,
-    flexShrink: 0,
-  };
-
+function NumericKeypad({ disabled, onDigit }) {
   return (
-    <div style={gridStyle} role="group" aria-label="Цифровая клавиатура">
+    <div className="dmc-input__keypad" role="group" aria-label="Цифровая клавиатура">
       {KEYPAD_ROWS.flatMap((row, rowIndex) =>
         row.map((digit) => (
           <KeypadButton
             key={`${rowIndex}-${digit}`}
             digit={digit}
             disabled={disabled}
-            colors={colors}
             onPress={onDigit}
           />
         )),
@@ -110,7 +80,6 @@ function NumericKeypad({ disabled, onDigit, colors }) {
       <KeypadButton
         digit="0"
         disabled={disabled}
-        colors={colors}
         onPress={onDigit}
         gridColumn="1 / -1"
       />
@@ -131,17 +100,18 @@ export function Input({
   id: idProp,
   style,
   inputStyle,
+  size,
   min = 0,
   max,
   error = false,
   msg,
   "aria-label": ariaLabel,
 }) {
-  const { colors } = useTheme();
   const generatedId = useId();
   const inputId = idProp ?? generatedId;
   const inputRef = useRef(null);
   const [focused, setFocused] = useState(false);
+  const resolvedSize = resolveSize(size);
 
   const semanticType = resolveSemanticType(type);
   const nativeType = INPUT_NATIVE_TYPE[semanticType];
@@ -153,29 +123,6 @@ export function Input({
   const showPlaceholderOverlay =
     placeholder && String(currentValue).length === 0 && !focused;
 
-  const labelRootStyle = {
-    display: "flex",
-    flexDirection: "column",
-    gap: 4,
-    minWidth: 140,
-    flex: "0 0 auto",
-    color: colors.inputTextPrimary,
-    justifyContent: "space-between",
-    height: "100%",
-  };
-
-  const captionStyle = {
-    fontSize: 12,
-    color: colors.inputTextMuted,
-  };
-
-  const inputFocused = !disabled && focused;
-  const inputBorderColor = error
-    ? colors.error
-    : inputFocused
-      ? colors.mastBlue
-      : colors.lightGrey;
-
   const showErrorMsg = Boolean(error && msg);
   const errorMessageId = `${inputId}-error`;
   const hintId = placeholder && label ? `${inputId}-hint` : null;
@@ -183,50 +130,13 @@ export function Input({
     [hintId, showErrorMsg ? errorMessageId : null].filter(Boolean).join(" ") ||
     undefined;
 
-  const errorMsgStyle = {
-    fontSize: 12,
-    lineHeight: 1.35,
-    color: colors.error,
+  const wrapWidthStyle = {
+    maxWidth: widths.maxWidth,
   };
 
-  const inputBase = {
-    boxSizing: "border-box",
-    width: "100%",
+  const fieldWidthStyle = {
     minWidth: widths.minWidth,
     maxWidth: widths.maxWidth,
-    minHeight: 40,
-    padding: "8px 12px",
-    border: `1px solid ${inputBorderColor}`,
-    borderRadius: 6,
-    fontSize: 14,
-    lineHeight: 1.35,
-    fontFamily: MONO_FONT,
-    color: colors.inputTextPrimary,
-    backgroundColor: colors.surface,
-    outline: "none",
-    boxShadow:
-      !error && inputFocused ? "0 0 0 3px rgba(33, 150, 243, 0.15)" : "none",
-    transition: "border-color 0.15s ease, box-shadow 0.15s ease",
-  };
-
-  const inputWrapStyle = {
-    position: "relative",
-    width: "100%",
-    maxWidth: widths.maxWidth,
-  };
-
-  const placeholderOverlayStyle = {
-    position: "absolute",
-    left: 12,
-    top: 0,
-    bottom: 0,
-    display: "flex",
-    alignItems: "center",
-    pointerEvents: "none",
-    color: colors.inputTextMuted,
-    fontSize: 14,
-    lineHeight: 1.35,
-    fontFamily: MONO_FONT,
   };
 
   const fieldDisabled = disabled || readOnly;
@@ -239,23 +149,11 @@ export function Input({
   };
 
   const dispatchValueChange = (next) => {
+    if (readOnly || disabled) return;
     if (!isControlled) {
       setInternalValue(next);
     }
-    const el = inputRef.current;
-    if (el) {
-      const nativeInputValueSetter = Object.getOwnPropertyDescriptor(
-        window.HTMLInputElement.prototype,
-        "value",
-      )?.set;
-      const handleValueChange = (next) => {
-        if (readOnly || disabled) return;
-        if (!isControlled) {
-          setInternalValue(next);
-        }
-        onValueChange?.(next);
-      };
-    }
+    onChange?.({ target: { value: next, name: name ?? "" } });
   };
 
   const appendDigit = (digit) => {
@@ -273,10 +171,13 @@ export function Input({
       : {};
 
   const inputElement = (
-    <div style={inputWrapStyle}>
+    <div className="dmc-input__wrap" style={wrapWidthStyle}>
       <input
         ref={inputRef}
         id={inputId}
+        className="dmc-input__field"
+        data-focus={focused && !disabled ? "true" : "false"}
+        data-error={error ? "true" : "false"}
         type={nativeType}
         name={name}
         {...numberInputBounds}
@@ -287,17 +188,13 @@ export function Input({
         aria-label={!label ? ariaLabel || placeholder : undefined}
         aria-invalid={error || undefined}
         aria-describedby={ariaDescribedBy}
-        style={mergeStyle(
-          inputBase,
-          disabled && { opacity: 0.55, cursor: "not-allowed" },
-          inputStyle,
-        )}
+        style={mergeStyle(fieldWidthStyle, inputStyle)}
         onChange={handleInputChange}
         onFocus={() => setFocused(true)}
         onBlur={() => setFocused(false)}
       />
       {showPlaceholderOverlay ? (
-        <span style={placeholderOverlayStyle} aria-hidden="true">
+        <span className="dmc-input__placeholder" aria-hidden="true">
           {placeholder}
         </span>
       ) : null}
@@ -306,7 +203,7 @@ export function Input({
 
   const labelBlock = (
     <>
-      {label ? <span style={captionStyle}>{label}</span> : null}
+      {label ? <span className="dmc-input__caption">{label}</span> : null}
       {placeholder && label ? (
         <span id={`${inputId}-hint`} style={{ display: "none" }}>
           {placeholder}
@@ -314,7 +211,7 @@ export function Input({
       ) : null}
       {inputElement}
       {showErrorMsg ? (
-        <span id={errorMessageId} style={errorMsgStyle}>
+        <span id={errorMessageId} className="dmc-input__error">
           {msg}
         </span>
       ) : null}
@@ -322,45 +219,32 @@ export function Input({
   );
 
   if (semanticType === "key") {
-    const keyShellStyle = {
-      display: "flex",
-      flexDirection: "column",
-      gap: 4,
-      padding: 12,
-      border: `1px solid ${colors.lightGrey}`,
-      borderRadius: 8,
-      backgroundColor: colors.surface,
-      color: colors.inputTextPrimary,
-      flex: "0 0 auto",
-      height: "165px",
-    };
-
-    const keyRowStyle = {
-      display: "flex",
-      alignItems: "flex-start",
-      gap: 12,
-    };
-
-    const keyColumnStyle = mergeStyle(labelRootStyle, { minWidth: 0 });
-
     return (
-      <div style={mergeStyle(keyShellStyle, style)}>
-        <div style={keyRowStyle}>
-          <label htmlFor={inputId} style={keyColumnStyle}>
+      <div
+        className={joinClass("dmc-input--key-shell")}
+        data-dmc-size={resolvedSize}
+        style={mergeStyle(undefined, style)}
+      >
+        <div className="dmc-input--key-row">
+          <label
+            htmlFor={inputId}
+            className={joinClass("dmc-input", "dmc-input--key-column")}
+          >
             {labelBlock}
           </label>
-          <NumericKeypad
-            disabled={fieldDisabled}
-            onDigit={appendDigit}
-            colors={colors}
-          />
+          <NumericKeypad disabled={fieldDisabled} onDigit={appendDigit} />
         </div>
       </div>
     );
   }
 
   return (
-    <label htmlFor={inputId} style={mergeStyle(labelRootStyle, style)}>
+    <label
+      htmlFor={inputId}
+      className={joinClass("dmc-input")}
+      data-dmc-size={resolvedSize}
+      style={mergeStyle(undefined, style)}
+    >
       {labelBlock}
     </label>
   );

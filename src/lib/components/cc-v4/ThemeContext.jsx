@@ -40,7 +40,11 @@ export function ThemeProvider({
   );
 
   return (
-    <ThemeContext.Provider value={value}>{children}</ThemeContext.Provider>
+    <ThemeContext.Provider value={value}>
+      <div className="dmc-root" data-dmc-theme={theme}>
+        {children}
+      </div>
+    </ThemeContext.Provider>
   );
 }
 

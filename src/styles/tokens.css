@@ -1,3 +1,5 @@
+/* Legacy :root — значения задаются в style.css на [data-dmc-theme]; fallback для вне ThemeProvider */
+
 :root {
   --main-blue-1: #2196f3;
   --mast-blue: #236192;

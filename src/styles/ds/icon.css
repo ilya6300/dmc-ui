@@ -1,0 +1,5 @@
+.dmc-icon {
+  display: block;
+  width: var(--dmc-icon-size, 20px);
+  height: var(--dmc-icon-size, 20px);
+}

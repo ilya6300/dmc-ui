@@ -41,7 +41,7 @@ alwaysApply: false
 
 ## 6. Правила стилизации
 
-По контракту: в **`src/lib/components/**` только `style={{}}`** с литералами из палитры темы; без `className`, без `var(--…)`, **без** обязательного `styles.css` у потребителя. Hover/focus/анимации — React + inline.
+По контракту: компоненты **CSS-волны** — классы `dmc-*` + `src/styles/ds/*.css`, обязательный `@dmc/ui/styles.css` у потребителя; проп `size` через `resolveSize`; `style` потребителя — `mergeStyle` последним. Остальные компоненты — inline `style` + `useTheme().colors`. Тема: `data-dmc-theme` на корне `ThemeProvider`.
 
 ### Тема и текст (обязательно для новых и изменяемых компонентов)
 

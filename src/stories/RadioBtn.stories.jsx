@@ -1,8 +1,8 @@
 import React, { useState } from "react";
-import { Main, RadioBtn } from "../index.js";
+import { Main, RadioBtn, SIZE_KEYS } from "../index.js";
 import { importBlock, ROOT_NOTE } from "./docsFragments.js";
 
-function ComparisonDemo() {
+function ComparisonDemo({ size }) {
   const [value, setValue] = useState("more");
 
   const items = [
@@ -23,7 +23,7 @@ function ComparisonDemo() {
     },
   ];
 
-  return <RadioBtn items={items} />;
+  return <RadioBtn items={items} size={size} />;
 }
 
 /** @type { import('@storybook/react-vite').Meta } */
@@ -31,6 +31,8 @@ const meta = {
   title: "Design System/RadioBtn",
   component: RadioBtn,
   tags: ["autodocs"],
+  render: (args) => <RadioBtn {...args} />,
+  args: { size: "m" },
   decorators: [
     (Story) => (
       <Main style={{ padding: 24 }}>
@@ -60,7 +62,7 @@ const [value, setValue] = useState("more");
 />
 \`\`\`
 
-**Состав:** обязательно \`items\` (\`name\`, \`active\`, \`action\`); опционально \`style\` на обёртке группы.
+**Состав:** обязательно \`items\` (\`name\`, \`active\`, \`action\`); опционально \`size\` (\`xs\` … \`xl\`), \`style\` на обёртке группы.
         `,
       },
     },
@@ -71,6 +73,7 @@ const [value, setValue] = useState("more");
         "Массив вариантов: name (подпись), active (выбран), action (клик).",
       control: false,
     },
+    size: { options: SIZE_KEYS, control: "select" },
     style: { description: "Стили корневой обёртки.", control: false },
   },
 };
@@ -79,7 +82,7 @@ export default meta;
 
 export const Comparison = {
   name: "Сравнение (Меньше / Равно / Больше)",
-  render: () => <ComparisonDemo />,
+  render: (args) => <ComparisonDemo size={args.size} />,
 };
 
 export const Minimal = {
@@ -90,4 +93,23 @@ export const Minimal = {
       { name: "B", active: false, action: () => {} },
     ],
   },
+};
+
+export const SizeScale = {
+  name: "Размеры",
+  parameters: { controls: { disable: true } },
+  render: () => (
+    <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
+      {SIZE_KEYS.map((size) => (
+        <RadioBtn
+          key={size}
+          size={size}
+          items={[
+            { name: `${size}-1`, active: true, action: () => {} },
+            { name: `${size}-2`, active: false, action: () => {} },
+          ]}
+        />
+      ))}
+    </div>
+  ),
 };

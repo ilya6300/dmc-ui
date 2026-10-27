@@ -1,4 +1,4 @@
-import { Input, Main } from "../index.js";
+import { Input, Main, SIZE_KEYS } from "../index.js";
 import { importBlock, ROOT_NOTE } from "./docsFragments.js";
 
 /** @type { import('@storybook/react-vite').Meta } */
@@ -6,6 +6,8 @@ const meta = {
   title: "Design System/Input",
   component: Input,
   tags: ["autodocs"],
+  render: (args) => <Input {...args} />,
+  args: { size: "m" },
   decorators: [
     (Story) => (
       <Main style={{ padding: 24 }}>
@@ -23,7 +25,7 @@ ${ROOT_NOTE}
 
 ${importBlock("Input", "Main")}
 
-**Состав:** опционально \`label\`, \`placeholder\`, \`type\` (\`text\` | \`number\` | \`key\`), \`value\` / \`defaultValue\`, \`onChange\`, \`disabled\`, \`readOnly\`, \`error\`, \`msg\` (текст под полем только при \`error\` и непустом \`msg\`), \`name\`, \`id\`, \`style\`, \`inputStyle\`, \`aria-label\` (если нет \`label\`).
+**Состав:** опционально \`label\`, \`placeholder\`, \`type\` (\`text\` | \`number\` | \`key\`), \`size\` (\`xs\` | \`s\` | \`m\` | \`l\` | \`xl\`, по умолчанию \`m\`), \`value\` / \`defaultValue\`, \`onChange\`, \`disabled\`, \`readOnly\`, \`error\`, \`msg\` (текст под полем только при \`error\` и непустом \`msg\`), \`name\`, \`id\`, \`style\`, \`inputStyle\`, \`aria-label\` (если нет \`label\`).
 
 Для \`type\` \`number\` и \`key\` (нативный \`number\`): по умолчанию \`min={0}\`, верхней границы нет; можно передать свои \`min\` и \`max\`.
 
@@ -62,6 +64,11 @@ ${importBlock("Input", "Main")}
     max: {
       description: "Верхняя граница для number/key; без пропа — без ограничения.",
       control: "number",
+    },
+    size: {
+      options: SIZE_KEYS,
+      control: "select",
+      description: "Шкала размеров поля и отступов; по умолчанию m.",
     },
     style: { control: false },
     inputStyle: { control: false },
@@ -105,6 +112,18 @@ export const Minimal = {
   args: {
     placeholder: "...",
   },
+};
+
+export const SizeScale = {
+  name: "Размеры",
+  parameters: { controls: { disable: true } },
+  render: () => (
+    <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
+      {SIZE_KEYS.map((size) => (
+        <Input key={size} size={size} label={`size=${size}`} placeholder="..." />
+      ))}
+    </div>
+  ),
 };
 
 export const WithValidationError = {

@@ -1,0 +1,101 @@
+/* Size scale: data-dmc-size on component roots */
+
+[data-dmc-size="xs"] {
+  --dmc-font-scale: 0.85;
+  --dmc-control-min-height: 34px;
+  --dmc-control-padding-y: 7px;
+  --dmc-control-padding-x: 10px;
+  --dmc-control-font-size: 12px;
+  --dmc-caption-font-size: 10px;
+  --dmc-chip-padding-y: 7px;
+  --dmc-chip-padding-x: 12px;
+  --dmc-chip-min-height: 26px;
+  --dmc-chip-font-size: 12px;
+  --dmc-gap: 7px;
+  --dmc-icon-size: 17px;
+  --dmc-toggle-track-w: 31px;
+  --dmc-toggle-track-h: 17px;
+  --dmc-toggle-knob: 13px;
+  --dmc-toggle-knob-translate: 14px;
+  --dmc-keypad-min: 31px;
+}
+
+[data-dmc-size="s"] {
+  --dmc-font-scale: 0.92;
+  --dmc-control-min-height: 37px;
+  --dmc-control-padding-y: 7px;
+  --dmc-control-padding-x: 11px;
+  --dmc-control-font-size: 13px;
+  --dmc-caption-font-size: 11px;
+  --dmc-chip-padding-y: 7px;
+  --dmc-chip-padding-x: 13px;
+  --dmc-chip-min-height: 28px;
+  --dmc-chip-font-size: 13px;
+  --dmc-gap: 7px;
+  --dmc-icon-size: 18px;
+  --dmc-toggle-track-w: 33px;
+  --dmc-toggle-track-h: 18px;
+  --dmc-toggle-knob: 14px;
+  --dmc-toggle-knob-translate: 15px;
+  --dmc-keypad-min: 33px;
+}
+
+[data-dmc-size="m"] {
+  --dmc-font-scale: 1;
+  --dmc-control-min-height: 40px;
+  --dmc-control-padding-y: 8px;
+  --dmc-control-padding-x: 12px;
+  --dmc-control-font-size: 14px;
+  --dmc-caption-font-size: 12px;
+  --dmc-chip-padding-y: 8px;
+  --dmc-chip-padding-x: 14px;
+  --dmc-chip-min-height: 30px;
+  --dmc-chip-font-size: 14px;
+  --dmc-gap: 8px;
+  --dmc-icon-size: 20px;
+  --dmc-toggle-track-w: 36px;
+  --dmc-toggle-track-h: 20px;
+  --dmc-toggle-knob: 16px;
+  --dmc-toggle-knob-translate: 16px;
+  --dmc-keypad-min: 36px;
+}
+
+[data-dmc-size="l"] {
+  --dmc-font-scale: 1.08;
+  --dmc-control-min-height: 43px;
+  --dmc-control-padding-y: 9px;
+  --dmc-control-padding-x: 13px;
+  --dmc-control-font-size: 15px;
+  --dmc-caption-font-size: 13px;
+  --dmc-chip-padding-y: 9px;
+  --dmc-chip-padding-x: 15px;
+  --dmc-chip-min-height: 32px;
+  --dmc-chip-font-size: 15px;
+  --dmc-gap: 9px;
+  --dmc-icon-size: 22px;
+  --dmc-toggle-track-w: 39px;
+  --dmc-toggle-track-h: 22px;
+  --dmc-toggle-knob: 18px;
+  --dmc-toggle-knob-translate: 17px;
+  --dmc-keypad-min: 39px;
+}
+
+[data-dmc-size="xl"] {
+  --dmc-font-scale: 1.16;
+  --dmc-control-min-height: 46px;
+  --dmc-control-padding-y: 9px;
+  --dmc-control-padding-x: 14px;
+  --dmc-control-font-size: 16px;
+  --dmc-caption-font-size: 14px;
+  --dmc-chip-padding-y: 9px;
+  --dmc-chip-padding-x: 16px;
+  --dmc-chip-min-height: 35px;
+  --dmc-chip-font-size: 16px;
+  --dmc-gap: 9px;
+  --dmc-icon-size: 23px;
+  --dmc-toggle-track-w: 42px;
+  --dmc-toggle-track-h: 23px;
+  --dmc-toggle-knob: 19px;
+  --dmc-toggle-knob-translate: 19px;
+  --dmc-keypad-min: 42px;
+}

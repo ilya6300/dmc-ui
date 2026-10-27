@@ -1,0 +1,73 @@
+/* Единственный источник литералов тем: CSS (dmc-*) и JS (useTheme / themes) читают отсюда. */
+
+[data-dmc-theme="light"] {
+  --dmc-color-background: #ffffff;
+  --dmc-color-surface: #ffffff;
+  --dmc-color-text-primary: #1e293b;
+  --dmc-color-text-secondary: #64748b;
+  --dmc-color-border: #e2e8f0;
+  --dmc-color-primary: #2196f3;
+  --dmc-color-error: #df2727;
+  --dmc-color-toggle-track-off: #cbd5e1;
+  --dmc-color-knob: #ffffff;
+  --dmc-color-input-text-primary: #1e293b;
+  --dmc-color-input-text-muted: #64748b;
+  --dmc-color-focus-bg: #f0f7ff;
+  --dmc-color-chip-idle-border: #cbd5e1;
+  --dmc-color-chip-idle-text: #1e293b;
+  --dmc-focus-ring: 0 0 0 3px rgba(33, 150, 243, 0.15);
+  --dmc-card-shadow-color: rgba(0, 0, 0, 0.25);
+  --main-blue-1: var(--dmc-color-primary);
+  --mast-blue: #236192;
+  --mast-yellow: #f0b323;
+  --error: var(--dmc-color-error);
+  --lgt-grey-border: 1px solid #0000001f;
+}
+
+[data-dmc-theme="dark"] {
+  --dmc-color-background: #121212;
+  --dmc-color-surface: #1e1e1e;
+  --dmc-color-text-primary: rgb(233, 233, 233);
+  --dmc-color-text-secondary: rgb(233, 233, 233);
+  --dmc-color-border: #383838;
+  --dmc-color-primary: #2196f3;
+  --dmc-color-error: #f87171;
+  --dmc-color-toggle-track-off: #475569;
+  --dmc-color-knob: #ffffff;
+  --dmc-color-input-text-primary: #ffffff;
+  --dmc-color-input-text-muted: #b3b3b3;
+  --dmc-color-focus-bg: #1e3a5f;
+  --dmc-color-chip-idle-border: #475569;
+  --dmc-color-chip-idle-text: rgb(233, 233, 233);
+  --dmc-focus-ring: 0 0 0 3px rgba(33, 150, 243, 0.25);
+  --dmc-card-shadow-color: rgba(0, 0, 0, 0.45);
+  --main-blue-1: var(--dmc-color-primary);
+  --mast-blue: #236192;
+  --mast-yellow: #f0b323;
+  --error: var(--dmc-color-error);
+  --lgt-grey-border: 1px solid #0000001f;
+}
+
+[data-dmc-theme="gray"] {
+  --dmc-color-background: #3c3c3d;
+  --dmc-color-surface: #94a3b8;
+  --dmc-color-text-primary: #f8fafc;
+  --dmc-color-text-secondary: #e2e8f0;
+  --dmc-color-border: #475569;
+  --dmc-color-primary: #2196f3;
+  --dmc-color-error: #fca5a5;
+  --dmc-color-toggle-track-off: #475569;
+  --dmc-color-knob: #ffffff;
+  --dmc-color-input-text-primary: #ffffff;
+  --dmc-color-input-text-muted: #cbd5e1;
+  --dmc-color-focus-bg: #334155;
+  --dmc-color-chip-idle-border: #475569;
+  --dmc-color-chip-idle-text: #f8fafc;
+  --dmc-focus-ring: 0 0 0 3px rgba(33, 150, 243, 0.22);
+  --dmc-card-shadow-color: rgba(0, 0, 0, 0.35);
+  --main-blue-1: var(--dmc-color-primary);
+  --mast-blue: #236192;
+  --mast-yellow: #f0b323;
+  --error: var(--dmc-color-error);
+  --lgt-grey-border: 1px solid #0000001f;
+}

@@ -17,13 +17,22 @@
         "displayName": "Box",
         "definedInFile": "C:\\Frontend\\dmc-ui\\src\\lib\\components\\cc-v4\\Box.jsx",
         "actualName": "Box",
-        "exportName": "Box"
+        "exportName": "Box",
+        "props": {
+          "shadow": {
+            "defaultValue": {
+              "value": "12",
+              "computed": false
+            },
+            "required": false
+          }
+        }
       },
       "stories": [
         {
           "id": "design-system-box--default",
           "name": "С заголовком",
-          "snippet": "const Default = () => <Box title=\"Подписка\">\r\n    <p style={{ margin: 0, color: tokens.textMuted, fontSize: 14 }}>Пример содержимого.\r\n              </p>\r\n</Box>;"
+          "snippet": "const Default = () => <Box title=\"Подписка\">\r\n    <SecondaryText>Пример содержимого.</SecondaryText>\r\n</Box>;"
         },
         {
           "id": "design-system-box--minimal",
@@ -34,6 +43,11 @@
           "id": "design-system-box--custom-width",
           "name": "Ширина w",
           "snippet": "const CustomWidth = () => (\r\n  <Box title=\"Узкая карточка\" w=\"280px\">\r\n    <p style={{ margin: 0, fontSize: 14 }}>Ширина задаётся пропом w.</p>\r\n  </Box>\r\n);"
+        },
+        {
+          "id": "design-system-box--no-shadow",
+          "name": "Без тени",
+          "snippet": "const NoShadow = () => (\r\n  <Box title=\"shadow={0}\" shadow={0}>\r\n    <p style={{ margin: 0, fontSize: 14 }}>Тень отключена пропом shadow.</p>\r\n  </Box>\r\n);"
         }
       ],
       "import": "import { Box, Main } from '@dmc/ui';"
@@ -141,25 +155,119 @@
         {
           "id": "design-system-icon--image-pair",
           "name": "Img с darkSrc",
-          "snippet": "const ImagePair = () => (\r\n  <Icon\r\n    src=\"https://placehold.co/32x32/236192/ffffff?text=L\"\r\n    darkSrc=\"https://placehold.co/32x32/7c9cff/121212?text=D\"\r\n    alt=\"Демо\"\r\n    width={32}\r\n    height={32}\r\n  />\r\n);"
+          "snippet": "const ImagePair = () => <Icon\r\n    size=\"m\"\r\n    src=\"https://placehold.co/32x32/2196f3/ffffff?text=L\"\r\n    darkSrc=\"https://placehold.co/32x32/2196f3/121212?text=D\"\r\n    alt=\"Демо\"\r\n    width={32}\r\n    height={32} />;"
         },
         {
           "id": "design-system-icon--image-fallback",
           "name": "Img без darkSrc",
-          "snippet": "const ImageFallback = () => (\r\n  <Icon\r\n    src=\"https://placehold.co/32x32/2196f3/ffffff?text=1\"\r\n    alt=\"Одна картинка\"\r\n    width={32}\r\n    height={32}\r\n  />\r\n);"
+          "snippet": "const ImageFallback = () => <Icon\r\n    size=\"m\"\r\n    src=\"https://placehold.co/32x32/2196f3/ffffff?text=1\"\r\n    alt=\"Одна картинка\"\r\n    width={32}\r\n    height={32} />;"
         },
         {
           "id": "design-system-icon--component-pair",
           "name": "React-компоненты",
-          "snippet": "const ComponentPair = () => (\r\n  <Icon\r\n    component={SunIcon}\r\n    darkComponent={MoonIcon}\r\n    style={{ color: \"#236192\" }}\r\n  />\r\n);"
+          "snippet": "const ComponentPair = () => <Icon\r\n    size=\"m\"\r\n    style={{ color: \"#2196f3\" }}\r\n    component={SunIcon}\r\n    darkComponent={MoonIcon}\r\n    width={undefined}\r\n    height={undefined} />;"
         },
         {
           "id": "design-system-icon--minimal",
           "name": "Минимальный",
-          "snippet": "const Minimal = () => (\r\n  <Icon\r\n    src=\"https://placehold.co/24x24/000000/ffffff?text=i\"\r\n    alt=\"\"\r\n    width={24}\r\n    height={24}\r\n  />\r\n);"
+          "snippet": "const Minimal = () => <Icon size=\"m\" src=\"https://placehold.co/48x48/2196f3/ffffff?text=i\" alt=\"Демо\" />;"
+        },
+        {
+          "id": "design-system-icon--size-scale",
+          "name": "Размеры",
+          "snippet": "const SizeScale = () => (\r\n  <div style={{ display: \"flex\", alignItems: \"center\", gap: 12 }}>\r\n    {SIZE_KEYS.map((size) => (\r\n      <Icon\r\n        key={size}\r\n        size={size}\r\n        component={SunIcon}\r\n        style={{ color: \"#2196f3\" }}\r\n      />\r\n    ))}\r\n  </div>\r\n);"
         }
       ],
-      "import": "import { Icon, Main, ThemeToggle } from '@dmc/ui';"
+      "import": "import { Icon, Main, ThemeSelect } from '@dmc/ui';"
+    },
+    "design-system-input": {
+      "id": "design-system-input",
+      "name": "Input",
+      "path": "./src/stories/Input.stories.jsx",
+      "jsDocTags": {
+        "type": [
+          "{import('@storybook/react-vite').Meta}"
+        ]
+      },
+      "description": "",
+      "reactDocgen": {
+        "description": "",
+        "methods": [],
+        "displayName": "Input",
+        "definedInFile": "C:\\Frontend\\dmc-ui\\src\\lib\\components\\cc-v4\\Input.jsx",
+        "actualName": "Input",
+        "exportName": "Input",
+        "props": {
+          "type": {
+            "defaultValue": {
+              "value": "\"text\"",
+              "computed": false
+            },
+            "required": false
+          },
+          "disabled": {
+            "defaultValue": {
+              "value": "false",
+              "computed": false
+            },
+            "required": false
+          },
+          "readOnly": {
+            "defaultValue": {
+              "value": "false",
+              "computed": false
+            },
+            "required": false
+          },
+          "min": {
+            "defaultValue": {
+              "value": "0",
+              "computed": false
+            },
+            "required": false
+          },
+          "error": {
+            "defaultValue": {
+              "value": "false",
+              "computed": false
+            },
+            "required": false
+          }
+        }
+      },
+      "stories": [
+        {
+          "id": "design-system-input--text-with-label",
+          "name": "Текст с подписью",
+          "snippet": "const TextWithLabel = () => <Input size=\"m\" type=\"text\" label=\"Название\" placeholder=\"...\" defaultValue=\"\" />;"
+        },
+        {
+          "id": "design-system-input--number-field",
+          "name": "Число",
+          "snippet": "const NumberField = () => <Input size=\"m\" type=\"number\" label=\"Количество\" placeholder=\"0\" defaultValue=\"\" />;"
+        },
+        {
+          "id": "design-system-input--key-with-keypad",
+          "name": "Клавиатура (key)",
+          "snippet": "const KeyWithKeypad = () => <Input size=\"m\" type=\"key\" label=\"Версия\" placeholder=\"...\" defaultValue=\"\" />;"
+        },
+        {
+          "id": "design-system-input--minimal",
+          "name": "Минимальный",
+          "snippet": "const Minimal = () => <Input size=\"m\" placeholder=\"...\" />;"
+        },
+        {
+          "id": "design-system-input--size-scale",
+          "name": "Размеры",
+          "snippet": "const SizeScale = () => (\r\n  <div style={{ display: \"flex\", flexDirection: \"column\", gap: 16 }}>\r\n    {SIZE_KEYS.map((size) => (\r\n      <Input key={size} size={size} label={`size=${size}`} placeholder=\"...\" />\r\n    ))}\r\n  </div>\r\n);"
+        },
+        {
+          "id": "design-system-input--with-validation-error",
+          "name": "С ошибкой",
+          "snippet": "const WithValidationError = () => <Input\r\n    size=\"m\"\r\n    type=\"text\"\r\n    label=\"Email\"\r\n    placeholder=\"user@example.com\"\r\n    defaultValue=\"not-an-email\"\r\n    error\r\n    msg=\"Введите корректный адрес электронной почты\" />;"
+        }
+      ],
+      "import": "import { Input, Main } from '@dmc/ui';"
     },
     "design-system-layout": {
       "id": "design-system-layout",
@@ -234,6 +342,43 @@
       ],
       "import": "import { Box, Main } from '@dmc/ui';"
     },
+    "design-system-radiobtn": {
+      "id": "design-system-radiobtn",
+      "name": "RadioBtn",
+      "path": "./src/stories/RadioBtn.stories.jsx",
+      "jsDocTags": {
+        "type": [
+          "{import('@storybook/react-vite').Meta}"
+        ]
+      },
+      "description": "",
+      "reactDocgen": {
+        "description": "Группа chip-кнопок; выбор и `active` управляются родителем через `items`.",
+        "methods": [],
+        "displayName": "RadioBtn",
+        "definedInFile": "C:\\Frontend\\dmc-ui\\src\\lib\\components\\cc-v4\\RadioBtn.jsx",
+        "actualName": "RadioBtn",
+        "exportName": "RadioBtn"
+      },
+      "stories": [
+        {
+          "id": "design-system-radiobtn--comparison",
+          "name": "Сравнение (Меньше / Равно / Больше)",
+          "snippet": "const Comparison = () => <ComparisonDemo size=\"m\" />;"
+        },
+        {
+          "id": "design-system-radiobtn--minimal",
+          "name": "Минимальный",
+          "snippet": "const Minimal = () => <RadioBtn\r\n    size=\"m\"\r\n    items={[\r\n      { name: \"A\", active: true, action: () => {} },\r\n      { name: \"B\", active: false, action: () => {} },\r\n    ]} />;"
+        },
+        {
+          "id": "design-system-radiobtn--size-scale",
+          "name": "Размеры",
+          "snippet": "const SizeScale = () => (\r\n  <div style={{ display: \"flex\", flexDirection: \"column\", gap: 16 }}>\r\n    {SIZE_KEYS.map((size) => (\r\n      <RadioBtn\r\n        key={size}\r\n        size={size}\r\n        items={[\r\n          { name: `${size}-1`, active: true, action: () => {} },\r\n          { name: `${size}-2`, active: false, action: () => {} },\r\n        ]}\r\n      />\r\n    ))}\r\n  </div>\r\n);"
+        }
+      ],
+      "import": "import { Main, RadioBtn } from '@dmc/ui';"
+    },
     "design-system-sidedrawer": {
       "id": "design-system-sidedrawer",
       "name": "SideDrawer",
@@ -290,14 +435,19 @@
           "id": "design-system-sidedrawer--minimal",
           "name": "Минимальный (без title)",
           "snippet": "const Minimal = () => (\r\n  <Main style={{ padding: 24, minHeight: 200 }}>\r\n    <SideDrawer open usePortal={false}>\r\n      <div style={bodyStyle}>Только тело панели</div>\r\n    </SideDrawer>\r\n  </Main>\r\n);"
+        },
+        {
+          "id": "design-system-sidedrawer--custom-width",
+          "name": "Ширина (w)",
+          "snippet": "const CustomWidth = () => (\r\n  <Main style={{ padding: 24, minHeight: 200 }}>\r\n    <SideDrawer open usePortal={false} w=\"360px\" title=\"Узкая панель\">\r\n      <div style={bodyStyle}>\r\n        <p style={muted}>Ширина задана через w=&quot;360px&quot;.</p>\r\n      </div>\r\n    </SideDrawer>\r\n  </Main>\r\n);"
         }
       ],
       "import": "import { Main, SideDrawer, SideDrawerCloseButton } from '@dmc/ui';"
     },
-    "design-system-themetoggle": {
-      "id": "design-system-themetoggle",
-      "name": "ThemeToggle",
-      "path": "./src/stories/ThemeToggle.stories.jsx",
+    "design-system-text": {
+      "id": "design-system-text",
+      "name": "Text",
+      "path": "./src/stories/Text.stories.jsx",
       "jsDocTags": {
         "type": [
           "{import('@storybook/react-vite').Meta}"
@@ -305,16 +455,69 @@
       },
       "description": "",
       "reactDocgen": {
-        "description": "Переключатель светлой / тёмной темы (отдельный UI, не часть Layout).",
+        "description": "Типографический текст с вариантами оформления.",
         "methods": [],
-        "displayName": "ThemeToggle",
-        "definedInFile": "C:\\Frontend\\dmc-ui\\src\\lib\\components\\cc-v4\\ThemeToggle.jsx",
-        "actualName": "ThemeToggle",
-        "exportName": "ThemeToggle",
+        "displayName": "Text",
+        "definedInFile": "C:\\Frontend\\dmc-ui\\src\\lib\\components\\cc-v4\\Text.jsx",
+        "actualName": "Text",
+        "exportName": "Text",
+        "props": {
+          "variant": {
+            "defaultValue": {
+              "value": "\"span\"",
+              "computed": false
+            },
+            "required": false
+          }
+        }
+      },
+      "stories": [
+        {
+          "id": "design-system-text--variants",
+          "name": "Варианты",
+          "snippet": "const Variants = () => <AllVariantsDemo />;"
+        },
+        {
+          "id": "design-system-text--minimal",
+          "name": "Минимальный",
+          "snippet": "const Minimal = () => <Text size=\"m\">Текст по умолчанию (span)</Text>;"
+        },
+        {
+          "id": "design-system-text--size-scale",
+          "name": "Размеры",
+          "snippet": "const SizeScale = () => (\r\n  <div style={{ display: \"flex\", flexDirection: \"column\", gap: 8 }}>\r\n    {SIZE_KEYS.map((size) => (\r\n      <Text key={size} size={size} variant=\"p\">\r\n        size={size} — абзац\r\n      </Text>\r\n    ))}\r\n  </div>\r\n);"
+        }
+      ],
+      "import": "import { Main, Text } from '@dmc/ui';"
+    },
+    "design-system-themeselect": {
+      "id": "design-system-themeselect",
+      "name": "ThemeSelect",
+      "path": "./src/stories/ThemeSelect.stories.jsx",
+      "jsDocTags": {
+        "type": [
+          "{import('@storybook/react-vite').Meta}"
+        ]
+      },
+      "description": "",
+      "reactDocgen": {
+        "description": "",
+        "methods": [],
+        "displayName": "ThemeSelect",
+        "definedInFile": "C:\\Frontend\\dmc-ui\\src\\lib\\components\\cc-v4\\ThemeSelect.jsx",
+        "actualName": "ThemeSelect",
+        "exportName": "ThemeSelect",
         "props": {
           "label": {
             "defaultValue": {
-              "value": "\"Тёмная тема\"",
+              "value": "\"Тема\"",
+              "computed": false
+            },
+            "required": false
+          },
+          "options": {
+            "defaultValue": {
+              "value": "[\r\n  { value: \"light\", label: \"Светлая\" },\r\n  { value: \"dark\", label: \"Тёмная\" },\r\n  { value: \"gray\", label: \"Серая\" },\r\n]",
               "computed": false
             },
             "required": false
@@ -330,22 +533,22 @@
       },
       "stories": [
         {
-          "id": "design-system-themetoggle--with-preview",
+          "id": "design-system-themeselect--with-preview",
           "name": "С Box",
-          "snippet": "const WithPreview = () => (\r\n  <Main style={{ padding: 24 }}>\r\n    <ThemeToggle />\r\n    <Box title=\"Карточка\" style={{ marginTop: 16 }}>\r\n      Контент меняет оформление при смене темы в toolbar или переключателе.\r\n    </Box>\r\n  </Main>\r\n);"
+          "snippet": "const WithPreview = () => (\r\n  <Main style={{ padding: 24 }}>\r\n    <ThemeSelect />\r\n    <Box title=\"Карточка\" style={{ marginTop: 16 }}>\r\n      Контент меняет оформление при смене темы в toolbar или в списке.\r\n    </Box>\r\n  </Main>\r\n);"
         },
         {
-          "id": "design-system-themetoggle--minimal",
+          "id": "design-system-themeselect--minimal",
           "name": "Минимальный",
-          "snippet": "const Minimal = () => <ThemeToggle label=\"\" />;"
+          "snippet": "const Minimal = () => <ThemeSelect label=\"\" />;"
         },
         {
-          "id": "design-system-themetoggle--controlled",
+          "id": "design-system-themeselect--controlled",
           "name": "Controlled",
           "snippet": "const Controlled = () => <ControlledDemo />;"
         }
       ],
-      "import": "import { Box, Main, ThemeProvider, ThemeToggle } from '@dmc/ui';"
+      "import": "import { Box, Main, ThemeProvider, ThemeSelect } from '@dmc/ui';"
     },
     "design-system-toggle": {
       "id": "design-system-toggle",
@@ -385,17 +588,22 @@
         {
           "id": "design-system-toggle--with-label",
           "name": "С подписью",
-          "snippet": "const WithLabel = () => <Toggle active label=\"Мои\" />;"
+          "snippet": "function WithLabel(args) {\r\n    const [, updateArgs] = useArgs();\r\n    const { variant = \"switch\" } = args;\r\n\r\n    return (\r\n        <Toggle\r\n            size=\"m\"\r\n            active\r\n            label=\"Мои\"\r\n            onChange={\r\n              variant === \"text\"\r\n                ? args.onChange\r\n                : (next) => updateArgs({ active: next })\r\n            } />\r\n    );\r\n}"
         },
         {
           "id": "design-system-toggle--switch-only",
           "name": "Только switch",
-          "snippet": "const SwitchOnly = () => <Toggle active={false} />;"
+          "snippet": "function SwitchOnly(args) {\r\n    const [, updateArgs] = useArgs();\r\n    const { variant = \"switch\" } = args;\r\n\r\n    return (\r\n        <Toggle\r\n            size=\"m\"\r\n            active={false}\r\n            onChange={\r\n              variant === \"text\"\r\n                ? args.onChange\r\n                : (next) => updateArgs({ active: next })\r\n            } />\r\n    );\r\n}"
         },
         {
           "id": "design-system-toggle--text-only",
           "name": "Только текст",
-          "snippet": "const TextOnly = () => <Toggle variant=\"text\" label=\"Подпись без переключателя\" />;"
+          "snippet": "function TextOnly(args) {\r\n    const [, updateArgs] = useArgs();\r\n    const { variant = \"switch\" } = args;\r\n\r\n    return (\r\n        <Toggle\r\n            size=\"m\"\r\n            variant=\"text\"\r\n            label=\"Подпись без переключателя\"\r\n            onChange={\r\n              variant === \"text\"\r\n                ? args.onChange\r\n                : (next) => updateArgs({ active: next })\r\n            } />\r\n    );\r\n}"
+        },
+        {
+          "id": "design-system-toggle--size-scale",
+          "name": "Размеры",
+          "snippet": "const SizeScale = () => (\r\n  <div style={{ display: \"flex\", flexDirection: \"column\", gap: 12 }}>\r\n    {SIZE_KEYS.map((size) => (\r\n      <Toggle key={size} size={size} active label={`size=${size}`} onChange={() => {}} />\r\n    ))}\r\n  </div>\r\n);"
         }
       ],
       "import": "import { Main, Toggle } from '@dmc/ui';"
@@ -403,6 +611,6 @@
   },
   "meta": {
     "docgen": "react-docgen",
-    "durationMs": 700
+    "durationMs": 437
   }
 }

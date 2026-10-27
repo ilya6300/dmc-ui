@@ -1,6 +1,8 @@
 import React from "react";
 import { mergeStyle } from "./tokens.js";
 import { useTheme } from "./ThemeContext.jsx";
+import { joinClass } from "./joinClass.js";
+import { resolveSize } from "./sizes.js";
 
 /**
  * @returns {React.ElementType | null}
@@ -32,21 +34,31 @@ export function Icon({
   style,
   width,
   height,
+  size,
   ...rest
 }) {
   const { theme } = useTheme();
+  const resolvedSize = resolveSize(size);
   const Component = resolveIconComponent(theme, { component, darkComponent });
+  const hasExplicitSize = width != null || height != null;
+
+  const sizeStyle =
+    !hasExplicitSize
+      ? {
+          width: "var(--dmc-icon-size)",
+          height: "var(--dmc-icon-size)",
+        }
+      : width != null || height != null
+        ? { width, height, display: "block" }
+        : null;
 
   if (Component) {
     const Resolved = Component;
     return (
       <Resolved
-        style={mergeStyle(
-          width != null || height != null
-            ? { width, height, display: "block" }
-            : null,
-          style,
-        )}
+        className={joinClass("dmc-icon")}
+        data-dmc-size={!hasExplicitSize ? resolvedSize : undefined}
+        style={mergeStyle(sizeStyle, style)}
         aria-hidden={alt ? undefined : true}
         role={alt ? "img" : undefined}
         aria-label={alt || undefined}
@@ -66,7 +78,9 @@ export function Icon({
       alt={alt}
       width={width}
       height={height}
-      style={mergeStyle({ display: "block" }, style)}
+      className={joinClass("dmc-icon")}
+      data-dmc-size={!hasExplicitSize ? resolvedSize : undefined}
+      style={mergeStyle(sizeStyle ?? { display: "block" }, style)}
       {...rest}
     />
   );

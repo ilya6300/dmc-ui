@@ -4,7 +4,7 @@ import { Meta } from "@storybook/addon-docs/blocks";
 
 # Дизайн-система DMC
 
-Библиотека `@dmc/ui`: **только импорт компонентов**, без отдельного CSS. Оформление — inline-стили внутри пакета.
+Библиотека `@dmc/ui`: импорт компонентов и **обязательное** подключение стилей `@dmc/ui/styles.css` в entry приложения.
 
 ## Быстрый старт
 
@@ -13,13 +13,14 @@ npm install github:ilya6300/dmc-ui
 ```
 
 ```jsx
-import { Main, Box, ThemeProvider, ThemeToggle } from "@dmc/ui";
+import "@dmc/ui/styles.css";
+import { Main, Box, ThemeProvider, ThemeSelect } from "@dmc/ui";
 
 export function Page() {
   return (
     <ThemeProvider>
       <Main style={{ minHeight: "100vh", padding: 24 }}>
-        <ThemeToggle />
+        <ThemeSelect />
         <Box title="Раздел">…</Box>
       </Main>
     </ThemeProvider>
@@ -35,7 +36,7 @@ export function Page() {
 import { useTheme, themes } from "@dmc/ui";
 
 const { theme, setTheme, colors } = useTheme();
-// colors — актуальная палитра; themes.light / themes.dark — справочник
+// colors и themes.* собираются из style.css пакета (литералы тем)
 ```
 
 Статический импорт `tokens` — только снимок **светлой** палитры; для тёмной темы используйте `useTheme().colors` или `themes[theme]`.
@@ -45,9 +46,11 @@ const { theme, setTheme, colors } = useTheme();
 ```jsx
 const [theme, setTheme] = useState("light");
 <ThemeProvider theme={theme} onThemeChange={setTheme}>
-  <ThemeToggle />
+  <ThemeSelect />
 </ThemeProvider>
 ```
+
+Цвета для CSS и JS: литералы в `style.css` пакета (`import "@dmc/ui/style.css"` или через `styles.css`). `themes` / `useTheme().colors` парсят тот же файл. Переопределение — свой CSS после `styles.css` с `--dmc-color-*` на `[data-dmc-theme="…"]`.
 
 ## Компоненты
 
@@ -58,11 +61,11 @@ const [theme, setTheme] = useState("light");
 | [Box](?path=/docs/design-system-box--docs) | Карточка контента |
 | [Container](?path=/docs/design-system-container--docs) | Flex-группировка (колонка / строка) |
 | [Toggle](?path=/docs/design-system-toggle--docs) | Переключатель |
-| [ThemeToggle](?path=/docs/design-system-theme-toggle--docs) | Переключатель светлой / тёмной темы |
+| [ThemeSelect](?path=/docs/design-system-theme-select--docs) | Выбор темы: светлая / тёмная / серая |
 | [Icon](?path=/docs/design-system-icon--docs) | Иконка (img или SVG-компонент, light/dark) |
 | [SideDrawer](?path=/docs/design-system-side-drawer--docs) | Боковая панель |
 | [Input](?path=/docs/design-system-input--docs) | Поле ввода (text / number / key) |
 | [Text](?path=/docs/design-system-text--docs) | Типографика (subt, title, p, li, span) |
 | [RadioBtn](?path=/docs/design-system-radio-btn--docs) | Группа chip-кнопок (выбор варианта) |
 
-Палитры: `themes`, `getThemeColors`; legacy-снимок: `tokens` (только light).
+Палитры: литералы в `style.css`; в JS — `themes`, `getThemeColors` (парсятся из того же файла); legacy-снимок: `tokens` (только light).

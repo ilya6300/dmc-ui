@@ -1,126 +1,248 @@
-import { jsx as r, jsxs as g, Fragment as we } from "react/jsx-runtime";
-import { createContext as ke, useState as S, useCallback as Te, useMemo as Ce, useContext as Ee, useEffect as R, useId as Ie, useRef as Me } from "react";
-import { createPortal as Be } from "react-dom";
-const Pe = 4, F = "#2196f3", L = "rgb(233, 233, 233)", ee = "#e2e8f0", te = F, We = {
-  background: "#ffffff",
-  surface: "#ffffff",
-  textPrimary: "#1e293b",
-  textSecondary: "#64748b",
-  border: ee,
-  primary: te,
-  error: "#df2727",
-  mastBlue: F,
-  mastYellow: "#f0b323",
-  cardShadowColor: "rgba(0, 0, 0, 0.25)",
-  focusBg: "#f0f7ff",
-  toggleTrackOff: "#cbd5e1",
-  knob: "#ffffff"
-}, Re = {
-  background: "#121212",
-  surface: "#1e1e1e",
-  textPrimary: L,
-  textSecondary: L,
-  inputTextPrimary: "#ffffff",
-  inputTextMuted: "#b3b3b3",
-  border: "#383838",
-  primary: te,
-  error: "#f87171",
-  mastBlue: F,
-  mastYellow: "#f0b323",
-  cardShadowColor: "rgba(0, 0, 0, 0.45)",
-  focusBg: "#1e3a5f",
-  toggleTrackOff: "#475569",
-  knob: "#ffffff"
-};
-function ne(e, t = 12) {
-  return t === 0 ? "none" : `0 ${Pe}px ${t}px ${e.cardShadowColor}`;
+import { jsx as a, jsxs as g, Fragment as ge } from "react/jsx-runtime";
+import { createContext as be, useState as T, useCallback as ye, useMemo as xe, useContext as ve, useEffect as P, useId as U, useRef as Se } from "react";
+import { createPortal as Te } from "react-dom";
+const we = `/* Единственный источник литералов тем: CSS (dmc-*) и JS (useTheme / themes) читают отсюда. */
+
+[data-dmc-theme="light"] {
+  --dmc-color-background: #ffffff;
+  --dmc-color-surface: #ffffff;
+  --dmc-color-text-primary: #1e293b;
+  --dmc-color-text-secondary: #64748b;
+  --dmc-color-border: #e2e8f0;
+  --dmc-color-primary: #2196f3;
+  --dmc-color-error: #df2727;
+  --dmc-color-toggle-track-off: #cbd5e1;
+  --dmc-color-knob: #ffffff;
+  --dmc-color-input-text-primary: #1e293b;
+  --dmc-color-input-text-muted: #64748b;
+  --dmc-color-focus-bg: #f0f7ff;
+  --dmc-color-chip-idle-border: #cbd5e1;
+  --dmc-color-chip-idle-text: #1e293b;
+  --dmc-focus-ring: 0 0 0 3px rgba(33, 150, 243, 0.15);
+  --dmc-card-shadow-color: rgba(0, 0, 0, 0.25);
+  --main-blue-1: var(--dmc-color-primary);
+  --mast-blue: #236192;
+  --mast-yellow: #f0b323;
+  --error: var(--dmc-color-error);
+  --lgt-grey-border: 1px solid #0000001f;
 }
-function V(e) {
-  const t = `1px solid ${e.border}`, n = { ...e };
+
+[data-dmc-theme="dark"] {
+  --dmc-color-background: #121212;
+  --dmc-color-surface: #1e1e1e;
+  --dmc-color-text-primary: rgb(233, 233, 233);
+  --dmc-color-text-secondary: rgb(233, 233, 233);
+  --dmc-color-border: #383838;
+  --dmc-color-primary: #2196f3;
+  --dmc-color-error: #f87171;
+  --dmc-color-toggle-track-off: #475569;
+  --dmc-color-knob: #ffffff;
+  --dmc-color-input-text-primary: #ffffff;
+  --dmc-color-input-text-muted: #b3b3b3;
+  --dmc-color-focus-bg: #1e3a5f;
+  --dmc-color-chip-idle-border: #475569;
+  --dmc-color-chip-idle-text: rgb(233, 233, 233);
+  --dmc-focus-ring: 0 0 0 3px rgba(33, 150, 243, 0.25);
+  --dmc-card-shadow-color: rgba(0, 0, 0, 0.45);
+  --main-blue-1: var(--dmc-color-primary);
+  --mast-blue: #236192;
+  --mast-yellow: #f0b323;
+  --error: var(--dmc-color-error);
+  --lgt-grey-border: 1px solid #0000001f;
+}
+
+[data-dmc-theme="gray"] {
+  --dmc-color-background: #3c3c3d;
+  --dmc-color-surface: #94a3b8;
+  --dmc-color-text-primary: #f8fafc;
+  --dmc-color-text-secondary: #e2e8f0;
+  --dmc-color-border: #475569;
+  --dmc-color-primary: #2196f3;
+  --dmc-color-error: #fca5a5;
+  --dmc-color-toggle-track-off: #475569;
+  --dmc-color-knob: #ffffff;
+  --dmc-color-input-text-primary: #ffffff;
+  --dmc-color-input-text-muted: #cbd5e1;
+  --dmc-color-focus-bg: #334155;
+  --dmc-color-chip-idle-border: #475569;
+  --dmc-color-chip-idle-text: #f8fafc;
+  --dmc-focus-ring: 0 0 0 3px rgba(33, 150, 243, 0.22);
+  --dmc-card-shadow-color: rgba(0, 0, 0, 0.35);
+  --main-blue-1: var(--dmc-color-primary);
+  --mast-blue: #236192;
+  --mast-yellow: #f0b323;
+  --error: var(--dmc-color-error);
+  --lgt-grey-border: 1px solid #0000001f;
+}
+`, _e = {
+  "--dmc-color-background": "background",
+  "--dmc-color-surface": "surface",
+  "--dmc-color-text-primary": "textPrimary",
+  "--dmc-color-text-secondary": "textSecondary",
+  "--dmc-color-border": "border",
+  "--dmc-color-primary": "primary",
+  "--dmc-color-error": "error",
+  "--dmc-color-toggle-track-off": "toggleTrackOff",
+  "--dmc-color-knob": "knob",
+  "--dmc-color-input-text-primary": "inputTextPrimary",
+  "--dmc-color-input-text-muted": "inputTextMuted",
+  "--dmc-color-focus-bg": "focusBg",
+  "--dmc-card-shadow-color": "cardShadowColor",
+  "--mast-blue": "mastBlue",
+  "--mast-yellow": "mastYellow"
+};
+function ke(e, t) {
+  const r = `[data-dmc-theme="${t}"]`, o = e.indexOf(r);
+  if (o === -1) return "";
+  const n = e.indexOf("{", o);
+  let l = 0;
+  for (let c = n; c < e.length; c++)
+    if (e[c] === "{" && (l += 1), e[c] === "}" && (l -= 1, l === 0))
+      return e.slice(n + 1, c);
+  return "";
+}
+function Ee(e) {
+  const t = {}, r = /(--[\w-]+)\s*:\s*([^;]+);/g;
+  let o;
+  for (; (o = r.exec(e)) !== null; )
+    t[o[1]] = o[2].trim();
+  return t;
+}
+function q(e, t, r = 0) {
+  if (r > 8) return e;
+  const o = /^var\(\s*(--[\w-]+)\s*\)$/.exec(e);
+  if (!o) return e;
+  const n = t[o[1]];
+  return n === void 0 ? e : q(n, t, r + 1);
+}
+function Ne(e) {
+  const t = Ee(e), r = {};
+  for (const [o, n] of Object.entries(_e)) {
+    const l = t[o];
+    l !== void 0 && (r[n] = q(l, t));
+  }
+  return r;
+}
+const Ie = /\[data-dmc-theme="([^"]+)"\]\s*\{/g;
+function Be(e) {
+  const t = [];
+  let r;
+  for (; (r = Ie.exec(e)) !== null; )
+    t.push(r[1]);
+  return t;
+}
+function Me(e) {
+  const t = {};
+  for (const r of Be(e)) {
+    const o = ke(e, r);
+    t[r] = Ne(o);
+  }
+  return t;
+}
+const Pe = 4, J = Me(we);
+function ze(e) {
+  var r;
+  const t = `1px solid ${e.border}`;
   return {
-    ...n,
-    cardShadow: ne(n, 12),
+    ...e,
+    cardShadow: Z(e, 12),
     mainBlue1: e.primary,
     textMain: e.textPrimary,
     textMuted: e.textSecondary,
     bgCard: e.surface,
     borderLight: t,
-    lightGrey: ee,
+    lightGrey: ((r = J.light) == null ? void 0 : r.border) ?? e.border,
     borderInput: e.border,
     inputTextPrimary: e.inputTextPrimary ?? e.textPrimary,
     inputTextMuted: e.inputTextMuted ?? e.textSecondary
   };
 }
-const O = {
-  light: V(We),
-  dark: V(Re)
-};
-function oe(e) {
-  return O[e] ?? O.light;
+function Z(e, t = 12) {
+  if (t === 0) return "none";
+  const r = e.cardShadowColor ?? "rgba(0, 0, 0, 0.25)";
+  return `0 ${Pe}px ${t}px ${r}`;
 }
-const pt = O.light;
-function u(...e) {
+function Ce() {
+  const e = {};
+  for (const [t, r] of Object.entries(J))
+    e[t] = ze(r);
+  return e;
+}
+const B = Ce();
+var X;
+const dt = ((X = B.light) == null ? void 0 : X.primary) ?? "#2196f3";
+var G;
+const ut = ((G = B.light) == null ? void 0 : G.border) ?? "#e2e8f0", Oe = [
+  { value: "light", label: "Светлая" },
+  { value: "dark", label: "Тёмная" },
+  { value: "gray", label: "Серая" }
+];
+function Q(e) {
+  return B[e] ?? B.light;
+}
+const mt = B.light;
+function m(...e) {
   return Object.assign({}, ...e.filter(Boolean));
 }
 const Le = () => {
-}, re = ke({
+}, ee = be({
   theme: "light",
   setTheme: Le,
-  colors: oe("light")
+  colors: Q("light")
 });
-function ht({
+function ft({
   children: e,
   theme: t,
-  onThemeChange: n,
+  onThemeChange: r,
   defaultTheme: o = "light"
 }) {
-  const [s, l] = S(o), i = t !== void 0, a = i ? t : s, c = Te(
+  const [n, l] = T(o), c = t !== void 0, i = c ? t : n, s = ye(
     (d) => {
-      const p = typeof d == "function" ? d(a) : d;
-      i || l(p), n == null || n(p);
+      const f = typeof d == "function" ? d(i) : d;
+      c || l(f), r == null || r(f);
     },
-    [i, n, a]
-  ), f = Ce(
+    [c, r, i]
+  ), u = xe(
     () => ({
-      theme: a,
-      setTheme: c,
-      colors: oe(a)
+      theme: i,
+      setTheme: s,
+      colors: Q(i)
     }),
-    [a, c]
+    [i, s]
   );
-  return /* @__PURE__ */ r(re.Provider, { value: f, children: e });
+  return /* @__PURE__ */ a(ee.Provider, { value: u, children: /* @__PURE__ */ a("div", { className: "dmc-root", "data-dmc-theme": i, children: e }) });
 }
-function x() {
-  return Ee(re);
+function k() {
+  return ve(ee);
 }
-function yt({ children: e, style: t, title: n, w: o, shadow: s = 12, ...l }) {
-  const { colors: i } = x(), a = {
+function pt({ children: e, style: t, title: r, w: o, shadow: n = 12, ...l }) {
+  const { colors: c } = k(), i = {
     display: "flex",
     flexDirection: "column",
     justifyContent: "flex-start",
     gap: 10,
-    backgroundColor: i.bgCard,
+    backgroundColor: c.bgCard,
     borderRadius: 12,
     padding: 24,
-    boxShadow: ne(i, s),
-    border: i.borderLight,
+    boxShadow: Z(c, n),
+    border: c.borderLight,
     boxSizing: "border-box",
-    color: i.textPrimary
-  }, c = {
+    color: c.textPrimary
+  }, s = {
     fontSize: 16,
     fontWeight: 600,
-    color: i.mastBlue
+    color: c.mastBlue
   };
-  return /* @__PURE__ */ g("div", { style: u(a, { width: o ?? "100%" }, t), ...l, children: [
-    n ? /* @__PURE__ */ r("span", { style: c, children: n }) : null,
+  return /* @__PURE__ */ g("div", { style: m(i, { width: o ?? "100%" }, t), ...l, children: [
+    r ? /* @__PURE__ */ a("span", { style: s, children: r }) : null,
     e
   ] });
 }
-const Oe = {
+const Ae = {
   display: "flex",
   boxSizing: "border-box",
   flexWrap: "wrap"
-}, K = {
+}, $ = {
   start: "flex-start",
   end: "flex-end",
   center: "center",
@@ -129,310 +251,291 @@ const Oe = {
   around: "space-around",
   evenly: "space-evenly"
 };
-function q(e, t) {
-  return K[e] ?? K[t];
+function V(e, t) {
+  return $[e] ?? $[t];
 }
-const Ae = {
+const De = {
   row: "row",
   col: "column"
 };
-function De(e) {
-  return Ae[e] ?? "row";
+function Fe(e) {
+  return De[e] ?? "row";
 }
-function _e({ direction: e, justify: t, align: n, gap: o, w: s }) {
+function Re({ direction: e, justify: t, align: r, gap: o, w: n }) {
   return {
-    flexDirection: De(e),
-    justifyContent: q(t, "start"),
-    alignItems: q(n, "stretch"),
+    flexDirection: Fe(e),
+    justifyContent: V(t, "start"),
+    alignItems: V(r, "stretch"),
     gap: o,
-    width: s ?? "100%"
+    width: n ?? "100%"
   };
 }
-function gt({
+function ht({
   children: e,
   style: t,
-  w: n,
+  w: r,
   direction: o = "row",
-  justify: s = "start",
+  justify: n = "start",
   align: l = "stretch",
-  gap: i = 10,
-  ...a
+  gap: c = 10,
+  ...i
 }) {
-  const { colors: c } = x();
-  return /* @__PURE__ */ r(
+  const { colors: s } = k();
+  return /* @__PURE__ */ a(
     "div",
     {
-      style: u(
-        Oe,
-        _e({ direction: o, justify: s, align: l, gap: i, w: n }),
-        { color: c.textPrimary },
+      style: m(
+        Ae,
+        Re({ direction: o, justify: n, align: l, gap: c, w: r }),
+        { color: s.textPrimary },
         t
       ),
-      ...a,
+      ...i,
       children: e
     }
   );
 }
-const He = {
+const We = {
   display: "flex",
   flexDirection: "column",
   padding: "2% 4%",
   boxSizing: "border-box",
   gap: "10px"
-}, ie = "transform 0.6s ease, opacity 0.6s ease", Fe = {
+}, te = "transform 0.6s ease, opacity 0.6s ease", Ye = {
   transform: "translateX(100%)",
   opacity: 0.92
-}, ze = {
+}, He = {
   transform: "translateX(0)",
   opacity: 1,
-  transition: ie
+  transition: te
 };
-function xt({ children: e, style: t, animate: n = !1, ...o }) {
-  const [s, l] = S(!n);
-  R(() => {
-    if (!n) return;
+function gt({ children: e, style: t, animate: r = !1, ...o }) {
+  const [n, l] = T(!r);
+  P(() => {
+    if (!r) return;
     if (typeof window < "u" && window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
       l(!0);
       return;
     }
-    const c = requestAnimationFrame(() => l(!0));
-    return () => cancelAnimationFrame(c);
-  }, [n]);
-  const i = n && !s ? { ...Fe, transition: ie } : n ? ze : null;
-  return /* @__PURE__ */ r("div", { style: u(He, i, t), ...o, children: e });
+    const s = requestAnimationFrame(() => l(!0));
+    return () => cancelAnimationFrame(s);
+  }, [r]);
+  const c = r && !n ? { ...Ye, transition: te } : r ? He : null;
+  return /* @__PURE__ */ a("div", { style: m(We, c, t), ...o, children: e });
 }
-const Ne = {
+const je = {
   minHeight: "100%",
   boxSizing: "border-box"
 };
-function bt({ children: e, style: t, ...n }) {
-  return /* @__PURE__ */ r("div", { style: u(Ne, t), ...n, children: e });
+function bt({ children: e, style: t, ...r }) {
+  return /* @__PURE__ */ a("div", { style: m(je, t), ...r, children: e });
 }
-function je({
+const v = (...e) => e.filter(Boolean).join(" "), $e = ["xs", "s", "m", "l", "xl"], yt = {
+  controlMinHeight: 40,
+  controlPaddingY: 8,
+  controlPaddingX: 12,
+  controlFontSize: 14,
+  captionFontSize: 12,
+  chipPaddingY: 8,
+  chipPaddingX: 14,
+  chipMinHeight: 30,
+  groupGap: 8,
+  toggleTrackW: 36,
+  toggleTrackH: 20,
+  toggleKnob: 16,
+  toggleKnobTranslate: 16,
+  iconSize: 20
+}, re = {
+  xs: 0.85,
+  s: 0.92,
+  m: 1,
+  l: 1.08,
+  xl: 1.16
+};
+function N(e) {
+  return $e.includes(e) ? e : "m";
+}
+function xt(e) {
+  return re[N(e)];
+}
+function vt(e, t) {
+  return Math.round(e * re[N(t)]);
+}
+function St({
   active: e,
   label: t,
-  variant: n = "switch",
+  variant: r = "switch",
   onClick: o,
-  onChange: s,
+  onChange: n,
   style: l,
+  size: c,
   disabled: i = !1,
-  ariaLabel: a,
-  trackStartIcon: c,
-  trackEndIcon: f
+  ariaLabel: s,
+  trackStartIcon: u,
+  trackEndIcon: d
 }) {
-  const { colors: d } = x(), p = {
-    color: d.textMain,
-    fontWeight: 400,
-    fontSize: 14
-  }, w = {
-    display: "flex",
-    alignItems: "center",
-    gap: 8,
-    cursor: "pointer",
-    fontSize: 14,
-    margin: 0,
-    padding: 0,
-    border: "none",
-    outline: "none",
-    background: "none",
-    font: "inherit",
-    color: "inherit",
-    textAlign: "left"
-  }, b = {
-    position: "relative",
-    width: 36,
-    height: 20,
-    borderRadius: 20,
-    flexShrink: 0,
-    transition: "background-color 0.2s"
-  }, v = {
-    position: "absolute",
-    top: 2,
-    left: 2,
-    width: 16,
-    height: 16,
-    backgroundColor: d.knob,
-    borderRadius: "50%",
-    transition: "transform 0.2s",
-    zIndex: 1
+  const f = N(c);
+  if (r === "text")
+    return t ? /* @__PURE__ */ a(
+      "span",
+      {
+        className: v("dmc-toggle", "dmc-toggle--text"),
+        "data-dmc-size": f,
+        style: l,
+        children: /* @__PURE__ */ a("span", { className: "dmc-toggle__label", children: t })
+      }
+    ) : null;
+  const S = (h) => {
+    h.preventDefault(), !i && (o == null || o(h), n == null || n(!e));
   };
-  if (n === "text")
-    return t ? /* @__PURE__ */ r("span", { style: u(p, l), children: t }) : null;
-  const T = (E) => {
-    E.preventDefault(), !i && (o == null || o(E), s == null || s(!e));
-  }, C = u(b, {
-    backgroundColor: e ? d.mainBlue1 : d.toggleTrackOff
-  }), h = {
-    position: "absolute",
-    inset: 0,
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "space-between",
-    padding: "0 3px",
-    boxSizing: "border-box",
-    pointerEvents: "none",
-    color: e ? d.knob : d.textMuted
-  }, I = u(v, {
-    transform: e ? "translateX(16px)" : "translateX(0)"
-  }), m = u(
-    w,
-    i && { cursor: "not-allowed", opacity: 0.55 },
-    l
-  );
   return /* @__PURE__ */ g(
     "button",
     {
       type: "button",
-      style: m,
-      onClick: T,
+      className: v("dmc-toggle"),
+      "data-dmc-size": f,
+      "data-active": e ? "true" : "false",
+      "data-disabled": i ? "true" : "false",
+      style: m(void 0, l),
+      onClick: S,
       "aria-pressed": !!e,
-      "aria-label": a || (t ? void 0 : "Переключатель"),
+      "aria-label": s || (t ? void 0 : "Переключатель"),
       disabled: i,
       children: [
-        /* @__PURE__ */ g("span", { style: C, "aria-hidden": "true", children: [
-          c || f ? /* @__PURE__ */ g("span", { style: h, children: [
-            /* @__PURE__ */ r("span", { style: { display: "flex", lineHeight: 0 }, children: c }),
-            /* @__PURE__ */ r("span", { style: { display: "flex", lineHeight: 0 }, children: f })
+        /* @__PURE__ */ g("span", { className: "dmc-toggle__track", "aria-hidden": "true", children: [
+          u || d ? /* @__PURE__ */ g("span", { className: "dmc-toggle__track-icons", children: [
+            /* @__PURE__ */ a("span", { className: "dmc-toggle__track-icon", children: u }),
+            /* @__PURE__ */ a("span", { className: "dmc-toggle__track-icon", children: d })
           ] }) : null,
-          /* @__PURE__ */ r("span", { style: I })
+          /* @__PURE__ */ a("span", { className: "dmc-toggle__knob" })
         ] }),
-        t ? /* @__PURE__ */ r("span", { style: p, children: t }) : null
+        t ? /* @__PURE__ */ a("span", { className: "dmc-toggle__label", children: t }) : null
       ]
     }
   );
 }
-const Ye = {
-  border: "none",
-  outline: "none",
-  boxShadow: "none"
-}, Z = { display: "flex", lineHeight: 0 };
-function $e() {
-  return /* @__PURE__ */ g(
-    "svg",
-    {
-      xmlns: "http://www.w3.org/2000/svg",
-      width: "12",
-      height: "12",
-      viewBox: "0 0 24 24",
-      fill: "none",
-      stroke: "currentColor",
-      strokeWidth: "1.7",
-      strokeLinecap: "round",
-      strokeLinejoin: "round",
-      "aria-hidden": "true",
-      children: [
-        /* @__PURE__ */ r("circle", { cx: "12", cy: "12", r: "4" }),
-        /* @__PURE__ */ r("path", { d: "M12 2v2" }),
-        /* @__PURE__ */ r("path", { d: "M12 20v2" }),
-        /* @__PURE__ */ r("path", { d: "m4.93 4.93 1.42 1.42" }),
-        /* @__PURE__ */ r("path", { d: "m17.65 17.65 1.42 1.42" }),
-        /* @__PURE__ */ r("path", { d: "M2 12h2" }),
-        /* @__PURE__ */ r("path", { d: "M20 12h2" }),
-        /* @__PURE__ */ r("path", { d: "m6.35 17.65-1.42 1.42" }),
-        /* @__PURE__ */ r("path", { d: "m19.07 4.93-1.42 1.42" })
-      ]
-    }
-  );
-}
-function Ge() {
-  return /* @__PURE__ */ r(
-    "svg",
-    {
-      xmlns: "http://www.w3.org/2000/svg",
-      width: "12",
-      height: "12",
-      viewBox: "0 0 24 24",
-      fill: "none",
-      stroke: "currentColor",
-      strokeWidth: "1.7",
-      strokeLinecap: "round",
-      strokeLinejoin: "round",
-      "aria-hidden": "true",
-      children: /* @__PURE__ */ r("path", { d: "M20.5 14.2A8.5 8.5 0 0 1 9.8 3.5 7.75 7.75 0 1 0 20.5 14.2Z" })
-    }
-  );
-}
-function mt({
+const Ve = {
+  fontSize: 13,
+  lineHeight: 1.35,
+  minHeight: 37,
+  padding: "7px 28px 7px 11px",
+  borderRadius: 6,
+  borderWidth: 1,
+  borderStyle: "solid",
+  cursor: "pointer",
+  maxWidth: "100%"
+};
+function Tt({
   theme: e,
   onThemeChange: t,
-  label: n = "Тёмная тема",
-  style: o,
-  disabled: s = !1
+  label: r = "Тема",
+  options: o = Oe,
+  disabled: n = !1,
+  style: l,
+  id: c
 }) {
-  const { theme: l, setTheme: i } = x(), a = e ?? l, c = e !== void 0 && t !== void 0, f = a === "dark";
-  return /* @__PURE__ */ r(
-    je,
+  const i = U(), { theme: s, setTheme: u, colors: d } = k(), f = e ?? s, S = e !== void 0 && t !== void 0, h = c ?? i, b = (x) => {
+    const w = x.target.value;
+    if (S) {
+      t(w);
+      return;
+    }
+    u(w);
+  }, y = m(
+    Ve,
     {
-      active: f,
-      label: n,
-      onChange: (w) => {
-        const b = w ? "dark" : "light";
-        if (c) {
-          t(b);
-          return;
-        }
-        i(b);
+      color: d.textPrimary,
+      backgroundColor: d.surface,
+      borderColor: d.border
+    },
+    l
+  );
+  return /* @__PURE__ */ g(
+    "label",
+    {
+      htmlFor: h,
+      style: {
+        display: "inline-flex",
+        flexDirection: "column",
+        gap: 4,
+        color: d.textPrimary,
+        fontSize: 13
       },
-      disabled: s,
-      ariaLabel: n || (f ? "Включить светлую тему" : "Включить тёмную тему"),
-      trackStartIcon: /* @__PURE__ */ r("span", { style: Z, children: /* @__PURE__ */ r(Ge, {}) }),
-      trackEndIcon: /* @__PURE__ */ r("span", { style: Z, children: /* @__PURE__ */ r($e, {}) }),
-      style: u(Ye, o)
+      children: [
+        r ? /* @__PURE__ */ a("span", { style: { fontSize: 12, color: d.textSecondary }, children: r }) : null,
+        /* @__PURE__ */ a(
+          "select",
+          {
+            id: h,
+            value: f,
+            onChange: b,
+            disabled: n,
+            "aria-label": r || "Выбор темы",
+            style: y,
+            children: o.map(({ value: x, label: w }) => /* @__PURE__ */ a("option", { value: x, children: w }, x))
+          }
+        )
+      ]
     }
   );
 }
-function Xe(e, { component: t, darkComponent: n }) {
-  return e === "dark" && n ? n : t || null;
+function Ke(e, { component: t, darkComponent: r }) {
+  return e === "dark" && r ? r : t || null;
 }
-function Ue(e, { src: t, darkSrc: n }) {
-  return e === "dark" && n || t;
+function Xe(e, { src: t, darkSrc: r }) {
+  return e === "dark" && r || t;
 }
-function St({
+function wt({
   src: e,
   darkSrc: t,
-  component: n,
+  component: r,
   darkComponent: o,
-  alt: s = "",
+  alt: n = "",
   style: l,
-  width: i,
-  height: a,
-  ...c
+  width: c,
+  height: i,
+  size: s,
+  ...u
 }) {
-  const { theme: f } = x(), d = Xe(f, { component: n, darkComponent: o });
-  if (d)
-    return /* @__PURE__ */ r(
-      d,
+  const { theme: d } = k(), f = N(s), S = Ke(d, { component: r, darkComponent: o }), h = c != null || i != null, b = h ? c != null || i != null ? { width: c, height: i, display: "block" } : null : {
+    width: "var(--dmc-icon-size)",
+    height: "var(--dmc-icon-size)"
+  };
+  if (S)
+    return /* @__PURE__ */ a(
+      S,
       {
-        style: u(
-          i != null || a != null ? { width: i, height: a, display: "block" } : null,
-          l
-        ),
-        "aria-hidden": s ? void 0 : !0,
-        role: s ? "img" : void 0,
-        "aria-label": s || void 0,
-        ...c
+        className: v("dmc-icon"),
+        "data-dmc-size": h ? void 0 : f,
+        style: m(b, l),
+        "aria-hidden": n ? void 0 : !0,
+        role: n ? "img" : void 0,
+        "aria-label": n || void 0,
+        ...u
       }
     );
-  const p = Ue(f, { src: e, darkSrc: t });
-  return p ? /* @__PURE__ */ r(
+  const y = Xe(d, { src: e, darkSrc: t });
+  return y ? /* @__PURE__ */ a(
     "img",
     {
-      src: p,
-      alt: s,
-      width: i,
-      height: a,
-      style: u({ display: "block" }, l),
-      ...c
+      src: y,
+      alt: n,
+      width: c,
+      height: i,
+      className: v("dmc-icon"),
+      "data-dmc-size": h ? void 0 : f,
+      style: m(b ?? { display: "block" }, l),
+      ...u
     }
   ) : null;
 }
-const Ve = {
+const Ge = {
   display: "flex",
   alignItems: "flex-start",
   justifyContent: "space-between",
   gap: 12,
   flexShrink: 0
-}, Ke = {
+}, Ue = {
   display: "flex",
   alignItems: "center",
   gap: 6,
@@ -441,24 +544,24 @@ const Ve = {
 function qe({
   title: e,
   titleId: t,
-  toolbar: n,
+  toolbar: r,
   toolbarWrap: o = !0,
-  style: s
+  style: n
 }) {
-  const { colors: l } = x(), i = {
+  const { colors: l } = k(), c = {
     margin: 0,
     fontSize: 16,
     fontWeight: 600,
     color: l.mastBlue,
     lineHeight: 1.3
   };
-  return /* @__PURE__ */ g("header", { style: u(Ve, s), children: [
-    /* @__PURE__ */ r("h2", { id: t, style: i, children: e }),
-    n ? o ? /* @__PURE__ */ r("div", { style: Ke, children: n }) : n : null
+  return /* @__PURE__ */ g("header", { style: m(Ge, n), children: [
+    /* @__PURE__ */ a("h2", { id: t, style: c, children: e }),
+    r ? o ? /* @__PURE__ */ a("div", { style: Ue, children: r }) : r : null
   ] });
 }
-function vt({ onClick: e, title: t = "Закрыть", style: n }) {
-  const { colors: o } = x(), [s, l] = S(!1), [i, a] = S(!1), c = {
+function _t({ onClick: e, title: t = "Закрыть", style: r }) {
+  const { colors: o } = k(), [n, l] = T(!1), [c, i] = T(!1), s = {
     display: "inline-flex",
     alignItems: "center",
     justifyContent: "center",
@@ -471,29 +574,29 @@ function vt({ onClick: e, title: t = "Закрыть", style: n }) {
     color: o.textMuted,
     cursor: "pointer",
     transition: "border-color 0.15s ease, color 0.15s ease, background-color 0.15s ease"
-  }, f = {
+  }, u = {
     borderColor: o.mainBlue1,
     color: o.mainBlue1,
     backgroundColor: o.focusBg
   };
-  return /* @__PURE__ */ r(
+  return /* @__PURE__ */ a(
     "button",
     {
       type: "button",
       title: t,
       "aria-label": t,
       onClick: e,
-      style: u(
-        c,
-        (s || i) && f,
-        i && { outline: "none" },
-        n
+      style: m(
+        s,
+        (n || c) && u,
+        c && { outline: "none" },
+        r
       ),
       onMouseEnter: () => l(!0),
       onMouseLeave: () => l(!1),
-      onFocus: () => a(!0),
-      onBlur: () => a(!1),
-      children: /* @__PURE__ */ r("svg", { width: "16", height: "16", viewBox: "0 0 16 16", "aria-hidden": "true", children: /* @__PURE__ */ r(
+      onFocus: () => i(!0),
+      onBlur: () => i(!1),
+      children: /* @__PURE__ */ a("svg", { width: "16", height: "16", viewBox: "0 0 16 16", "aria-hidden": "true", children: /* @__PURE__ */ a(
         "path",
         {
           d: "M4 4l8 8M12 4l-8 8",
@@ -506,7 +609,7 @@ function vt({ onClick: e, title: t = "Закрыть", style: n }) {
     }
   );
 }
-const Ze = {
+const Je = {
   display: "flex",
   flexDirection: "column",
   alignItems: "center",
@@ -514,7 +617,7 @@ const Ze = {
   width: "100%",
   flex: 1,
   minHeight: 0
-}, Je = {
+}, Ze = {
   display: "flex",
   flexDirection: "column",
   flex: 1,
@@ -529,23 +632,23 @@ const Ze = {
   width: "100%",
   marginTop: 16
 };
-function wt({
+function kt({
   open: e = !0,
   onClose: t,
-  title: n,
+  title: r,
   titleId: o,
-  toolbar: s,
+  toolbar: n,
   headerActions: l,
-  children: i,
-  footer: a,
-  w: c,
-  style: f,
+  children: c,
+  footer: i,
+  w: s,
+  style: u,
   layoutStyle: d,
-  rootStyle: p,
-  usePortal: w = !0,
-  closeOnBackdrop: b = !0
+  rootStyle: f,
+  usePortal: S = !0,
+  closeOnBackdrop: h = !0
 }) {
-  const { colors: v } = x(), [T, C] = S(!1), h = {
+  const { colors: b } = k(), [y, x] = T(!1), w = {
     position: "fixed",
     zIndex: 3,
     top: 0,
@@ -553,7 +656,7 @@ function wt({
     bottom: 0,
     boxShadow: "0 0 10px 1px #00000070",
     borderRadius: 3,
-    background: v.bgCard,
+    background: b.bgCard,
     height: "100%",
     minHeight: 500,
     padding: "20px 24px",
@@ -563,78 +666,78 @@ function wt({
     alignItems: "center",
     flexDirection: "column",
     boxSizing: "border-box",
-    color: v.textPrimary,
+    color: b.textPrimary,
     transition: "transform 0.6s ease, opacity 0.6s ease"
   };
-  if (R(() => {
+  if (P(() => {
     if (!e) {
-      C(!1);
+      x(!1);
       return;
     }
-    const y = requestAnimationFrame(() => C(!0));
-    return () => cancelAnimationFrame(y);
-  }, [e]), R(() => {
+    const p = requestAnimationFrame(() => x(!0));
+    return () => cancelAnimationFrame(p);
+  }, [e]), P(() => {
     if (!e)
       return;
-    const y = document.body.style.overflow;
+    const p = document.body.style.overflow;
     return document.body.style.overflow = "hidden", () => {
-      document.body.style.overflow = y;
+      document.body.style.overflow = p;
     };
-  }, [e]), R(() => {
+  }, [e]), P(() => {
     if (!e || !t)
       return;
-    const y = (B) => {
-      B.key === "Escape" && t();
+    const p = (M) => {
+      M.key === "Escape" && t();
     };
-    return window.addEventListener("keydown", y), () => window.removeEventListener("keydown", y);
+    return window.addEventListener("keydown", p), () => window.removeEventListener("keydown", p);
   }, [e, t]), !e)
     return null;
-  const I = (y) => {
-    b && t && y.target === y.currentTarget && t();
-  }, m = s ?? l, M = /* @__PURE__ */ r(
+  const z = (p) => {
+    h && t && p.target === p.currentTarget && t();
+  }, _ = n ?? l, I = /* @__PURE__ */ a(
     "div",
     {
       role: "dialog",
       "aria-modal": "true",
       "aria-labelledby": o,
-      onClick: I,
-      style: u(h, {
-        transform: T ? "translateX(0)" : "translateX(100%)",
-        opacity: T ? 1 : 0.92
-      }, c != null && { width: c }, p),
+      onClick: z,
+      style: m(w, {
+        transform: y ? "translateX(0)" : "translateX(100%)",
+        opacity: y ? 1 : 0.92
+      }, s != null && { width: s }, f),
       children: /* @__PURE__ */ g(
         "div",
         {
-          style: u(Ze, d),
-          onClick: (y) => y.stopPropagation(),
+          style: m(Je, d),
+          onClick: (p) => p.stopPropagation(),
           children: [
             /* @__PURE__ */ g(
               "section",
               {
-                style: u(Je, f),
+                style: m(Ze, u),
                 "aria-labelledby": o,
                 children: [
-                  n ? /* @__PURE__ */ r(
+                  r ? /* @__PURE__ */ a(
                     qe,
                     {
-                      title: n,
+                      title: r,
                       titleId: o,
-                      toolbar: m
+                      toolbar: _
                     }
                   ) : null,
-                  i
+                  c
                 ]
               }
             ),
-            a ? /* @__PURE__ */ r("div", { style: Qe, children: a }) : null
+            i ? /* @__PURE__ */ a("div", { style: Qe, children: i }) : null
           ]
         }
       )
     }
   );
-  return w ? Be(M, document.body) : M;
+  return S ? Te(I, document.body) : I;
 }
-const le = {
+const oe = {
   text: "text",
   number: "number",
   key: "number"
@@ -646,369 +749,258 @@ const le = {
   ["7", "8", "9"],
   ["4", "5", "6"],
   ["1", "2", "3"]
-], J = 'source-code-pro, Menlo, Monaco, Consolas, "Courier New", monospace';
-function nt(e) {
-  return Object.hasOwn(le, e) ? e : "text";
+];
+function rt(e) {
+  return Object.hasOwn(oe, e) ? e : "text";
 }
-function Q({ digit: e, disabled: t, onPress: n, colors: o, gridColumn: s }) {
-  const [l, i] = S(!1), a = l && !t ? o.mastBlue : o.lightGrey, c = l && !t ? o.mastBlue : o.inputTextPrimary, f = {
-    boxSizing: "border-box",
-    minHeight: 36,
-    minWidth: 36,
-    padding: "6px 8px",
-    borderRadius: 6,
-    border: `1px solid ${a}`,
-    backgroundColor: o.surface,
-    color: c,
-    fontSize: 14,
-    fontWeight: 500,
-    fontFamily: "inherit",
-    cursor: t ? "not-allowed" : "pointer",
-    opacity: t ? 0.55 : 1,
-    outline: "none",
-    boxShadow: "none",
-    WebkitTapHighlightColor: "transparent",
-    transition: "border-color 0.15s ease, color 0.15s ease",
-    ...s ? { gridColumn: s } : {}
-  }, d = () => i(!1);
-  return /* @__PURE__ */ r(
+function K({ digit: e, disabled: t, onPress: r, gridColumn: o }) {
+  const [n, l] = T(!1), c = () => l(!1);
+  return /* @__PURE__ */ a(
     "button",
     {
       type: "button",
+      className: v(
+        "dmc-input__keypad-btn",
+        o ? "dmc-input__keypad-btn--wide" : null
+      ),
+      "data-pressed": n && !t ? "true" : "false",
       disabled: t,
       "aria-label": `Цифра ${e}`,
-      style: f,
-      onMouseDown: (p) => {
-        t || p.preventDefault();
+      style: o ? { gridColumn: o } : void 0,
+      onMouseDown: (i) => {
+        t || i.preventDefault();
       },
-      onPointerDown: (p) => {
-        t || (p.preventDefault(), i(!0));
+      onPointerDown: (i) => {
+        t || (i.preventDefault(), l(!0));
       },
-      onPointerUp: d,
-      onPointerLeave: d,
-      onPointerCancel: d,
-      onBlur: d,
-      onClick: (p) => {
-        t || n(e), p.currentTarget.blur();
+      onPointerUp: c,
+      onPointerLeave: c,
+      onPointerCancel: c,
+      onBlur: c,
+      onClick: (i) => {
+        t || r(e), i.currentTarget.blur();
       },
       children: e
     }
   );
 }
-function ot({ disabled: e, onDigit: t, colors: n }) {
-  return /* @__PURE__ */ g("div", { style: {
-    display: "grid",
-    gridTemplateColumns: "repeat(3, 1fr)",
-    gap: 6,
-    flexShrink: 0
-  }, role: "group", "aria-label": "Цифровая клавиатура", children: [
+function ot({ disabled: e, onDigit: t }) {
+  return /* @__PURE__ */ g("div", { className: "dmc-input__keypad", role: "group", "aria-label": "Цифровая клавиатура", children: [
     tt.flatMap(
-      (s, l) => s.map((i) => /* @__PURE__ */ r(
-        Q,
+      (r, o) => r.map((n) => /* @__PURE__ */ a(
+        K,
         {
-          digit: i,
+          digit: n,
           disabled: e,
-          colors: n,
           onPress: t
         },
-        `${l}-${i}`
+        `${o}-${n}`
       ))
     ),
-    /* @__PURE__ */ r(
-      Q,
+    /* @__PURE__ */ a(
+      K,
       {
         digit: "0",
         disabled: e,
-        colors: n,
         onPress: t,
         gridColumn: "1 / -1"
       }
     )
   ] });
 }
-function kt({
+function Et({
   type: e = "text",
   label: t,
-  value: n,
+  value: r,
   defaultValue: o,
-  onChange: s,
+  onChange: n,
   placeholder: l,
-  disabled: i = !1,
-  readOnly: a = !1,
-  name: c,
-  id: f,
+  disabled: c = !1,
+  readOnly: i = !1,
+  name: s,
+  id: u,
   style: d,
-  inputStyle: p,
-  min: w = 0,
+  inputStyle: f,
+  size: S,
+  min: h = 0,
   max: b,
-  error: v = !1,
-  msg: T,
-  "aria-label": C
+  error: y = !1,
+  msg: x,
+  "aria-label": w
 }) {
-  const { colors: h } = x(), I = Ie(), m = f ?? I, E = Me(null), [M, y] = S(!1), B = nt(e), z = le[B], A = et[B], D = n !== void 0, [ae, N] = S(o ?? ""), _ = D ? n ?? "" : ae, ce = l && String(_).length === 0 && !M, j = {
-    display: "flex",
-    flexDirection: "column",
-    gap: 4,
-    minWidth: 140,
-    flex: "0 0 auto",
-    color: h.inputTextPrimary,
-    justifyContent: "space-between",
-    height: "100%"
-  }, de = {
-    fontSize: 12,
-    color: h.inputTextMuted
-  }, Y = !i && M, ue = v ? h.error : Y ? h.mastBlue : h.lightGrey, $ = !!(v && T), G = `${m}-error`, fe = [l && t ? `${m}-hint` : null, $ ? G : null].filter(Boolean).join(" ") || void 0, pe = {
-    fontSize: 12,
-    lineHeight: 1.35,
-    color: h.error
-  }, he = {
-    boxSizing: "border-box",
-    width: "100%",
-    minWidth: A.minWidth,
-    maxWidth: A.maxWidth,
-    minHeight: 40,
-    padding: "8px 12px",
-    border: `1px solid ${ue}`,
-    borderRadius: 6,
-    fontSize: 14,
-    lineHeight: 1.35,
-    fontFamily: J,
-    color: h.inputTextPrimary,
-    backgroundColor: h.surface,
-    outline: "none",
-    boxShadow: !v && Y ? "0 0 0 3px rgba(33, 150, 243, 0.15)" : "none",
-    transition: "border-color 0.15s ease, box-shadow 0.15s ease"
-  }, ye = {
-    position: "relative",
-    width: "100%",
-    maxWidth: A.maxWidth
-  }, ge = {
-    position: "absolute",
-    left: 12,
-    top: 0,
-    bottom: 0,
-    display: "flex",
-    alignItems: "center",
-    pointerEvents: "none",
-    color: h.inputTextMuted,
-    fontSize: 14,
-    lineHeight: 1.35,
-    fontFamily: J
-  }, X = i || a, xe = (k) => {
-    D || N(k.target.value), s == null || s(k);
-  }, be = (k) => {
-    var W;
-    D || N(k), E.current && ((W = Object.getOwnPropertyDescriptor(
-      window.HTMLInputElement.prototype,
-      "value"
-    )) == null || W.set);
-  }, me = (k) => {
-    if (X) return;
-    const P = `${_}${k}`;
-    be(P);
-  }, Se = z === "number" ? {
-    min: w,
+  const z = U(), _ = u ?? z, D = Se(null), [I, p] = T(!1), M = N(S), C = rt(e), F = oe[C], O = et[C], L = r !== void 0, [ce, R] = T(o ?? ""), A = L ? r ?? "" : ce, le = l && String(A).length === 0 && !I, W = !!(y && x), Y = `${_}-error`, ie = [l && t ? `${_}-hint` : null, W ? Y : null].filter(Boolean).join(" ") || void 0, ae = {
+    maxWidth: O.maxWidth
+  }, se = {
+    minWidth: O.minWidth,
+    maxWidth: O.maxWidth
+  }, H = c || i, de = (E) => {
+    L || R(E.target.value), n == null || n(E);
+  }, ue = (E) => {
+    i || c || (L || R(E), n == null || n({ target: { value: E, name: s ?? "" } }));
+  }, me = (E) => {
+    if (H) return;
+    const he = `${A}${E}`;
+    ue(he);
+  }, fe = F === "number" ? {
+    min: h,
     ...b != null ? { max: b } : {}
-  } : {}, ve = /* @__PURE__ */ g("div", { style: ye, children: [
-    /* @__PURE__ */ r(
+  } : {}, pe = /* @__PURE__ */ g("div", { className: "dmc-input__wrap", style: ae, children: [
+    /* @__PURE__ */ a(
       "input",
       {
-        ref: E,
-        id: m,
-        type: z,
-        name: c,
-        ...Se,
-        value: _,
-        disabled: i,
-        readOnly: a,
+        ref: D,
+        id: _,
+        className: "dmc-input__field",
+        "data-focus": I && !c ? "true" : "false",
+        "data-error": y ? "true" : "false",
+        type: F,
+        name: s,
+        ...fe,
+        value: A,
+        disabled: c,
+        readOnly: i,
         placeholder: "",
-        "aria-label": t ? void 0 : C || l,
-        "aria-invalid": v || void 0,
-        "aria-describedby": fe,
-        style: u(
-          he,
-          i && { opacity: 0.55, cursor: "not-allowed" },
-          p
-        ),
-        onChange: xe,
-        onFocus: () => y(!0),
-        onBlur: () => y(!1)
+        "aria-label": t ? void 0 : w || l,
+        "aria-invalid": y || void 0,
+        "aria-describedby": ie,
+        style: m(se, f),
+        onChange: de,
+        onFocus: () => p(!0),
+        onBlur: () => p(!1)
       }
     ),
-    ce ? /* @__PURE__ */ r("span", { style: ge, "aria-hidden": "true", children: l }) : null
-  ] }), U = /* @__PURE__ */ g(we, { children: [
-    t ? /* @__PURE__ */ r("span", { style: de, children: t }) : null,
-    l && t ? /* @__PURE__ */ r("span", { id: `${m}-hint`, style: { display: "none" }, children: l }) : null,
-    ve,
-    $ ? /* @__PURE__ */ r("span", { id: G, style: pe, children: T }) : null
+    le ? /* @__PURE__ */ a("span", { className: "dmc-input__placeholder", "aria-hidden": "true", children: l }) : null
+  ] }), j = /* @__PURE__ */ g(ge, { children: [
+    t ? /* @__PURE__ */ a("span", { className: "dmc-input__caption", children: t }) : null,
+    l && t ? /* @__PURE__ */ a("span", { id: `${_}-hint`, style: { display: "none" }, children: l }) : null,
+    pe,
+    W ? /* @__PURE__ */ a("span", { id: Y, className: "dmc-input__error", children: x }) : null
   ] });
-  if (B === "key") {
-    const k = {
-      display: "flex",
-      flexDirection: "column",
-      gap: 4,
-      padding: 12,
-      border: `1px solid ${h.lightGrey}`,
-      borderRadius: 8,
-      backgroundColor: h.surface,
-      color: h.inputTextPrimary,
-      flex: "0 0 auto",
-      height: "165px"
-    }, P = {
-      display: "flex",
-      alignItems: "flex-start",
-      gap: 12
-    }, W = u(j, { minWidth: 0 });
-    return /* @__PURE__ */ r("div", { style: u(k, d), children: /* @__PURE__ */ g("div", { style: P, children: [
-      /* @__PURE__ */ r("label", { htmlFor: m, style: W, children: U }),
-      /* @__PURE__ */ r(
-        ot,
-        {
-          disabled: X,
-          onDigit: me,
-          colors: h
-        }
-      )
-    ] }) });
-  }
-  return /* @__PURE__ */ r("label", { htmlFor: m, style: u(j, d), children: U });
+  return C === "key" ? /* @__PURE__ */ a(
+    "div",
+    {
+      className: v("dmc-input--key-shell"),
+      "data-dmc-size": M,
+      style: m(void 0, d),
+      children: /* @__PURE__ */ g("div", { className: "dmc-input--key-row", children: [
+        /* @__PURE__ */ a(
+          "label",
+          {
+            htmlFor: _,
+            className: v("dmc-input", "dmc-input--key-column"),
+            children: j
+          }
+        ),
+        /* @__PURE__ */ a(ot, { disabled: H, onDigit: me })
+      ] })
+    }
+  ) : /* @__PURE__ */ a(
+    "label",
+    {
+      htmlFor: _,
+      className: v("dmc-input"),
+      "data-dmc-size": M,
+      style: m(void 0, d),
+      children: j
+    }
+  );
 }
-const rt = {
-  display: "flex",
-  flexWrap: "wrap",
-  alignItems: "center",
-  gap: 8
-}, it = {
-  display: "inline-flex",
-  alignItems: "center",
-  justifyContent: "center",
-  padding: "8px 14px",
-  minHeight: 30,
-  fontSize: 14,
-  fontWeight: 500,
-  borderRadius: 6,
-  borderWidth: 1,
-  borderStyle: "solid",
-  cursor: "pointer",
-  margin: 0,
-  font: "inherit",
-  boxSizing: "border-box",
-  transition: "border-color 0.15s ease, background-color 0.15s ease, color 0.15s ease"
-};
-function H(e) {
-  return e.background === O.dark.background;
-}
-function lt(e, t, n) {
-  const o = e || t, s = H(n) ? L : n.toggleTrackOff, l = H(n) ? L : n.textPrimary;
-  return !e && H(n) ? {
-    borderColor: o ? n.primary : s,
-    color: o ? n.primary : l,
-    backgroundColor: "transparent"
-  } : {
-    borderColor: o ? n.primary : n.toggleTrackOff,
-    color: o ? n.primary : n.textPrimary,
-    backgroundColor: e ? n.focusBg : "transparent"
+function nt({ name: e, active: t, action: r }) {
+  const [o, n] = T(!1), [l, c] = T(!1), i = o || l, s = (u) => {
+    u.preventDefault(), r == null || r();
   };
-}
-function st({ name: e, active: t, action: n }) {
-  const { colors: o } = x(), [s, l] = S(!1), [i, a] = S(!1);
-  return /* @__PURE__ */ r(
+  return /* @__PURE__ */ a(
     "button",
     {
       type: "button",
-      onClick: (d) => {
-        d.preventDefault(), n == null || n();
-      },
-      onMouseEnter: () => l(!0),
-      onMouseLeave: () => l(!1),
-      onFocus: () => a(!0),
-      onBlur: () => a(!1),
-      style: u(it, lt(t, s || i, o), {
-        outline: i ? "none" : void 0
-      }),
+      className: v("dmc-radio-btn__chip"),
+      "data-active": t ? "true" : "false",
+      "data-highlight": i ? "true" : "false",
+      onClick: s,
+      onMouseEnter: () => n(!0),
+      onMouseLeave: () => n(!1),
+      onFocus: () => c(!0),
+      onBlur: () => c(!1),
       children: e
     }
   );
 }
-function Tt({ items: e, style: t }) {
-  const { colors: n } = x();
-  return /* @__PURE__ */ r("div", { style: u(rt, { color: n.textPrimary }, t), children: e == null ? void 0 : e.map((o) => /* @__PURE__ */ r(
-    st,
+function Nt({ items: e, style: t, size: r }) {
+  const o = N(r);
+  return /* @__PURE__ */ a(
+    "div",
     {
-      name: o.name,
-      active: o.active,
-      action: o.action
-    },
-    o.name
-  )) });
-}
-const se = {
-  subt: {
-    tag: "span",
-    fontSize: 15,
-    fontWeight: 600
-  },
-  title: {
-    tag: "span",
-    fontSize: 24,
-    fontWeight: 700
-  },
-  p: {
-    tag: "p",
-    fontSize: 14,
-    fontWeight: 400,
-    margin: 0
-  },
-  li: {
-    tag: "li",
-    fontSize: 14,
-    fontWeight: 400
-  },
-  span: {
-    tag: "span",
-    fontSize: 14,
-    fontWeight: 400
-  }
-};
-function at(e) {
-  return Object.hasOwn(se, e) ? e : "span";
-}
-function Ct({ children: e, variant: t = "span", color: n, style: o }) {
-  const { colors: s } = x(), l = at(t), { tag: i, ...a } = se[l], c = i, f = u(
-    {
-      fontFamily: "inherit",
-      color: n ?? s.textPrimary,
-      ...a
-    },
-    o
+      className: v("dmc-radio-btn"),
+      "data-dmc-size": o,
+      style: m(void 0, t),
+      children: e == null ? void 0 : e.map((n) => /* @__PURE__ */ a(
+        nt,
+        {
+          name: n.name,
+          active: n.active,
+          action: n.action
+        },
+        n.name
+      ))
+    }
   );
-  return /* @__PURE__ */ r(c, { style: f, children: e });
 }
-const Et = (...e) => e.filter(Boolean).join(" ");
+const ne = {
+  subt: { tag: "span" },
+  title: { tag: "span" },
+  p: { tag: "p" },
+  li: { tag: "li" },
+  span: { tag: "span" }
+};
+function ct(e) {
+  return Object.hasOwn(ne, e) ? e : "span";
+}
+function It({ children: e, variant: t = "span", color: r, size: o, style: n }) {
+  const { colors: l } = k(), c = ct(t), { tag: i } = ne[c], s = i, u = N(o), d = m(
+    r != null ? { color: r } : { color: l.textPrimary },
+    n
+  );
+  return /* @__PURE__ */ a(
+    s,
+    {
+      className: v("dmc-text"),
+      "data-dmc-variant": c,
+      "data-dmc-size": u,
+      style: d,
+      children: e
+    }
+  );
+}
 export {
-  yt as Box,
-  gt as Container,
-  le as INPUT_NATIVE_TYPE,
-  St as Icon,
-  kt as Input,
-  ee as LIGHT_GREY,
-  xt as Layout,
-  F as MAST_BLUE,
+  pt as Box,
+  ht as Container,
+  oe as INPUT_NATIVE_TYPE,
+  wt as Icon,
+  Et as Input,
+  yt as LEGACY_M_TOKENS,
+  ut as LIGHT_GREY,
+  gt as Layout,
+  dt as MAST_BLUE,
   bt as Main,
-  Tt as RadioBtn,
-  wt as SideDrawer,
-  vt as SideDrawerCloseButton,
+  Nt as RadioBtn,
+  $e as SIZE_KEYS,
+  kt as SideDrawer,
+  _t as SideDrawerCloseButton,
   qe as SiteModalHeader,
-  Ct as Text,
-  ht as ThemeProvider,
-  mt as ThemeToggle,
-  je as Toggle,
-  oe as getThemeColors,
-  Et as joinClass,
-  u as mergeStyle,
-  Xe as resolveIconComponent,
-  Ue as resolveIconSrc,
-  O as themes,
-  pt as tokens,
-  x as useTheme
+  Oe as THEME_OPTIONS,
+  It as Text,
+  ft as ThemeProvider,
+  Tt as ThemeSelect,
+  St as Toggle,
+  xt as getFontScale,
+  Q as getThemeColors,
+  v as joinClass,
+  m as mergeStyle,
+  Ke as resolveIconComponent,
+  Xe as resolveIconSrc,
+  N as resolveSize,
+  vt as scalePx,
+  B as themes,
+  mt as tokens,
+  k as useTheme
 };

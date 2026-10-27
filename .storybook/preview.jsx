@@ -1,21 +1,20 @@
 import React, { useEffect, useState } from "react";
+import "../src/styles/dmc-ui.css";
 import { ThemeProvider } from "../src/lib/components/cc-v4/ThemeContext.jsx";
-import { getThemeColors } from "../src/lib/components/cc-v4/themes.js";
-
 function StoryThemeShell({ theme: globalTheme, children }) {
   const [theme, setTheme] = useState(globalTheme ?? "light");
   useEffect(() => {
     setTheme(globalTheme ?? "light");
   }, [globalTheme]);
-  const colors = getThemeColors(theme);
   return (
     <ThemeProvider theme={theme} onThemeChange={setTheme}>
       <div
+        className="dmc-story-canvas"
         style={{
           minHeight: "100vh",
           boxSizing: "border-box",
-          background: colors.background,
-          color: colors.textPrimary,
+          background: "var(--dmc-color-background)",
+          color: "var(--dmc-color-text-primary)",
         }}
       >
         {children}
@@ -29,13 +28,14 @@ const preview = {
   globalTypes: {
     theme: {
       name: "Theme",
-      description: "Светлая / тёмная тема",
+      description: "Светлая / тёмная / серая тема",
       defaultValue: "light",
       toolbar: {
         icon: "circlehollow",
         items: [
           { value: "light", title: "Light" },
           { value: "dark", title: "Dark" },
+          { value: "gray", title: "Gray" },
         ],
         dynamicTitle: true,
       },

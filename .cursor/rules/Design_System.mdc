@@ -90,12 +90,14 @@ Storybook: группа каталога — **`Design System`** (или `Compon
 
 ## Политика стилей (обязательная)
 
-1. **В коде компонентов** (`src/lib/components/**`) оформление **только** через проп `style` (литералы цветов/размеров, слияние с `style` потребителя через `mergeStyle`). На DOM-узлах компонентов ДС **запрещены** `className`, `joinClass` и CSS-классы для визуала.
-2. **Потребителю запрещено требовать** подключение `@dmc/ui/styles.css` или любого другого CSS пакета для работы компонентов. В Docs и примерах **не упоминать** импорт стилей.
-3. **Запрещено** в компонентах ДС ссылаться на `var(--…)` и глобальные CSS-переменные — значения токенов только в JS (`src/lib/components/**/tokens.js` или аналог).
-4. Состояния (`:hover`, `:focus-visible`, анимации) — React-состояние + inline `style` / `transition`; без keyframes в отдельном CSS для ДС.
-5. В Storybook — те же правила; демо-контент через `style` и **`useTheme().colors`** (для theme-aware текста), не статический `tokens` в примерах смены темы.
-6. `joinClass` — не в реализации компонентов ДС.
+1. **Публичные компоненты ДС** (волна CSS): базовая вёрстка, размеры и состояния — в [`src/styles/dmc-ui.css`](src/styles/dmc-ui.css) (классы `dmc-*`, `data-dmc-size`, `data-dmc-theme`). Потребитель **обязан** один раз подключить `import "@dmc/ui/styles.css"` в entry приложения; в Storybook Docs — явный пример импорта CSS.
+2. **Проп `style` / `inputStyle`** потребителя — через `mergeStyle` **последним**, перебивает CSS. Публичный `className` на компоненты ДС **не добавлять** (кроме уже пробрасываемого `...rest`, если есть).
+3. **CSS-переменные темы** (`--dmc-color-*`) объявляются только на корне **`ThemeProvider`** (`data-dmc-theme`); дочерние узлы ДС наследуют, без дублирования `:root` на каждом компоненте.
+4. Литералы тем — только **`style.css`** в корне пакета (`--dmc-color-*` на `[data-dmc-theme]`). **`themes.js`** / `useTheme().colors` парсят тот же файл (Vite `virtual:dmc-style-css`); тесты `parseStyleCss.test`, `themeCssSync.test`.
+5. Компоненты **вне** CSS-волны (до миграции) — по-прежнему inline `style` + `useTheme().colors`.
+6. Опциональный проп **`size`**: `xs` | `s` | `m` | `l` | `xl`; по умолчанию `m` (текущий визуальный эталон). Шкала — `sizes.js` и `src/styles/ds/scale.css`.
+7. В Storybook демо-контент: **`useTheme().colors`** для произвольного текста вне компонентов ДС; глобальный импорт `dmc-ui.css` в preview.
+8. Внутренние классы — через **`joinClass`**; не для кастомизации потребителем.
 
 ## Источники дизайн-токенов
 
@@ -105,7 +107,7 @@ Storybook: группа каталога — **`Design System`** (или `Compon
 
 ## Светлая и тёмная тема (обязательная)
 
-- Переключение темы: **`ThemeProvider`**, **`useTheme()`** (`theme`, `setTheme`, `colors`). Палитры — `themes` / `getThemeColors` в JS (`themes.js`), не CSS-переменные на узлах ДС.
+- Переключение темы: **`ThemeProvider`**, **`useTheme()`** (`theme`, `setTheme`, `colors`). Палитры — `themes` / `getThemeColors` в JS (`themes.js`); на корне провайдера — `data-dmc-theme` и CSS-переменные для стилей `dmc-*`.
 - Статический импорт **`tokens`** — снимок **светлой** палитры; **не** реагирует на `ThemeProvider`. Для цветов при смене темы — только **`useTheme().colors`** (или `themes[theme]` вне React).
 - Любой компонент с **видимым текстом** (собственным или наследуемым для `children`) обязан:
   - вызывать **`useTheme()`** при сборке стилей в рендере;

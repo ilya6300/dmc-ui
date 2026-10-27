@@ -12,12 +12,20 @@ describe("getThemeColors", () => {
     expect(getThemeColors("dark").primary).toBe("#2196f3");
   });
 
+  it("returns gray palette from style.css", () => {
+    expect(getThemeColors("gray").background).toBe("#3c3c3d");
+    expect(getThemeColors("gray").surface).toBe("#94a3b8");
+  });
+
   it("keeps mastBlue and primary invariant across themes", () => {
-    expect(themes.light.mastBlue).toBe("#2196f3");
-    expect(themes.dark.mastBlue).toBe("#2196f3");
+    expect(themes.light.mastBlue).toBe("#236192");
+    expect(themes.dark.mastBlue).toBe("#236192");
+    expect(themes.gray.mastBlue).toBe("#236192");
     expect(themes.light.primary).toBe(themes.dark.primary);
+    expect(themes.light.primary).toBe(themes.gray.primary);
     expect(themes.light.mainBlue1).toBe("#2196f3");
     expect(themes.dark.mainBlue1).toBe("#2196f3");
+    expect(themes.gray.mainBlue1).toBe("#2196f3");
   });
 
   it("exposes legacy aliases on light", () => {

@@ -1,34 +1,15 @@
 import React from "react";
 import { mergeStyle } from "./tokens";
 import { useTheme } from "./ThemeContext.jsx";
+import { joinClass } from "./joinClass.js";
+import { resolveSize } from "./sizes.js";
 
 const VARIANTS = {
-  subt: {
-    tag: "span",
-    fontSize: 15,
-    fontWeight: 600,
-  },
-  title: {
-    tag: "span",
-    fontSize: 24,
-    fontWeight: 700,
-  },
-  p: {
-    tag: "p",
-    fontSize: 14,
-    fontWeight: 400,
-    margin: 0,
-  },
-  li: {
-    tag: "li",
-    fontSize: 14,
-    fontWeight: 400,
-  },
-  span: {
-    tag: "span",
-    fontSize: 14,
-    fontWeight: 400,
-  },
+  subt: { tag: "span" },
+  title: { tag: "span" },
+  p: { tag: "p" },
+  li: { tag: "li" },
+  span: { tag: "span" },
 };
 
 function resolveVariant(variant) {
@@ -36,20 +17,26 @@ function resolveVariant(variant) {
 }
 
 /** Типографический текст с вариантами оформления. */
-export function Text({ children, variant = "span", color, style }) {
+export function Text({ children, variant = "span", color, size, style }) {
   const { colors } = useTheme();
   const key = resolveVariant(variant);
-  const { tag, ...variantStyle } = VARIANTS[key];
+  const { tag } = VARIANTS[key];
   const Tag = tag;
+  const resolvedSize = resolveSize(size);
 
   const textStyle = mergeStyle(
-    {
-      fontFamily: "inherit",
-      color: color ?? colors.textPrimary,
-      ...variantStyle,
-    },
+    color != null ? { color } : { color: colors.textPrimary },
     style,
   );
 
-  return <Tag style={textStyle}>{children}</Tag>;
+  return (
+    <Tag
+      className={joinClass("dmc-text")}
+      data-dmc-variant={key}
+      data-dmc-size={resolvedSize}
+      style={textStyle}
+    >
+      {children}
+    </Tag>
+  );
 }

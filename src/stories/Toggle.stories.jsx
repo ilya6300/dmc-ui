@@ -1,7 +1,7 @@
 import React from "react";
 import { useArgs } from "storybook/preview-api";
-import { Main, Toggle } from "../index.js";
-import { importBlock, ROOT_NOTE } from "./docsFragments.js";
+import { Main, SIZE_KEYS, Toggle } from "../index.js";
+import { componentDoc, importBlock, ROOT_NOTE } from "./docsFragments.js";
 
 function ToggleStory(args) {
   const [, updateArgs] = useArgs();
@@ -25,6 +25,7 @@ const meta = {
   component: Toggle,
   tags: ["autodocs"],
   render: ToggleStory,
+  args: { size: "m" },
   decorators: [
     (Story) => (
       <Main style={{ padding: 24 }}>
@@ -35,17 +36,12 @@ const meta = {
   parameters: {
     docs: {
       description: {
-        component: `
-Переключатель на inline-стилях. \`variant="text"\` — только подпись.
-
-${ROOT_NOTE}
-
-${importBlock("Toggle", "Main")}
-
-\`\`\`jsx
-<Toggle active={on} label="Мои" onChange={setOn} />
-\`\`\`
-        `,
+        component: componentDoc(
+          'Переключатель. `variant="text"` — только подпись. Опционально `size` (`xs` … `xl`, по умолчанию `m`).',
+          ROOT_NOTE,
+          importBlock("Toggle", "Main"),
+          "```jsx\n<Toggle active={on} label=\"Мои\" onChange={setOn} />\n```",
+        ),
       },
     },
   },
@@ -55,6 +51,7 @@ ${importBlock("Toggle", "Main")}
     variant: { options: ["switch", "text"], control: "radio" },
     style: { description: "Стили на кнопке-обёртке.", control: false },
     disabled: { control: "boolean" },
+    size: { options: SIZE_KEYS, control: "select" },
     onChange: { control: false },
   },
 };
@@ -74,4 +71,16 @@ export const SwitchOnly = {
 export const TextOnly = {
   name: "Только текст",
   args: { variant: "text", label: "Подпись без переключателя" },
+};
+
+export const SizeScale = {
+  name: "Размеры",
+  parameters: { controls: { disable: true } },
+  render: () => (
+    <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
+      {SIZE_KEYS.map((size) => (
+        <Toggle key={size} size={size} active label={`size=${size}`} onChange={() => {}} />
+      ))}
+    </div>
+  ),
 };

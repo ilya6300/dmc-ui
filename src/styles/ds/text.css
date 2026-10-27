@@ -1,0 +1,30 @@
+.dmc-text {
+  font-family: inherit;
+  margin: 0;
+  color: var(--dmc-color-text-primary);
+}
+
+.dmc-text[data-dmc-variant="subt"] {
+  font-size: calc(15px * var(--dmc-font-scale, 1));
+  font-weight: 600;
+}
+
+.dmc-text[data-dmc-variant="title"] {
+  font-size: calc(24px * var(--dmc-font-scale, 1));
+  font-weight: 700;
+}
+
+.dmc-text[data-dmc-variant="p"] {
+  font-size: calc(14px * var(--dmc-font-scale, 1));
+  font-weight: 400;
+}
+
+.dmc-text[data-dmc-variant="li"] {
+  font-size: calc(14px * var(--dmc-font-scale, 1));
+  font-weight: 400;
+}
+
+.dmc-text[data-dmc-variant="span"] {
+  font-size: calc(14px * var(--dmc-font-scale, 1));
+  font-weight: 400;
+}
