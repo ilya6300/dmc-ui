@@ -1,0 +1,143 @@
+.box {
+	display: flex;
+	flex-wrap: wrap;
+	position: relative;
+	border-radius: 4px;
+	padding: 8px 12px;
+	gap: 12px;
+}
+
+.section {
+	display: flex;
+	flex-wrap: wrap;
+	position: relative;
+	flex-direction: column;
+	align-items: flex-start;
+	justify-content: center;
+}
+
+.section:not(.side) {
+	flex: 1 1 auto;
+}
+
+.side {
+	align-items: center;
+}
+
+.side svg {
+	display: block;
+}
+
+.col {
+	flex-direction: column;
+}
+
+.row {
+	flex-direction: row;
+}
+
+.dense {
+	padding: 4px 8px;
+	gap: 8px;
+}
+
+.noWrap {
+	flex-wrap: nowrap;
+}
+
+.square {
+	border-radius: 0;
+}
+
+.xs {
+	padding: 4px;
+	gap: 4px;
+	font-size: 12px;
+	line-height: 1.33;
+}
+
+.sm {
+	padding: 4px 8px;
+	gap: 8px;
+	font-size: 14px;
+	line-height: 1.25;
+}
+
+.lg {
+	padding: 12px 16px;
+	gap: 16px;
+	font-size: 18px;
+	line-height: 1.55;
+}
+
+.xl {
+	padding: 12px 16px;
+	gap: 16px;
+	font-size: 20px;
+	line-height: 1.4;
+}
+
+.noPadding {
+	padding: 0;
+	gap: 0;
+}
+
+.alignStart {
+	align-items: flex-start;
+}
+
+.alignCenter {
+	align-items: center;
+}
+
+.alignEnd {
+	align-items: flex-end;
+}
+
+.alignStretch {
+	align-items: stretch;
+}
+
+.alignBaseline {
+	align-items: baseline;
+}
+
+.alignNormal {
+	align-items: normal;
+}
+
+.justifyStart {
+	justify-content: flex-start;
+}
+
+.justifyCenter {
+	justify-content: center;
+}
+
+.justifyEnd {
+	justify-content: flex-end;
+}
+
+.justifyBetween {
+	justify-content: space-between;
+}
+
+.justifyAround {
+	justify-content: space-around;
+}
+
+.justifyEvenly {
+	justify-content: space-evenly;
+}
+
+.justifyStretch {
+	justify-content: stretch;
+}
+
+.justifyBaseline {
+	justify-content: baseline;
+}
+
+.justifyNormal {
+	justify-content: normal;
+}

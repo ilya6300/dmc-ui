@@ -4,27 +4,55 @@
     "design-system-box": {
       "id": "design-system-box",
       "name": "Box",
-      "path": "./src/stories/Box.stories.jsx",
-      "jsDocTags": {
-        "type": [
-          "{import('@storybook/react-vite').Meta}"
-        ]
-      },
-      "description": "",
+      "path": "./src/shared/ui/box/box.stories.tsx",
+      "jsDocTags": {},
+      "description": "Карточка контента — inline-стили в компоненте.",
       "reactDocgen": {
         "description": "Карточка контента — inline-стили в компоненте.",
         "methods": [],
         "displayName": "Box",
-        "definedInFile": "C:\\Frontend\\dmc-ui\\src\\lib\\components\\cc-v4\\Box.jsx",
+        "definedInFile": "C:\\OSPanel\\home\\dmc-ui\\src\\shared\\ui\\box\\box.tsx",
         "actualName": "Box",
         "exportName": "Box",
         "props": {
+          "children": {
+            "required": false,
+            "tsType": {
+              "name": "ReactNode"
+            },
+            "description": ""
+          },
+          "style": {
+            "required": false,
+            "tsType": {
+              "name": "CSSProperties"
+            },
+            "description": ""
+          },
+          "title": {
+            "required": false,
+            "tsType": {
+              "name": "ReactNode"
+            },
+            "description": ""
+          },
+          "w": {
+            "required": false,
+            "tsType": {
+              "name": "string"
+            },
+            "description": ""
+          },
           "shadow": {
+            "required": false,
+            "tsType": {
+              "name": "number"
+            },
+            "description": "",
             "defaultValue": {
               "value": "12",
               "computed": false
-            },
-            "required": false
+            }
           }
         }
       },
@@ -52,51 +80,455 @@
       ],
       "import": "import { Box, Main } from '@dmc/ui';"
     },
+    "design-system-button": {
+      "id": "design-system-button",
+      "name": "Button",
+      "path": "./src/shared/ui/button/button.stories.tsx",
+      "jsDocTags": {},
+      "description": "Кнопка: заливка, контур, тон и текст. Цвета — из текущей темы.",
+      "reactDocgen": {
+        "description": "Кнопка: заливка, контур, тон и текст. Цвета — из текущей темы.",
+        "methods": [],
+        "displayName": "Button",
+        "definedInFile": "C:\\OSPanel\\home\\dmc-ui\\src\\shared\\ui\\button\\button.tsx",
+        "actualName": "Button",
+        "exportName": "Button",
+        "props": {
+          "children": {
+            "required": false,
+            "tsType": {
+              "name": "ReactNode"
+            },
+            "description": ""
+          },
+          "variant": {
+            "required": false,
+            "tsType": {
+              "name": "union",
+              "raw": "\"filled\" | \"outline\" | \"tonal\" | \"text\" | \"plain\" | \"link\"",
+              "elements": [
+                {
+                  "name": "literal",
+                  "value": "\"filled\""
+                },
+                {
+                  "name": "literal",
+                  "value": "\"outline\""
+                },
+                {
+                  "name": "literal",
+                  "value": "\"tonal\""
+                },
+                {
+                  "name": "literal",
+                  "value": "\"text\""
+                },
+                {
+                  "name": "literal",
+                  "value": "\"plain\""
+                },
+                {
+                  "name": "literal",
+                  "value": "\"link\""
+                }
+              ]
+            },
+            "description": "",
+            "defaultValue": {
+              "value": "\"filled\"",
+              "computed": false
+            }
+          },
+          "color": {
+            "required": false,
+            "tsType": {
+              "name": "union",
+              "raw": "\"primary\" | \"error\" | \"warning\"",
+              "elements": [
+                {
+                  "name": "literal",
+                  "value": "\"primary\""
+                },
+                {
+                  "name": "literal",
+                  "value": "\"error\""
+                },
+                {
+                  "name": "literal",
+                  "value": "\"warning\""
+                }
+              ]
+            },
+            "description": "",
+            "defaultValue": {
+              "value": "\"primary\"",
+              "computed": false
+            }
+          },
+          "size": {
+            "required": false,
+            "tsType": {
+              "name": "union",
+              "raw": "\"sm\" | \"md\" | \"lg\"",
+              "elements": [
+                {
+                  "name": "literal",
+                  "value": "\"sm\""
+                },
+                {
+                  "name": "literal",
+                  "value": "\"md\""
+                },
+                {
+                  "name": "literal",
+                  "value": "\"lg\""
+                }
+              ]
+            },
+            "description": "",
+            "defaultValue": {
+              "value": "\"md\"",
+              "computed": false
+            }
+          },
+          "shape": {
+            "required": false,
+            "tsType": {
+              "name": "union",
+              "raw": "\"default\" | \"round\" | \"rounded\" | \"square\"",
+              "elements": [
+                {
+                  "name": "literal",
+                  "value": "\"default\""
+                },
+                {
+                  "name": "literal",
+                  "value": "\"round\""
+                },
+                {
+                  "name": "literal",
+                  "value": "\"rounded\""
+                },
+                {
+                  "name": "literal",
+                  "value": "\"square\""
+                }
+              ]
+            },
+            "description": "",
+            "defaultValue": {
+              "value": "\"default\"",
+              "computed": false
+            }
+          },
+          "block": {
+            "required": false,
+            "tsType": {
+              "name": "boolean"
+            },
+            "description": "",
+            "defaultValue": {
+              "value": "false",
+              "computed": false
+            }
+          },
+          "flat": {
+            "required": false,
+            "tsType": {
+              "name": "boolean"
+            },
+            "description": "",
+            "defaultValue": {
+              "value": "false",
+              "computed": false
+            }
+          },
+          "loading": {
+            "required": false,
+            "tsType": {
+              "name": "boolean"
+            },
+            "description": "",
+            "defaultValue": {
+              "value": "false",
+              "computed": false
+            }
+          },
+          "disabled": {
+            "required": false,
+            "tsType": {
+              "name": "boolean"
+            },
+            "description": "",
+            "defaultValue": {
+              "value": "false",
+              "computed": false
+            }
+          },
+          "active": {
+            "required": false,
+            "tsType": {
+              "name": "boolean"
+            },
+            "description": "",
+            "defaultValue": {
+              "value": "false",
+              "computed": false
+            }
+          },
+          "leftSection": {
+            "required": false,
+            "tsType": {
+              "name": "ReactNode"
+            },
+            "description": ""
+          },
+          "rightSection": {
+            "required": false,
+            "tsType": {
+              "name": "ReactNode"
+            },
+            "description": ""
+          },
+          "type": {
+            "required": false,
+            "tsType": {
+              "name": "union",
+              "raw": "\"button\" | \"submit\" | \"reset\"",
+              "elements": [
+                {
+                  "name": "literal",
+                  "value": "\"button\""
+                },
+                {
+                  "name": "literal",
+                  "value": "\"submit\""
+                },
+                {
+                  "name": "literal",
+                  "value": "\"reset\""
+                }
+              ]
+            },
+            "description": "",
+            "defaultValue": {
+              "value": "\"button\"",
+              "computed": false
+            }
+          },
+          "style": {
+            "required": false,
+            "tsType": {
+              "name": "CSSProperties"
+            },
+            "description": ""
+          },
+          "onClick": {
+            "required": false,
+            "tsType": {
+              "name": "signature",
+              "type": "function",
+              "raw": "(event: MouseEvent<HTMLButtonElement>) => void",
+              "signature": {
+                "arguments": [
+                  {
+                    "type": {
+                      "name": "MouseEvent",
+                      "elements": [
+                        {
+                          "name": "HTMLButtonElement"
+                        }
+                      ],
+                      "raw": "MouseEvent<HTMLButtonElement>"
+                    },
+                    "name": "event"
+                  }
+                ],
+                "return": {
+                  "name": "void"
+                }
+              }
+            },
+            "description": ""
+          }
+        }
+      },
+      "stories": [
+        {
+          "id": "design-system-button--default",
+          "name": "Заливка",
+          "snippet": "const Default = () => <Button>Сохранить</Button>;"
+        },
+        {
+          "id": "design-system-button--minimal",
+          "name": "Минимальный",
+          "snippet": "const Minimal = () => <Button>OK</Button>;"
+        },
+        {
+          "id": "design-system-button--variants",
+          "name": "Варианты",
+          "snippet": "const Variants = () => (\r\n  <div style={{ display: \"flex\", flexWrap: \"wrap\", gap: 12 }}>\r\n    <Button>Заливка</Button>\r\n    <Button variant=\"outline\">Контур</Button>\r\n    <Button variant=\"tonal\">Тон</Button>\r\n    <Button variant=\"text\">Текст</Button>\r\n    <Button variant=\"plain\">Plain</Button>\r\n    <Button variant=\"link\">Ссылка</Button>\r\n  </div>\r\n);"
+        },
+        {
+          "id": "design-system-button--colors",
+          "name": "Цвета",
+          "snippet": "const Colors = () => (\r\n  <div style={{ display: \"flex\", flexWrap: \"wrap\", gap: 12 }}>\r\n    <Button color=\"primary\">Основная</Button>\r\n    <Button color=\"error\">Ошибка</Button>\r\n    <Button color=\"warning\">Внимание</Button>\r\n  </div>\r\n);"
+        }
+      ],
+      "import": "import { Button } from '@dmc/ui';"
+    },
     "design-system-container": {
       "id": "design-system-container",
       "name": "Container",
-      "path": "./src/stories/Container.stories.jsx",
-      "jsDocTags": {
-        "type": [
-          "{import('@storybook/react-vite').Meta}"
-        ]
-      },
-      "description": "",
+      "path": "./src/shared/ui/container/container.stories.tsx",
+      "jsDocTags": {},
+      "description": "Flex-строка или колонка для группировки контента (отступы и gap по умолчанию).",
       "reactDocgen": {
         "description": "Flex-строка или колонка для группировки контента (отступы и gap по умолчанию).",
         "methods": [],
         "displayName": "Container",
-        "definedInFile": "C:\\Frontend\\dmc-ui\\src\\lib\\components\\cc-v4\\Container.jsx",
+        "definedInFile": "C:\\OSPanel\\home\\dmc-ui\\src\\shared\\ui\\container\\container.tsx",
         "actualName": "Container",
         "exportName": "Container",
         "props": {
           "direction": {
+            "required": false,
+            "tsType": {
+              "name": "union",
+              "raw": "keyof typeof DIRECTIONS",
+              "elements": [
+                {
+                  "name": "literal",
+                  "value": "row"
+                },
+                {
+                  "name": "literal",
+                  "value": "col"
+                }
+              ]
+            },
+            "description": "",
             "defaultValue": {
               "value": "\"row\"",
               "computed": false
-            },
-            "required": false
+            }
           },
           "justify": {
+            "required": false,
+            "tsType": {
+              "name": "union",
+              "raw": "keyof typeof FLEX",
+              "elements": [
+                {
+                  "name": "literal",
+                  "value": "start"
+                },
+                {
+                  "name": "literal",
+                  "value": "end"
+                },
+                {
+                  "name": "literal",
+                  "value": "center"
+                },
+                {
+                  "name": "literal",
+                  "value": "stretch"
+                },
+                {
+                  "name": "literal",
+                  "value": "between"
+                },
+                {
+                  "name": "literal",
+                  "value": "around"
+                },
+                {
+                  "name": "literal",
+                  "value": "evenly"
+                }
+              ]
+            },
+            "description": "",
             "defaultValue": {
               "value": "\"start\"",
               "computed": false
-            },
-            "required": false
+            }
           },
           "align": {
+            "required": false,
+            "tsType": {
+              "name": "union",
+              "raw": "keyof typeof FLEX",
+              "elements": [
+                {
+                  "name": "literal",
+                  "value": "start"
+                },
+                {
+                  "name": "literal",
+                  "value": "end"
+                },
+                {
+                  "name": "literal",
+                  "value": "center"
+                },
+                {
+                  "name": "literal",
+                  "value": "stretch"
+                },
+                {
+                  "name": "literal",
+                  "value": "between"
+                },
+                {
+                  "name": "literal",
+                  "value": "around"
+                },
+                {
+                  "name": "literal",
+                  "value": "evenly"
+                }
+              ]
+            },
+            "description": "",
             "defaultValue": {
               "value": "\"stretch\"",
               "computed": false
-            },
-            "required": false
+            }
           },
           "gap": {
+            "required": false,
+            "tsType": {
+              "name": "CSSProperties[\"gap\"]",
+              "raw": "CSSProperties[\"gap\"]"
+            },
+            "description": "",
             "defaultValue": {
               "value": "10",
               "computed": false
+            }
+          },
+          "w": {
+            "required": false,
+            "tsType": {
+              "name": "string"
             },
-            "required": false
+            "description": ""
+          },
+          "children": {
+            "required": false,
+            "tsType": {
+              "name": "ReactNode"
+            },
+            "description": ""
+          },
+          "style": {
+            "required": false,
+            "tsType": {
+              "name": "CSSProperties"
+            },
+            "description": ""
           }
         }
       },
@@ -127,27 +559,94 @@
     "design-system-icon": {
       "id": "design-system-icon",
       "name": "Icon",
-      "path": "./src/stories/Icon.stories.jsx",
-      "jsDocTags": {
-        "type": [
-          "{import('@storybook/react-vite').Meta}"
-        ]
-      },
-      "description": "",
+      "path": "./src/shared/ui/icon/icon.stories.tsx",
+      "jsDocTags": {},
+      "description": "Иконка: img (src / darkSrc) или React-компонент (component / darkComponent).",
       "reactDocgen": {
         "description": "Иконка: img (src / darkSrc) или React-компонент (component / darkComponent).",
         "methods": [],
         "displayName": "Icon",
-        "definedInFile": "C:\\Frontend\\dmc-ui\\src\\lib\\components\\cc-v4\\Icon.jsx",
+        "definedInFile": "C:\\OSPanel\\home\\dmc-ui\\src\\shared\\ui\\icon\\icon.tsx",
         "actualName": "Icon",
         "exportName": "Icon",
         "props": {
+          "component": {
+            "required": false,
+            "tsType": {
+              "name": "ElementType"
+            },
+            "description": ""
+          },
+          "darkComponent": {
+            "required": false,
+            "tsType": {
+              "name": "ElementType"
+            },
+            "description": ""
+          },
+          "src": {
+            "required": false,
+            "tsType": {
+              "name": "string"
+            },
+            "description": ""
+          },
+          "darkSrc": {
+            "required": false,
+            "tsType": {
+              "name": "string"
+            },
+            "description": ""
+          },
           "alt": {
+            "required": false,
+            "tsType": {
+              "name": "string"
+            },
+            "description": "",
             "defaultValue": {
               "value": "\"\"",
               "computed": false
+            }
+          },
+          "style": {
+            "required": false,
+            "tsType": {
+              "name": "CSSProperties"
             },
-            "required": false
+            "description": ""
+          },
+          "width": {
+            "required": false,
+            "tsType": {
+              "name": "union",
+              "raw": "number | string",
+              "elements": [
+                {
+                  "name": "number"
+                },
+                {
+                  "name": "string"
+                }
+              ]
+            },
+            "description": ""
+          },
+          "height": {
+            "required": false,
+            "tsType": {
+              "name": "union",
+              "raw": "number | string",
+              "elements": [
+                {
+                  "name": "number"
+                },
+                {
+                  "name": "string"
+                }
+              ]
+            },
+            "description": ""
           }
         }
       },
@@ -155,83 +654,249 @@
         {
           "id": "design-system-icon--image-pair",
           "name": "Img с darkSrc",
-          "snippet": "const ImagePair = () => <Icon\r\n    size=\"m\"\r\n    src=\"https://placehold.co/32x32/2196f3/ffffff?text=L\"\r\n    darkSrc=\"https://placehold.co/32x32/2196f3/121212?text=D\"\r\n    alt=\"Демо\"\r\n    width={32}\r\n    height={32} />;"
+          "snippet": "const ImagePair = () => (\r\n  <Icon\r\n    src=\"https://placehold.co/32x32/2196f3/ffffff?text=L\"\r\n    darkSrc=\"https://placehold.co/32x32/2196f3/121212?text=D\"\r\n    alt=\"Демо\"\r\n    width={32}\r\n    height={32}\r\n  />\r\n);"
         },
         {
           "id": "design-system-icon--image-fallback",
           "name": "Img без darkSrc",
-          "snippet": "const ImageFallback = () => <Icon\r\n    size=\"m\"\r\n    src=\"https://placehold.co/32x32/2196f3/ffffff?text=1\"\r\n    alt=\"Одна картинка\"\r\n    width={32}\r\n    height={32} />;"
+          "snippet": "const ImageFallback = () => (\r\n  <Icon\r\n    src=\"https://placehold.co/32x32/2196f3/ffffff?text=1\"\r\n    alt=\"Одна картинка\"\r\n    width={32}\r\n    height={32}\r\n  />\r\n);"
         },
         {
           "id": "design-system-icon--component-pair",
           "name": "React-компоненты",
-          "snippet": "const ComponentPair = () => <Icon\r\n    size=\"m\"\r\n    style={{ color: \"#2196f3\" }}\r\n    component={SunIcon}\r\n    darkComponent={MoonIcon}\r\n    width={undefined}\r\n    height={undefined} />;"
+          "snippet": "const ComponentPair = () => (\r\n  <Icon\r\n    component={SunIcon}\r\n    darkComponent={MoonIcon}\r\n    style={{ color: \"#2196f3\" }}\r\n  />\r\n);"
         },
         {
           "id": "design-system-icon--minimal",
           "name": "Минимальный",
-          "snippet": "const Minimal = () => <Icon size=\"m\" src=\"https://placehold.co/48x48/2196f3/ffffff?text=i\" alt=\"Демо\" />;"
-        },
-        {
-          "id": "design-system-icon--size-scale",
-          "name": "Размеры",
-          "snippet": "const SizeScale = () => (\r\n  <div style={{ display: \"flex\", alignItems: \"center\", gap: 12 }}>\r\n    {SIZE_KEYS.map((size) => (\r\n      <Icon\r\n        key={size}\r\n        size={size}\r\n        component={SunIcon}\r\n        style={{ color: \"#2196f3\" }}\r\n      />\r\n    ))}\r\n  </div>\r\n);"
+          "snippet": "const Minimal = () => (\r\n  <Icon\r\n    src=\"https://placehold.co/24x24/000000/ffffff?text=i\"\r\n    alt=\"\"\r\n    width={24}\r\n    height={24}\r\n  />\r\n);"
         }
       ],
-      "import": "import { Icon, Main, ThemeSelect } from '@dmc/ui';"
+      "import": "import { Icon, Main, ThemeToggle } from '@dmc/ui';"
     },
     "design-system-input": {
       "id": "design-system-input",
       "name": "Input",
-      "path": "./src/stories/Input.stories.jsx",
-      "jsDocTags": {
-        "type": [
-          "{import('@storybook/react-vite').Meta}"
-        ]
-      },
-      "description": "",
+      "path": "./src/shared/ui/input/input.stories.tsx",
+      "jsDocTags": {},
       "reactDocgen": {
         "description": "",
         "methods": [],
         "displayName": "Input",
-        "definedInFile": "C:\\Frontend\\dmc-ui\\src\\lib\\components\\cc-v4\\Input.jsx",
+        "definedInFile": "C:\\OSPanel\\home\\dmc-ui\\src\\shared\\ui\\input\\input.tsx",
         "actualName": "Input",
         "exportName": "Input",
         "props": {
           "type": {
+            "required": false,
+            "tsType": {
+              "name": "union",
+              "raw": "keyof typeof INPUT_NATIVE_TYPE",
+              "elements": [
+                {
+                  "name": "literal",
+                  "value": "text"
+                },
+                {
+                  "name": "literal",
+                  "value": "number"
+                },
+                {
+                  "name": "literal",
+                  "value": "key"
+                }
+              ]
+            },
+            "description": "",
             "defaultValue": {
               "value": "\"text\"",
               "computed": false
+            }
+          },
+          "label": {
+            "required": false,
+            "tsType": {
+              "name": "ReactNode"
             },
-            "required": false
+            "description": ""
+          },
+          "value": {
+            "required": false,
+            "tsType": {
+              "name": "union",
+              "raw": "string | number",
+              "elements": [
+                {
+                  "name": "string"
+                },
+                {
+                  "name": "number"
+                }
+              ]
+            },
+            "description": ""
+          },
+          "defaultValue": {
+            "required": false,
+            "tsType": {
+              "name": "union",
+              "raw": "string | number",
+              "elements": [
+                {
+                  "name": "string"
+                },
+                {
+                  "name": "number"
+                }
+              ]
+            },
+            "description": ""
+          },
+          "onChange": {
+            "required": false,
+            "tsType": {
+              "name": "signature",
+              "type": "function",
+              "raw": "(event: ChangeEvent<HTMLInputElement>) => void",
+              "signature": {
+                "arguments": [
+                  {
+                    "type": {
+                      "name": "ChangeEvent",
+                      "elements": [
+                        {
+                          "name": "HTMLInputElement"
+                        }
+                      ],
+                      "raw": "ChangeEvent<HTMLInputElement>"
+                    },
+                    "name": "event"
+                  }
+                ],
+                "return": {
+                  "name": "void"
+                }
+              }
+            },
+            "description": ""
+          },
+          "placeholder": {
+            "required": false,
+            "tsType": {
+              "name": "string"
+            },
+            "description": ""
           },
           "disabled": {
+            "required": false,
+            "tsType": {
+              "name": "boolean"
+            },
+            "description": "",
             "defaultValue": {
               "value": "false",
               "computed": false
-            },
-            "required": false
+            }
           },
           "readOnly": {
+            "required": false,
+            "tsType": {
+              "name": "boolean"
+            },
+            "description": "",
             "defaultValue": {
               "value": "false",
               "computed": false
+            }
+          },
+          "name": {
+            "required": false,
+            "tsType": {
+              "name": "string"
             },
-            "required": false
+            "description": ""
+          },
+          "id": {
+            "required": false,
+            "tsType": {
+              "name": "string"
+            },
+            "description": ""
+          },
+          "style": {
+            "required": false,
+            "tsType": {
+              "name": "CSSProperties"
+            },
+            "description": ""
+          },
+          "inputStyle": {
+            "required": false,
+            "tsType": {
+              "name": "CSSProperties"
+            },
+            "description": ""
           },
           "min": {
+            "required": false,
+            "tsType": {
+              "name": "union",
+              "raw": "number | string",
+              "elements": [
+                {
+                  "name": "number"
+                },
+                {
+                  "name": "string"
+                }
+              ]
+            },
+            "description": "",
             "defaultValue": {
               "value": "0",
               "computed": false
+            }
+          },
+          "max": {
+            "required": false,
+            "tsType": {
+              "name": "union",
+              "raw": "number | string",
+              "elements": [
+                {
+                  "name": "number"
+                },
+                {
+                  "name": "string"
+                }
+              ]
             },
-            "required": false
+            "description": ""
           },
           "error": {
+            "required": false,
+            "tsType": {
+              "name": "boolean"
+            },
+            "description": "",
             "defaultValue": {
               "value": "false",
               "computed": false
+            }
+          },
+          "msg": {
+            "required": false,
+            "tsType": {
+              "name": "ReactNode"
             },
-            "required": false
+            "description": ""
+          },
+          "aria-label": {
+            "required": false,
+            "tsType": {
+              "name": "string"
+            },
+            "description": ""
           }
         }
       },
@@ -239,32 +904,27 @@
         {
           "id": "design-system-input--text-with-label",
           "name": "Текст с подписью",
-          "snippet": "const TextWithLabel = () => <Input size=\"m\" type=\"text\" label=\"Название\" placeholder=\"...\" defaultValue=\"\" />;"
+          "snippet": "const TextWithLabel = () => <Input type=\"text\" label=\"Название\" placeholder=\"...\" defaultValue=\"\" />;"
         },
         {
           "id": "design-system-input--number-field",
           "name": "Число",
-          "snippet": "const NumberField = () => <Input size=\"m\" type=\"number\" label=\"Количество\" placeholder=\"0\" defaultValue=\"\" />;"
+          "snippet": "const NumberField = () => <Input type=\"number\" label=\"Количество\" placeholder=\"0\" defaultValue=\"\" />;"
         },
         {
           "id": "design-system-input--key-with-keypad",
           "name": "Клавиатура (key)",
-          "snippet": "const KeyWithKeypad = () => <Input size=\"m\" type=\"key\" label=\"Версия\" placeholder=\"...\" defaultValue=\"\" />;"
+          "snippet": "const KeyWithKeypad = () => <Input type=\"key\" label=\"Версия\" placeholder=\"...\" defaultValue=\"\" />;"
         },
         {
           "id": "design-system-input--minimal",
           "name": "Минимальный",
-          "snippet": "const Minimal = () => <Input size=\"m\" placeholder=\"...\" />;"
-        },
-        {
-          "id": "design-system-input--size-scale",
-          "name": "Размеры",
-          "snippet": "const SizeScale = () => (\r\n  <div style={{ display: \"flex\", flexDirection: \"column\", gap: 16 }}>\r\n    {SIZE_KEYS.map((size) => (\r\n      <Input key={size} size={size} label={`size=${size}`} placeholder=\"...\" />\r\n    ))}\r\n  </div>\r\n);"
+          "snippet": "const Minimal = () => <Input placeholder=\"...\" />;"
         },
         {
           "id": "design-system-input--with-validation-error",
           "name": "С ошибкой",
-          "snippet": "const WithValidationError = () => <Input\r\n    size=\"m\"\r\n    type=\"text\"\r\n    label=\"Email\"\r\n    placeholder=\"user@example.com\"\r\n    defaultValue=\"not-an-email\"\r\n    error\r\n    msg=\"Введите корректный адрес электронной почты\" />;"
+          "snippet": "const WithValidationError = () => <Input\r\n    type=\"text\"\r\n    label=\"Email\"\r\n    placeholder=\"user@example.com\"\r\n    defaultValue=\"not-an-email\"\r\n    error\r\n    msg=\"Введите корректный адрес электронной почты\" />;"
         }
       ],
       "import": "import { Input, Main } from '@dmc/ui';"
@@ -272,27 +932,41 @@
     "design-system-layout": {
       "id": "design-system-layout",
       "name": "Layout",
-      "path": "./src/stories/Layout.stories.jsx",
-      "jsDocTags": {
-        "type": [
-          "{import('@storybook/react-vite').Meta}"
-        ]
-      },
-      "description": "",
+      "path": "./src/shared/ui/layout/layout.stories.tsx",
+      "jsDocTags": {},
+      "description": "Колонка контента страницы с входной анимацией (аналог legacy `animation_move_list`).",
       "reactDocgen": {
         "description": "Колонка контента страницы с входной анимацией (аналог legacy `animation_move_list`).",
         "methods": [],
         "displayName": "Layout",
-        "definedInFile": "C:\\Frontend\\dmc-ui\\src\\lib\\components\\cc-v4\\Layout.jsx",
+        "definedInFile": "C:\\OSPanel\\home\\dmc-ui\\src\\shared\\ui\\layout\\layout.tsx",
         "actualName": "Layout",
         "exportName": "Layout",
         "props": {
+          "children": {
+            "required": false,
+            "tsType": {
+              "name": "ReactNode"
+            },
+            "description": ""
+          },
+          "style": {
+            "required": false,
+            "tsType": {
+              "name": "CSSProperties"
+            },
+            "description": ""
+          },
           "animate": {
+            "required": false,
+            "tsType": {
+              "name": "boolean"
+            },
+            "description": "",
             "defaultValue": {
               "value": "false",
               "computed": false
-            },
-            "required": false
+            }
           }
         }
       },
@@ -313,20 +987,32 @@
     "design-system-main": {
       "id": "design-system-main",
       "name": "Main",
-      "path": "./src/stories/Main.stories.jsx",
-      "jsDocTags": {
-        "type": [
-          "{import('@storybook/react-vite').Meta}"
-        ]
-      },
-      "description": "",
+      "path": "./src/shared/ui/main/main.stories.tsx",
+      "jsDocTags": {},
+      "description": "Обёртка страницы ЛК; оформление только через `style`.",
       "reactDocgen": {
         "description": "Обёртка страницы ЛК; оформление только через `style`.",
         "methods": [],
         "displayName": "Main",
-        "definedInFile": "C:\\Frontend\\dmc-ui\\src\\lib\\components\\cc-v4\\Main.jsx",
+        "definedInFile": "C:\\OSPanel\\home\\dmc-ui\\src\\shared\\ui\\main\\main.tsx",
         "actualName": "Main",
-        "exportName": "Main"
+        "exportName": "Main",
+        "props": {
+          "children": {
+            "required": false,
+            "tsType": {
+              "name": "ReactNode"
+            },
+            "description": ""
+          },
+          "style": {
+            "required": false,
+            "tsType": {
+              "name": "CSSProperties"
+            },
+            "description": ""
+          }
+        }
       },
       "stories": [
         {
@@ -345,78 +1031,280 @@
     "design-system-radiobtn": {
       "id": "design-system-radiobtn",
       "name": "RadioBtn",
-      "path": "./src/stories/RadioBtn.stories.jsx",
-      "jsDocTags": {
-        "type": [
-          "{import('@storybook/react-vite').Meta}"
-        ]
-      },
-      "description": "",
+      "path": "./src/shared/ui/radio-btn/radio-btn.stories.tsx",
+      "jsDocTags": {},
+      "description": "Группа chip-кнопок; выбор и `active` управляются родителем через `items`.",
       "reactDocgen": {
         "description": "Группа chip-кнопок; выбор и `active` управляются родителем через `items`.",
         "methods": [],
         "displayName": "RadioBtn",
-        "definedInFile": "C:\\Frontend\\dmc-ui\\src\\lib\\components\\cc-v4\\RadioBtn.jsx",
+        "definedInFile": "C:\\OSPanel\\home\\dmc-ui\\src\\shared\\ui\\radio-btn\\radio-btn.tsx",
         "actualName": "RadioBtn",
-        "exportName": "RadioBtn"
+        "exportName": "RadioBtn",
+        "props": {
+          "items": {
+            "required": false,
+            "tsType": {
+              "name": "Array",
+              "elements": [
+                {
+                  "name": "signature",
+                  "type": "object",
+                  "raw": "{\r\n  name: string;\r\n  active?: boolean;\r\n  action?: () => void;\r\n}",
+                  "signature": {
+                    "properties": [
+                      {
+                        "key": "name",
+                        "value": {
+                          "name": "string",
+                          "required": true
+                        }
+                      },
+                      {
+                        "key": "active",
+                        "value": {
+                          "name": "boolean",
+                          "required": false
+                        }
+                      },
+                      {
+                        "key": "action",
+                        "value": {
+                          "name": "signature",
+                          "type": "function",
+                          "raw": "() => void",
+                          "signature": {
+                            "arguments": [],
+                            "return": {
+                              "name": "void"
+                            }
+                          },
+                          "required": false
+                        }
+                      }
+                    ]
+                  }
+                }
+              ],
+              "raw": "RadioBtnItem[]"
+            },
+            "description": ""
+          },
+          "style": {
+            "required": false,
+            "tsType": {
+              "name": "CSSProperties"
+            },
+            "description": ""
+          }
+        }
       },
       "stories": [
         {
           "id": "design-system-radiobtn--comparison",
           "name": "Сравнение (Меньше / Равно / Больше)",
-          "snippet": "const Comparison = () => <ComparisonDemo size=\"m\" />;"
+          "snippet": "const Comparison = () => <ComparisonDemo />;"
         },
         {
           "id": "design-system-radiobtn--minimal",
           "name": "Минимальный",
-          "snippet": "const Minimal = () => <RadioBtn\r\n    size=\"m\"\r\n    items={[\r\n      { name: \"A\", active: true, action: () => {} },\r\n      { name: \"B\", active: false, action: () => {} },\r\n    ]} />;"
-        },
-        {
-          "id": "design-system-radiobtn--size-scale",
-          "name": "Размеры",
-          "snippet": "const SizeScale = () => (\r\n  <div style={{ display: \"flex\", flexDirection: \"column\", gap: 16 }}>\r\n    {SIZE_KEYS.map((size) => (\r\n      <RadioBtn\r\n        key={size}\r\n        size={size}\r\n        items={[\r\n          { name: `${size}-1`, active: true, action: () => {} },\r\n          { name: `${size}-2`, active: false, action: () => {} },\r\n        ]}\r\n      />\r\n    ))}\r\n  </div>\r\n);"
+          "snippet": "const Minimal = () => <RadioBtn\r\n    items={[\r\n      { name: \"A\", active: true, action: () => {} },\r\n      { name: \"B\", active: false, action: () => {} },\r\n    ]} />;"
         }
       ],
       "import": "import { Main, RadioBtn } from '@dmc/ui';"
     },
+    "design-system-text": {
+      "id": "design-system-text",
+      "name": "Text",
+      "path": "./src/shared/ui/text/text.stories.tsx",
+      "jsDocTags": {},
+      "description": "Типографический текст с вариантами оформления.",
+      "reactDocgen": {
+        "description": "Типографический текст с вариантами оформления.",
+        "methods": [],
+        "displayName": "Text",
+        "definedInFile": "C:\\OSPanel\\home\\dmc-ui\\src\\shared\\ui\\text\\text.tsx",
+        "actualName": "Text",
+        "exportName": "Text",
+        "props": {
+          "children": {
+            "required": false,
+            "tsType": {
+              "name": "ReactNode"
+            },
+            "description": ""
+          },
+          "variant": {
+            "required": false,
+            "tsType": {
+              "name": "unknown"
+            },
+            "description": "",
+            "defaultValue": {
+              "value": "\"span\"",
+              "computed": false
+            }
+          },
+          "color": {
+            "required": false,
+            "tsType": {
+              "name": "string"
+            },
+            "description": ""
+          },
+          "style": {
+            "required": false,
+            "tsType": {
+              "name": "CSSProperties"
+            },
+            "description": ""
+          }
+        }
+      },
+      "stories": [
+        {
+          "id": "design-system-text--variants",
+          "name": "Варианты",
+          "snippet": "const Variants = () => <AllVariantsDemo />;"
+        },
+        {
+          "id": "design-system-text--minimal",
+          "name": "Минимальный",
+          "snippet": "const Minimal = () => <Text>Текст по умолчанию (span)</Text>;"
+        }
+      ],
+      "import": "import { Main, Text } from '@dmc/ui';"
+    },
     "design-system-sidedrawer": {
       "id": "design-system-sidedrawer",
       "name": "SideDrawer",
-      "path": "./src/stories/SideDrawer.stories.jsx",
-      "jsDocTags": {
-        "type": [
-          "{import('@storybook/react-vite').Meta}"
-        ]
-      },
-      "description": "",
+      "path": "./src/stories/SideDrawer.stories.tsx",
+      "jsDocTags": {},
       "reactDocgen": {
         "description": "",
         "methods": [],
         "displayName": "SideDrawer",
-        "definedInFile": "C:\\Frontend\\dmc-ui\\src\\lib\\components\\cc-v4\\SideDrawer.jsx",
+        "definedInFile": "C:\\OSPanel\\home\\dmc-ui\\src\\shared\\ui\\side-drawer\\side-drawer.tsx",
         "actualName": "SideDrawer",
         "exportName": "SideDrawer",
         "props": {
           "open": {
+            "required": false,
+            "tsType": {
+              "name": "boolean"
+            },
+            "description": "",
             "defaultValue": {
               "value": "true",
               "computed": false
+            }
+          },
+          "onClose": {
+            "required": false,
+            "tsType": {
+              "name": "signature",
+              "type": "function",
+              "raw": "() => void",
+              "signature": {
+                "arguments": [],
+                "return": {
+                  "name": "void"
+                }
+              }
             },
-            "required": false
+            "description": ""
+          },
+          "title": {
+            "required": false,
+            "tsType": {
+              "name": "ReactNode"
+            },
+            "description": ""
+          },
+          "titleId": {
+            "required": false,
+            "tsType": {
+              "name": "string"
+            },
+            "description": ""
+          },
+          "toolbar": {
+            "required": false,
+            "tsType": {
+              "name": "ReactNode"
+            },
+            "description": ""
+          },
+          "headerActions": {
+            "required": false,
+            "tsType": {
+              "name": "ReactNode"
+            },
+            "description": ""
+          },
+          "children": {
+            "required": false,
+            "tsType": {
+              "name": "ReactNode"
+            },
+            "description": ""
+          },
+          "footer": {
+            "required": false,
+            "tsType": {
+              "name": "ReactNode"
+            },
+            "description": ""
+          },
+          "w": {
+            "required": false,
+            "tsType": {
+              "name": "string"
+            },
+            "description": ""
+          },
+          "style": {
+            "required": false,
+            "tsType": {
+              "name": "CSSProperties"
+            },
+            "description": ""
+          },
+          "layoutStyle": {
+            "required": false,
+            "tsType": {
+              "name": "CSSProperties"
+            },
+            "description": ""
+          },
+          "rootStyle": {
+            "required": false,
+            "tsType": {
+              "name": "CSSProperties"
+            },
+            "description": ""
           },
           "usePortal": {
+            "required": false,
+            "tsType": {
+              "name": "boolean"
+            },
+            "description": "",
             "defaultValue": {
               "value": "true",
               "computed": false
-            },
-            "required": false
+            }
           },
           "closeOnBackdrop": {
+            "required": false,
+            "tsType": {
+              "name": "boolean"
+            },
+            "description": "",
             "defaultValue": {
               "value": "true",
               "computed": false
-            },
-            "required": false
+            }
           }
         }
       },
@@ -444,143 +1332,258 @@
       ],
       "import": "import { Main, SideDrawer, SideDrawerCloseButton } from '@dmc/ui';"
     },
-    "design-system-text": {
-      "id": "design-system-text",
-      "name": "Text",
-      "path": "./src/stories/Text.stories.jsx",
-      "jsDocTags": {
-        "type": [
-          "{import('@storybook/react-vite').Meta}"
-        ]
-      },
-      "description": "",
+    "design-system-themetoggle": {
+      "id": "design-system-themetoggle",
+      "name": "ThemeToggle",
+      "path": "./src/stories/ThemeToggle.stories.tsx",
+      "jsDocTags": {},
+      "description": "Переключатель темы на базе Toggle с иконками луны и солнца в треке.",
       "reactDocgen": {
-        "description": "Типографический текст с вариантами оформления.",
+        "description": "Переключатель темы на базе Toggle с иконками луны и солнца в треке.",
         "methods": [],
-        "displayName": "Text",
-        "definedInFile": "C:\\Frontend\\dmc-ui\\src\\lib\\components\\cc-v4\\Text.jsx",
-        "actualName": "Text",
-        "exportName": "Text",
+        "displayName": "ThemeToggle",
+        "definedInFile": "C:\\OSPanel\\home\\dmc-ui\\src\\shared\\ui\\theme-toggle\\theme-toggle.tsx",
+        "actualName": "ThemeToggle",
+        "exportName": "ThemeToggle",
         "props": {
-          "variant": {
-            "defaultValue": {
-              "value": "\"span\"",
-              "computed": false
+          "theme": {
+            "required": false,
+            "tsType": {
+              "name": "union",
+              "raw": "\"light\" | \"dark\"",
+              "elements": [
+                {
+                  "name": "literal",
+                  "value": "\"light\""
+                },
+                {
+                  "name": "literal",
+                  "value": "\"dark\""
+                }
+              ]
             },
-            "required": false
-          }
-        }
-      },
-      "stories": [
-        {
-          "id": "design-system-text--variants",
-          "name": "Варианты",
-          "snippet": "const Variants = () => <AllVariantsDemo />;"
-        },
-        {
-          "id": "design-system-text--minimal",
-          "name": "Минимальный",
-          "snippet": "const Minimal = () => <Text size=\"m\">Текст по умолчанию (span)</Text>;"
-        },
-        {
-          "id": "design-system-text--size-scale",
-          "name": "Размеры",
-          "snippet": "const SizeScale = () => (\r\n  <div style={{ display: \"flex\", flexDirection: \"column\", gap: 8 }}>\r\n    {SIZE_KEYS.map((size) => (\r\n      <Text key={size} size={size} variant=\"p\">\r\n        size={size} — абзац\r\n      </Text>\r\n    ))}\r\n  </div>\r\n);"
-        }
-      ],
-      "import": "import { Main, Text } from '@dmc/ui';"
-    },
-    "design-system-themeselect": {
-      "id": "design-system-themeselect",
-      "name": "ThemeSelect",
-      "path": "./src/stories/ThemeSelect.stories.jsx",
-      "jsDocTags": {
-        "type": [
-          "{import('@storybook/react-vite').Meta}"
-        ]
-      },
-      "description": "",
-      "reactDocgen": {
-        "description": "",
-        "methods": [],
-        "displayName": "ThemeSelect",
-        "definedInFile": "C:\\Frontend\\dmc-ui\\src\\lib\\components\\cc-v4\\ThemeSelect.jsx",
-        "actualName": "ThemeSelect",
-        "exportName": "ThemeSelect",
-        "props": {
-          "label": {
-            "defaultValue": {
-              "value": "\"Тема\"",
-              "computed": false
-            },
-            "required": false
+            "description": ""
           },
-          "options": {
-            "defaultValue": {
-              "value": "[\r\n  { value: \"light\", label: \"Светлая\" },\r\n  { value: \"dark\", label: \"Тёмная\" },\r\n  { value: \"gray\", label: \"Серая\" },\r\n]",
-              "computed": false
+          "onThemeChange": {
+            "required": false,
+            "tsType": {
+              "name": "signature",
+              "type": "function",
+              "raw": "(theme: ThemeName) => void",
+              "signature": {
+                "arguments": [
+                  {
+                    "type": {
+                      "name": "union",
+                      "raw": "\"light\" | \"dark\"",
+                      "elements": [
+                        {
+                          "name": "literal",
+                          "value": "\"light\""
+                        },
+                        {
+                          "name": "literal",
+                          "value": "\"dark\""
+                        }
+                      ]
+                    },
+                    "name": "theme"
+                  }
+                ],
+                "return": {
+                  "name": "void"
+                }
+              }
             },
-            "required": false
+            "description": ""
+          },
+          "label": {
+            "required": false,
+            "tsType": {
+              "name": "string"
+            },
+            "description": "",
+            "defaultValue": {
+              "value": "\"Тёмная тема\"",
+              "computed": false
+            }
+          },
+          "style": {
+            "required": false,
+            "tsType": {
+              "name": "CSSProperties"
+            },
+            "description": ""
           },
           "disabled": {
+            "required": false,
+            "tsType": {
+              "name": "boolean"
+            },
+            "description": "",
             "defaultValue": {
               "value": "false",
               "computed": false
-            },
-            "required": false
+            }
           }
         }
       },
       "stories": [
         {
-          "id": "design-system-themeselect--with-preview",
+          "id": "design-system-themetoggle--with-preview",
           "name": "С Box",
-          "snippet": "const WithPreview = () => (\r\n  <Main style={{ padding: 24 }}>\r\n    <ThemeSelect />\r\n    <Box title=\"Карточка\" style={{ marginTop: 16 }}>\r\n      Контент меняет оформление при смене темы в toolbar или в списке.\r\n    </Box>\r\n  </Main>\r\n);"
+          "snippet": "const WithPreview = () => (\r\n  <Main style={{ padding: 24 }}>\r\n    <ThemeToggle />\r\n    <Box title=\"Карточка\" style={{ marginTop: 16 }}>\r\n      Контент меняет оформление при смене темы в toolbar или переключателе.\r\n    </Box>\r\n  </Main>\r\n);"
         },
         {
-          "id": "design-system-themeselect--minimal",
+          "id": "design-system-themetoggle--minimal",
           "name": "Минимальный",
-          "snippet": "const Minimal = () => <ThemeSelect label=\"\" />;"
+          "snippet": "const Minimal = () => <ThemeToggle label=\"\" />;"
         },
         {
-          "id": "design-system-themeselect--controlled",
+          "id": "design-system-themetoggle--controlled",
           "name": "Controlled",
           "snippet": "const Controlled = () => <ControlledDemo />;"
         }
       ],
-      "import": "import { Box, Main, ThemeProvider, ThemeSelect } from '@dmc/ui';"
+      "import": "import { Box, Main, ThemeProvider, ThemeToggle } from '@dmc/ui';"
     },
     "design-system-toggle": {
       "id": "design-system-toggle",
       "name": "Toggle",
-      "path": "./src/stories/Toggle.stories.jsx",
-      "jsDocTags": {
-        "type": [
-          "{import('@storybook/react-vite').Meta}"
-        ]
-      },
-      "description": "",
+      "path": "./src/stories/Toggle.stories.tsx",
+      "jsDocTags": {},
       "reactDocgen": {
         "description": "",
         "methods": [],
         "displayName": "Toggle",
-        "definedInFile": "C:\\Frontend\\dmc-ui\\src\\lib\\components\\cc-v4\\Toggle.jsx",
+        "definedInFile": "C:\\OSPanel\\home\\dmc-ui\\src\\shared\\ui\\toggle\\toggle.tsx",
         "actualName": "Toggle",
         "exportName": "Toggle",
         "props": {
+          "active": {
+            "required": false,
+            "tsType": {
+              "name": "boolean"
+            },
+            "description": ""
+          },
+          "label": {
+            "required": false,
+            "tsType": {
+              "name": "ReactNode"
+            },
+            "description": ""
+          },
           "variant": {
+            "required": false,
+            "tsType": {
+              "name": "union",
+              "raw": "\"switch\" | \"text\"",
+              "elements": [
+                {
+                  "name": "literal",
+                  "value": "\"switch\""
+                },
+                {
+                  "name": "literal",
+                  "value": "\"text\""
+                }
+              ]
+            },
+            "description": "",
             "defaultValue": {
               "value": "\"switch\"",
               "computed": false
+            }
+          },
+          "onClick": {
+            "required": false,
+            "tsType": {
+              "name": "signature",
+              "type": "function",
+              "raw": "(event: MouseEvent<HTMLButtonElement>) => void",
+              "signature": {
+                "arguments": [
+                  {
+                    "type": {
+                      "name": "MouseEvent",
+                      "elements": [
+                        {
+                          "name": "HTMLButtonElement"
+                        }
+                      ],
+                      "raw": "MouseEvent<HTMLButtonElement>"
+                    },
+                    "name": "event"
+                  }
+                ],
+                "return": {
+                  "name": "void"
+                }
+              }
             },
-            "required": false
+            "description": ""
+          },
+          "onChange": {
+            "required": false,
+            "tsType": {
+              "name": "signature",
+              "type": "function",
+              "raw": "(active: boolean) => void",
+              "signature": {
+                "arguments": [
+                  {
+                    "type": {
+                      "name": "boolean"
+                    },
+                    "name": "active"
+                  }
+                ],
+                "return": {
+                  "name": "void"
+                }
+              }
+            },
+            "description": ""
+          },
+          "style": {
+            "required": false,
+            "tsType": {
+              "name": "CSSProperties"
+            },
+            "description": ""
           },
           "disabled": {
+            "required": false,
+            "tsType": {
+              "name": "boolean"
+            },
+            "description": "",
             "defaultValue": {
               "value": "false",
               "computed": false
+            }
+          },
+          "ariaLabel": {
+            "required": false,
+            "tsType": {
+              "name": "string"
             },
-            "required": false
+            "description": ""
+          },
+          "trackStartIcon": {
+            "required": false,
+            "tsType": {
+              "name": "ReactNode"
+            },
+            "description": ""
+          },
+          "trackEndIcon": {
+            "required": false,
+            "tsType": {
+              "name": "ReactNode"
+            },
+            "description": ""
           }
         }
       },
@@ -588,22 +1591,17 @@
         {
           "id": "design-system-toggle--with-label",
           "name": "С подписью",
-          "snippet": "function WithLabel(args) {\r\n    const [, updateArgs] = useArgs();\r\n    const { variant = \"switch\" } = args;\r\n\r\n    return (\r\n        <Toggle\r\n            size=\"m\"\r\n            active\r\n            label=\"Мои\"\r\n            onChange={\r\n              variant === \"text\"\r\n                ? args.onChange\r\n                : (next) => updateArgs({ active: next })\r\n            } />\r\n    );\r\n}"
+          "snippet": "function WithLabel(args: ToggleProps) {\r\n    const [, updateArgs] = useArgs<ToggleProps>();\r\n    const { variant = \"switch\" } = args;\r\n\r\n    return (\r\n        <Toggle\r\n            active\r\n            label=\"Мои\"\r\n            onChange={\r\n              variant === \"text\"\r\n                ? args.onChange\r\n                : (next) => updateArgs({ active: next })\r\n            } />\r\n    );\r\n}"
         },
         {
           "id": "design-system-toggle--switch-only",
           "name": "Только switch",
-          "snippet": "function SwitchOnly(args) {\r\n    const [, updateArgs] = useArgs();\r\n    const { variant = \"switch\" } = args;\r\n\r\n    return (\r\n        <Toggle\r\n            size=\"m\"\r\n            active={false}\r\n            onChange={\r\n              variant === \"text\"\r\n                ? args.onChange\r\n                : (next) => updateArgs({ active: next })\r\n            } />\r\n    );\r\n}"
+          "snippet": "function SwitchOnly(args: ToggleProps) {\r\n    const [, updateArgs] = useArgs<ToggleProps>();\r\n    const { variant = \"switch\" } = args;\r\n\r\n    return (\r\n        <Toggle\r\n            active={false}\r\n            onChange={\r\n              variant === \"text\"\r\n                ? args.onChange\r\n                : (next) => updateArgs({ active: next })\r\n            } />\r\n    );\r\n}"
         },
         {
           "id": "design-system-toggle--text-only",
           "name": "Только текст",
-          "snippet": "function TextOnly(args) {\r\n    const [, updateArgs] = useArgs();\r\n    const { variant = \"switch\" } = args;\r\n\r\n    return (\r\n        <Toggle\r\n            size=\"m\"\r\n            variant=\"text\"\r\n            label=\"Подпись без переключателя\"\r\n            onChange={\r\n              variant === \"text\"\r\n                ? args.onChange\r\n                : (next) => updateArgs({ active: next })\r\n            } />\r\n    );\r\n}"
-        },
-        {
-          "id": "design-system-toggle--size-scale",
-          "name": "Размеры",
-          "snippet": "const SizeScale = () => (\r\n  <div style={{ display: \"flex\", flexDirection: \"column\", gap: 12 }}>\r\n    {SIZE_KEYS.map((size) => (\r\n      <Toggle key={size} size={size} active label={`size=${size}`} onChange={() => {}} />\r\n    ))}\r\n  </div>\r\n);"
+          "snippet": "function TextOnly(args: ToggleProps) {\r\n    const [, updateArgs] = useArgs<ToggleProps>();\r\n    const { variant = \"switch\" } = args;\r\n\r\n    return (\r\n        <Toggle\r\n            variant=\"text\"\r\n            label=\"Подпись без переключателя\"\r\n            onChange={\r\n              variant === \"text\"\r\n                ? args.onChange\r\n                : (next) => updateArgs({ active: next })\r\n            } />\r\n    );\r\n}"
         }
       ],
       "import": "import { Main, Toggle } from '@dmc/ui';"
@@ -611,6 +1609,6 @@
   },
   "meta": {
     "docgen": "react-docgen",
-    "durationMs": 437
+    "durationMs": 1228
   }
 }

@@ -1,10 +1,2 @@
-@import "../../style.css";
-@import "./ds/theme.css";
-@import "./ds/scale.css";
-@import "./ds/icon.css";
-@import "./ds/text.css";
-@import "./ds/toggle.css";
-@import "./ds/radio-btn.css";
-@import "./ds/input.css";
 @import "./tokens.css";
 @import "./company-card-v4.css";

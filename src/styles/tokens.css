@@ -1,9 +1,48 @@
-/* Legacy :root — значения задаются в style.css на [data-dmc-theme]; fallback для вне ThemeProvider */
-
 :root {
   --main-blue-1: #2196f3;
   --mast-blue: #236192;
   --mast-yellow: #f0b323;
   --error: #df2727;
+
   --lgt-grey-border: 1px solid #0000001f;
+
+
+  --color-primary: #2196f3;
+	--color-secondary: #236192;
+	--color-success: #24bd2c;
+	--color-warning: #f0b323;
+	--color-error: #df2727;
+
+  --color-on-primary: #ffffff;
+	--color-on-secondary: #ffffff;
+	--color-on-success: #ffffff;
+	--color-on-warning: #ffffff;
+	--color-on-error: #ffffff;
+  
+/*--body-bg: #ffffff;
+	--body-color: #000000;
+
+	--link-color: #000000;
+	--link-hover-color: #000000;
+
+	--border-color: rgb(0, 0, 0, 0.2);
+	--scrollbar-color: rgba(0, 0, 0, 0.3) rgba(255, 255, 255, 0.2);
+
+	--selection-bg: rgba(0, 0, 0, 0.2);
+	--selection-color: #eee;
+
+	--color-separator: rgba(0, 0, 0, 0.15);
+	--color-divider: rgba(0, 0, 0, 0.15);
+	--color-dimmed: rgba(0, 0, 0, 0.2);
+
+	--color-surface: #ffffff;
+	--color-on-surface: #000000;
+	--color-background: var(--body-bg);
+	--color-on-background: var(--body-color);
+
+	--color-bgmb1: rgba(190, 155, 100, 0.5);
+	--color-bgmb2: rgba(245, 137, 116, 0.5);
+	--color-bgmb3: rgba(158, 25, 58, 0.5);
+	--color-bgmb4: rgba(207, 92, 118, 0.5);
+	--color-bgmb5: rgba(14, 100, 95, 0.5);*/
 }

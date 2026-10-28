@@ -620,13 +620,13 @@
 <header>
   <div class="wrap">
     <h1>Manifest Debugger</h1>
-    <div class="summary"><a class="filter-pill all" data-k="all" href="#filter-all">All</a><span class="filter-pill ok" aria-disabled="true">11 components ok</span><a class="filter-pill info" data-k="infos" href="#filter-infos">11/11 infos</a><a class="filter-pill" data-k="no-api" href="#filter-no-api">2/11 without API description</a><span class="filter-pill ok" aria-disabled="true">40 stories ok</span><a class="filter-pill ok" data-k="docs" href="#filter-docs">2 docs ok</a></div>
+    <div class="summary"><a class="filter-pill all" data-k="all" href="#filter-all">All</a><span class="filter-pill ok" aria-disabled="true">12 components ok</span><a class="filter-pill info" data-k="infos" href="#filter-infos">3/12 infos</a><span class="filter-pill ok" aria-disabled="true">39 stories ok</span><a class="filter-pill ok" data-k="docs" href="#filter-docs">2 docs ok</a></div>
   </div>
 </header>
 <main>
   <div class="wrap">
     <div class="note info" style="margin-bottom: 16px;">
-            <strong>Tip:</strong> You are using <code>react-docgen</code> (the default). Generation took <strong>0.4s</strong>. For higher quality prop types, consider switching to <code>react-docgen-typescript</code> in your <code>main.ts</code>:
+            <strong>Tip:</strong> You are using <code>react-docgen</code> (the default). Generation took <strong>1.2s</strong>. For higher quality prop types, consider switching to <code>react-docgen-typescript</code> in your <code>main.ts</code>:
             <pre><code>typescript: {
   reactDocgen: 'react-docgen-typescript',
 }</code></pre>
@@ -640,7 +640,7 @@
   id="design-system-box"
   class="card 
   no-error
-  has-info
+  no-info
   no-story-error
   no-story-warning
   
@@ -651,22 +651,22 @@
     <div class="title">
       <h2><span class="status-dot dot-ok"></span> Box</h2>
       <div class="badges">
-        <label for="c-0-design-system-box-props" class="badge ok as-toggle">1 prop type</label>
-        <label for="c-0-design-system-box-info" class="badge info as-toggle">1 info</label>
+        <label for="c-0-design-system-box-props" class="badge ok as-toggle">5 prop types</label>
+        
         <label for="c-0-design-system-box-stories" class="badge ok as-toggle">4 stories</label>
         
         
       </div>
     </div>
-    <div class="meta" title="./src/stories/Box.stories.jsx">design-system-box · ./src/stories/Box.stories.jsx</div>
+    <div class="meta" title="./src/shared/ui/box/box.stories.tsx">design-system-box · ./src/shared/ui/box/box.stories.tsx</div>
     
+    <div class="hint">Карточка контента — inline-стили в компоненте.</div>
     
-    <div class="kv"><span class="chip">type: {import(&#39;@storybook/react-vite&#39;).Meta}</span></div>
   </div>
 
   <!-- ⬇️ Hidden toggles must be siblings BEFORE .panels -->
   
-  <input id="c-0-design-system-box-info" class="tg tg-info" type="checkbox" hidden />
+  
   <input id="c-0-design-system-box-stories" class="tg tg-stories" type="checkbox" hidden />
   
   
@@ -675,23 +675,24 @@
   <div class="panels">
     
     
-        <div class="panel panel-info">
-          
-    <div class="note info">
-      <div class="note-title">Info</div>
-      <div class="note-body">No description found. Write a jsdoc comment such as /** Component description */.</div>
-    </div>
-        </div>
     
         <div class="panel panel-props">
           <div class="note ok">
             <div class="row">
               <span class="ex-name">Prop types <small>(react-docgen)</small></span>
-              <span class="badge ok">1 prop type</span>
+              <span class="badge ok">5 prop types</span>
             </div>
-            <pre><code>Component: src\lib\components\cc-v4\Box.jsx::Box</code></pre>
+            <pre><code>Component: src\shared\ui\box\box.tsx::Box</code></pre>
             <pre><code>Props:</code></pre>
-            <pre><code>shadow?: any = 12</code></pre>
+            <pre><code>children?: ReactNode
+
+shadow?: number = 12
+
+style?: CSSProperties
+
+title?: ReactNode
+
+w?: string</code></pre>
           </div>
         </div>
     
@@ -763,10 +764,162 @@
   </div>
 </article>
 <article
+  id="design-system-button"
+  class="card 
+  no-error
+  no-info
+  no-story-error
+  no-story-warning
+  
+  no-doc-error"
+  role="listitem"
+  aria-label="Button">
+  <div class="head">
+    <div class="title">
+      <h2><span class="status-dot dot-ok"></span> Button</h2>
+      <div class="badges">
+        <label for="c-1-design-system-button-props" class="badge ok as-toggle">15 prop types</label>
+        
+        <label for="c-1-design-system-button-stories" class="badge ok as-toggle">4 stories</label>
+        
+        
+      </div>
+    </div>
+    <div class="meta" title="./src/shared/ui/button/button.stories.tsx">design-system-button · ./src/shared/ui/button/button.stories.tsx</div>
+    
+    <div class="hint">Кнопка: заливка, контур, тон и текст. Цвета — из текущей темы.</div>
+    
+  </div>
+
+  <!-- ⬇️ Hidden toggles must be siblings BEFORE .panels -->
+  
+  
+  <input id="c-1-design-system-button-stories" class="tg tg-stories" type="checkbox" hidden />
+  
+  
+  <input id="c-1-design-system-button-props" class="tg tg-props" type="checkbox" hidden />
+
+  <div class="panels">
+    
+    
+    
+        <div class="panel panel-props">
+          <div class="note ok">
+            <div class="row">
+              <span class="ex-name">Prop types <small>(react-docgen)</small></span>
+              <span class="badge ok">15 prop types</span>
+            </div>
+            <pre><code>Component: src\shared\ui\button\button.tsx::Button</code></pre>
+            <pre><code>Props:</code></pre>
+            <pre><code>active?: boolean = false
+
+block?: boolean = false
+
+children?: ReactNode
+
+color?: &quot;primary&quot; | &quot;error&quot; | &quot;warning&quot; = &quot;primary&quot;
+
+disabled?: boolean = false
+
+flat?: boolean = false
+
+leftSection?: ReactNode
+
+loading?: boolean = false
+
+onClick?: (event: MouseEvent&lt;HTMLButtonElement&gt;) =&gt; void
+
+rightSection?: ReactNode
+
+shape?: &quot;default&quot; | &quot;round&quot; | &quot;rounded&quot; | &quot;square&quot; = &quot;default&quot;
+
+size?: &quot;sm&quot; | &quot;md&quot; | &quot;lg&quot; = &quot;md&quot;
+
+style?: CSSProperties
+
+type?: &quot;button&quot; | &quot;submit&quot; | &quot;reset&quot; = &quot;button&quot;
+
+variant?: &quot;filled&quot; | &quot;outline&quot; | &quot;tonal&quot; | &quot;text&quot; | &quot;plain&quot; | &quot;link&quot; = &quot;filled&quot;</code></pre>
+          </div>
+        </div>
+    
+        <div class="panel panel-stories">
+          
+          
+          
+          <div class="note ok">
+                <div class="row">
+                  <span class="ex-name">Imports</span>
+                </div>
+                <pre><code>import { Button } from '@dmc/ui';</code></pre>
+              </div>
+          
+          
+            <div class="note ok">
+              <div class="row">
+                <span class="ex-name">Заливка</span>
+                <span class="badge ok">story ok</span>
+              </div>
+              
+              
+              <pre><code>const Default = () =&gt; &lt;Button&gt;Сохранить&lt;/Button&gt;;</code></pre>
+              
+            </div>
+            <div class="note ok">
+              <div class="row">
+                <span class="ex-name">Минимальный</span>
+                <span class="badge ok">story ok</span>
+              </div>
+              
+              
+              <pre><code>const Minimal = () =&gt; &lt;Button&gt;OK&lt;/Button&gt;;</code></pre>
+              
+            </div>
+            <div class="note ok">
+              <div class="row">
+                <span class="ex-name">Варианты</span>
+                <span class="badge ok">story ok</span>
+              </div>
+              
+              
+              <pre><code>const Variants = () =&gt; (
+  &lt;div style={{ display: &quot;flex&quot;, flexWrap: &quot;wrap&quot;, gap: 12 }}&gt;
+    &lt;Button&gt;Заливка&lt;/Button&gt;
+    &lt;Button variant=&quot;outline&quot;&gt;Контур&lt;/Button&gt;
+    &lt;Button variant=&quot;tonal&quot;&gt;Тон&lt;/Button&gt;
+    &lt;Button variant=&quot;text&quot;&gt;Текст&lt;/Button&gt;
+    &lt;Button variant=&quot;plain&quot;&gt;Plain&lt;/Button&gt;
+    &lt;Button variant=&quot;link&quot;&gt;Ссылка&lt;/Button&gt;
+  &lt;/div&gt;
+);</code></pre>
+              
+            </div>
+            <div class="note ok">
+              <div class="row">
+                <span class="ex-name">Цвета</span>
+                <span class="badge ok">story ok</span>
+              </div>
+              
+              
+              <pre><code>const Colors = () =&gt; (
+  &lt;div style={{ display: &quot;flex&quot;, flexWrap: &quot;wrap&quot;, gap: 12 }}&gt;
+    &lt;Button color=&quot;primary&quot;&gt;Основная&lt;/Button&gt;
+    &lt;Button color=&quot;error&quot;&gt;Ошибка&lt;/Button&gt;
+    &lt;Button color=&quot;warning&quot;&gt;Внимание&lt;/Button&gt;
+  &lt;/div&gt;
+);</code></pre>
+              
+            </div>
+        </div>
+    
+    
+  </div>
+</article>
+<article
   id="design-system-container"
   class="card 
   no-error
-  has-info
+  no-info
   no-story-error
   no-story-warning
   
@@ -777,53 +930,52 @@
     <div class="title">
       <h2><span class="status-dot dot-ok"></span> Container</h2>
       <div class="badges">
-        <label for="c-1-design-system-container-props" class="badge ok as-toggle">4 prop types</label>
-        <label for="c-1-design-system-container-info" class="badge info as-toggle">1 info</label>
-        <label for="c-1-design-system-container-stories" class="badge ok as-toggle">4 stories</label>
+        <label for="c-2-design-system-container-props" class="badge ok as-toggle">7 prop types</label>
+        
+        <label for="c-2-design-system-container-stories" class="badge ok as-toggle">4 stories</label>
         
         
       </div>
     </div>
-    <div class="meta" title="./src/stories/Container.stories.jsx">design-system-container · ./src/stories/Container.stories.jsx</div>
+    <div class="meta" title="./src/shared/ui/container/container.stories.tsx">design-system-container · ./src/shared/ui/container/container.stories.tsx</div>
     
+    <div class="hint">Flex-строка или колонка для группировки контента (отступы и gap по умолчанию).</div>
     
-    <div class="kv"><span class="chip">type: {import(&#39;@storybook/react-vite&#39;).Meta}</span></div>
   </div>
 
   <!-- ⬇️ Hidden toggles must be siblings BEFORE .panels -->
   
-  <input id="c-1-design-system-container-info" class="tg tg-info" type="checkbox" hidden />
-  <input id="c-1-design-system-container-stories" class="tg tg-stories" type="checkbox" hidden />
+  
+  <input id="c-2-design-system-container-stories" class="tg tg-stories" type="checkbox" hidden />
   
   
-  <input id="c-1-design-system-container-props" class="tg tg-props" type="checkbox" hidden />
+  <input id="c-2-design-system-container-props" class="tg tg-props" type="checkbox" hidden />
 
   <div class="panels">
     
     
-        <div class="panel panel-info">
-          
-    <div class="note info">
-      <div class="note-title">Info</div>
-      <div class="note-body">No description found. Write a jsdoc comment such as /** Component description */.</div>
-    </div>
-        </div>
     
         <div class="panel panel-props">
           <div class="note ok">
             <div class="row">
               <span class="ex-name">Prop types <small>(react-docgen)</small></span>
-              <span class="badge ok">4 prop types</span>
+              <span class="badge ok">7 prop types</span>
             </div>
-            <pre><code>Component: src\lib\components\cc-v4\Container.jsx::Container</code></pre>
+            <pre><code>Component: src\shared\ui\container\container.tsx::Container</code></pre>
             <pre><code>Props:</code></pre>
-            <pre><code>align?: any = &quot;stretch&quot;
+            <pre><code>align?: keyof typeof FLEX = &quot;stretch&quot;
 
-direction?: any = &quot;row&quot;
+children?: ReactNode
 
-gap?: any = 10
+direction?: keyof typeof DIRECTIONS = &quot;row&quot;
 
-justify?: any = &quot;start&quot;</code></pre>
+gap?: CSSProperties[&quot;gap&quot;] = 10
+
+justify?: keyof typeof FLEX = &quot;start&quot;
+
+style?: CSSProperties
+
+w?: string</code></pre>
           </div>
         </div>
     
@@ -903,7 +1055,7 @@ justify?: any = &quot;start&quot;</code></pre>
   id="design-system-icon"
   class="card 
   no-error
-  has-info
+  no-info
   no-story-error
   no-story-warning
   
@@ -914,47 +1066,54 @@ justify?: any = &quot;start&quot;</code></pre>
     <div class="title">
       <h2><span class="status-dot dot-ok"></span> Icon</h2>
       <div class="badges">
-        <label for="c-2-design-system-icon-props" class="badge ok as-toggle">1 prop type</label>
-        <label for="c-2-design-system-icon-info" class="badge info as-toggle">1 info</label>
-        <label for="c-2-design-system-icon-stories" class="badge ok as-toggle">5 stories</label>
+        <label for="c-3-design-system-icon-props" class="badge ok as-toggle">8 prop types</label>
+        
+        <label for="c-3-design-system-icon-stories" class="badge ok as-toggle">4 stories</label>
         
         
       </div>
     </div>
-    <div class="meta" title="./src/stories/Icon.stories.jsx">design-system-icon · ./src/stories/Icon.stories.jsx</div>
+    <div class="meta" title="./src/shared/ui/icon/icon.stories.tsx">design-system-icon · ./src/shared/ui/icon/icon.stories.tsx</div>
     
+    <div class="hint">Иконка: img (src / darkSrc) или React-компонент (component / darkComponent).</div>
     
-    <div class="kv"><span class="chip">type: {import(&#39;@storybook/react-vite&#39;).Meta}</span></div>
   </div>
 
   <!-- ⬇️ Hidden toggles must be siblings BEFORE .panels -->
   
-  <input id="c-2-design-system-icon-info" class="tg tg-info" type="checkbox" hidden />
-  <input id="c-2-design-system-icon-stories" class="tg tg-stories" type="checkbox" hidden />
+  
+  <input id="c-3-design-system-icon-stories" class="tg tg-stories" type="checkbox" hidden />
   
   
-  <input id="c-2-design-system-icon-props" class="tg tg-props" type="checkbox" hidden />
+  <input id="c-3-design-system-icon-props" class="tg tg-props" type="checkbox" hidden />
 
   <div class="panels">
     
     
-        <div class="panel panel-info">
-          
-    <div class="note info">
-      <div class="note-title">Info</div>
-      <div class="note-body">No description found. Write a jsdoc comment such as /** Component description */.</div>
-    </div>
-        </div>
     
         <div class="panel panel-props">
           <div class="note ok">
             <div class="row">
               <span class="ex-name">Prop types <small>(react-docgen)</small></span>
-              <span class="badge ok">1 prop type</span>
+              <span class="badge ok">8 prop types</span>
             </div>
-            <pre><code>Component: src\lib\components\cc-v4\Icon.jsx::Icon</code></pre>
+            <pre><code>Component: src\shared\ui\icon\icon.tsx::Icon</code></pre>
             <pre><code>Props:</code></pre>
-            <pre><code>alt?: any = &quot;&quot;</code></pre>
+            <pre><code>alt?: string = &quot;&quot;
+
+component?: ElementType
+
+darkComponent?: ElementType
+
+darkSrc?: string
+
+height?: number | string
+
+src?: string
+
+style?: CSSProperties
+
+width?: number | string</code></pre>
           </div>
         </div>
     
@@ -966,7 +1125,7 @@ justify?: any = &quot;start&quot;</code></pre>
                 <div class="row">
                   <span class="ex-name">Imports</span>
                 </div>
-                <pre><code>import { Icon, Main, ThemeSelect } from '@dmc/ui';</code></pre>
+                <pre><code>import { Icon, Main, ThemeToggle } from '@dmc/ui';</code></pre>
               </div>
           
           
@@ -977,13 +1136,15 @@ justify?: any = &quot;start&quot;</code></pre>
               </div>
               
               
-              <pre><code>const ImagePair = () =&gt; &lt;Icon
-    size=&quot;m&quot;
+              <pre><code>const ImagePair = () =&gt; (
+  &lt;Icon
     src=&quot;https://placehold.co/32x32/2196f3/ffffff?text=L&quot;
     darkSrc=&quot;https://placehold.co/32x32/2196f3/121212?text=D&quot;
     alt=&quot;Демо&quot;
     width={32}
-    height={32} /&gt;;</code></pre>
+    height={32}
+  /&gt;
+);</code></pre>
               
             </div>
             <div class="note ok">
@@ -993,12 +1154,14 @@ justify?: any = &quot;start&quot;</code></pre>
               </div>
               
               
-              <pre><code>const ImageFallback = () =&gt; &lt;Icon
-    size=&quot;m&quot;
+              <pre><code>const ImageFallback = () =&gt; (
+  &lt;Icon
     src=&quot;https://placehold.co/32x32/2196f3/ffffff?text=1&quot;
     alt=&quot;Одна картинка&quot;
     width={32}
-    height={32} /&gt;;</code></pre>
+    height={32}
+  /&gt;
+);</code></pre>
               
             </div>
             <div class="note ok">
@@ -1008,13 +1171,13 @@ justify?: any = &quot;start&quot;</code></pre>
               </div>
               
               
-              <pre><code>const ComponentPair = () =&gt; &lt;Icon
-    size=&quot;m&quot;
-    style={{ color: &quot;#2196f3&quot; }}
+              <pre><code>const ComponentPair = () =&gt; (
+  &lt;Icon
     component={SunIcon}
     darkComponent={MoonIcon}
-    width={undefined}
-    height={undefined} /&gt;;</code></pre>
+    style={{ color: &quot;#2196f3&quot; }}
+  /&gt;
+);</code></pre>
               
             </div>
             <div class="note ok">
@@ -1024,27 +1187,13 @@ justify?: any = &quot;start&quot;</code></pre>
               </div>
               
               
-              <pre><code>const Minimal = () =&gt; &lt;Icon size=&quot;m&quot; src=&quot;https://placehold.co/48x48/2196f3/ffffff?text=i&quot; alt=&quot;Демо&quot; /&gt;;</code></pre>
-              
-            </div>
-            <div class="note ok">
-              <div class="row">
-                <span class="ex-name">Размеры</span>
-                <span class="badge ok">story ok</span>
-              </div>
-              
-              
-              <pre><code>const SizeScale = () =&gt; (
-  &lt;div style={{ display: &quot;flex&quot;, alignItems: &quot;center&quot;, gap: 12 }}&gt;
-    {SIZE_KEYS.map((size) =&gt; (
-      &lt;Icon
-        key={size}
-        size={size}
-        component={SunIcon}
-        style={{ color: &quot;#2196f3&quot; }}
-      /&gt;
-    ))}
-  &lt;/div&gt;
+              <pre><code>const Minimal = () =&gt; (
+  &lt;Icon
+    src=&quot;https://placehold.co/24x24/000000/ffffff?text=i&quot;
+    alt=&quot;&quot;
+    width={24}
+    height={24}
+  /&gt;
 );</code></pre>
               
             </div>
@@ -1068,26 +1217,26 @@ justify?: any = &quot;start&quot;</code></pre>
     <div class="title">
       <h2><span class="status-dot dot-ok"></span> Input</h2>
       <div class="badges">
-        <label for="c-3-design-system-input-props" class="badge ok as-toggle">5 prop types</label>
-        <label for="c-3-design-system-input-info" class="badge info as-toggle">1 info</label>
-        <label for="c-3-design-system-input-stories" class="badge ok as-toggle">6 stories</label>
+        <label for="c-4-design-system-input-props" class="badge ok as-toggle">17 prop types</label>
+        <label for="c-4-design-system-input-info" class="badge info as-toggle">1 info</label>
+        <label for="c-4-design-system-input-stories" class="badge ok as-toggle">5 stories</label>
         
         
       </div>
     </div>
-    <div class="meta" title="./src/stories/Input.stories.jsx">design-system-input · ./src/stories/Input.stories.jsx</div>
+    <div class="meta" title="./src/shared/ui/input/input.stories.tsx">design-system-input · ./src/shared/ui/input/input.stories.tsx</div>
     
     
-    <div class="kv"><span class="chip">type: {import(&#39;@storybook/react-vite&#39;).Meta}</span></div>
+    
   </div>
 
   <!-- ⬇️ Hidden toggles must be siblings BEFORE .panels -->
   
-  <input id="c-3-design-system-input-info" class="tg tg-info" type="checkbox" hidden />
-  <input id="c-3-design-system-input-stories" class="tg tg-stories" type="checkbox" hidden />
+  <input id="c-4-design-system-input-info" class="tg tg-info" type="checkbox" hidden />
+  <input id="c-4-design-system-input-stories" class="tg tg-stories" type="checkbox" hidden />
   
   
-  <input id="c-3-design-system-input-props" class="tg tg-props" type="checkbox" hidden />
+  <input id="c-4-design-system-input-props" class="tg tg-props" type="checkbox" hidden />
 
   <div class="panels">
     
@@ -1104,19 +1253,43 @@ justify?: any = &quot;start&quot;</code></pre>
           <div class="note ok">
             <div class="row">
               <span class="ex-name">Prop types <small>(react-docgen)</small></span>
-              <span class="badge ok">5 prop types</span>
+              <span class="badge ok">17 prop types</span>
             </div>
-            <pre><code>Component: src\lib\components\cc-v4\Input.jsx::Input</code></pre>
+            <pre><code>Component: src\shared\ui\input\input.tsx::Input</code></pre>
             <pre><code>Props:</code></pre>
-            <pre><code>disabled?: any = false
+            <pre><code>aria-label?: string
 
-error?: any = false
+defaultValue?: string | number
 
-min?: any = 0
+disabled?: boolean = false
 
-readOnly?: any = false
+error?: boolean = false
 
-type?: any = &quot;text&quot;</code></pre>
+id?: string
+
+inputStyle?: CSSProperties
+
+label?: ReactNode
+
+max?: number | string
+
+min?: number | string = 0
+
+msg?: ReactNode
+
+name?: string
+
+onChange?: (event: ChangeEvent&lt;HTMLInputElement&gt;) =&gt; void
+
+placeholder?: string
+
+readOnly?: boolean = false
+
+style?: CSSProperties
+
+type?: keyof typeof INPUT_NATIVE_TYPE = &quot;text&quot;
+
+value?: string | number</code></pre>
           </div>
         </div>
     
@@ -1139,7 +1312,7 @@ type?: any = &quot;text&quot;</code></pre>
               </div>
               
               
-              <pre><code>const TextWithLabel = () =&gt; &lt;Input size=&quot;m&quot; type=&quot;text&quot; label=&quot;Название&quot; placeholder=&quot;...&quot; defaultValue=&quot;&quot; /&gt;;</code></pre>
+              <pre><code>const TextWithLabel = () =&gt; &lt;Input type=&quot;text&quot; label=&quot;Название&quot; placeholder=&quot;...&quot; defaultValue=&quot;&quot; /&gt;;</code></pre>
               
             </div>
             <div class="note ok">
@@ -1149,7 +1322,7 @@ type?: any = &quot;text&quot;</code></pre>
               </div>
               
               
-              <pre><code>const NumberField = () =&gt; &lt;Input size=&quot;m&quot; type=&quot;number&quot; label=&quot;Количество&quot; placeholder=&quot;0&quot; defaultValue=&quot;&quot; /&gt;;</code></pre>
+              <pre><code>const NumberField = () =&gt; &lt;Input type=&quot;number&quot; label=&quot;Количество&quot; placeholder=&quot;0&quot; defaultValue=&quot;&quot; /&gt;;</code></pre>
               
             </div>
             <div class="note ok">
@@ -1159,7 +1332,7 @@ type?: any = &quot;text&quot;</code></pre>
               </div>
               
               
-              <pre><code>const KeyWithKeypad = () =&gt; &lt;Input size=&quot;m&quot; type=&quot;key&quot; label=&quot;Версия&quot; placeholder=&quot;...&quot; defaultValue=&quot;&quot; /&gt;;</code></pre>
+              <pre><code>const KeyWithKeypad = () =&gt; &lt;Input type=&quot;key&quot; label=&quot;Версия&quot; placeholder=&quot;...&quot; defaultValue=&quot;&quot; /&gt;;</code></pre>
               
             </div>
             <div class="note ok">
@@ -1169,23 +1342,7 @@ type?: any = &quot;text&quot;</code></pre>
               </div>
               
               
-              <pre><code>const Minimal = () =&gt; &lt;Input size=&quot;m&quot; placeholder=&quot;...&quot; /&gt;;</code></pre>
-              
-            </div>
-            <div class="note ok">
-              <div class="row">
-                <span class="ex-name">Размеры</span>
-                <span class="badge ok">story ok</span>
-              </div>
-              
-              
-              <pre><code>const SizeScale = () =&gt; (
-  &lt;div style={{ display: &quot;flex&quot;, flexDirection: &quot;column&quot;, gap: 16 }}&gt;
-    {SIZE_KEYS.map((size) =&gt; (
-      &lt;Input key={size} size={size} label={`size=${size}`} placeholder=&quot;...&quot; /&gt;
-    ))}
-  &lt;/div&gt;
-);</code></pre>
+              <pre><code>const Minimal = () =&gt; &lt;Input placeholder=&quot;...&quot; /&gt;;</code></pre>
               
             </div>
             <div class="note ok">
@@ -1196,7 +1353,6 @@ type?: any = &quot;text&quot;</code></pre>
               
               
               <pre><code>const WithValidationError = () =&gt; &lt;Input
-    size=&quot;m&quot;
     type=&quot;text&quot;
     label=&quot;Email&quot;
     placeholder=&quot;user@example.com&quot;
@@ -1214,7 +1370,7 @@ type?: any = &quot;text&quot;</code></pre>
   id="design-system-layout"
   class="card 
   no-error
-  has-info
+  no-info
   no-story-error
   no-story-warning
   
@@ -1225,47 +1381,44 @@ type?: any = &quot;text&quot;</code></pre>
     <div class="title">
       <h2><span class="status-dot dot-ok"></span> Layout</h2>
       <div class="badges">
-        <label for="c-4-design-system-layout-props" class="badge ok as-toggle">1 prop type</label>
-        <label for="c-4-design-system-layout-info" class="badge info as-toggle">1 info</label>
-        <label for="c-4-design-system-layout-stories" class="badge ok as-toggle">2 stories</label>
+        <label for="c-5-design-system-layout-props" class="badge ok as-toggle">3 prop types</label>
+        
+        <label for="c-5-design-system-layout-stories" class="badge ok as-toggle">2 stories</label>
         
         
       </div>
     </div>
-    <div class="meta" title="./src/stories/Layout.stories.jsx">design-system-layout · ./src/stories/Layout.stories.jsx</div>
+    <div class="meta" title="./src/shared/ui/layout/layout.stories.tsx">design-system-layout · ./src/shared/ui/layout/layout.stories.tsx</div>
     
+    <div class="hint">Колонка контента страницы с входной анимацией (аналог legacy `animation_move_list`).</div>
     
-    <div class="kv"><span class="chip">type: {import(&#39;@storybook/react-vite&#39;).Meta}</span></div>
   </div>
 
   <!-- ⬇️ Hidden toggles must be siblings BEFORE .panels -->
   
-  <input id="c-4-design-system-layout-info" class="tg tg-info" type="checkbox" hidden />
-  <input id="c-4-design-system-layout-stories" class="tg tg-stories" type="checkbox" hidden />
+  
+  <input id="c-5-design-system-layout-stories" class="tg tg-stories" type="checkbox" hidden />
   
   
-  <input id="c-4-design-system-layout-props" class="tg tg-props" type="checkbox" hidden />
+  <input id="c-5-design-system-layout-props" class="tg tg-props" type="checkbox" hidden />
 
   <div class="panels">
     
     
-        <div class="panel panel-info">
-          
-    <div class="note info">
-      <div class="note-title">Info</div>
-      <div class="note-body">No description found. Write a jsdoc comment such as /** Component description */.</div>
-    </div>
-        </div>
     
         <div class="panel panel-props">
           <div class="note ok">
             <div class="row">
               <span class="ex-name">Prop types <small>(react-docgen)</small></span>
-              <span class="badge ok">1 prop type</span>
+              <span class="badge ok">3 prop types</span>
             </div>
-            <pre><code>Component: src\lib\components\cc-v4\Layout.jsx::Layout</code></pre>
+            <pre><code>Component: src\shared\ui\layout\layout.tsx::Layout</code></pre>
             <pre><code>Props:</code></pre>
-            <pre><code>animate?: any = false</code></pre>
+            <pre><code>animate?: boolean = false
+
+children?: ReactNode
+
+style?: CSSProperties</code></pre>
           </div>
         </div>
     
@@ -1322,10 +1475,10 @@ type?: any = &quot;text&quot;</code></pre>
   id="design-system-main"
   class="card 
   no-error
-  has-info
+  no-info
   no-story-error
   no-story-warning
-  missing-api
+  
   no-doc-error"
   role="listitem"
   aria-label="Main">
@@ -1333,38 +1486,44 @@ type?: any = &quot;text&quot;</code></pre>
     <div class="title">
       <h2><span class="status-dot dot-ok"></span> Main</h2>
       <div class="badges">
-        <span class="badge">no API description</span>
-        <label for="c-5-design-system-main-info" class="badge info as-toggle">1 info</label>
-        <label for="c-5-design-system-main-stories" class="badge ok as-toggle">2 stories</label>
+        <label for="c-6-design-system-main-props" class="badge ok as-toggle">2 prop types</label>
+        
+        <label for="c-6-design-system-main-stories" class="badge ok as-toggle">2 stories</label>
         
         
       </div>
     </div>
-    <div class="meta" title="./src/stories/Main.stories.jsx">design-system-main · ./src/stories/Main.stories.jsx</div>
+    <div class="meta" title="./src/shared/ui/main/main.stories.tsx">design-system-main · ./src/shared/ui/main/main.stories.tsx</div>
     
+    <div class="hint">Обёртка страницы ЛК; оформление только через `style`.</div>
     
-    <div class="kv"><span class="chip">type: {import(&#39;@storybook/react-vite&#39;).Meta}</span></div>
   </div>
 
   <!-- ⬇️ Hidden toggles must be siblings BEFORE .panels -->
   
-  <input id="c-5-design-system-main-info" class="tg tg-info" type="checkbox" hidden />
-  <input id="c-5-design-system-main-stories" class="tg tg-stories" type="checkbox" hidden />
+  
+  <input id="c-6-design-system-main-stories" class="tg tg-stories" type="checkbox" hidden />
   
   
-  
+  <input id="c-6-design-system-main-props" class="tg tg-props" type="checkbox" hidden />
 
   <div class="panels">
     
     
-        <div class="panel panel-info">
-          
-    <div class="note info">
-      <div class="note-title">Info</div>
-      <div class="note-body">No description found. Write a jsdoc comment such as /** Component description */.</div>
-    </div>
-        </div>
     
+        <div class="panel panel-props">
+          <div class="note ok">
+            <div class="row">
+              <span class="ex-name">Prop types <small>(react-docgen)</small></span>
+              <span class="badge ok">2 prop types</span>
+            </div>
+            <pre><code>Component: src\shared\ui\main\main.tsx::Main</code></pre>
+            <pre><code>Props:</code></pre>
+            <pre><code>children?: ReactNode
+
+style?: CSSProperties</code></pre>
+          </div>
+        </div>
     
         <div class="panel panel-stories">
           
@@ -1419,10 +1578,10 @@ type?: any = &quot;text&quot;</code></pre>
   id="design-system-radiobtn"
   class="card 
   no-error
-  has-info
+  no-info
   no-story-error
   no-story-warning
-  missing-api
+  
   no-doc-error"
   role="listitem"
   aria-label="RadioBtn">
@@ -1430,38 +1589,44 @@ type?: any = &quot;text&quot;</code></pre>
     <div class="title">
       <h2><span class="status-dot dot-ok"></span> RadioBtn</h2>
       <div class="badges">
-        <span class="badge">no API description</span>
-        <label for="c-6-design-system-radiobtn-info" class="badge info as-toggle">1 info</label>
-        <label for="c-6-design-system-radiobtn-stories" class="badge ok as-toggle">3 stories</label>
+        <label for="c-7-design-system-radiobtn-props" class="badge ok as-toggle">2 prop types</label>
+        
+        <label for="c-7-design-system-radiobtn-stories" class="badge ok as-toggle">2 stories</label>
         
         
       </div>
     </div>
-    <div class="meta" title="./src/stories/RadioBtn.stories.jsx">design-system-radiobtn · ./src/stories/RadioBtn.stories.jsx</div>
+    <div class="meta" title="./src/shared/ui/radio-btn/radio-btn.stories.tsx">design-system-radiobtn · ./src/shared/ui/radio-btn/radio-btn.stories.tsx</div>
     
+    <div class="hint">Группа chip-кнопок; выбор и `active` управляются родителем через `items`.</div>
     
-    <div class="kv"><span class="chip">type: {import(&#39;@storybook/react-vite&#39;).Meta}</span></div>
   </div>
 
   <!-- ⬇️ Hidden toggles must be siblings BEFORE .panels -->
   
-  <input id="c-6-design-system-radiobtn-info" class="tg tg-info" type="checkbox" hidden />
-  <input id="c-6-design-system-radiobtn-stories" class="tg tg-stories" type="checkbox" hidden />
+  
+  <input id="c-7-design-system-radiobtn-stories" class="tg tg-stories" type="checkbox" hidden />
   
   
-  
+  <input id="c-7-design-system-radiobtn-props" class="tg tg-props" type="checkbox" hidden />
 
   <div class="panels">
     
     
-        <div class="panel panel-info">
-          
-    <div class="note info">
-      <div class="note-title">Info</div>
-      <div class="note-body">No description found. Write a jsdoc comment such as /** Component description */.</div>
-    </div>
-        </div>
     
+        <div class="panel panel-props">
+          <div class="note ok">
+            <div class="row">
+              <span class="ex-name">Prop types <small>(react-docgen)</small></span>
+              <span class="badge ok">2 prop types</span>
+            </div>
+            <pre><code>Component: src\shared\ui\radio-btn\radio-btn.tsx::RadioBtn</code></pre>
+            <pre><code>Props:</code></pre>
+            <pre><code>items?: RadioBtnItem[]
+
+style?: CSSProperties</code></pre>
+          </div>
+        </div>
     
         <div class="panel panel-stories">
           
@@ -1482,7 +1647,7 @@ type?: any = &quot;text&quot;</code></pre>
               </div>
               
               
-              <pre><code>const Comparison = () =&gt; &lt;ComparisonDemo size=&quot;m&quot; /&gt;;</code></pre>
+              <pre><code>const Comparison = () =&gt; &lt;ComparisonDemo /&gt;;</code></pre>
               
             </div>
             <div class="note ok">
@@ -1493,34 +1658,10 @@ type?: any = &quot;text&quot;</code></pre>
               
               
               <pre><code>const Minimal = () =&gt; &lt;RadioBtn
-    size=&quot;m&quot;
     items={[
       { name: &quot;A&quot;, active: true, action: () =&gt; {} },
       { name: &quot;B&quot;, active: false, action: () =&gt; {} },
     ]} /&gt;;</code></pre>
-              
-            </div>
-            <div class="note ok">
-              <div class="row">
-                <span class="ex-name">Размеры</span>
-                <span class="badge ok">story ok</span>
-              </div>
-              
-              
-              <pre><code>const SizeScale = () =&gt; (
-  &lt;div style={{ display: &quot;flex&quot;, flexDirection: &quot;column&quot;, gap: 16 }}&gt;
-    {SIZE_KEYS.map((size) =&gt; (
-      &lt;RadioBtn
-        key={size}
-        size={size}
-        items={[
-          { name: `${size}-1`, active: true, action: () =&gt; {} },
-          { name: `${size}-2`, active: false, action: () =&gt; {} },
-        ]}
-      /&gt;
-    ))}
-  &lt;/div&gt;
-);</code></pre>
               
             </div>
         </div>
@@ -1543,26 +1684,26 @@ type?: any = &quot;text&quot;</code></pre>
     <div class="title">
       <h2><span class="status-dot dot-ok"></span> SideDrawer</h2>
       <div class="badges">
-        <label for="c-7-design-system-sidedrawer-props" class="badge ok as-toggle">3 prop types</label>
-        <label for="c-7-design-system-sidedrawer-info" class="badge info as-toggle">1 info</label>
-        <label for="c-7-design-system-sidedrawer-stories" class="badge ok as-toggle">4 stories</label>
+        <label for="c-8-design-system-sidedrawer-props" class="badge ok as-toggle">14 prop types</label>
+        <label for="c-8-design-system-sidedrawer-info" class="badge info as-toggle">1 info</label>
+        <label for="c-8-design-system-sidedrawer-stories" class="badge ok as-toggle">4 stories</label>
         
         
       </div>
     </div>
-    <div class="meta" title="./src/stories/SideDrawer.stories.jsx">design-system-sidedrawer · ./src/stories/SideDrawer.stories.jsx</div>
+    <div class="meta" title="./src/stories/SideDrawer.stories.tsx">design-system-sidedrawer · ./src/stories/SideDrawer.stories.tsx</div>
     
     
-    <div class="kv"><span class="chip">type: {import(&#39;@storybook/react-vite&#39;).Meta}</span></div>
+    
   </div>
 
   <!-- ⬇️ Hidden toggles must be siblings BEFORE .panels -->
   
-  <input id="c-7-design-system-sidedrawer-info" class="tg tg-info" type="checkbox" hidden />
-  <input id="c-7-design-system-sidedrawer-stories" class="tg tg-stories" type="checkbox" hidden />
+  <input id="c-8-design-system-sidedrawer-info" class="tg tg-info" type="checkbox" hidden />
+  <input id="c-8-design-system-sidedrawer-stories" class="tg tg-stories" type="checkbox" hidden />
   
   
-  <input id="c-7-design-system-sidedrawer-props" class="tg tg-props" type="checkbox" hidden />
+  <input id="c-8-design-system-sidedrawer-props" class="tg tg-props" type="checkbox" hidden />
 
   <div class="panels">
     
@@ -1579,15 +1720,37 @@ type?: any = &quot;text&quot;</code></pre>
           <div class="note ok">
             <div class="row">
               <span class="ex-name">Prop types <small>(react-docgen)</small></span>
-              <span class="badge ok">3 prop types</span>
+              <span class="badge ok">14 prop types</span>
             </div>
-            <pre><code>Component: src\lib\components\cc-v4\SideDrawer.jsx::SideDrawer</code></pre>
+            <pre><code>Component: src\shared\ui\side-drawer\side-drawer.tsx::SideDrawer</code></pre>
             <pre><code>Props:</code></pre>
-            <pre><code>closeOnBackdrop?: any = true
+            <pre><code>children?: ReactNode
 
-open?: any = true
+closeOnBackdrop?: boolean = true
 
-usePortal?: any = true</code></pre>
+footer?: ReactNode
+
+headerActions?: ReactNode
+
+layoutStyle?: CSSProperties
+
+onClose?: () =&gt; void
+
+open?: boolean = true
+
+rootStyle?: CSSProperties
+
+style?: CSSProperties
+
+title?: ReactNode
+
+titleId?: string
+
+toolbar?: ReactNode
+
+usePortal?: boolean = true
+
+w?: string</code></pre>
           </div>
         </div>
     
@@ -1666,7 +1829,7 @@ usePortal?: any = true</code></pre>
   id="design-system-text"
   class="card 
   no-error
-  has-info
+  no-info
   no-story-error
   no-story-warning
   
@@ -1677,47 +1840,46 @@ usePortal?: any = true</code></pre>
     <div class="title">
       <h2><span class="status-dot dot-ok"></span> Text</h2>
       <div class="badges">
-        <label for="c-8-design-system-text-props" class="badge ok as-toggle">1 prop type</label>
-        <label for="c-8-design-system-text-info" class="badge info as-toggle">1 info</label>
-        <label for="c-8-design-system-text-stories" class="badge ok as-toggle">3 stories</label>
+        <label for="c-9-design-system-text-props" class="badge ok as-toggle">4 prop types</label>
+        
+        <label for="c-9-design-system-text-stories" class="badge ok as-toggle">2 stories</label>
         
         
       </div>
     </div>
-    <div class="meta" title="./src/stories/Text.stories.jsx">design-system-text · ./src/stories/Text.stories.jsx</div>
+    <div class="meta" title="./src/shared/ui/text/text.stories.tsx">design-system-text · ./src/shared/ui/text/text.stories.tsx</div>
     
+    <div class="hint">Типографический текст с вариантами оформления.</div>
     
-    <div class="kv"><span class="chip">type: {import(&#39;@storybook/react-vite&#39;).Meta}</span></div>
   </div>
 
   <!-- ⬇️ Hidden toggles must be siblings BEFORE .panels -->
   
-  <input id="c-8-design-system-text-info" class="tg tg-info" type="checkbox" hidden />
-  <input id="c-8-design-system-text-stories" class="tg tg-stories" type="checkbox" hidden />
+  
+  <input id="c-9-design-system-text-stories" class="tg tg-stories" type="checkbox" hidden />
   
   
-  <input id="c-8-design-system-text-props" class="tg tg-props" type="checkbox" hidden />
+  <input id="c-9-design-system-text-props" class="tg tg-props" type="checkbox" hidden />
 
   <div class="panels">
     
     
-        <div class="panel panel-info">
-          
-    <div class="note info">
-      <div class="note-title">Info</div>
-      <div class="note-body">No description found. Write a jsdoc comment such as /** Component description */.</div>
-    </div>
-        </div>
     
         <div class="panel panel-props">
           <div class="note ok">
             <div class="row">
               <span class="ex-name">Prop types <small>(react-docgen)</small></span>
-              <span class="badge ok">1 prop type</span>
+              <span class="badge ok">4 prop types</span>
             </div>
-            <pre><code>Component: src\lib\components\cc-v4\Text.jsx::Text</code></pre>
+            <pre><code>Component: src\shared\ui\text\text.tsx::Text</code></pre>
             <pre><code>Props:</code></pre>
-            <pre><code>variant?: any = &quot;span&quot;</code></pre>
+            <pre><code>children?: ReactNode
+
+color?: string
+
+style?: CSSProperties
+
+variant?: unknown = &quot;span&quot;</code></pre>
           </div>
         </div>
     
@@ -1750,25 +1912,7 @@ usePortal?: any = true</code></pre>
               </div>
               
               
-              <pre><code>const Minimal = () =&gt; &lt;Text size=&quot;m&quot;&gt;Текст по умолчанию (span)&lt;/Text&gt;;</code></pre>
-              
-            </div>
-            <div class="note ok">
-              <div class="row">
-                <span class="ex-name">Размеры</span>
-                <span class="badge ok">story ok</span>
-              </div>
-              
-              
-              <pre><code>const SizeScale = () =&gt; (
-  &lt;div style={{ display: &quot;flex&quot;, flexDirection: &quot;column&quot;, gap: 8 }}&gt;
-    {SIZE_KEYS.map((size) =&gt; (
-      &lt;Text key={size} size={size} variant=&quot;p&quot;&gt;
-        size={size} — абзац
-      &lt;/Text&gt;
-    ))}
-  &lt;/div&gt;
-);</code></pre>
+              <pre><code>const Minimal = () =&gt; &lt;Text&gt;Текст по умолчанию (span)&lt;/Text&gt;;</code></pre>
               
             </div>
         </div>
@@ -1777,69 +1921,62 @@ usePortal?: any = true</code></pre>
   </div>
 </article>
 <article
-  id="design-system-themeselect"
+  id="design-system-themetoggle"
   class="card 
   no-error
-  has-info
+  no-info
   no-story-error
   no-story-warning
   
   no-doc-error"
   role="listitem"
-  aria-label="ThemeSelect">
+  aria-label="ThemeToggle">
   <div class="head">
     <div class="title">
-      <h2><span class="status-dot dot-ok"></span> ThemeSelect</h2>
+      <h2><span class="status-dot dot-ok"></span> ThemeToggle</h2>
       <div class="badges">
-        <label for="c-9-design-system-themeselect-props" class="badge ok as-toggle">3 prop types</label>
-        <label for="c-9-design-system-themeselect-info" class="badge info as-toggle">1 info</label>
-        <label for="c-9-design-system-themeselect-stories" class="badge ok as-toggle">3 stories</label>
+        <label for="c-10-design-system-themetoggle-props" class="badge ok as-toggle">5 prop types</label>
+        
+        <label for="c-10-design-system-themetoggle-stories" class="badge ok as-toggle">3 stories</label>
         
         
       </div>
     </div>
-    <div class="meta" title="./src/stories/ThemeSelect.stories.jsx">design-system-themeselect · ./src/stories/ThemeSelect.stories.jsx</div>
+    <div class="meta" title="./src/stories/ThemeToggle.stories.tsx">design-system-themetoggle · ./src/stories/ThemeToggle.stories.tsx</div>
     
+    <div class="hint">Переключатель темы на базе Toggle с иконками луны и солнца в треке.</div>
     
-    <div class="kv"><span class="chip">type: {import(&#39;@storybook/react-vite&#39;).Meta}</span></div>
   </div>
 
   <!-- ⬇️ Hidden toggles must be siblings BEFORE .panels -->
   
-  <input id="c-9-design-system-themeselect-info" class="tg tg-info" type="checkbox" hidden />
-  <input id="c-9-design-system-themeselect-stories" class="tg tg-stories" type="checkbox" hidden />
+  
+  <input id="c-10-design-system-themetoggle-stories" class="tg tg-stories" type="checkbox" hidden />
   
   
-  <input id="c-9-design-system-themeselect-props" class="tg tg-props" type="checkbox" hidden />
+  <input id="c-10-design-system-themetoggle-props" class="tg tg-props" type="checkbox" hidden />
 
   <div class="panels">
     
     
-        <div class="panel panel-info">
-          
-    <div class="note info">
-      <div class="note-title">Info</div>
-      <div class="note-body">No description found. Write a jsdoc comment such as /** Component description */.</div>
-    </div>
-        </div>
     
         <div class="panel panel-props">
           <div class="note ok">
             <div class="row">
               <span class="ex-name">Prop types <small>(react-docgen)</small></span>
-              <span class="badge ok">3 prop types</span>
+              <span class="badge ok">5 prop types</span>
             </div>
-            <pre><code>Component: src\lib\components\cc-v4\ThemeSelect.jsx::ThemeSelect</code></pre>
+            <pre><code>Component: src\shared\ui\theme-toggle\theme-toggle.tsx::ThemeToggle</code></pre>
             <pre><code>Props:</code></pre>
-            <pre><code>disabled?: any = false
+            <pre><code>disabled?: boolean = false
 
-label?: any = &quot;Тема&quot;
+label?: string = &quot;Тёмная тема&quot;
 
-options?: any = [
-  { value: &quot;light&quot;, label: &quot;Светлая&quot; },
-  { value: &quot;dark&quot;, label: &quot;Тёмная&quot; },
-  { value: &quot;gray&quot;, label: &quot;Серая&quot; },
-]</code></pre>
+onThemeChange?: (theme: ThemeName) =&gt; void
+
+style?: CSSProperties
+
+theme?: &quot;light&quot; | &quot;dark&quot;</code></pre>
           </div>
         </div>
     
@@ -1851,7 +1988,7 @@ options?: any = [
                 <div class="row">
                   <span class="ex-name">Imports</span>
                 </div>
-                <pre><code>import { Box, Main, ThemeProvider, ThemeSelect } from '@dmc/ui';</code></pre>
+                <pre><code>import { Box, Main, ThemeProvider, ThemeToggle } from '@dmc/ui';</code></pre>
               </div>
           
           
@@ -1864,9 +2001,9 @@ options?: any = [
               
               <pre><code>const WithPreview = () =&gt; (
   &lt;Main style={{ padding: 24 }}&gt;
-    &lt;ThemeSelect /&gt;
+    &lt;ThemeToggle /&gt;
     &lt;Box title=&quot;Карточка&quot; style={{ marginTop: 16 }}&gt;
-      Контент меняет оформление при смене темы в toolbar или в списке.
+      Контент меняет оформление при смене темы в toolbar или переключателе.
     &lt;/Box&gt;
   &lt;/Main&gt;
 );</code></pre>
@@ -1879,7 +2016,7 @@ options?: any = [
               </div>
               
               
-              <pre><code>const Minimal = () =&gt; &lt;ThemeSelect label=&quot;&quot; /&gt;;</code></pre>
+              <pre><code>const Minimal = () =&gt; &lt;ThemeToggle label=&quot;&quot; /&gt;;</code></pre>
               
             </div>
             <div class="note ok">
@@ -1912,26 +2049,26 @@ options?: any = [
     <div class="title">
       <h2><span class="status-dot dot-ok"></span> Toggle</h2>
       <div class="badges">
-        <label for="c-10-design-system-toggle-props" class="badge ok as-toggle">2 prop types</label>
-        <label for="c-10-design-system-toggle-info" class="badge info as-toggle">1 info</label>
-        <label for="c-10-design-system-toggle-stories" class="badge ok as-toggle">4 stories</label>
+        <label for="c-11-design-system-toggle-props" class="badge ok as-toggle">10 prop types</label>
+        <label for="c-11-design-system-toggle-info" class="badge info as-toggle">1 info</label>
+        <label for="c-11-design-system-toggle-stories" class="badge ok as-toggle">3 stories</label>
         
         
       </div>
     </div>
-    <div class="meta" title="./src/stories/Toggle.stories.jsx">design-system-toggle · ./src/stories/Toggle.stories.jsx</div>
+    <div class="meta" title="./src/stories/Toggle.stories.tsx">design-system-toggle · ./src/stories/Toggle.stories.tsx</div>
     
     
-    <div class="kv"><span class="chip">type: {import(&#39;@storybook/react-vite&#39;).Meta}</span></div>
+    
   </div>
 
   <!-- ⬇️ Hidden toggles must be siblings BEFORE .panels -->
   
-  <input id="c-10-design-system-toggle-info" class="tg tg-info" type="checkbox" hidden />
-  <input id="c-10-design-system-toggle-stories" class="tg tg-stories" type="checkbox" hidden />
+  <input id="c-11-design-system-toggle-info" class="tg tg-info" type="checkbox" hidden />
+  <input id="c-11-design-system-toggle-stories" class="tg tg-stories" type="checkbox" hidden />
   
   
-  <input id="c-10-design-system-toggle-props" class="tg tg-props" type="checkbox" hidden />
+  <input id="c-11-design-system-toggle-props" class="tg tg-props" type="checkbox" hidden />
 
   <div class="panels">
     
@@ -1948,13 +2085,29 @@ options?: any = [
           <div class="note ok">
             <div class="row">
               <span class="ex-name">Prop types <small>(react-docgen)</small></span>
-              <span class="badge ok">2 prop types</span>
+              <span class="badge ok">10 prop types</span>
             </div>
-            <pre><code>Component: src\lib\components\cc-v4\Toggle.jsx::Toggle</code></pre>
+            <pre><code>Component: src\shared\ui\toggle\toggle.tsx::Toggle</code></pre>
             <pre><code>Props:</code></pre>
-            <pre><code>disabled?: any = false
+            <pre><code>active?: boolean
 
-variant?: any = &quot;switch&quot;</code></pre>
+ariaLabel?: string
+
+disabled?: boolean = false
+
+label?: ReactNode
+
+onChange?: (active: boolean) =&gt; void
+
+onClick?: (event: MouseEvent&lt;HTMLButtonElement&gt;) =&gt; void
+
+style?: CSSProperties
+
+trackEndIcon?: ReactNode
+
+trackStartIcon?: ReactNode
+
+variant?: &quot;switch&quot; | &quot;text&quot; = &quot;switch&quot;</code></pre>
           </div>
         </div>
     
@@ -1977,13 +2130,12 @@ variant?: any = &quot;switch&quot;</code></pre>
               </div>
               
               
-              <pre><code>function WithLabel(args) {
-    const [, updateArgs] = useArgs();
+              <pre><code>function WithLabel(args: ToggleProps) {
+    const [, updateArgs] = useArgs&lt;ToggleProps&gt;();
     const { variant = &quot;switch&quot; } = args;
 
     return (
         &lt;Toggle
-            size=&quot;m&quot;
             active
             label=&quot;Мои&quot;
             onChange={
@@ -2002,13 +2154,12 @@ variant?: any = &quot;switch&quot;</code></pre>
               </div>
               
               
-              <pre><code>function SwitchOnly(args) {
-    const [, updateArgs] = useArgs();
+              <pre><code>function SwitchOnly(args: ToggleProps) {
+    const [, updateArgs] = useArgs&lt;ToggleProps&gt;();
     const { variant = &quot;switch&quot; } = args;
 
     return (
         &lt;Toggle
-            size=&quot;m&quot;
             active={false}
             onChange={
               variant === &quot;text&quot;
@@ -2026,13 +2177,12 @@ variant?: any = &quot;switch&quot;</code></pre>
               </div>
               
               
-              <pre><code>function TextOnly(args) {
-    const [, updateArgs] = useArgs();
+              <pre><code>function TextOnly(args: ToggleProps) {
+    const [, updateArgs] = useArgs&lt;ToggleProps&gt;();
     const { variant = &quot;switch&quot; } = args;
 
     return (
         &lt;Toggle
-            size=&quot;m&quot;
             variant=&quot;text&quot;
             label=&quot;Подпись без переключателя&quot;
             onChange={
@@ -2042,22 +2192,6 @@ variant?: any = &quot;switch&quot;</code></pre>
             } /&gt;
     );
 }</code></pre>
-              
-            </div>
-            <div class="note ok">
-              <div class="row">
-                <span class="ex-name">Размеры</span>
-                <span class="badge ok">story ok</span>
-              </div>
-              
-              
-              <pre><code>const SizeScale = () =&gt; (
-  &lt;div style={{ display: &quot;flex&quot;, flexDirection: &quot;column&quot;, gap: 12 }}&gt;
-    {SIZE_KEYS.map((size) =&gt; (
-      &lt;Toggle key={size} size={size} active label={`size=${size}`} onChange={() =&gt; {}} /&gt;
-    ))}
-  &lt;/div&gt;
-);</code></pre>
               
             </div>
         </div>
@@ -2083,7 +2217,7 @@ variant?: any = &quot;switch&quot;</code></pre>
       </div>
     </div>
     <div class="meta" title="./src/stories/Introduction.mdx">design-system-введение--docs · ./src/stories/Introduction.mdx</div>
-    <div># Дизайн-система DMC Библиотека `@dmc/ui`: импорт компонентов и **обязательное** подключен...</div>
+    <div># Дизайн-система DMC Библиотека `@dmc/ui`: **только импорт компонентов**, без отдельного C...</div>
   </div>
 
   <!-- Hidden toggles must be siblings BEFORE .panels -->
@@ -2101,7 +2235,7 @@ variant?: any = &quot;switch&quot;</code></pre>
 
 # Дизайн-система DMC
 
-Библиотека `@dmc/ui`: импорт компонентов и **обязательное** подключение стилей `@dmc/ui/styles.css` в entry приложения.
+Библиотека `@dmc/ui`: **только импорт компонентов**, без отдельного CSS. Оформление — inline-стили внутри пакета.
 
 ## Быстрый старт
 
@@ -2110,14 +2244,13 @@ npm install github:ilya6300/dmc-ui
 ```
 
 ```jsx
-import &quot;@dmc/ui/styles.css&quot;;
-import { Main, Box, ThemeProvider, ThemeSelect } from &quot;@dmc/ui&quot;;
+import { Main, Box, ThemeProvider, ThemeToggle } from &quot;@dmc/ui&quot;;
 
 export function Page() {
   return (
     &lt;ThemeProvider&gt;
       &lt;Main style={{ minHeight: &quot;100vh&quot;, padding: 24 }}&gt;
-        &lt;ThemeSelect /&gt;
+        &lt;ThemeToggle /&gt;
         &lt;Box title=&quot;Раздел&quot;&gt;…&lt;/Box&gt;
       &lt;/Main&gt;
     &lt;/ThemeProvider&gt;
@@ -2133,7 +2266,7 @@ export function Page() {
 import { useTheme, themes } from &quot;@dmc/ui&quot;;
 
 const { theme, setTheme, colors } = useTheme();
-// colors — актуальная палитра; themes.light / themes.dark / themes.gray — справочник
+// colors — актуальная палитра; themes.light / themes.dark — справочник
 ```
 
 Статический импорт `tokens` — только снимок **светлой** палитры; для тёмной темы используйте `useTheme().colors` или `themes[theme]`.
@@ -2143,11 +2276,9 @@ const { theme, setTheme, colors } = useTheme();
 ```jsx
 const [theme, setTheme] = useState(&quot;light&quot;);
 &lt;ThemeProvider theme={theme} onThemeChange={setTheme}&gt;
-  &lt;ThemeSelect /&gt;
+  &lt;ThemeToggle /&gt;
 &lt;/ThemeProvider&gt;
 ```
-
-Цвета для CSS-компонентов (`dmc-*`): литералы в `style.css` пакета (`import &quot;@dmc/ui/style.css&quot;` или через `styles.css`). Переопределение — свой CSS после `styles.css` с `--dmc-color-*` на `[data-dmc-theme=&quot;…&quot;]`.
 
 ## Компоненты
 
@@ -2157,8 +2288,9 @@ const [theme, setTheme] = useState(&quot;light&quot;);
 | [Layout](?path=/docs/design-system-layout--docs) | Колонка контента с входной анимацией |
 | [Box](?path=/docs/design-system-box--docs) | Карточка контента |
 | [Container](?path=/docs/design-system-container--docs) | Flex-группировка (колонка / строка) |
+| [Button](?path=/docs/design-system-button--docs) | Кнопка |
 | [Toggle](?path=/docs/design-system-toggle--docs) | Переключатель |
-| [ThemeSelect](?path=/docs/design-system-theme-select--docs) | Выбор темы: светлая / тёмная / серая |
+| [ThemeToggle](?path=/docs/design-system-theme-toggle--docs) | Переключатель светлой / тёмной темы |
 | [Icon](?path=/docs/design-system-icon--docs) | Иконка (img или SVG-компонент, light/dark) |
 | [SideDrawer](?path=/docs/design-system-side-drawer--docs) | Боковая панель |
 | [Input](?path=/docs/design-system-input--docs) | Поле ввода (text / number / key) |
@@ -2204,7 +2336,7 @@ const [theme, setTheme] = useState(&quot;light&quot;);
 
 Документация перенесена в раздел **[Design System / Введение](?path=/docs/design-system-введение--docs)**.
 
-Там же описано подключение `@dmc/ui` (компоненты и `import &quot;@dmc/ui/styles.css&quot;`) и каталог компонентов.
+Там же описано подключение `@dmc/ui` (только компоненты, без CSS) и компоненты **Main**, **Box**.
 </code></pre>
           </div>
         </div>
