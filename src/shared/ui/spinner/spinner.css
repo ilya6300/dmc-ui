@@ -1,0 +1,68 @@
+.dmc-spinner {
+  vertical-align: middle;
+  color: currentColor;
+}
+
+.dmc-spinner--primary {
+  color: var(--dmc-color-primary);
+}
+
+.dmc-spinner--secondary {
+  color: var(--dmc-color-secondary);
+}
+
+.dmc-spinner--success {
+  color: var(--dmc-color-success);
+}
+
+.dmc-spinner--error {
+  color: var(--dmc-color-error);
+}
+
+.dmc-spinner--warning {
+  color: var(--dmc-color-warning);
+}
+
+.dmc-spinner--mat {
+  animation: dmc-spin 2s linear infinite;
+  transform-origin: center center;
+}
+
+.dmc-spinner--mat .dmc-spinner__path {
+  stroke-dasharray: 1, 200;
+  stroke-dashoffset: 0;
+  animation: dmc-mat-dash 1.5s ease-in-out infinite;
+}
+
+@keyframes dmc-spin {
+  0% {
+    transform: rotate3d(0, 0, 1, 0deg);
+  }
+  25% {
+    transform: rotate3d(0, 0, 1, 90deg);
+  }
+  50% {
+    transform: rotate3d(0, 0, 1, 180deg);
+  }
+  75% {
+    transform: rotate3d(0, 0, 1, 270deg);
+  }
+  100% {
+    transform: rotate3d(0, 0, 1, 359deg);
+  }
+}
+
+@keyframes dmc-mat-dash {
+  0% {
+    stroke-dasharray: 1, 200;
+    stroke-dashoffset: 0;
+  }
+  50% {
+    stroke-dasharray: 89, 200;
+    stroke-dashoffset: -35px;
+  }
+  100% {
+    stroke-dasharray: 89, 200;
+    stroke-dashoffset: -124px;
+  }
+}

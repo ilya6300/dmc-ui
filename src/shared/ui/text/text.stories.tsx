@@ -23,11 +23,12 @@ ${ROOT_NOTE}
 
 ${importBlock("Text", "Main")}
 
-**Состав:** обязательно \`children\`; опционально \`variant\` (\`subt\` | \`title\` | \`p\` | \`li\` | \`span\`, по умолчанию \`span\`), \`size\` (\`xs\` | \`s\` | \`m\` | \`l\` | \`xl\`, по умолчанию \`m\`), \`color\`, \`style\`.
+**Состав:** обязательно \`children\`; опционально \`variant\` (\`subt\` | \`title\` | \`p\` | \`li\` | \`span\`, по умолчанию \`span\`), \`c\` / \`color\` (синонимы, цвет через Unstyled), \`fz\` / \`size\` (синонимы, \`font-size\`), \`style\`. Без \`c\`/\`color\` — \`var(--dmc-color-text-primary)\`.
 
 \`\`\`jsx
 <Text variant="title">Заголовок</Text>
-<Text variant="p">Абзац текста.</Text>
+<Text variant="p" c="primary">Абзац текста.</Text>
+<Text size={12}>Мелкий inline</Text>
 \`\`\`
         `,
       },
@@ -41,15 +42,22 @@ ${importBlock("Text", "Main")}
       description: "Стиль и семантический тег; по умолчанию span.",
     },
     color: {
-      control: "color",
-      description: "CSS-цвет; перекрывает цвет темы.",
+      control: "text",
+      description: "Синоним c: primary | secondary | … или CSS-цвет.",
+    },
+    c: {
+      control: "text",
+      description: "Цвет текста (Unstyled).",
+    },
+    size: {
+      control: "text",
+      description: "Синоним fz: font-size (число → px).",
+    },
+    fz: {
+      control: "text",
+      description: "font-size (Unstyled).",
     },
     style: { control: false, description: "Дополнительные inline-стили." },
-    size: {
-      options: ["xs", "s", "m", "l", "xl"],
-      control: "select",
-      description: "Шкала размера. По умолчанию m.",
-    },
   },
 } satisfies Meta<typeof Text>;
 
@@ -69,7 +77,7 @@ function AllVariantsDemo() {
         <Text variant="li">Второй пункт</Text>
       </ul>
       <Text variant="span">Inline (span) внутри </Text>
-      <Text variant="span" color={colors.mastBlue}>акцентного фрагмента</Text>
+      <Text variant="span" c={colors.mastBlue}>акцентного фрагмента</Text>
     </div>
   );
 }

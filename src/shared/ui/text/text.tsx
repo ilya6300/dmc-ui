@@ -1,8 +1,6 @@
 import type { CSSProperties, ReactNode } from "react";
+import { Unstyled, type Color } from "../../internal";
 import { cls } from "../../lib";
-import { resolveSize, type SizeName } from "../sizes";
-import { useTheme } from "../theme-context";
-import { mergeStyle } from "../tokens";
 
 const VARIANTS = {
   subt: { tag: "span" },
@@ -14,11 +12,18 @@ const VARIANTS = {
 
 export type TextVariant = keyof typeof VARIANTS;
 
+type TextColor = Color | (string & {}) | number;
+type TextFontSize = string | number;
+
 export type TextProps = {
   children?: ReactNode;
   variant?: TextVariant;
-  color?: string;
-  size?: SizeName;
+  /** Синоним `c` — цвет текста (ключевое слово темы или CSS-значение). */
+  color?: TextColor;
+  c?: TextColor;
+  /** Синоним `fz` — размер шрифта. */
+  size?: TextFontSize;
+  fz?: TextFontSize;
   style?: CSSProperties;
 };
 
@@ -27,22 +32,30 @@ function resolveVariant(variant: string): TextVariant {
 }
 
 /** Типографический текст с вариантами оформления. */
-export function Text({ children, variant = "span", color, size, style }: TextProps) {
-  const { colors } = useTheme();
+export function Text({
+  children,
+  variant = "span",
+  color,
+  c,
+  size,
+  fz,
+  style,
+  ...props
+}: TextProps) {
   const key = resolveVariant(variant);
   const { tag: Tag } = VARIANTS[key];
-  const resolvedSize = resolveSize(size);
-
-  const textStyle = mergeStyle(color != null ? { color } : { color: colors.textPrimary }, style);
 
   return (
-    <Tag
+    <Unstyled
+      as={Tag}
+      {...props}
       className={cls("dmc-text")}
       data-dmc-variant={key}
-      data-dmc-size={resolvedSize}
-      style={textStyle}
+      c={c ?? color}
+      fz={fz ?? size}
+      style={style}
     >
       {children}
-    </Tag>
+    </Unstyled>
   );
 }

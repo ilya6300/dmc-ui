@@ -1,0 +1,341 @@
+.dmc-input {
+  --dmc-input-min-height: var(--dmc-control-min-height, 40px);
+  --dmc-input-font-size: var(--dmc-control-font-size, 14px);
+  --dmc-input-caption-size: var(--dmc-caption-font-size, 12px);
+  --dmc-input-padding-y: var(--dmc-control-padding-y, 8px);
+  --dmc-input-padding-x: var(--dmc-control-padding-x, 12px);
+  --dmc-input-section-width: 2rem;
+  --dmc-input-radius: 6px;
+  --dmc-input-border-color: var(--dmc-color-border);
+  --dmc-input-accent: var(--dmc-color-primary);
+  --dmc-input-ink: var(--dmc-color-input-text-primary);
+  --dmc-input-muted: var(--dmc-color-input-text-muted);
+  --dmc-input-surface: var(--dmc-color-surface);
+
+  position: relative;
+  display: flex;
+  flex: 0 0 auto;
+  flex-wrap: wrap;
+  align-items: stretch;
+  box-sizing: border-box;
+  min-width: 140px;
+  color: var(--dmc-input-ink);
+  border-radius: var(--dmc-input-radius);
+}
+
+.dmc-input--square, 
+.dmc-input--underlined {
+  --dmc-input-radius: 0;
+}
+
+.dmc-input--dense {
+  --dmc-input-min-height: 32px;
+  --dmc-input-padding-y: 6px;
+}
+
+.dmc-input--disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+.dmc-input__before,
+.dmc-input__after {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.dmc-input__before {
+  margin-right: 8px;
+}
+
+.dmc-input__after {
+  margin-left: 8px;
+}
+
+.dmc-input__field {
+  position: relative;
+  flex: 1 1 auto;
+  min-width: 0;
+  display: flex;
+  align-items: stretch;
+  box-sizing: border-box;
+  border: 1px solid var(--dmc-input-border-color);
+  border-radius: inherit;
+  background-color: var(--dmc-input-surface);
+  outline: none;
+  box-shadow: none;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease, background-color 0.15s ease;
+}
+
+.dmc-input--primary {
+  --dmc-input-accent: var(--dmc-color-primary);
+}
+
+.dmc-input--secondary {
+  --dmc-input-accent: var(--dmc-color-secondary);
+}
+
+.dmc-input--success {
+  --dmc-input-accent: var(--dmc-color-success);
+}
+
+.dmc-input--error {
+  --dmc-input-accent: var(--dmc-color-error);
+}
+
+.dmc-input--warning {
+  --dmc-input-accent: var(--dmc-color-warning);
+}
+
+.dmc-input--filled .dmc-input__field {
+  background-color: color-mix(in srgb, var(--dmc-input-accent) 12%, var(--dmc-input-surface));
+  border-color: transparent;
+}
+
+.dmc-input--underlined .dmc-input__field {
+  border-width: 0 0 1px;
+  border-radius: 0;
+  background-color: transparent;
+}
+
+.dmc-input--outline .dmc-input__field {
+  border-width: 1px;
+}
+
+.dmc-input__field:focus-within {
+  border-color: var(--dmc-input-accent);
+  box-shadow: var(--dmc-focus-ring);
+}
+
+.dmc-input--primary .dmc-input__field,
+.dmc-input--secondary .dmc-input__field,
+.dmc-input--success .dmc-input__field,
+.dmc-input--error .dmc-input__field,
+.dmc-input--warning .dmc-input__field {
+  border-color: color-mix(in srgb, var(--dmc-input-accent) 55%, var(--dmc-input-border-color));
+}
+
+.dmc-input--error .dmc-input__field,
+.dmc-input--error .dmc-input__field:focus-within {
+  border-color: var(--dmc-color-error);
+  box-shadow: none;
+}
+
+.dmc-input--underlined .dmc-input__field:focus-within {
+  border-bottom-width: 2px;
+  box-shadow: none;
+}
+
+.dmc-input__section {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: var(--dmc-input-section-width);
+  color: var(--dmc-input-muted);
+}
+
+.dmc-input__control {
+  position: relative;
+  flex: 1 1 auto;
+  min-width: 0;
+  display: block;
+}
+
+.dmc-input__native {
+  box-sizing: border-box;
+  width: 100%;
+  min-height: var(--dmc-input-min-height);
+  margin: 0;
+  padding: var(--dmc-input-padding-y) var(--dmc-input-padding-x);
+  border: none;
+  outline: none;
+  background: transparent;
+  font-size: var(--dmc-input-font-size);
+  line-height: 1.35;
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New", monospace;
+  color: var(--dmc-input-ink);
+  box-shadow: none;
+}
+
+.dmc-input__native:disabled {
+  cursor: not-allowed;
+}
+
+.dmc-input--key .dmc-input__native {
+  appearance: textfield;
+  -moz-appearance: textfield;
+}
+
+.dmc-input--key .dmc-input__native::-webkit-outer-spin-button,
+.dmc-input--key .dmc-input__native::-webkit-inner-spin-button {
+  appearance: none;
+  margin: 0;
+}
+
+.dmc-input__native::placeholder {
+  color: var(--dmc-input-muted);
+  opacity: 1;
+}
+
+.dmc-input:has(.dmc-input__label) .dmc-input__native::placeholder {
+  opacity: 0;
+}
+
+.dmc-input:has(.dmc-input__label) .dmc-input__native:focus::placeholder {
+  opacity: 1;
+}
+
+.dmc-input--stack-label .dmc-input__native::placeholder,
+.dmc-input__control:not(:has(.dmc-input__label)) .dmc-input__native::placeholder {
+  opacity: 1;
+}
+
+.dmc-input:has(.dmc-input__label) .dmc-input__native {
+  padding-top: calc(var(--dmc-input-caption-size) + 10px);
+  padding-bottom: 6px;
+}
+
+.dmc-input--dense:has(.dmc-input__label) .dmc-input__native {
+  padding-top: calc(var(--dmc-input-caption-size) + 6px);
+  padding-bottom: 4px;
+}
+
+.dmc-input--stack-label .dmc-input__native {
+  padding-top: calc(var(--dmc-input-caption-size) + 10px);
+  padding-bottom: 6px;
+}
+
+.dmc-input__label {
+  position: absolute;
+  left: var(--dmc-input-padding-x);
+  top: 50%;
+  max-width: calc(100% - (2 * var(--dmc-input-padding-x)));
+  margin: 0;
+  transform: translateY(-50%);
+  pointer-events: none;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: var(--dmc-input-font-size);
+  line-height: 1.2;
+  color: var(--dmc-input-muted);
+  transition: top 0.15s ease, font-size 0.15s ease, color 0.15s ease, transform 0.15s ease;
+}
+
+.dmc-input__field--with-left .dmc-input__label {
+  left: 4px;
+}
+
+.dmc-input__field:focus-within .dmc-input__label,
+.dmc-input__native:not(:placeholder-shown) ~ .dmc-input__label,
+.dmc-input--stack-label .dmc-input__label,
+.dmc-input__label--float {
+  top: 6px;
+  transform: none;
+  font-size: var(--dmc-input-caption-size);
+}
+
+.dmc-input__field:focus-within .dmc-input__label {
+  color: var(--dmc-input-accent);
+}
+
+.dmc-input--error .dmc-input__label {
+  color: var(--dmc-color-error);
+}
+
+.dmc-input__required {
+  color: var(--dmc-color-error);
+}
+
+.dmc-input__messages {
+  flex: 1 0 100%;
+  position: relative;
+  min-height: 1rem;
+  margin-top: 4px;
+  padding: 0 4px;
+  font-size: var(--dmc-input-caption-size);
+  line-height: 1.35;
+  overflow: hidden;
+}
+
+.dmc-input__hint {
+  color: var(--dmc-input-muted);
+}
+
+.dmc-input__error {
+  font-size: var(--dmc-input-caption-size);
+  line-height: 1.35;
+  color: var(--dmc-color-error);
+}
+
+.dmc-input__messages--error .dmc-input__hint {
+  display: none;
+}
+
+.dmc-input--key-shell {
+  position: relative;
+  display: block;
+  flex: 0 0 auto;
+  width: max-content;
+  max-width: 100%;
+  box-sizing: border-box;
+  color: var(--dmc-input-ink, var(--dmc-color-input-text-primary));
+}
+
+.dmc-input--key-shell > .dmc-input {
+  max-width: 100%;
+}
+
+.dmc-input__keypad {
+  position: absolute;
+  top: calc(100% + 4px);
+  left: 0;
+  z-index: 5;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 6px;
+  flex-shrink: 0;
+  box-sizing: border-box;
+  min-width: 132px;
+  padding: 8px;
+  border: 1px solid var(--dmc-color-border);
+  border-radius: 8px;
+  background-color: var(--dmc-color-surface);
+  box-shadow: 0 8px 20px var(--dmc-card-shadow-color, rgba(0, 0, 0, 0.2));
+}
+
+.dmc-input__keypad-btn {
+  box-sizing: border-box;
+  min-height: var(--dmc-keypad-min, 36px);
+  min-width: var(--dmc-keypad-min, 36px);
+  padding: 6px 8px;
+  border-radius: 6px;
+  border: 1px solid var(--dmc-color-border);
+  background-color: var(--dmc-color-surface);
+  color: var(--dmc-input-ink, var(--dmc-color-input-text-primary));
+  font-size: var(--dmc-control-font-size, 14px);
+  font-weight: 500;
+  font-family: inherit;
+  cursor: pointer;
+  outline: none;
+  box-shadow: none;
+  -webkit-tap-highlight-color: transparent;
+  transition: border-color 0.15s ease, color 0.15s ease;
+}
+
+.dmc-input__keypad-btn[data-pressed="true"] {
+  border-color: var(--dmc-color-primary);
+  color: var(--dmc-color-primary);
+}
+
+.dmc-input__keypad-btn:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+.dmc-input__keypad-btn--wide {
+  grid-column: 1 / -1;
+}
