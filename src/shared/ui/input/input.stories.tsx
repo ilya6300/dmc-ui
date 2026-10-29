@@ -23,7 +23,7 @@ ${ROOT_NOTE}
 
 ${importBlock("Input", "Main")}
 
-**Состав:** опционально \`label\`, \`placeholder\`, \`type\` (\`text\` | \`number\` | \`key\`), \`value\` / \`defaultValue\`, \`onChange\`, \`disabled\`, \`readOnly\`, \`error\`, \`msg\` (текст под полем только при \`error\` и непустом \`msg\`), \`name\`, \`id\`, \`style\`, \`inputStyle\`, \`aria-label\` (если нет \`label\`).
+**Состав:** опционально \`label\`, \`placeholder\`, \`type\` (\`text\` | \`number\` | \`key\`), \`size\` (\`xs\` | \`s\` | \`m\` | \`l\` | \`xl\`, по умолчанию \`m\`), \`value\` / \`defaultValue\`, \`onChange\`, \`disabled\`, \`readOnly\`, \`error\`, \`msg\` (текст под полем только при \`error\` и непустом \`msg\`), \`name\`, \`id\`, \`style\`, \`inputStyle\`, \`aria-label\` (если нет \`label\`).
 
 Для \`type\` \`number\` и \`key\` (нативный \`number\`): по умолчанию \`min={0}\`, верхней границы нет; можно передать свои \`min\` и \`max\`.
 
@@ -65,6 +65,11 @@ ${importBlock("Input", "Main")}
     },
     style: { control: false },
     inputStyle: { control: false },
+    size: {
+      options: ["xs", "s", "m", "l", "xl"],
+      control: "select",
+      description: "Шкала размера. По умолчанию m.",
+    },
   },
 } satisfies Meta<typeof Input>;
 

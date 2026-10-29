@@ -10,11 +10,13 @@
       "import": "./dist/index.js",
       "require": "./dist/index.cjs"
     },
-    "./styles.css": "./src/styles/dmc-ui.css"
+    "./styles.css": "./src/styles/dmc-ui.css",
+    "./style.css": "./style.css"
   },
   "files": [
     "dist",
-    "src/styles"
+    "src/styles",
+    "style.css"
   ],
   "scripts": {
     "build": "vite build",

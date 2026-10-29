@@ -35,7 +35,7 @@ const meta = {
     docs: {
       description: {
         component: `
-Переключатель на inline-стилях. \`variant="text"\` — только подпись.
+Переключатель. Размер и состояния — классы \`dmc-toggle\` и шкала \`size\`. \`variant="text"\` — только подпись.
 
 ${ROOT_NOTE}
 
@@ -54,6 +54,11 @@ ${importBlock("Toggle", "Main")}
     variant: { options: ["switch", "text"], control: "radio" },
     style: { description: "Стили на кнопке-обёртке.", control: false },
     disabled: { control: "boolean" },
+    size: {
+      options: ["xs", "s", "m", "l", "xl"],
+      control: "select",
+      description: "Шкала размера. По умолчанию m.",
+    },
     onChange: { control: false },
   },
 } satisfies Meta<typeof Toggle>;

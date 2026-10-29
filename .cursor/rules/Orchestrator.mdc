@@ -32,7 +32,7 @@ alwaysApply: false
 
 ## 3. Обязательный анализ перед ТЗ
 
-Без правок кода: `src/lib/components/`, barrel `index.js`, контракт (политика стилей: только `style` + `tokens.js`), Storybook, `package.json`, тесты/a11y.
+Без правок кода: `src/shared/ui/<имя>/` (код, стили, тест, `<имя>.stories.tsx`), barrel `src/shared/ui/index.ts`, базовый файл `src/styles/dmc-ui.css`, контракт, Storybook, `package.json`, тесты/a11y.
 
 Сопоставь устаревшие символы в коде с **целевыми** именами из контракта; в ТЗ указывай целевые имена, миграцию — отдельным пунктом, если нужна.
 
@@ -56,7 +56,7 @@ alwaysApply: false
 - Пропсы, слоты, матрица состава для Docs.
 
 ### D. Визуальная спецификация
-- Только inline `style` в компонентах; палитра из **`useTheme().colors`** / `themes.js` (литералы в JS); **без** обязательного `styles.css` у потребителя; без `className` на DOM ДС.
+- Базовый файл стилей — `src/styles/dmc-ui.css`; в ТЗ требовать один `import "@dmc/ui/styles.css"` у потребителя. Стили компонента — файл в `src/shared/ui/<имя>/`. Новые файлы в `src/styles/ds/` не заводить. `style` / `inputStyle` — через `mergeStyle` последним. Палитра текста — **`useTheme().colors`** / `src/shared/ui/themes.ts`. Публичный `className` на компоненты ДС не добавлять.
 - Компоненты с текстом: в ТЗ явно — **`color: colors.textPrimary`** на корне (или перечислить узлы), вторичный текст — `textSecondary`; запрет на статический `tokens` для theme-aware демо в Docs.
 
 ### E. Ограничения

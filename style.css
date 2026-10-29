@@ -1,13 +1,82 @@
 /* Единственный источник литералов тем: CSS (dmc-*) и JS (useTheme / themes) читают отсюда. */
 
+:root {
+  --dmc-font-family: "Inter", sans-serif;
+  --dmc-font-size-base: 16px;
+  --dmc-font-size-xs: 14px;
+  --dmc-font-size-s: 14px;
+  --dmc-font-size-m: 16px;
+  --dmc-font-size-l: 18px;
+  --dmc-font-size-xl: 20px;
+
+  --dmc-spacing-base: 16px;
+  --dmc-spacing-xs: 8px;
+  --dmc-spacing-s: 12px;
+  --dmc-spacing-m: 16px;
+  --dmc-spacing-l: 24px;
+  --dmc-spacing-xl: 32px;
+  
+  --dmc-padding-base: var(--dmc-spacing-base);
+  --dmc-padding-xs: var(--dmc-spacing-xs);
+  --dmc-padding-s: var(--dmc-spacing-s);
+  --dmc-padding-m: var(--dmc-spacing-m);
+  --dmc-padding-l: var(--dmc-spacing-l);
+  --dmc-padding-xl: var(--dmc-spacing-xl);
+
+  --dmc-margin-base: var(--dmc-spacing-base);
+  --dmc-margin-xs: var(--dmc-spacing-xs);
+  --dmc-margin-s: var(--dmc-spacing-s);
+  --dmc-margin-m: var(--dmc-spacing-m);
+  --dmc-margin-l: var(--dmc-spacing-l);
+  --dmc-margin-xl: var(--dmc-spacing-xl);
+
+  --dmc-border-radius-base: 8px;
+  --dmc-border-radius-xs: 4px;
+  --dmc-border-radius-s: 6px;
+  --dmc-border-radius-m: 8px;
+  --dmc-border-radius-l: 12px;
+  --dmc-border-radius-xl: 16px;
+
+  /*
+  --dmc-border-width-base: 1px;
+  --dmc-border-width-xs: 0.5px;
+  --dmc-border-width-s: 0.75px;
+  --dmc-border-width-m: 1px;
+  --dmc-border-width-l: 1.5px;
+  --dmc-border-width-xl: 2px;
+
+  --dmc-border-style-base: solid;
+  --dmc-border-style-xs: solid;
+  --dmc-border-style-s: solid;
+  --dmc-border-style-m: solid;
+  --dmc-border-style-l: solid;
+  --dmc-border-style-xl: solid; 
+  */
+}
+
 [data-dmc-theme="light"] {
-  --dmc-color-background: #ffffff;
-  --dmc-color-surface: #ffffff;
+  --main-blue-1: #2196f3;
+  --mast-blue: #236192;
+  --mast-yellow: #f0b323;
+  --error: #df2727;
+
+  --dmc-color-primary: #2196f3;
+  --dmc-color-secondary: #236192;
+  --dmc-color-success: #24bd2c;
+  --dmc-color-warning: #f0b323;
+  --dmc-color-error: #df2727;
+
   --dmc-color-text-primary: #1e293b;
   --dmc-color-text-secondary: #64748b;
+  --dmc-color-text-success: #ffffff;
+  --dmc-color-text-warning: #ffffff;
+  --dmc-color-text-error: #ffffff;
+ 
+
+  --dmc-color-background: #ffffff;
+  --dmc-color-surface: #ffffff;
+  
   --dmc-color-border: #e2e8f0;
-  --dmc-color-primary: #2196f3;
-  --dmc-color-error: #df2727;
   --dmc-color-toggle-track-off: #cbd5e1;
   --dmc-color-knob: #ffffff;
   --dmc-color-input-text-primary: #1e293b;
@@ -17,21 +86,31 @@
   --dmc-color-chip-idle-text: #1e293b;
   --dmc-focus-ring: 0 0 0 3px rgba(33, 150, 243, 0.15);
   --dmc-card-shadow-color: rgba(0, 0, 0, 0.25);
-  --main-blue-1: var(--dmc-color-primary);
-  --mast-blue: #236192;
-  --mast-yellow: #f0b323;
-  --error: var(--dmc-color-error);
   --lgt-grey-border: 1px solid #0000001f;
 }
 
 [data-dmc-theme="dark"] {
-  --dmc-color-background: #121212;
-  --dmc-color-surface: #1e1e1e;
+  --main-blue-1: #2196f3;
+  --mast-blue: #236192;
+  --mast-yellow: #f0b323;
+  --error: #f87171;
+
+  --dmc-color-primary: #2196f3;
+  --dmc-color-secondary: #236192;
+  --dmc-color-success: #24bd2c;
+  --dmc-color-warning: #f0b323;
+  --dmc-color-error: #f87171;
+
   --dmc-color-text-primary: rgb(233, 233, 233);
   --dmc-color-text-secondary: rgb(233, 233, 233);
+  --dmc-color-text-success: #ffffff;
+  --dmc-color-text-warning: #ffffff;
+  --dmc-color-text-error: #ffffff;
+
+  --dmc-color-background: #121212;
+  --dmc-color-surface: #1e1e1e;
+  
   --dmc-color-border: #383838;
-  --dmc-color-primary: #2196f3;
-  --dmc-color-error: #f87171;
   --dmc-color-toggle-track-off: #475569;
   --dmc-color-knob: #ffffff;
   --dmc-color-input-text-primary: #ffffff;
@@ -41,21 +120,31 @@
   --dmc-color-chip-idle-text: rgb(233, 233, 233);
   --dmc-focus-ring: 0 0 0 3px rgba(33, 150, 243, 0.25);
   --dmc-card-shadow-color: rgba(0, 0, 0, 0.45);
-  --main-blue-1: var(--dmc-color-primary);
-  --mast-blue: #236192;
-  --mast-yellow: #f0b323;
-  --error: var(--dmc-color-error);
   --lgt-grey-border: 1px solid #0000001f;
 }
 
 [data-dmc-theme="gray"] {
-  --dmc-color-background: #3c3c3d;
-  --dmc-color-surface: #94a3b8;
+  --main-blue-1: #2196f3;
+  --mast-blue: #236192;
+  --mast-yellow: #f0b323;
+  --error: #fca5a5;
+
+  --dmc-color-primary: #2196f3;
+  --dmc-color-secondary: #236192;
+  --dmc-color-success: #24bd2c;
+  --dmc-color-warning: #f0b323;
+  --dmc-color-error: #fca5a5;
+
   --dmc-color-text-primary: #f8fafc;
   --dmc-color-text-secondary: #e2e8f0;
+  --dmc-color-text-success: #ffffff;
+  --dmc-color-text-warning: #ffffff;
+  --dmc-color-text-error: #ffffff;
+  
+  --dmc-color-background: #3c3c3d;
+  --dmc-color-surface: #94a3b8;
+  
   --dmc-color-border: #475569;
-  --dmc-color-primary: #2196f3;
-  --dmc-color-error: #fca5a5;
   --dmc-color-toggle-track-off: #475569;
   --dmc-color-knob: #ffffff;
   --dmc-color-input-text-primary: #ffffff;
@@ -65,9 +154,5 @@
   --dmc-color-chip-idle-text: #f8fafc;
   --dmc-focus-ring: 0 0 0 3px rgba(33, 150, 243, 0.22);
   --dmc-card-shadow-color: rgba(0, 0, 0, 0.35);
-  --main-blue-1: var(--dmc-color-primary);
-  --mast-blue: #236192;
-  --mast-yellow: #f0b323;
-  --error: var(--dmc-color-error);
   --lgt-grey-border: 1px solid #0000001f;
 }

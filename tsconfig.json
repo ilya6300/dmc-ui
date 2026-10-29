@@ -16,5 +16,5 @@
       "#/*": ["./*"]
     }
   },
-  "include": ["src", ".storybook", "vite.config.ts", "vitest.config.ts"]
+  "include": ["src", ".storybook", "vite.config.ts", "vitest.config.ts", "styleCssPlugin.ts"]
 }

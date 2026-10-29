@@ -1,16 +1,16 @@
 import type { CSSProperties, ReactNode } from "react";
+import { cls } from "../../lib";
+import { resolveSize, type SizeName } from "../sizes";
 import { useTheme } from "../theme-context";
 import { mergeStyle } from "../tokens";
 
-const TEXT_BASE: CSSProperties = { fontFamily: "inherit" };
-
 const VARIANTS = {
-  subt: { tag: "span", style: { fontSize: 15, fontWeight: 600 } },
-  title: { tag: "span", style: { fontSize: 24, fontWeight: 700 } },
-  p: { tag: "p", style: { fontSize: 14, fontWeight: 400, margin: 0 } },
-  li: { tag: "li", style: { fontSize: 14, fontWeight: 400 } },
-  span: { tag: "span", style: { fontSize: 14, fontWeight: 400 } },
-} as const satisfies Record<string, { tag: "span" | "p" | "li"; style: CSSProperties }>;
+  subt: { tag: "span" },
+  title: { tag: "span" },
+  p: { tag: "p" },
+  li: { tag: "li" },
+  span: { tag: "span" },
+} as const satisfies Record<string, { tag: "span" | "p" | "li" }>;
 
 export type TextVariant = keyof typeof VARIANTS;
 
@@ -18,6 +18,7 @@ export type TextProps = {
   children?: ReactNode;
   variant?: TextVariant;
   color?: string;
+  size?: SizeName;
   style?: CSSProperties;
 };
 
@@ -26,16 +27,22 @@ function resolveVariant(variant: string): TextVariant {
 }
 
 /** Типографический текст с вариантами оформления. */
-export function Text({ children, variant = "span", color, style }: TextProps) {
+export function Text({ children, variant = "span", color, size, style }: TextProps) {
   const { colors } = useTheme();
-  const { tag: Tag, style: variantStyle } = VARIANTS[resolveVariant(variant)];
+  const key = resolveVariant(variant);
+  const { tag: Tag } = VARIANTS[key];
+  const resolvedSize = resolveSize(size);
 
-  const textStyle = mergeStyle(
-    TEXT_BASE,
-    { color: color ?? colors.textPrimary },
-    variantStyle,
-    style,
+  const textStyle = mergeStyle(color != null ? { color } : { color: colors.textPrimary }, style);
+
+  return (
+    <Tag
+      className={cls("dmc-text")}
+      data-dmc-variant={key}
+      data-dmc-size={resolvedSize}
+      style={textStyle}
+    >
+      {children}
+    </Tag>
   );
-
-  return <Tag style={textStyle}>{children}</Tag>;
 }

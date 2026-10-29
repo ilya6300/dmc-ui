@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import type { CSSProperties } from "react";
-import { Icon, Main, ThemeToggle } from "../../../index";
+import { Icon, Main, ThemeSelect } from "../../../index";
 import { importBlock, ROOT_NOTE } from "../../../stories/docsFragments";
 
 type DemoIconProps = { style?: CSSProperties };
@@ -28,7 +28,7 @@ const meta = {
   decorators: [
     (Story) => (
       <Main style={{ padding: 24 }}>
-        <ThemeToggle />
+        <ThemeSelect />
         <div style={{ marginTop: 16 }}>
           <Story />
         </div>
@@ -43,7 +43,7 @@ const meta = {
 
 ${ROOT_NOTE}
 
-${importBlock("Icon", "ThemeProvider", "ThemeToggle")}
+${importBlock("Icon", "ThemeProvider", "ThemeSelect")}
         `,
       },
     },
@@ -54,6 +54,11 @@ ${importBlock("Icon", "ThemeProvider", "ThemeToggle")}
     alt: { description: "Обязателен для ветки img." },
     component: { control: false },
     darkComponent: { control: false },
+    size: {
+      options: ["xs", "s", "m", "l", "xl"],
+      control: "select",
+      description: "Шкала размера, если не заданы width и height. По умолчанию m.",
+    },
   },
 } satisfies Meta<typeof Icon>;
 

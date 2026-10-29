@@ -1,8 +1,8 @@
 import type { CSSProperties, ElementType } from "react";
+import { cls } from "../../lib";
+import { resolveSize, type SizeName } from "../sizes";
 import { useTheme } from "../theme-context";
 import { mergeStyle } from "../tokens";
-
-const BLOCK: CSSProperties = { display: "block" };
 
 type IconComponentSource = {
   component?: ElementType;
@@ -40,6 +40,7 @@ export type IconProps = IconComponentSource &
     style?: CSSProperties;
     width?: number | string;
     height?: number | string;
+    size?: SizeName;
     [key: string]: unknown;
   };
 
@@ -53,18 +54,24 @@ export function Icon({
   style,
   width,
   height,
+  size,
   ...rest
 }: IconProps) {
   const { theme } = useTheme();
+  const resolvedSize = resolveSize(size);
   const Component = resolveIconComponent(theme, { component, darkComponent });
+  const hasExplicitSize = width != null || height != null;
+
+  const sizeStyle: CSSProperties | null = !hasExplicitSize
+    ? { width: "var(--dmc-icon-size)", height: "var(--dmc-icon-size)" }
+    : { width, height, display: "block" };
 
   if (Component) {
     return (
       <Component
-        style={mergeStyle(
-          width != null || height != null ? { width, height, ...BLOCK } : null,
-          style,
-        )}
+        className={cls("dmc-icon")}
+        data-dmc-size={!hasExplicitSize ? resolvedSize : undefined}
+        style={mergeStyle(sizeStyle, style)}
         aria-hidden={alt ? undefined : true}
         role={alt ? "img" : undefined}
         aria-label={alt || undefined}
@@ -84,7 +91,9 @@ export function Icon({
       alt={alt}
       width={width}
       height={height}
-      style={mergeStyle(BLOCK, style)}
+      className={cls("dmc-icon")}
+      data-dmc-size={!hasExplicitSize ? resolvedSize : undefined}
+      style={mergeStyle(sizeStyle, style)}
       {...rest}
     />
   );

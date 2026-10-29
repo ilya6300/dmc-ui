@@ -1,0 +1,5 @@
+/* Семантические цвета тем — style.css в корне пакета */
+
+.dmc-root {
+  color: var(--dmc-color-text-primary);
+}

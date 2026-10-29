@@ -1,16 +1,11 @@
-/** Палитры light / dark — единый источник цветов для useTheme().colors */
+/** Палитры тем для useTheme().colors — парсятся из style.css. */
+
+import styleCss from "virtual:dmc-style-css";
+import { parseThemesFromCss } from "./parseStyleCss";
 
 const CARD_SHADOW_OFFSET_Y = 4;
 
-/** Brand-синий и интерактивный primary — одинаковые в light и dark. */
-export const MAST_BLUE = "#2196f3";
-/** Основной цвет текста UI в тёмной теме (кроме Input). */
-export const DARK_UI_TEXT = "rgb(233, 233, 233)";
-/** Светло-серая рамка полей ввода (и связанный UI). */
-export const LIGHT_GREY = "#e2e8f0";
-const PRIMARY = MAST_BLUE;
-
-export type ThemeName = "light" | "dark";
+export type ThemeName = "light" | "dark" | "gray";
 
 type SemanticColors = {
   background: string;
@@ -43,39 +38,7 @@ export type ThemeColors = Omit<SemanticColors, "inputTextPrimary" | "inputTextMu
   inputTextMuted: string;
 };
 
-const LIGHT_SEMANTIC: SemanticColors = {
-  background: "#ffffff",
-  surface: "#ffffff",
-  textPrimary: "#1e293b",
-  textSecondary: "#64748b",
-  border: LIGHT_GREY,
-  primary: PRIMARY,
-  error: "#df2727",
-  mastBlue: MAST_BLUE,
-  mastYellow: "#f0b323",
-  cardShadowColor: "rgba(0, 0, 0, 0.25)",
-  focusBg: "#f0f7ff",
-  toggleTrackOff: "#cbd5e1",
-  knob: "#ffffff",
-};
-
-const DARK_SEMANTIC: SemanticColors = {
-  background: "#121212",
-  surface: "#1e1e1e",
-  textPrimary: DARK_UI_TEXT,
-  textSecondary: DARK_UI_TEXT,
-  inputTextPrimary: "#ffffff",
-  inputTextMuted: "#b3b3b3",
-  border: "#383838",
-  primary: PRIMARY,
-  error: "#f87171",
-  mastBlue: MAST_BLUE,
-  mastYellow: "#f0b323",
-  cardShadowColor: "rgba(0, 0, 0, 0.45)",
-  focusBg: "#1e3a5f",
-  toggleTrackOff: "#475569",
-  knob: "#ffffff",
-};
+const parsedThemes = parseThemesFromCss(styleCss) as Record<ThemeName, SemanticColors>;
 
 /** `shadow` — blur тени карточки в px; 0 — без тени. */
 export function getCardShadow(
@@ -83,7 +46,8 @@ export function getCardShadow(
   shadow = 12,
 ): string {
   if (shadow === 0) return "none";
-  return `0 ${CARD_SHADOW_OFFSET_Y}px ${shadow}px ${colors.cardShadowColor}`;
+  const color = colors.cardShadowColor ?? "rgba(0, 0, 0, 0.25)";
+  return `0 ${CARD_SHADOW_OFFSET_Y}px ${shadow}px ${color}`;
 }
 
 function withLegacyAliases(semantic: SemanticColors): ThemeColors {
@@ -95,18 +59,35 @@ function withLegacyAliases(semantic: SemanticColors): ThemeColors {
     textMuted: semantic.textSecondary,
     bgCard: semantic.surface,
     borderLight: `1px solid ${semantic.border}`,
-    lightGrey: LIGHT_GREY,
+    lightGrey: parsedThemes.light?.border ?? semantic.border,
     borderInput: semantic.border,
     inputTextPrimary: semantic.inputTextPrimary ?? semantic.textPrimary,
     inputTextMuted: semantic.inputTextMuted ?? semantic.textSecondary,
   };
 }
 
-export const themes: Record<ThemeName, ThemeColors> = {
-  light: withLegacyAliases(LIGHT_SEMANTIC),
-  dark: withLegacyAliases(DARK_SEMANTIC),
-};
+function buildThemes(): Record<ThemeName, ThemeColors> {
+  const out = {} as Record<ThemeName, ThemeColors>;
+  for (const themeId of Object.keys(parsedThemes) as ThemeName[]) {
+    out[themeId] = withLegacyAliases(parsedThemes[themeId]);
+  }
+  return out;
+}
+
+export const themes = buildThemes();
+
+export const MAST_BLUE = themes.light?.primary ?? "#2196f3";
+export const LIGHT_GREY = themes.light?.border ?? "#e2e8f0";
+
+export const THEME_OPTIONS: { value: ThemeName; label: string }[] = [
+  { value: "light", label: "Светлая" },
+  { value: "dark", label: "Тёмная" },
+  { value: "gray", label: "Серая" },
+];
 
 export function getThemeColors(theme?: string): ThemeColors {
-  return themes[theme as ThemeName] ?? themes.light;
+  if (theme && Object.hasOwn(themes, theme)) {
+    return themes[theme as ThemeName];
+  }
+  return themes.light;
 }

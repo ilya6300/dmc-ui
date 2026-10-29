@@ -33,7 +33,7 @@ alwaysApply: false
 
 ## 4. Предварительная проверка
 
-Файлы из ТЗ, каталог `src/lib/components/`, экспорты, `src/styles`, Storybook, обратная совместимость.
+Файлы из ТЗ, каталог `src/shared/ui/`, экспорты, Storybook, обратная совместимость.
 
 ## 5. JSX и TSX
 
@@ -41,7 +41,7 @@ alwaysApply: false
 
 ## 6. Правила стилизации
 
-По контракту: компоненты **CSS-волны** — классы `dmc-*` + `src/styles/ds/*.css`, обязательный `@dmc/ui/styles.css` у потребителя; проп `size` через `resolveSize`; `style` потребителя — `mergeStyle` последним. Остальные компоненты — inline `style` + `useTheme().colors`. Тема: `data-dmc-theme` на корне `ThemeProvider`.
+По контракту: один базовый файл стилей — `src/styles/dmc-ui.css`; потребитель один раз подключает `@dmc/ui/styles.css`. Стили компонента — файл в `src/shared/ui/<имя>/`, его подключает сам компонент. Новые файлы в `src/styles/ds/` не заводятся. Проп `size` через `resolveSize` (`src/shared/ui/sizes.ts`); `style` потребителя — `mergeStyle` последним. Компоненты, у которых стили ещё inline, остаются так до отдельного ТЗ. Тема: `data-dmc-theme` на корне `ThemeProvider`. Внутренние классы — `cls` из `src/shared/lib/cls.ts`.
 
 ### Тема и текст (обязательно для новых и изменяемых компонентов)
 
@@ -62,8 +62,9 @@ alwaysApply: false
 
 Для каждого нового/изменённого публичного компонента:
 
-- `src/stories/<Component>.stories.jsx`, `autodocs`;
-- Docs с чистыми именами в примерах импорта;
+- `src/shared/ui/<имя>/<имя>.stories.tsx`, `autodocs`;
+- вводные MDX и общие фрагменты Docs — в `src/stories`;
+- Docs с чистыми именами в примерах импорта и с `import "@dmc/ui/styles.css"`;
 - подраздел обязательное / опциональное / что добавить;
 - `argTypes`; stories — типичная и **минимальная**;
 - вводная MDX каталога — при новом компоненте в публичном API.

@@ -1,31 +1,28 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { useState } from "react";
-import { Box, Main, ThemeProvider, ThemeToggle, type ThemeName } from "../index";
+import { Box, Main, ThemeProvider, ThemeSelect, type ThemeName } from "../index";
 import { importBlock, ROOT_NOTE } from "./docsFragments";
 
 const meta = {
-  title: "Design System/ThemeToggle",
-  component: ThemeToggle,
+  title: "Design System/ThemeSelect",
+  component: ThemeSelect,
   tags: ["autodocs"],
   parameters: {
     docs: {
       description: {
         component: `
-Переключатель \`Toggle\` с иконками луны (слева в треке) и солнца (справа); \`currentColor\` на треке.
-Uncontrolled — \`ThemeProvider\`; controlled: \`theme\` и \`onThemeChange\`.
-
-Вложенный \`ThemeProvider\` перекрывает внешний.
+Выбор темы: светлая, тёмная и серая. Uncontrolled — через \`ThemeProvider\`; controlled: \`theme\` и \`onThemeChange\`.
 
 ${ROOT_NOTE}
 
-${importBlock("ThemeProvider", "ThemeToggle", "Main", "Box")}
+${importBlock("ThemeProvider", "ThemeSelect", "Main", "Box")}
 
-**Состав:** опционально \`label\`; controlled — \`theme\` и \`onThemeChange\`; \`style\`, \`disabled\`.
+**Состав:** опционально \`label\` (по умолчанию «Тема»); controlled — \`theme\` и \`onThemeChange\`; \`options\`, \`style\`, \`disabled\`, \`id\`.
 
 \`\`\`jsx
 <ThemeProvider>
   <Main style={{ padding: 24 }}>
-    <ThemeToggle />
+    <ThemeSelect />
     <Box title="Раздел">Контент</Box>
   </Main>
 </ThemeProvider>
@@ -37,7 +34,7 @@ Controlled (состояние темы в приложении):
 const [theme, setTheme] = useState("light");
 
 <ThemeProvider theme={theme} onThemeChange={setTheme}>
-  <ThemeToggle theme={theme} onThemeChange={setTheme} label="Тёмная тема" />
+  <ThemeSelect theme={theme} onThemeChange={setTheme} />
 </ThemeProvider>
 \`\`\`
         `,
@@ -46,14 +43,14 @@ const [theme, setTheme] = useState("light");
   },
   argTypes: {
     label: {
-      description:
-        "Опциональная подпись; без неё доступное имя задаётся автоматически.",
+      description: "Подпись над списком. Пустая строка скрывает её; доступное имя остаётся.",
     },
     disabled: { control: "boolean" },
     theme: { control: false },
     onThemeChange: { control: false },
+    options: { control: false },
   },
-} satisfies Meta<typeof ThemeToggle>;
+} satisfies Meta<typeof ThemeSelect>;
 
 export default meta;
 
@@ -65,7 +62,7 @@ export const WithPreview: Story = {
     docs: {
       source: {
         code: `<Main style={{ padding: 24 }}>
-  <ThemeToggle />
+  <ThemeSelect />
   <Box title="Карточка" style={{ marginTop: 16 }}>…</Box>
 </Main>`,
       },
@@ -73,9 +70,9 @@ export const WithPreview: Story = {
   },
   render: () => (
     <Main style={{ padding: 24 }}>
-      <ThemeToggle />
+      <ThemeSelect />
       <Box title="Карточка" style={{ marginTop: 16 }}>
-        Контент меняет оформление при смене темы в toolbar или переключателе.
+        Контент меняет оформление при смене темы в toolbar или списке.
       </Box>
     </Main>
   ),
@@ -84,9 +81,9 @@ export const WithPreview: Story = {
 export const Minimal: Story = {
   name: "Минимальный",
   parameters: {
-    docs: { source: { code: "<ThemeToggle />" } },
+    docs: { source: { code: "<ThemeSelect />" } },
   },
-  render: () => <ThemeToggle label="" />,
+  render: () => <ThemeSelect label="" />,
 };
 
 function ControlledDemo() {
@@ -94,7 +91,7 @@ function ControlledDemo() {
   return (
     <ThemeProvider theme={theme} onThemeChange={setTheme}>
       <Main style={{ padding: 24 }}>
-        <ThemeToggle theme={theme} onThemeChange={setTheme} />
+        <ThemeSelect theme={theme} onThemeChange={setTheme} />
         <p style={{ marginTop: 12 }}>Тема: {theme}</p>
       </Main>
     </ThemeProvider>
@@ -108,7 +105,7 @@ export const Controlled: Story = {
         code: `const [theme, setTheme] = useState("light");
 
 <ThemeProvider theme={theme} onThemeChange={setTheme}>
-  <ThemeToggle theme={theme} onThemeChange={setTheme} />
+  <ThemeSelect theme={theme} onThemeChange={setTheme} />
 </ThemeProvider>`,
       },
     },

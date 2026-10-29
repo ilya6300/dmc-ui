@@ -25,6 +25,19 @@ describe("Button", () => {
     const button = view.container.querySelector("button");
     expect(button?.textContent).toBe("Сохранить");
     expect(button?.type).toBe("button");
+    expect(button?.className).toContain("dmc-button");
+    expect(button?.style.padding).toBe("var(--dmc-button-padding-m)");
+    expect(button?.getAttribute("prefix")).toBeNull();
+    view.unmount();
+  });
+
+  it("renders side sections around the label", () => {
+    const view = mount(
+      <Button leftSection="L" rightSection="R">
+        Да
+      </Button>,
+    );
+    expect(view.container.querySelector("button")?.textContent).toBe("LДаR");
     view.unmount();
   });
 

@@ -29,7 +29,7 @@ describe("Sections", () => {
 		);
 		const root = view.container.querySelector("div");
 		expect(root?.textContent).toBe("LbodyR");
-		expect(root?.className).toContain(styles.box);
+		expect(root?.style.display).toBe("flex");
 		expect(root?.querySelectorAll("span")).toHaveLength(3);
 		view.unmount();
 	});
@@ -41,7 +41,7 @@ describe("Sections", () => {
 			</Sections>,
 		);
 		const root = view.container.querySelector("div");
-		expect(root?.className).toContain(styles.col);
+		expect(root?.style.flexDirection).toBe("column");
 		expect(root?.querySelectorAll(`.${styles.side}`)).toHaveLength(1);
 		expect(root?.textContent).toBe("bodyR");
 		view.unmount();

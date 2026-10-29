@@ -61,7 +61,8 @@ Storybook: группа каталога — **`Design System`** (или `Compon
 - React 18+ (peer dependency в пакете).
 - **Язык компонентов по умолчанию — JSX.** TSX и типы — только по утверждённому ТЗ.
 - Storybook (`npm run storybook`); см. раздел **«Документация»**.
-- Публичный API — barrel-экспорт в `src/lib/components/` (актуальный `index.js` и `dist` — в репозитории).
+- Публичный UI — папка `src/shared/ui/<имя>/`: код, стили этого компонента, тест, `<имя>.stories.tsx`. Barrel — `src/shared/ui/index.ts`, наружу через `src/index.ts`.
+- Примитивы фреймворка — `src/shared/internal`. Общие помощники — `src/shared/lib`.
 
 ## Документация (обязательная)
 
@@ -69,14 +70,14 @@ Storybook: группа каталога — **`Design System`** (или `Compon
 
 ### Где и как
 
-- `src/stories/<Component>.stories.jsx` (или `.tsx` по ТЗ), `tags: ["autodocs"]`, `parameters.docs.description.component`.
-- Общие фрагменты: модуль документации в `src/stories` (например `docsFragments.js`: `importBlock`, `ROOT_NOTE`).
+- Истории компонента — `src/shared/ui/<имя>/<имя>.stories.tsx`, `tags: ["autodocs"]`, `parameters.docs.description.component`.
+- Вводные MDX и общие фрагменты Docs остаются в `src/stories` (например `docsFragments.js`: `importBlock`, `ROOT_NOTE`).
 - Новый компонент в каталоге — строка во **вводной MDX** Storybook (таблица «Компоненты»), путь к файлу — в репозитории.
 
 ### Минимальное содержание Docs
 
 1. **Назначение**; при необходимости обёртка страницы — **`Main`**.
-2. **Импорт** — только `from "@dmc/ui"` (без обязательного CSS).
+2. **Импорт** — `from "@dmc/ui"` и один раз `import "@dmc/ui/styles.css"`.
 3. **Пример** — рабочий JSX с **чистыми** именами компонентов.
 4. **Состав** — обязательное / опциональное (можно не передавать) / что можно добавить (слоты, `style`, варианты).
 5. **`argTypes`** с `description`.
@@ -90,24 +91,24 @@ Storybook: группа каталога — **`Design System`** (или `Compon
 
 ## Политика стилей (обязательная)
 
-1. **Публичные компоненты ДС** (волна CSS): базовая вёрстка, размеры и состояния — в [`src/styles/dmc-ui.css`](src/styles/dmc-ui.css) (классы `dmc-*`, `data-dmc-size`, `data-dmc-theme`). Потребитель **обязан** один раз подключить `import "@dmc/ui/styles.css"` в entry приложения; в Storybook Docs — явный пример импорта CSS.
-2. **Проп `style` / `inputStyle`** потребителя — через `mergeStyle` **последним**, перебивает CSS. Публичный `className` на компоненты ДС **не добавлять** (кроме уже пробрасываемого `...rest`, если есть).
-3. **CSS-переменные темы** (`--dmc-color-*`) объявляются только на корне **`ThemeProvider`** (`data-dmc-theme`); дочерние узлы ДС наследуют, без дублирования `:root` на каждом компоненте.
-4. Литералы тем — только **`style.css`** в корне пакета (`--dmc-color-*` на `[data-dmc-theme]`). **`themes.js`** / `useTheme().colors` парсят тот же файл (Vite `virtual:dmc-style-css`); тесты `parseStyleCss.test`, `themeCssSync.test`.
-5. Компоненты **вне** CSS-волны (до миграции) — по-прежнему inline `style` + `useTheme().colors`.
-6. Опциональный проп **`size`**: `xs` | `s` | `m` | `l` | `xl`; по умолчанию `m` (текущий визуальный эталон). Шкала — `sizes.js` и `src/styles/ds/scale.css`.
+1. **Один базовый файл стилей** — [`src/styles/dmc-ui.css`](src/styles/dmc-ui.css): тема, шкала, общие токены (классы `dmc-*`, `data-dmc-size`, `data-dmc-theme` для базы). Новые базовые правила пишутся в этот файл. Новые файлы в `src/styles/ds/` не заводятся. Потребитель **обязан** один раз подключить `import "@dmc/ui/styles.css"` в entry приложения; в Storybook Docs — явный пример этого импорта.
+2. **Стили компонента** — файл в `src/shared/ui/<имя>/`, его подключает сам компонент.
+3. **Проп `style` / `inputStyle`** потребителя — через `mergeStyle` **последним**, перебивает CSS. Публичный `className` на компоненты ДС **не добавлять** (кроме уже пробрасываемого `...rest`, если есть).
+4. **CSS-переменные темы** (`--dmc-color-*`) объявляются только на корне **`ThemeProvider`** (`data-dmc-theme`); дочерние узлы ДС наследуют, без дублирования `:root` на каждом компоненте. Палитра в JS — `src/shared/ui/themes.ts` / `useTheme().colors`.
+5. Компоненты, у которых стили ещё заданы inline, остаются так до отдельного ТЗ на перенос; для них — inline `style` + `useTheme().colors`.
+6. Опциональный проп **`size`**: `xs` | `s` | `m` | `l` | `xl`; по умолчанию `m` (текущий визуальный эталон). Шкала в JS — `src/shared/ui/sizes.ts`; в CSS шкала входит в базовый файл.
 7. В Storybook демо-контент: **`useTheme().colors`** для произвольного текста вне компонентов ДС; глобальный импорт `dmc-ui.css` в preview.
-8. Внутренние классы — через **`joinClass`**; не для кастомизации потребителем.
+8. Внутренние классы — через **`cls`** из `src/shared/lib/cls.ts`; не для кастомизации потребителем.
 
 ## Источники дизайн-токенов
 
-Единый модуль в репозитории (например `tokens.js` рядом с компонентами): литералы `#2196f3`, `#236192`, `#1e293b`, … Справочно сверяй с `src/styles/tokens.css` (legacy), но **источник правды для ДС — JS**, не `:root`.
+Статический снимок светлой палитры — `src/shared/ui/tokens.ts`. Общие токены темы — в базовом файле `src/styles/dmc-ui.css`.
 
 Публичный экспорт `tokens` — опционально для согласованного кастомного UI рядом с компонентами.
 
 ## Светлая и тёмная тема (обязательная)
 
-- Переключение темы: **`ThemeProvider`**, **`useTheme()`** (`theme`, `setTheme`, `colors`). Палитры — `themes` / `getThemeColors` в JS (`themes.js`); на корне провайдера — `data-dmc-theme` и CSS-переменные для стилей `dmc-*`.
+- Переключение темы: **`ThemeProvider`**, **`useTheme()`** (`theme`, `setTheme`, `colors`). Палитры — `themes` / `getThemeColors` в `src/shared/ui/themes.ts`; на корне провайдера — `data-dmc-theme` и CSS-переменные для стилей `dmc-*`.
 - Статический импорт **`tokens`** — снимок **светлой** палитры; **не** реагирует на `ThemeProvider`. Для цветов при смене темы — только **`useTheme().colors`** (или `themes[theme]` вне React).
 - Любой компонент с **видимым текстом** (собственным или наследуемым для `children`) обязан:
   - вызывать **`useTheme()`** при сборке стилей в рендере;
@@ -131,7 +132,7 @@ Storybook: группа каталога — **`Design System`** (или `Compon
 
 ## SideDrawer
 
-Боковая панель справа (`SideDrawer.jsx` в каталоге компонентов).
+Боковая панель справа (`src/shared/ui/side-drawer/`).
 
 - Fixed, на всю высоту, белый фон, прокрутка, заголовок, закрытие, анимация сдвига справа.
 - Параметры (ориентир в `style`): z-index 3, тень `0 0 10px 1px #00000070`, radius 3px, min-height 500px, padding `20px 24px`, header flex gap 12px.

@@ -2,6 +2,7 @@ import { useEffect, useState, type ReactNode } from "react";
 import type { Preview } from "@storybook/react-vite";
 import { ThemeProvider } from "../src/shared/ui/theme-context";
 import { getThemeColors, type ThemeName } from "../src/shared/ui/themes";
+import "../src/styles/dmc-ui.css";
 
 type StoryThemeShellProps = {
   theme?: ThemeName;
@@ -34,13 +35,14 @@ const preview: Preview = {
   globalTypes: {
     theme: {
       name: "Theme",
-      description: "Светлая / тёмная тема",
+      description: "Светлая / тёмная / серая тема",
       defaultValue: "light",
       toolbar: {
         icon: "circlehollow",
         items: [
           { value: "light", title: "Light" },
           { value: "dark", title: "Dark" },
+          { value: "gray", title: "Gray" },
         ],
         dynamicTitle: true,
       },

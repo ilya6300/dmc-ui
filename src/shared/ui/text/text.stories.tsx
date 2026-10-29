@@ -23,7 +23,7 @@ ${ROOT_NOTE}
 
 ${importBlock("Text", "Main")}
 
-**Состав:** обязательно \`children\`; опционально \`variant\` (\`subt\` | \`title\` | \`p\` | \`li\` | \`span\`, по умолчанию \`span\`), \`color\`, \`style\`.
+**Состав:** обязательно \`children\`; опционально \`variant\` (\`subt\` | \`title\` | \`p\` | \`li\` | \`span\`, по умолчанию \`span\`), \`size\` (\`xs\` | \`s\` | \`m\` | \`l\` | \`xl\`, по умолчанию \`m\`), \`color\`, \`style\`.
 
 \`\`\`jsx
 <Text variant="title">Заголовок</Text>
@@ -45,6 +45,11 @@ ${importBlock("Text", "Main")}
       description: "CSS-цвет; перекрывает цвет темы.",
     },
     style: { control: false, description: "Дополнительные inline-стили." },
+    size: {
+      options: ["xs", "s", "m", "l", "xl"],
+      control: "select",
+      description: "Шкала размера. По умолчанию m.",
+    },
   },
 } satisfies Meta<typeof Text>;
 

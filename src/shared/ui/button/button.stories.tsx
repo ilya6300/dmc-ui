@@ -5,7 +5,7 @@ import { useTheme } from "../theme-context";
 import { Button, type ButtonColor, type ButtonVariant } from "./button";
 
 const VARIANTS: ButtonVariant[] = ["filled", "outline", "tonal", "text", "plain", "link"];
-const COLORS: ButtonColor[] = ["primary", "error", "warning"];
+const COLORS: ButtonColor[] = ["primary", "secondary", "success", "error", "warning"];
 
 function ColorVariantTable() {
   const { colors } = useTheme();
@@ -57,15 +57,15 @@ const meta = {
     docs: {
       description: {
         component: `
-Кнопка действия. Внешний вид исходной кнопки (заливка, контур, тон, текст, ссылка, форма) без классов и без отдельного CSS.
+Кнопка действия. Внешний вид (заливка, контур, тон, текст, ссылка, форма) задаётся в компоненте.
 
 ${ROOT_NOTE}
 
 ${importBlock("Button")}
 
-**Состав:** \`children\` — подпись. Опционально \`variant\` (\`filled\` по умолчанию, \`outline\`, \`tonal\`, \`text\`, \`plain\`, \`link\`), \`color\` (\`primary\`, \`error\`, \`warning\`), \`size\` (\`sm\`, \`md\`, \`lg\`), \`shape\` (\`default\`, \`round\`, \`rounded\`, \`square\`), \`block\`, \`flat\`, \`loading\`, \`disabled\`, \`active\`, \`leftSection\`, \`rightSection\`, \`style\`.
+**Состав:** \`children\` — подпись. Опционально \`variant\` (\`filled\` по умолчанию, \`outline\`, \`tonal\`, \`text\`, \`plain\`, \`link\`), \`color\` (\`primary\`, \`error\`, \`warning\`), \`size\` (\`s\`, \`m\`, \`l\`), \`shape\` (\`default\`, \`round\`, \`rounded\`, \`square\`), \`block\`, \`flat\`, \`loading\`, \`disabled\`, \`active\`, \`leftSection\`, \`rightSection\`, \`style\`.
 
-Цвета берутся из \`useTheme().colors\`. \`loading\` и \`disabled\` не вызывают \`onClick\`.
+Цвета берутся из переменных темы \`--dmc-color-*\`. \`loading\` и \`disabled\` не вызывают \`onClick\`.
 
 \`\`\`jsx
 <Button variant="filled">Сохранить</Button>
@@ -84,7 +84,7 @@ ${importBlock("Button")}
     color: {
       description: "primary — основной синий темы; error; warning.",
     },
-    size: { description: "sm, md (по умолчанию) или lg." },
+    size: { description: "s, m (по умолчанию) или l." },
     shape: {
       description: "default — скругление 4px; round — круг; rounded — капсула; square — без скругления.",
     },

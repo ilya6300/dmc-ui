@@ -7,7 +7,7 @@ import { themes } from "./themes";
  */
 export const tokens = themes.light;
 
-export { themes, getThemeColors, MAST_BLUE, LIGHT_GREY } from "./themes";
+export { themes, getThemeColors, MAST_BLUE, LIGHT_GREY, THEME_OPTIONS } from "./themes";
 export type { ThemeColors, ThemeName } from "./themes";
 
 export type StyleArg = CSSProperties | false | null | undefined;

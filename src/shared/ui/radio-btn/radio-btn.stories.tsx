@@ -60,7 +60,7 @@ const [value, setValue] = useState("more");
 />
 \`\`\`
 
-**Состав:** обязательно \`items\` (\`name\`, \`active\`, \`action\`); опционально \`style\` на обёртке группы.
+**Состав:** обязательно \`items\` (\`name\`, \`active\`, \`action\`); опционально \`size\` (\`xs\` | \`s\` | \`m\` | \`l\` | \`xl\`, по умолчанию \`m\`) и \`style\` на обёртке группы.
         `,
       },
     },
@@ -72,6 +72,11 @@ const [value, setValue] = useState("more");
       control: false,
     },
     style: { description: "Стили корневой обёртки.", control: false },
+    size: {
+      options: ["xs", "s", "m", "l", "xl"],
+      control: "select",
+      description: "Шкала размера. По умолчанию m.",
+    },
   },
 } satisfies Meta<typeof RadioBtn>;
 

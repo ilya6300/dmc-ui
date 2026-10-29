@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import "../src/styles/dmc-ui.css";
-import { ThemeProvider } from "../src/lib/components/cc-v4/ThemeContext.jsx";
+import { ThemeProvider } from "../src/shared/ui/theme-context";
 function StoryThemeShell({ theme: globalTheme, children }) {
   const [theme, setTheme] = useState(globalTheme ?? "light");
   useEffect(() => {
