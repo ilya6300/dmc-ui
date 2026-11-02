@@ -68,48 +68,50 @@ type Story = StoryObj<typeof meta>;
 
 export const ImagePair: Story = {
   name: "Img с darkSrc",
-  render: () => (
+  args: { size: "m", alt: "Демо" },
+  render: (args) => (
     <Icon
+      {...args}
       src="https://placehold.co/32x32/2196f3/ffffff?text=L"
       darkSrc="https://placehold.co/32x32/2196f3/121212?text=D"
       alt="Демо"
-      width={32}
-      height={32}
     />
   ),
 };
 
 export const ImageFallback: Story = {
   name: "Img без darkSrc",
-  render: () => (
+  args: { size: "m", alt: "Одна картинка" },
+  render: (args) => (
     <Icon
+      {...args}
       src="https://placehold.co/32x32/2196f3/ffffff?text=1"
       alt="Одна картинка"
-      width={32}
-      height={32}
     />
   ),
 };
 
 export const ComponentPair: Story = {
   name: "React-компоненты",
-  render: () => (
+  args: { size: "m" },
+  render: (args) => (
     <Icon
+      {...args}
       component={SunIcon}
       darkComponent={MoonIcon}
-      style={{ color: "#2196f3" }}
+      style={{ color: "#2196f3", ...args.style }}
     />
   ),
 };
 
 export const Minimal: Story = {
   name: "Минимальный",
-  render: () => (
+  args: { size: "m", alt: "" },
+  render: (args) => (
     <Icon
+      {...args}
       src="https://placehold.co/24x24/000000/ffffff?text=i"
       alt=""
-      width={24}
-      height={24}
     />
   ),
 };

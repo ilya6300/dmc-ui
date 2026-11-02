@@ -1,34 +1,45 @@
 /** Шкала размеров: xs | s | m | l | xl. База `m` = прежний визуальный эталон. */
 
+import { controlSizes } from "./metrics";
+import type { ScaleSizeKey } from "./parseStyleCss";
+
 export const SIZE_KEYS = ["xs", "s", "m", "l", "xl"] as const;
 
 export type SizeName = (typeof SIZE_KEYS)[number];
 
-/** Эталон `m` — совпадает с прежними литералами в компонентах. */
+function px(value: string | undefined): number {
+  if (value == null) return 0;
+  const next = Number.parseFloat(value);
+  return Number.isFinite(next) ? next : 0;
+}
+
+const m = controlSizes.m;
+
+/** Эталон `m` — из scale.css (через parse). */
 export const LEGACY_M_TOKENS = {
-  controlMinHeight: 40,
-  controlPaddingY: 8,
-  controlPaddingX: 12,
-  controlFontSize: 14,
-  captionFontSize: 12,
-  chipPaddingY: 8,
-  chipPaddingX: 14,
-  chipMinHeight: 30,
-  groupGap: 8,
-  toggleTrackW: 36,
-  toggleTrackH: 20,
-  toggleKnob: 16,
-  toggleKnobTranslate: 16,
-  iconSize: 20,
+  controlMinHeight: px(m.controlMinHeight),
+  controlPaddingY: px(m.controlPaddingY),
+  controlPaddingX: px(m.controlPaddingX),
+  controlFontSize: px(m.controlFontSize),
+  captionFontSize: px(m.captionFontSize),
+  chipPaddingY: px(m.chipPaddingY),
+  chipPaddingX: px(m.chipPaddingX),
+  chipMinHeight: px(m.chipMinHeight),
+  groupGap: px(m.gap),
+  toggleTrackW: px(m.toggleTrackW),
+  toggleTrackH: px(m.toggleTrackH),
+  toggleKnob: px(m.toggleKnob),
+  toggleKnobTranslate: px(m.toggleKnobTranslate),
+  iconSize: px(m.iconSize),
 };
 
-export const FONT_SCALE: Record<SizeName, number> = {
-  xs: 0.85,
-  s: 0.92,
-  m: 1,
-  l: 1.08,
-  xl: 1.16,
-};
+export const FONT_SCALE: Record<SizeName, number> = SIZE_KEYS.reduce(
+  (acc, key: ScaleSizeKey) => {
+    acc[key] = Number.parseFloat(controlSizes[key]?.fontScale ?? "1") || 1;
+    return acc;
+  },
+  {} as Record<SizeName, number>,
+);
 
 export function resolveSize(size?: string): SizeName {
   return (SIZE_KEYS as readonly string[]).includes(size ?? "") ? (size as SizeName) : "m";

@@ -33,6 +33,12 @@ describe("getThemeColors", () => {
     expect(themes.light.mainBlue1).toBe(themes.light.primary);
     expect(themes.light.cardShadow).toBe("0 4px 12px rgba(0, 0, 0, 0.25)");
   });
+
+  it("exposes secondary success warning from style.css", () => {
+    expect(themes.light.secondary).toBe("#236192");
+    expect(themes.light.success).toBe("#24bd2c");
+    expect(themes.light.warning).toBe("#f0b323");
+  });
 });
 
 describe("getCardShadow", () => {

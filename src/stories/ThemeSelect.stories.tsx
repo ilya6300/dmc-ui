@@ -37,6 +37,14 @@ const [theme, setTheme] = useState("light");
   <ThemeSelect theme={theme} onThemeChange={setTheme} />
 </ThemeProvider>
 \`\`\`
+
+Override цветов (метрики \`--dmc-spacing\` и т.п. из JS не меняются):
+
+\`\`\`jsx
+<ThemeProvider colors={{ primary: "#0ea5e9" }}>
+  <ThemeSelect />
+</ThemeProvider>
+\`\`\`
         `,
       },
     },

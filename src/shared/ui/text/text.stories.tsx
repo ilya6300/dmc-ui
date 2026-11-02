@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
-import { Main, Text, useTheme } from "../../../index";
+import { Main, Text, useTheme, type TextProps } from "../../../index";
 import { importBlock, ROOT_NOTE } from "../../../stories/docsFragments";
 
 const meta = {
@@ -65,26 +65,31 @@ export default meta;
 
 type Story = StoryObj<typeof meta>;
 
-function AllVariantsDemo() {
+function AllVariantsDemo({ c, color, fz, size }: TextProps) {
   const { colors } = useTheme();
+  const tone = c ?? color;
+  const font = fz ?? size;
   return (
     <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
-      <Text variant="title">Заголовок (title)</Text>
-      <Text variant="subt">Подзаголовок (subt)</Text>
-      <Text variant="p">Абзац (p) — основной текст блока.</Text>
+      <Text variant="title" c={tone} fz={font}>Заголовок (title)</Text>
+      <Text variant="subt" c={tone} fz={font}>Подзаголовок (subt)</Text>
+      <Text variant="p" c={tone} fz={font}>Абзац (p) — основной текст блока.</Text>
       <ul style={{ margin: 0, paddingLeft: 20, color: colors.textPrimary }}>
-        <Text variant="li">Пункт списка (li)</Text>
-        <Text variant="li">Второй пункт</Text>
+        <Text variant="li" c={tone} fz={font}>Пункт списка (li)</Text>
+        <Text variant="li" c={tone} fz={font}>Второй пункт</Text>
       </ul>
-      <Text variant="span">Inline (span) внутри </Text>
-      <Text variant="span" c={colors.mastBlue}>акцентного фрагмента</Text>
+      <Text variant="span" c={tone} fz={font}>Inline (span) внутри </Text>
+      <Text variant="span" c={tone ?? colors.mastBlue} fz={font}>акцентного фрагмента</Text>
     </div>
   );
 }
 
 export const Variants: Story = {
   name: "Варианты",
-  render: () => <AllVariantsDemo />,
+  args: {
+    children: "Текст",
+  },
+  render: (args) => <AllVariantsDemo {...args} />,
 };
 
 export const Minimal: Story = {

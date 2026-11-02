@@ -1,7 +1,5 @@
 .dmc-button {
-  --dmc-button-padding-s: 4px 8px;
-  --dmc-button-padding-m: 8px 12px;
-  --dmc-button-padding-l: 10px 16px;
+  --dmc-button-padding: 8px 12px;
   --dmc-button-ink: var(--dmc-color-primary);
   --dmc-button-label: var(--dmc-color-knob);
 
@@ -33,10 +31,15 @@
 }
 
 .dmc-button[data-dmc-size="s"] {
+  --dmc-button-padding: 4px 8px;
   min-height: 28px;
   font-size: 12px;
 }
+.dmc-button[data-dmc-size="m"] {
+  --dmc-button-padding: 8px 12px;
+}
 .dmc-button[data-dmc-size="l"] {
+  --dmc-button-padding: 10px 16px;
   min-height: 44px;
   font-size: 16px;
 }

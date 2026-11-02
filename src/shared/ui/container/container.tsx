@@ -1,38 +1,51 @@
 import type { CSSProperties, HTMLAttributes, ReactNode } from "react";
-import { useTheme } from "../theme-context";
+import { Unstyled, type Align, type Justify } from "../../internal";
 import { mergeStyle } from "../tokens";
 
-const CONTAINER_BASE: CSSProperties = {
-  display: "flex",
-  boxSizing: "border-box",
-  flexWrap: "wrap",
-};
+export type ContainerFlex =
+  | "start"
+  | "end"
+  | "center"
+  | "stretch"
+  | "between"
+  | "around"
+  | "evenly";
 
-const FLEX = {
-  start: "flex-start",
-  end: "flex-end",
-  center: "center",
-  stretch: "stretch",
+export type ContainerDirection = "row" | "col";
+
+const JUSTIFIES = new Set<ContainerFlex>([
+  "start",
+  "end",
+  "center",
+  "stretch",
+  "between",
+  "around",
+  "evenly",
+]);
+
+const ALIGNS = new Set<Align>(["start", "end", "center", "stretch"]);
+
+const ALIGN_SPACE = {
   between: "space-between",
   around: "space-around",
   evenly: "space-evenly",
-} as const;
+} as const satisfies Record<string, CSSProperties["alignItems"]>;
 
-export type ContainerFlex = keyof typeof FLEX;
-
-function resolveFlex(key: string | undefined, fallback: ContainerFlex): string {
-  return FLEX[key as ContainerFlex] ?? FLEX[fallback];
+function resolveJustify(key: string | undefined): Justify {
+  return JUSTIFIES.has(key as ContainerFlex) ? (key as Justify) : "start";
 }
 
-const DIRECTIONS = {
-  row: "row",
-  col: "column",
-} as const;
-
-export type ContainerDirection = keyof typeof DIRECTIONS;
-
-function flexDirectionFrom(direction: string | undefined): CSSProperties["flexDirection"] {
-  return DIRECTIONS[direction as ContainerDirection] ?? "row";
+function resolveAlign(key: string | undefined): {
+  align?: Align;
+  alignItems?: CSSProperties["alignItems"];
+} {
+  if (key === "between" || key === "around" || key === "evenly") {
+    return { alignItems: ALIGN_SPACE[key] };
+  }
+  if (ALIGNS.has(key as Align)) {
+    return { align: key as Align };
+  }
+  return { align: "stretch" };
 }
 
 type FlexOptions = {
@@ -43,23 +56,13 @@ type FlexOptions = {
   w?: string;
 };
 
-function containerFlexStyle({ direction, justify, align, gap, w }: FlexOptions): CSSProperties {
-  return {
-    flexDirection: flexDirectionFrom(direction),
-    justifyContent: resolveFlex(justify, "start"),
-    alignItems: resolveFlex(align, "stretch"),
-    gap,
-    width: w ?? "100%",
-  };
-}
-
 export type ContainerProps = HTMLAttributes<HTMLDivElement> &
   FlexOptions & {
     children?: ReactNode;
     style?: CSSProperties;
   };
 
-/** Flex-строка или колонка для группировки контента (отступы и gap по умолчанию). */
+/** Flex-строка или колонка для группировки контента. Раскладка через Unstyled. */
 export function Container({
   children,
   style,
@@ -70,19 +73,26 @@ export function Container({
   gap = 10,
   ...rest
 }: ContainerProps) {
-  const { colors } = useTheme();
+  const resolvedAlign = resolveAlign(align);
 
   return (
-    <div
+    <Unstyled
+      {...rest}
+      d="flex"
+      wrap="wrap"
+      dir={direction === "col" ? "column" : "row"}
+      justify={resolveJustify(justify)}
+      align={resolvedAlign.align}
+      gap={gap}
+      w={w ?? "100%"}
+      c="primary"
       style={mergeStyle(
-        CONTAINER_BASE,
-        containerFlexStyle({ direction, justify, align, gap, w }),
-        { color: colors.textPrimary },
+        { boxSizing: "border-box" },
+        resolvedAlign.alignItems ? { alignItems: resolvedAlign.alignItems } : undefined,
         style,
       )}
-      {...rest}
     >
       {children}
-    </div>
+    </Unstyled>
   );
 }

@@ -8,12 +8,32 @@ export * from "./main";
 export * from "./progress";
 export * from "./radio-btn";
 export * from "./side-drawer";
+export { getFontScale, resolveSize, scalePx, SIZE_KEYS } from "./sizes";
+export type { SizeName } from "./sizes";
 export * from "./spinner";
+export * from "./template";
 export * from "./text";
 export * from "./theme-context";
 export * from "./theme-select";
 export * from "./toggle";
-export { getThemeColors, LIGHT_GREY, MAST_BLUE, mergeStyle, THEME_OPTIONS, themes, tokens } from "./tokens";
-export { getFontScale, resolveSize, scalePx, SIZE_KEYS } from "./sizes";
-export type { StyleArg, ThemeColors, ThemeName } from "./tokens";
-export type { SizeName } from "./sizes";
+export {
+  controlSizes,
+  getThemeColors,
+  LIGHT_GREY,
+  MAST_BLUE,
+  mergeStyle,
+  rootMetrics,
+  THEME_OPTIONS,
+  themes,
+  tokens
+} from "./tokens";
+export type {
+  ControlMetrics,
+  RootMetrics,
+  ScaleSizeKey,
+  SizeScale,
+  StyleArg,
+  ThemeColors,
+  ThemeName
+} from "./tokens";
+

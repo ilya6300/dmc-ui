@@ -2,12 +2,19 @@ import type { Meta, StoryObj } from "@storybook/react-vite";
 import type { CSSProperties } from "react";
 import { importBlock, ROOT_NOTE } from "../../../stories/docsFragments";
 import { useTheme } from "../theme-context";
-import { Button, type ButtonColor, type ButtonVariant } from "./button";
+import { Button, type ButtonColor, type ButtonProps, type ButtonVariant } from "./button";
 
 const VARIANTS: ButtonVariant[] = ["filled", "outline", "tonal", "text", "plain", "link"];
 const COLORS: ButtonColor[] = ["primary", "secondary", "success", "error", "warning"];
 
-function ColorVariantTable() {
+function ColorVariantTable({
+  size,
+  shape,
+  disabled,
+  loading,
+  flat,
+  block,
+}: Pick<ButtonProps, "size" | "shape" | "disabled" | "loading" | "flat" | "block">) {
   const { colors } = useTheme();
   const border = `1px solid ${colors.border}`;
   const cell: CSSProperties = {
@@ -39,7 +46,18 @@ function ColorVariantTable() {
             <th style={{ ...head, textAlign: "left" }}>{variant}</th>
             {COLORS.map((color) => (
               <td key={color} style={cell}>
-                <Button variant={variant} color={color}>Кнопка</Button>
+                <Button
+                  variant={variant}
+                  color={color}
+                  size={size}
+                  shape={shape}
+                  disabled={disabled}
+                  loading={loading}
+                  flat={flat}
+                  block={block}
+                >
+                  Кнопка
+                </Button>
               </td>
             ))}
           </tr>
@@ -111,11 +129,27 @@ export const Default: Story = {
 
 export const Minimal: Story = {
   name: "Минимальный",
-  render: () => <Button>OK</Button>,
+  args: { children: "OK" },
 };
 
 export const ColorsAndVariants: Story = {
   name: "Цвета и варианты",
-  parameters: { controls: { disable: true } },
-  render: () => <ColorVariantTable />,
+  args: {
+    size: "m",
+    shape: "default",
+    disabled: false,
+    loading: false,
+    flat: false,
+    block: false,
+  },
+  render: (args) => (
+    <ColorVariantTable
+      size={args.size}
+      shape={args.shape}
+      disabled={args.disabled}
+      loading={args.loading}
+      flat={args.flat}
+      block={args.block}
+    />
+  ),
 };

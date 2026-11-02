@@ -30,22 +30,26 @@ export function Page() {
 
 ## Тема
 
-Обёрните приложение в `ThemeProvider`. На его корне стоит `data-dmc-theme`, палитра читается из `style.css`. Компоненты (`Box`, `Toggle`, `SideDrawer`, …) берут цвета через `useTheme()`.
+Обёрните приложение в `ThemeProvider`. На корне: `data-dmc-theme` (палитра из `style.css`). Отступы и метрики — **фиксированные** CSS-токены (`--dmc-spacing`, `--dmc-padding`, …), значения меняются только через `data-dmc-size` (не из JS). Override цветов: проп `colors`.
 
 ```jsx
 import { useTheme, themes } from "@dmc/ui";
 
-const { theme, setTheme, colors } = useTheme();
-// colors — актуальная палитра; themes.light / themes.dark / themes.gray — справочник
+const { theme, setTheme, colors, spacing, sizes } = useTheme();
+// colors — палитра; spacing / sizes — read-only снимок из CSS
 ```
 
-Статический импорт `tokens` — только снимок **светлой** палитры; для другой темы используйте `useTheme().colors` или `themes[theme]`.
+Статический импорт `tokens` — только снимок **светлой** палитры; для другой темы — `useTheme().colors` или `themes[theme]`.
 
-Выбор пользователя (localStorage и т.д.) хранит **приложение-потребитель**:
+Выбор темы и кастомизация цвета:
 
 ```jsx
 const [theme, setTheme] = useState("light");
-<ThemeProvider theme={theme} onThemeChange={setTheme}>
+<ThemeProvider
+  theme={theme}
+  onThemeChange={setTheme}
+  colors={{ primary: "#0ea5e9" }}
+>
   <ThemeSelect />
 </ThemeProvider>
 ```

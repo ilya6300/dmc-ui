@@ -26,7 +26,7 @@ describe("Button", () => {
     expect(button?.textContent).toBe("Сохранить");
     expect(button?.type).toBe("button");
     expect(button?.className).toContain("dmc-button");
-    expect(button?.style.padding).toBe("var(--dmc-button-padding-m)");
+    expect(button?.style.padding).toBe("var(--dmc-button-padding)");
     expect(button?.getAttribute("prefix")).toBeNull();
     view.unmount();
   });

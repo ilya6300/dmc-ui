@@ -1,4 +1,5 @@
 import type { StorybookConfig } from "@storybook/react-vite";
+import { styleCssPlugin } from "../styleCssPlugin.ts";
 
 const config: StorybookConfig = {
   stories: ["../src/**/*.mdx", "../src/**/*.stories.@(ts|tsx)"],
@@ -10,6 +11,10 @@ const config: StorybookConfig = {
     "@storybook/addon-mcp",
   ],
   framework: "@storybook/react-vite",
+  async viteFinal(config) {
+    config.plugins = [...(config.plugins ?? []), styleCssPlugin()];
+    return config;
+  },
 };
 
 export default config;

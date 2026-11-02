@@ -63,6 +63,68 @@ describe("Input", () => {
     view.unmount();
   });
 
+  it("places keypad above when viewport has no room below", () => {
+    const frames: FrameRequestCallback[] = [];
+    vi.spyOn(window, "requestAnimationFrame").mockImplementation((callback) => {
+      frames.push(callback);
+      return frames.length;
+    });
+    vi.spyOn(window, "cancelAnimationFrame").mockImplementation(() => {});
+
+    const view = mount(<Input type="key" defaultValue="" />);
+    const shell = view.container.querySelector(".dmc-input--key-shell") as HTMLElement;
+    expect(shell).toBeTruthy();
+
+    const shellRect = {
+      top: 500,
+      bottom: 540,
+      left: 0,
+      right: 120,
+      width: 120,
+      height: 40,
+      x: 0,
+      y: 500,
+      toJSON() {
+        return this;
+      },
+    } as DOMRect;
+    const keypadRect = {
+      top: 0,
+      bottom: 180,
+      left: 0,
+      right: 132,
+      width: 132,
+      height: 180,
+      x: 0,
+      y: 0,
+      toJSON() {
+        return this;
+      },
+    } as DOMRect;
+
+    vi.spyOn(shell, "getBoundingClientRect").mockReturnValue(shellRect);
+    const originalInnerHeight = window.innerHeight;
+    Object.defineProperty(window, "innerHeight", { configurable: true, value: 560 });
+
+    focusInput(view.container);
+
+    const keypad = view.container.querySelector(".dmc-input__keypad") as HTMLElement;
+    expect(keypad).toBeTruthy();
+    vi.spyOn(keypad, "getBoundingClientRect").mockReturnValue(keypadRect);
+
+    act(() => {
+      window.dispatchEvent(new Event("resize"));
+      frames.splice(0).forEach((callback) => callback(0));
+    });
+
+    expect(keypad.getAttribute("data-placement")).toBe("top");
+    expect(keypad.className).toContain("dmc-input__keypad--above");
+
+    Object.defineProperty(window, "innerHeight", { configurable: true, value: originalInnerHeight });
+    vi.restoreAllMocks();
+    view.unmount();
+  });
+
   it("calls onChange from keypad in controlled mode", () => {
     const onChange = vi.fn();
     const view = mount(<Input type="key" value="1" onChange={onChange} />);

@@ -25,6 +25,8 @@ describe("useTheme", () => {
     });
     expect(snapshot?.theme).toBe("light");
     expect(snapshot?.colors.background).toBe("#ffffff");
+    expect(snapshot?.spacing.m).toBe("16px");
+    expect(snapshot?.sizes.m.controlMinHeight).toBe("40px");
     act(() => {
       root.unmount();
     });
@@ -50,6 +52,53 @@ describe("useTheme", () => {
       setTheme?.("dark");
     });
     expect(onThemeChange).toHaveBeenCalledWith("dark");
+    act(() => {
+      root.unmount();
+    });
+  });
+
+  it("applies colors override to CSS vars and useTheme", () => {
+    let snapshot: ThemeContextValue | undefined;
+    const container = document.createElement("div");
+    const root = createRoot(container);
+    act(() => {
+      root.render(
+        <ThemeProvider colors={{ primary: "red" }}>
+          <Probe
+            onRead={(c) => {
+              snapshot = c;
+            }}
+          />
+        </ThemeProvider>,
+      );
+    });
+    const host = container.querySelector(".dmc-root") as HTMLElement;
+    expect(host.style.getPropertyValue("--dmc-color-primary")).toBe("red");
+    expect(snapshot?.colors.primary).toBe("red");
+    act(() => {
+      root.unmount();
+    });
+  });
+
+  it("exposes read-only spacing from CSS without override prop", () => {
+    let snapshot: ThemeContextValue | undefined;
+    const container = document.createElement("div");
+    const root = createRoot(container);
+    act(() => {
+      root.render(
+        <ThemeProvider>
+          <Probe
+            onRead={(c) => {
+              snapshot = c;
+            }}
+          />
+        </ThemeProvider>,
+      );
+    });
+    const host = container.querySelector(".dmc-root") as HTMLElement;
+    expect(host.style.getPropertyValue("--dmc-spacing")).toBe("");
+    expect(snapshot?.spacing.m).toBe("16px");
+    expect(snapshot?.spacing.xs).toBe("8px");
     act(() => {
       root.unmount();
     });

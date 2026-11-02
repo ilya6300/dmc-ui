@@ -67,12 +67,12 @@ describe("Unstyled", () => {
 		view.unmount();
 	});
 
-	it("maps spacing keywords to theme variables", () => {
+	it("maps spacing keywords to fixed theme variables", () => {
 		const view = mount(<Unstyled p="m" mx="xs" bd="l" />);
 		const node = view.container.querySelector("div");
-		expect(node?.style.padding).toBe("var(--dmc-padding-m)");
-		expect(node?.style.marginInline).toBe("var(--dmc-margin-xs)");
-		expect(node?.style.border).toBe("var(--dmc-border-radius-l)");
+		expect(node?.style.padding).toBe("var(--dmc-padding)");
+		expect(node?.style.marginInline).toBe("var(--dmc-margin)");
+		expect(node?.style.border).toBe("var(--dmc-border-radius)");
 		view.unmount();
 	});
 
@@ -80,8 +80,8 @@ describe("Unstyled", () => {
 		const view = mount(<Unstyled prefix="button" bg="primary" p="m" bd="l" />);
 		const node = view.container.querySelector("div");
 		expect(node?.style.background).toBe("var(--dmc-button-color-primary)");
-		expect(node?.style.padding).toBe("var(--dmc-button-padding-m)");
-		expect(node?.style.border).toBe("var(--dmc-button-border-radius-l)");
+		expect(node?.style.padding).toBe("var(--dmc-button-padding)");
+		expect(node?.style.border).toBe("var(--dmc-button-border-radius)");
 		expect(node?.getAttribute("prefix")).toBeNull();
 		view.unmount();
 	});

@@ -16,6 +16,9 @@ type SemanticColors = {
   inputTextMuted?: string;
   border: string;
   primary: string;
+  secondary: string;
+  success: string;
+  warning: string;
   error: string;
   mastBlue: string;
   mastYellow: string;

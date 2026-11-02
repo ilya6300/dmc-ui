@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
-import { useState, type CSSProperties } from "react";
-import { Input, Main, Toggle, type InputColor } from "../../../index";
+import type { CSSProperties } from "react";
+import { Input, Main, type InputProps, type InputColor } from "../../../index";
 import { importBlock, ROOT_NOTE } from "../../../stories/docsFragments";
 import { useTheme } from "../theme-context";
 
@@ -20,10 +20,13 @@ const VARIANTS: Array<{ key: string; label: string; props: Record<string, boolea
   { key: "underlined", label: "underlined", props: { underlined: true } },
 ];
 
-function VariantsTable() {
+function VariantsTable({
+  size,
+  dense,
+  disabled,
+  type,
+}: Pick<InputProps, "size" | "dense" | "disabled" | "type">) {
   const { colors } = useTheme();
-  const [dense, setDense] = useState(false);
-  const [disabled, setDisabled] = useState(false);
 
   const border = `1px solid ${colors.border}`;
   const cell: CSSProperties = {
@@ -42,10 +45,6 @@ function VariantsTable() {
 
   return (
     <div style={{ display: "flex", flexDirection: "column", gap: 16, color: colors.textPrimary }}>
-      <div style={{ display: "flex", flexWrap: "wrap", gap: 16, alignItems: "center" }}>
-        <Toggle active={dense} label="Dense" onChange={setDense} />
-        <Toggle active={disabled} label="Disabled" onChange={setDisabled} />
-      </div>
       <table style={{ borderCollapse: "collapse", width: "100%" }}>
         <thead>
           <tr>
@@ -65,6 +64,8 @@ function VariantsTable() {
                 <td key={variant.key} style={cell}>
                   <Input
                     {...variant.props}
+                    type={type}
+                    size={size}
                     color={color === "default" ? undefined : color}
                     dense={dense}
                     disabled={disabled}
@@ -177,8 +178,20 @@ type Story = StoryObj<typeof meta>;
 
 export const VariantsMatrix: Story = {
   name: "Цвета и варианты",
-  parameters: { controls: { disable: true } },
-  render: () => <VariantsTable />,
+  args: {
+    type: "text",
+    size: "m",
+    dense: false,
+    disabled: false,
+  },
+  render: (args) => (
+    <VariantsTable
+      type={args.type}
+      size={args.size}
+      dense={args.dense}
+      disabled={args.disabled}
+    />
+  ),
 };
 
 export const TextWithLabel: Story = {

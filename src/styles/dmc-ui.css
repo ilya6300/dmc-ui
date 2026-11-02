@@ -5,9 +5,5 @@
 @import "./ds/radio-btn.css";
 @import "../shared/ui/icon/icon.css";
 @import "../shared/ui/text/text.css";
-@import "../shared/ui/input/input.css";
-@import "../shared/ui/button/button.css";
-@import "../shared/ui/spinner/spinner.css";
-@import "../shared/ui/progress/progress.css";
 @import "./tokens.css";
 @import "./company-card-v4.css";

@@ -1,6 +1,7 @@
 import {
   useEffect,
   useId,
+  useLayoutEffect,
   useRef,
   useState,
   type ChangeEvent,
@@ -113,14 +114,28 @@ function KeypadButton({ digit, disabled, onPress, wide }: KeypadButtonProps) {
   );
 }
 
+type KeypadPlacement = "bottom" | "top";
+
+const KEYPAD_GAP_PX = 4;
+const KEYPAD_HEIGHT_FALLBACK_PX = 180;
+
 type NumericKeypadProps = {
   disabled: boolean;
   onDigit: (digit: string) => void;
+  placement?: KeypadPlacement;
 };
 
-function NumericKeypad({ disabled, onDigit }: NumericKeypadProps) {
+function NumericKeypad({ disabled, onDigit, placement = "bottom" }: NumericKeypadProps) {
   return (
-    <div className="dmc-input__keypad" role="group" aria-label="Цифровая клавиатура">
+    <div
+      className={cls(
+        "dmc-input__keypad",
+        placement === "top" ? "dmc-input__keypad--above" : undefined,
+      )}
+      data-placement={placement}
+      role="group"
+      aria-label="Цифровая клавиатура"
+    >
       {KEYPAD_ROWS.flatMap((row, rowIndex) =>
         row.map((digit) => (
           <KeypadButton
@@ -134,6 +149,17 @@ function NumericKeypad({ disabled, onDigit }: NumericKeypadProps) {
       <KeypadButton digit="0" disabled={disabled} onPress={onDigit} wide />
     </div>
   );
+}
+
+function resolveKeypadPlacement(shell: HTMLElement): KeypadPlacement {
+  const shellRect = shell.getBoundingClientRect();
+  const keypad = shell.querySelector(".dmc-input__keypad");
+  const keypadHeight =
+    keypad instanceof HTMLElement && keypad.getBoundingClientRect().height > 0
+      ? keypad.getBoundingClientRect().height
+      : KEYPAD_HEIGHT_FALLBACK_PX;
+  const spaceBelow = window.innerHeight - shellRect.bottom;
+  return spaceBelow >= keypadHeight + KEYPAD_GAP_PX ? "bottom" : "top";
 }
 
 export type InputProps = {
@@ -222,7 +248,9 @@ export function Input({
   const generatedId = useId();
   const inputId = idProp ?? generatedId;
   const inputRef = useRef<HTMLInputElement>(null);
+  const keyShellRef = useRef<HTMLDivElement>(null);
   const [focused, setFocused] = useState(false);
+  const [keypadPlacement, setKeypadPlacement] = useState<KeypadPlacement>("bottom");
   const resolvedSize = resolveSize(size);
 
   const semanticType = resolveSemanticType(type);
@@ -455,12 +483,53 @@ export function Input({
     </Unstyled>
   );
 
+  const showKeypad = semanticType === "key" && focused && !fieldDisabled;
+
+  useLayoutEffect(() => {
+    if (!showKeypad) {
+      setKeypadPlacement("bottom");
+      return;
+    }
+    const shell = keyShellRef.current;
+    if (!shell) return;
+
+    let frame = 0;
+    const measure = () => {
+      frame = 0;
+      const next = resolveKeypadPlacement(shell);
+      setKeypadPlacement((current) => (current === next ? current : next));
+    };
+    const schedule = () => {
+      if (frame) return;
+      frame = window.requestAnimationFrame(measure);
+    };
+
+    schedule();
+    window.addEventListener("resize", schedule);
+    window.addEventListener("scroll", schedule, true);
+    return () => {
+      if (frame) window.cancelAnimationFrame(frame);
+      window.removeEventListener("resize", schedule);
+      window.removeEventListener("scroll", schedule, true);
+    };
+  }, [showKeypad]);
+
   if (semanticType === "key") {
-    const showKeypad = focused && !fieldDisabled;
     return (
-      <div className="dmc-input--key-shell" data-dmc-size={resolvedSize} style={mergeStyle(style)}>
+      <div
+        ref={keyShellRef}
+        className="dmc-input--key-shell"
+        data-dmc-size={resolvedSize}
+        style={mergeStyle(style)}
+      >
         {root}
-        {showKeypad ? <NumericKeypad disabled={fieldDisabled} onDigit={appendDigit} /> : null}
+        {showKeypad ? (
+          <NumericKeypad
+            disabled={fieldDisabled}
+            onDigit={appendDigit}
+            placement={keypadPlacement}
+          />
+        ) : null}
       </div>
     );
   }

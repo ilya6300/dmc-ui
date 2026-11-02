@@ -307,6 +307,11 @@
   box-shadow: 0 8px 20px var(--dmc-card-shadow-color, rgba(0, 0, 0, 0.2));
 }
 
+.dmc-input__keypad--above {
+  top: auto;
+  bottom: calc(100% + 4px);
+}
+
 .dmc-input__keypad-btn {
   box-sizing: border-box;
   min-height: var(--dmc-keypad-min, 36px);

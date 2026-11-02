@@ -1,9 +1,9 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { useState } from "react";
-import { Main, RadioBtn, type RadioBtnItem } from "../../../index";
+import { Main, RadioBtn, type RadioBtnProps, type RadioBtnItem } from "../../../index";
 import { importBlock, ROOT_NOTE } from "../../../stories/docsFragments";
 
-function ComparisonDemo() {
+function ComparisonDemo({ size }: Pick<RadioBtnProps, "size">) {
   const [value, setValue] = useState("more");
 
   const items: RadioBtnItem[] = [
@@ -24,7 +24,7 @@ function ComparisonDemo() {
     },
   ];
 
-  return <RadioBtn items={items} />;
+  return <RadioBtn items={items} size={size} />;
 }
 
 const meta = {
@@ -86,7 +86,11 @@ type Story = StoryObj<typeof meta>;
 
 export const Comparison: Story = {
   name: "Сравнение (Меньше / Равно / Больше)",
-  render: () => <ComparisonDemo />,
+  args: {
+    size: "m",
+    items: [],
+  },
+  render: (args) => <ComparisonDemo size={args.size} />,
 };
 
 export const Minimal: Story = {

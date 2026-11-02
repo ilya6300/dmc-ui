@@ -1,6 +1,11 @@
-/* Size scale: data-dmc-size on component roots */
+/* Size scale: data-dmc-size on component roots — фиксированные --dmc-* без суффиксов */
 
 [data-dmc-size="xs"] {
+  --dmc-spacing: 8px;
+  --dmc-padding: var(--dmc-spacing);
+  --dmc-margin: var(--dmc-spacing);
+  --dmc-border-radius: 4px;
+  --dmc-font-size: 14px;
   --dmc-font-scale: 0.85;
   --dmc-control-min-height: 34px;
   --dmc-control-padding-y: 7px;
@@ -21,6 +26,11 @@
 }
 
 [data-dmc-size="s"] {
+  --dmc-spacing: 12px;
+  --dmc-padding: var(--dmc-spacing);
+  --dmc-margin: var(--dmc-spacing);
+  --dmc-border-radius: 6px;
+  --dmc-font-size: 14px;
   --dmc-font-scale: 0.92;
   --dmc-control-min-height: 37px;
   --dmc-control-padding-y: 7px;
@@ -41,6 +51,11 @@
 }
 
 [data-dmc-size="m"] {
+  --dmc-spacing: 16px;
+  --dmc-padding: var(--dmc-spacing);
+  --dmc-margin: var(--dmc-spacing);
+  --dmc-border-radius: 8px;
+  --dmc-font-size: 16px;
   --dmc-font-scale: 1;
   --dmc-control-min-height: 40px;
   --dmc-control-padding-y: 8px;
@@ -61,6 +76,11 @@
 }
 
 [data-dmc-size="l"] {
+  --dmc-spacing: 24px;
+  --dmc-padding: var(--dmc-spacing);
+  --dmc-margin: var(--dmc-spacing);
+  --dmc-border-radius: 12px;
+  --dmc-font-size: 18px;
   --dmc-font-scale: 1.08;
   --dmc-control-min-height: 43px;
   --dmc-control-padding-y: 9px;
@@ -81,6 +101,11 @@
 }
 
 [data-dmc-size="xl"] {
+  --dmc-spacing: 32px;
+  --dmc-padding: var(--dmc-spacing);
+  --dmc-margin: var(--dmc-spacing);
+  --dmc-border-radius: 16px;
+  --dmc-font-size: 20px;
   --dmc-font-scale: 1.16;
   --dmc-control-min-height: 46px;
   --dmc-control-padding-y: 9px;

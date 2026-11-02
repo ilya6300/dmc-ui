@@ -3,7 +3,7 @@ import type { CSSProperties, ReactNode } from "react";
 import { importBlock, ROOT_NOTE } from "../../../stories/docsFragments";
 import { Main } from "../main";
 import { useTheme } from "../theme-context";
-import { Progress, ProgressBar, ProgressCircle } from "./index";
+import { Progress, ProgressBar, ProgressCircle, type ProgressProps } from "./index";
 
 function ExampleRow({ elem, code }: { elem: ReactNode; code: string }) {
   const { colors } = useTheme();
@@ -31,80 +31,54 @@ function ExampleRow({ elem, code }: { elem: ReactNode; code: string }) {
   );
 }
 
-function ProgressExamples() {
+function ProgressExamples({
+  value = 33,
+  color = "primary",
+  thickness = 8,
+  size = 96,
+  border = false,
+  reverse = false,
+}: ProgressProps) {
   const { colors } = useTheme();
+  const bar = { value, color, thickness, border, reverse };
+  const circle = { value, color, thickness, size, border, reverse };
   return (
     <div style={{ display: "flex", flexDirection: "column", gap: 24, maxWidth: 720, color: colors.textPrimary }}>
       <section>
         <h3 style={{ margin: "0 0 8px" }}>ProgressBar</h3>
-        <ExampleRow elem={<ProgressBar value={33} style={{ height: 8 }} />} code={'<ProgressBar value={33} style={{ height: 8 }} />'} />
+        <ExampleRow elem={<ProgressBar {...bar} />} code="<ProgressBar />" />
+        <ExampleRow elem={<ProgressBar {...bar} buffer={66} />} code="<ProgressBar buffer={66} />" />
+        <ExampleRow elem={<ProgressBar {...bar} indeterminate />} code="<ProgressBar indeterminate />" />
+        <ExampleRow elem={<ProgressBar {...bar} stripe />} code="<ProgressBar stripe />" />
         <ExampleRow
-          elem={<ProgressBar value={33} buffer={66} style={{ height: 8 }} />}
-          code={'<ProgressBar value={33} buffer={66} style={{ height: 8 }} />'}
+          elem={<ProgressBar {...bar} stripe animation />}
+          code="<ProgressBar stripe animation />"
         />
-        <ExampleRow
-          elem={<ProgressBar indeterminate style={{ height: 8 }} />}
-          code={'<ProgressBar indeterminate style={{ height: 8 }} />'}
-        />
-        <ExampleRow
-          elem={<ProgressBar stripe value={33} style={{ height: 8 }} />}
-          code={'<ProgressBar stripe value={33} style={{ height: 8 }} />'}
-        />
-        <ExampleRow
-          elem={<ProgressBar stripe animation value={33} style={{ height: 8 }} />}
-          code={'<ProgressBar stripe animation value={33} style={{ height: 8 }} />'}
-        />
-        <ExampleRow
-          elem={<ProgressBar label value={33} style={{ height: 24 }} />}
-          code={'<ProgressBar label value={33} style={{ height: 24 }} />'}
-        />
-        <ExampleRow
-          elem={
-            <ProgressBar value={33} style={{ height: 24 }}>
-              label
-            </ProgressBar>
-          }
-          code={'<ProgressBar value={33} style={{ height: 24 }}>label</ProgressBar>'}
-        />
-        <ExampleRow
-          elem={<ProgressBar border value={33} style={{ height: 8 }} />}
-          code={'<ProgressBar border value={33} style={{ height: 8 }} />'}
-        />
+        <ExampleRow elem={<ProgressBar {...bar} label />} code="<ProgressBar label />" />
+        <ExampleRow elem={<ProgressBar {...bar}>label</ProgressBar>} code="<ProgressBar>label</ProgressBar>" />
+        <ExampleRow elem={<ProgressBar {...bar} border />} code="<ProgressBar border />" />
       </section>
       <section>
         <h3 style={{ margin: "0 0 8px" }}>ProgressCircle</h3>
+        <ExampleRow elem={<ProgressCircle {...circle} />} code="<ProgressCircle />" />
         <ExampleRow
-          elem={<ProgressCircle size={96} thickness={5} value={33} />}
-          code="<ProgressCircle size={96} thickness={5} value={33} />"
+          elem={<ProgressCircle {...circle} buffer={66} />}
+          code="<ProgressCircle buffer={66} />"
         />
         <ExampleRow
-          elem={<ProgressCircle size={96} thickness={5} value={33} buffer={66} />}
-          code="<ProgressCircle size={96} thickness={5} value={33} buffer={66} />"
+          elem={<ProgressCircle {...circle} indeterminate />}
+          code="<ProgressCircle indeterminate />"
         />
         <ExampleRow
-          elem={<ProgressCircle size={96} thickness={5} indeterminate />}
-          code="<ProgressCircle size={96} thickness={5} indeterminate />"
+          elem={<ProgressCircle {...circle} color="gradient" indeterminate />}
+          code='<ProgressCircle color="gradient" indeterminate />'
         />
+        <ExampleRow elem={<ProgressCircle {...circle} label />} code="<ProgressCircle label />" />
         <ExampleRow
-          elem={<ProgressCircle size={96} thickness={5} color="gradient" indeterminate />}
-          code={'<ProgressCircle size={96} thickness={5} color="gradient" indeterminate />'}
+          elem={<ProgressCircle {...circle}>label</ProgressCircle>}
+          code="<ProgressCircle>label</ProgressCircle>"
         />
-        <ExampleRow
-          elem={<ProgressCircle size={96} thickness={5} label value={33} />}
-          code="<ProgressCircle size={96} thickness={5} label value={33} />"
-        />
-        <ExampleRow
-          elem={
-            <ProgressCircle size={96} thickness={5} value={33}>
-              label
-            </ProgressCircle>
-          }
-          code="<ProgressCircle size={96} thickness={5} value={33}>label</ProgressCircle>"
-        />
-        <ExampleRow
-          elem={<ProgressCircle border size={96} thickness={5} value={33} />}
-          code="<ProgressCircle border size={96} thickness={5} value={33} />"
-        />
+        <ExampleRow elem={<ProgressCircle {...circle} border />} code="<ProgressCircle border />" />
       </section>
     </div>
   );
@@ -188,11 +162,23 @@ export const Circle: Story = {
 
 export const Examples: Story = {
   name: "Примеры",
-  parameters: { controls: { disable: true } },
-  render: () => <ProgressExamples />,
+  args: {
+    type: "bar",
+    value: 33,
+    thickness: 8,
+    size: 96,
+    color: "primary",
+    border: false,
+    reverse: false,
+  },
+  render: (args) => <ProgressExamples {...args} />,
 };
 
 export const Minimal: Story = {
   name: "Минимальный",
-  render: () => <ProgressBar value={25} style={{ height: 6 }} />,
+  args: {
+    type: "bar",
+    value: 25,
+    thickness: 6,
+  },
 };

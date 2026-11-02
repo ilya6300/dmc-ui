@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
-import type { CSSProperties, ReactNode } from "react";
+import type { CSSProperties } from "react";
 import { Main } from "../main";
 import { useTheme } from "../theme-context";
 import { importBlock, ROOT_NOTE } from "../../../stories/docsFragments";
@@ -14,42 +14,22 @@ import {
   SpinnerOval,
   SpinnerPie,
   SpinnerRadio,
+  type SpinnerProps,
 } from "./index";
 
-const VARIANTS: Array<{ elem: ReactNode; code: string }> = [
-  { elem: <SpinnerPie size="48px" />, code: '<SpinnerPie size="48px" />' },
-  {
-    elem: <SpinnerIos color="primary" size={48} />,
-    code: '<SpinnerIos color="primary" size={48} />',
-  },
-  {
-    elem: <SpinnerCube color="secondary" size="3rem" />,
-    code: '<SpinnerCube color="secondary" size="3rem" />',
-  },
-  {
-    elem: <SpinnerGrid color="success" size="3em" />,
-    code: '<SpinnerGrid color="success" size="3em" />',
-  },
-  {
-    elem: <SpinnerOval color="success" size="3em" />,
-    code: '<SpinnerOval color="success" size="3em" />',
-  },
-  {
-    elem: <SpinnerRadio color="error" size="3em" />,
-    code: '<SpinnerRadio color="error" size="3em" />',
-  },
-  {
-    elem: <SpinnerClock color="primary" size="3em" />,
-    code: '<SpinnerClock color="primary" size="3em" />',
-  },
-  {
-    elem: <SpinnerComment color="warning" size="3em" />,
-    code: '<SpinnerComment color="warning" size="3em" />',
-  },
-  { elem: <SpinnerHourglass size="3em" />, code: '<SpinnerHourglass size="3em" />' },
+const VARIANT_ROWS: Array<{ name: string; View: typeof SpinnerPie }> = [
+  { name: "SpinnerPie", View: SpinnerPie },
+  { name: "SpinnerIos", View: SpinnerIos },
+  { name: "SpinnerCube", View: SpinnerCube },
+  { name: "SpinnerGrid", View: SpinnerGrid },
+  { name: "SpinnerOval", View: SpinnerOval },
+  { name: "SpinnerRadio", View: SpinnerRadio },
+  { name: "SpinnerClock", View: SpinnerClock },
+  { name: "SpinnerComment", View: SpinnerComment },
+  { name: "SpinnerHourglass", View: SpinnerHourglass },
 ];
 
-function VariantsList() {
+function VariantsList({ size, color, thickness }: SpinnerProps) {
   const { colors } = useTheme();
   const row: CSSProperties = {
     display: "flex",
@@ -71,10 +51,18 @@ function VariantsList() {
 
   return (
     <div style={{ display: "flex", flexDirection: "column", maxWidth: 720 }}>
-      {VARIANTS.map((item) => (
-        <div key={item.code} style={row}>
-          <div style={{ width: 56, display: "flex", justifyContent: "center" }}>{item.elem}</div>
-          <pre style={code}>{item.code}</pre>
+      <div style={row}>
+        <div style={{ width: 56, display: "flex", justifyContent: "center" }}>
+          <Spinner size={size} color={color} thickness={thickness} />
+        </div>
+        <pre style={code}>{`<Spinner size={${JSON.stringify(size)}} color="${color ?? ""}" thickness={${thickness ?? ""}} />`}</pre>
+      </div>
+      {VARIANT_ROWS.map(({ name, View }) => (
+        <div key={name} style={row}>
+          <div style={{ width: 56, display: "flex", justifyContent: "center" }}>
+            <View size={size} color={color} />
+          </div>
+          <pre style={code}>{`<${name} size={${JSON.stringify(size)}} color="${color ?? ""}" />`}</pre>
         </div>
       ))}
     </div>
@@ -139,11 +127,18 @@ export const Default: Story = {
 
 export const Variants: Story = {
   name: "Варианты",
-  parameters: { controls: { disable: true } },
-  render: () => <VariantsList />,
+  args: {
+    size: "3em",
+    thickness: 5,
+    color: "primary",
+  },
+  render: (args) => <VariantsList {...args} />,
 };
 
 export const Minimal: Story = {
   name: "Минимальный",
-  render: () => <Spinner />,
+  args: {
+    size: "1em",
+    thickness: 5,
+  },
 };

@@ -281,14 +281,15 @@ function keywordCss(prop: StyleProp, value: unknown, prefix?: string): unknown {
 		return dmcVar(COLORS[value as Color], prefix);
 	}
 	if (value in SIZES) {
+		/* Size keyword → фиксированный токен; значение задаёт data-dmc-size. */
 		if (PADDING_PROPS.has(prop)) {
-			return dmcVar(`padding-${value}`, prefix);
+			return dmcVar("padding", prefix);
 		}
 		if (MARGIN_PROPS.has(prop)) {
-			return dmcVar(`margin-${value}`, prefix);
+			return dmcVar("margin", prefix);
 		}
 		if (prop === "bd") {
-			return dmcVar(`border-radius-${value}`, prefix);
+			return dmcVar("border-radius", prefix);
 		}
 	}
 	return value;
