@@ -1,6 +1,6 @@
 import type { CSSProperties, HTMLAttributes, ReactNode } from "react";
 import { Unstyled, type Align, type Justify } from "../../internal";
-import { mergeStyle } from "../tokens";
+import { mergeStyle } from "../theme-context/tokens";
 
 export type ContainerFlex =
   | "start"

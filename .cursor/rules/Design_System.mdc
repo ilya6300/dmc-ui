@@ -96,19 +96,19 @@ Storybook: группа каталога — **`Design System`** (или `Compon
 3. **Проп `style` / `inputStyle`** потребителя — через `mergeStyle` **последним**, перебивает CSS. Публичный `className` на компоненты ДС **не добавлять** (кроме уже пробрасываемого `...rest`, если есть).
 4. **Литералы темы** — в корневом [`style.css`](style.css) на `[data-dmc-theme]`. **Фиксированные** токены шкалы (без суффиксов size): `--dmc-spacing`, `--dmc-padding`, `--dmc-margin`, `--dmc-border-radius`, `--dmc-font-size` + control-метрики в [`scale.css`](src/styles/ds/scale.css) на `[data-dmc-size]`. Их **нельзя** переопределять из JS. На корне **`ThemeProvider`**: `data-dmc-theme` и опциональный override только **цветов** (`colors` → `--dmc-color-*`). JS-палитра и read-only метрики — `themes` / `useTheme()`.
 5. Компоненты, у которых стили ещё заданы inline, остаются так до отдельного ТЗ на перенос; для них — inline `style` + `useTheme().colors`. Новый код предпочтительно через `var(--dmc-*)` / Unstyled.
-6. Опциональный проп **`size`**: `xs` | `s` | `m` | `l` | `xl`; по умолчанию `m` (текущий визуальный эталон). Шкала в CSS — `scale.css`; в JS — `useTheme().sizes` / `src/shared/ui/sizes.ts`.
+6. Опциональный проп **`size`**: `xs` | `s` | `m` | `l` | `xl`; по умолчанию `m` (текущий визуальный эталон). Шкала в CSS — `scale.css`; в JS — `useTheme().sizes` / `src/shared/ui/theme-context/sizes.ts`.
 7. В Storybook демо-контент: **`useTheme().colors`** для произвольного текста вне компонентов ДС; глобальный импорт `dmc-ui.css` в preview.
 8. Внутренние классы — через **`cls`** из `src/shared/lib/cls.ts`; не для кастомизации потребителем.
 
 ## Источники дизайн-токенов
 
-Канон цветов — `style.css`. Фиксированные отступы/радиус/шрифт и метрики размера — `scale.css` (`data-dmc-size`) + дефолт на `:root`. Статический снимок светлой палитры — `tokens` в `src/shared/ui/tokens.ts`. Базовый бандл — `src/styles/dmc-ui.css`.
+Канон цветов — `style.css`. Фиксированные отступы/радиус/шрифт и метрики размера — `scale.css` (`data-dmc-size`) + дефолт на `:root`. Статический снимок светлой палитры — `tokens` в `src/shared/ui/theme-context/tokens.ts`. Базовый бандл — `src/styles/dmc-ui.css`.
 
 Публичный экспорт `tokens` — опционально для согласованного кастомного UI рядом с компонентами (только light).
 
 ## Светлая и тёмная тема (обязательная)
 
-- Переключение темы: **`ThemeProvider`**, **`useTheme()`** (`theme`, `setTheme`, `colors`, плюс read-only `spacing` / `padding` / `margin` / `radius` / `fontSize` / `sizes`). Палитры — `themes` / `getThemeColors`; метрики — `rootMetrics` / `controlSizes`.
+- Переключение темы: **`ThemeProvider`**, **`useTheme()`** (`theme` — разрешённая палитра, `preference` — выбор включая `system`, `setTheme`, `colors`, плюс read-only `spacing` / `padding` / `margin` / `radius` / `fontSize` / `sizes`). `system` читает `prefers-color-scheme` и ставит `light` или `dark`. Палитры — `themes` / `getThemeColors` в `src/shared/ui/theme-context`; метрики — `rootMetrics` / `controlSizes`.
 - На корне провайдера — `data-dmc-theme`; CSS-компоненты читают `--dmc-color-*` и фиксированные `--dmc-spacing` и т.п. Override **только** `colors` → inline color vars + merge в `useTheme().colors`.
 - Статический импорт **`tokens`** — снимок **светлой** палитры; **не** реагирует на `ThemeProvider`. Для цветов при смене темы — только **`useTheme().colors`** (или `themes[theme]` вне React).
 - Любой компонент с **видимым текстом** (собственным или наследуемым для `children`) обязан:

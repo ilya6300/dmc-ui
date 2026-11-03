@@ -1,8 +1,8 @@
 import { useEffect, useState, type CSSProperties, type MouseEvent, type ReactNode } from "react";
 import { createPortal } from "react-dom";
-import { SiteModalHeader } from "../../../lib/components/SiteModalHeader";
+import { SiteModalHeader } from "./site-modal-header";
 import { useTheme } from "../theme-context";
-import { mergeStyle } from "../tokens";
+import { mergeStyle } from "../theme-context/tokens";
 
 const CLOSE_BTN_BASE: CSSProperties = {
   display: "inline-flex",

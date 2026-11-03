@@ -10,11 +10,11 @@ import {
   parseScaleSizes,
   parseThemeBlock,
   parseThemesFromCss,
-} from "./parseStyleCss";
+} from "../parseStyleCss";
 
 const dir = dirname(fileURLToPath(import.meta.url));
-const styleCssPath = join(dir, "../../../style.css");
-const scaleCssPath = join(dir, "../../styles/ds/scale.css");
+const styleCssPath = join(dir, "../../../../style.css");
+const scaleCssPath = join(dir, "../../../styles/ds/scale.css");
 
 describe("parseStyleCss", () => {
   const css = readFileSync(styleCssPath, "utf8");

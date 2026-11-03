@@ -1,7 +1,7 @@
 import { useId, type CSSProperties, type ChangeEvent } from "react";
 import { useTheme } from "../theme-context";
-import { THEME_OPTIONS, type ThemeName } from "../themes";
-import { mergeStyle } from "../tokens";
+import { THEME_OPTIONS, type ThemeChoice } from "../theme-context/themes";
+import { mergeStyle } from "../theme-context/tokens";
 
 const SELECT_BASE: CSSProperties = {
   fontSize: 13,
@@ -16,13 +16,13 @@ const SELECT_BASE: CSSProperties = {
 };
 
 export type ThemeOption = {
-  value: ThemeName;
+  value: ThemeChoice;
   label: string;
 };
 
 export type ThemeSelectProps = {
-  theme?: ThemeName;
-  onThemeChange?: (theme: ThemeName) => void;
+  theme?: ThemeChoice;
+  onThemeChange?: (theme: ThemeChoice) => void;
   label?: string;
   options?: ThemeOption[];
   disabled?: boolean;
@@ -40,13 +40,13 @@ export function ThemeSelect({
   id: idProp,
 }: ThemeSelectProps) {
   const generatedId = useId();
-  const { theme: ctxTheme, setTheme, colors } = useTheme();
-  const theme = themeProp ?? ctxTheme;
+  const { preference, setTheme, colors } = useTheme();
+  const theme = themeProp ?? preference;
   const isControlled = themeProp !== undefined && onThemeChange !== undefined;
   const selectId = idProp ?? generatedId;
 
   const handleChange = (event: ChangeEvent<HTMLSelectElement>) => {
-    const next = event.target.value as ThemeName;
+    const next = event.target.value as ThemeChoice;
     if (isControlled) {
       onThemeChange(next);
       return;

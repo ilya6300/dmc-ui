@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { useState } from "react";
-import { Box, Main, ThemeProvider, ThemeSelect, type ThemeName } from "../index";
-import { importBlock, ROOT_NOTE } from "./docsFragments";
+import { Box, Main, ThemeProvider, ThemeSelect, type ThemeChoice } from "../../../index";
+import { importBlock, ROOT_NOTE } from "../../../stories/docsFragments";
 
 const meta = {
   title: "Design System/ThemeSelect",
@@ -11,7 +11,7 @@ const meta = {
     docs: {
       description: {
         component: `
-Выбор темы: светлая, тёмная и серая. Uncontrolled — через \`ThemeProvider\`; controlled: \`theme\` и \`onThemeChange\`.
+Выбор темы: системная, светлая, тёмная и серая. Uncontrolled — через \`ThemeProvider\`; controlled: \`theme\` и \`onThemeChange\`.
 
 ${ROOT_NOTE}
 
@@ -95,7 +95,7 @@ export const Minimal: Story = {
 };
 
 function ControlledDemo() {
-  const [theme, setTheme] = useState<ThemeName>("light");
+  const [theme, setTheme] = useState<ThemeChoice>("light");
   return (
     <ThemeProvider theme={theme} onThemeChange={setTheme}>
       <Main style={{ padding: 24 }}>

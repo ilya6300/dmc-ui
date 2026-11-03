@@ -8,8 +8,8 @@ export * from "./main";
 export * from "./progress";
 export * from "./radio-btn";
 export * from "./side-drawer";
-export { getFontScale, resolveSize, scalePx, SIZE_KEYS } from "./sizes";
-export type { SizeName } from "./sizes";
+export { getFontScale, resolveSize, scalePx, SIZE_KEYS } from "./theme-context/sizes";
+export type { SizeName } from "./theme-context/sizes";
 export * from "./spinner";
 export * from "./template";
 export * from "./text";
@@ -26,14 +26,15 @@ export {
   THEME_OPTIONS,
   themes,
   tokens
-} from "./tokens";
+} from "./theme-context/tokens";
 export type {
   ControlMetrics,
   RootMetrics,
   ScaleSizeKey,
   SizeScale,
   StyleArg,
+  ThemeChoice,
   ThemeColors,
   ThemeName
-} from "./tokens";
+} from "./theme-context/tokens";
 

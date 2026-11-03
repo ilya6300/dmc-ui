@@ -1,6 +1,6 @@
 import type { CSSProperties, ReactNode } from "react";
-import { useTheme } from "../../shared/ui/theme-context";
-import { mergeStyle } from "../../shared/ui/tokens";
+import { useTheme } from "../theme-context";
+import { mergeStyle } from "../theme-context/tokens";
 
 const HEADER_STYLE: CSSProperties = {
   display: "flex",

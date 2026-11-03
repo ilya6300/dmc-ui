@@ -1,7 +1,7 @@
 import { act } from "react";
 import { createRoot } from "react-dom/client";
 import { describe, expect, it, vi } from "vitest";
-import { ThemeProvider, useTheme, type ThemeContextValue } from "./theme-context";
+import { ThemeProvider, useTheme, type ThemeContextValue } from "../theme-context";
 
 function Probe({ onRead }: { onRead: (ctx: ThemeContextValue) => void }) {
   const ctx = useTheme();
@@ -102,5 +102,37 @@ describe("useTheme", () => {
     act(() => {
       root.unmount();
     });
+  });
+
+  it("resolves system preference to the OS color scheme", () => {
+    vi.stubGlobal("matchMedia", () => ({
+      matches: true,
+      media: "(prefers-color-scheme: dark)",
+      addEventListener: () => {},
+      removeEventListener: () => {},
+    }));
+
+    let snapshot: ThemeContextValue | undefined;
+    const container = document.createElement("div");
+    const root = createRoot(container);
+    act(() => {
+      root.render(
+        <ThemeProvider defaultTheme="system">
+          <Probe
+            onRead={(ctx) => {
+              snapshot = ctx;
+            }}
+          />
+        </ThemeProvider>,
+      );
+    });
+    const host = container.querySelector(".dmc-root") as HTMLElement;
+    expect(host.getAttribute("data-dmc-theme")).toBe("dark");
+    expect(snapshot?.preference).toBe("system");
+    expect(snapshot?.theme).toBe("dark");
+    act(() => {
+      root.unmount();
+    });
+    vi.unstubAllGlobals();
   });
 });

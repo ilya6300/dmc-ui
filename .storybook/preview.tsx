@@ -1,32 +1,38 @@
 import { useEffect, useState, type ReactNode } from "react";
 import type { Preview } from "@storybook/react-vite";
-import { ThemeProvider } from "../src/shared/ui/theme-context";
-import { getThemeColors, type ThemeName } from "../src/shared/ui/themes";
+import { ThemeProvider, useTheme } from "../src/shared/ui/theme-context";
+import type { ThemeChoice } from "../src/shared/ui/theme-context/themes";
 import "../src/styles/dmc-ui.css";
 
 type StoryThemeShellProps = {
-  theme?: ThemeName;
+  theme?: ThemeChoice;
   children?: ReactNode;
 };
 
+function StoryCanvas({ children }: { children?: ReactNode }) {
+  const { colors } = useTheme();
+  return (
+    <div
+      style={{
+        minHeight: "100vh",
+        boxSizing: "border-box",
+        background: colors.background,
+        color: colors.textPrimary,
+      }}
+    >
+      {children}
+    </div>
+  );
+}
+
 function StoryThemeShell({ theme: globalTheme, children }: StoryThemeShellProps) {
-  const [theme, setTheme] = useState<ThemeName>(globalTheme ?? "light");
+  const [theme, setTheme] = useState<ThemeChoice>(globalTheme ?? "light");
   useEffect(() => {
     setTheme(globalTheme ?? "light");
   }, [globalTheme]);
-  const colors = getThemeColors(theme);
   return (
     <ThemeProvider theme={theme} onThemeChange={setTheme}>
-      <div
-        style={{
-          minHeight: "100vh",
-          boxSizing: "border-box",
-          background: colors.background,
-          color: colors.textPrimary,
-        }}
-      >
-        {children}
-      </div>
+      <StoryCanvas>{children}</StoryCanvas>
     </ThemeProvider>
   );
 }
@@ -35,11 +41,12 @@ const preview: Preview = {
   globalTypes: {
     theme: {
       name: "Theme",
-      description: "Светлая / тёмная / серая тема",
+      description: "Светлая / тёмная / серая / системная тема",
       defaultValue: "light",
       toolbar: {
         icon: "circlehollow",
         items: [
+          { value: "system", title: "System" },
           { value: "light", title: "Light" },
           { value: "dark", title: "Dark" },
           { value: "gray", title: "Gray" },
@@ -50,7 +57,7 @@ const preview: Preview = {
   },
   decorators: [
     (Story, context) => (
-      <StoryThemeShell theme={context.globals.theme as ThemeName | undefined}>
+      <StoryThemeShell theme={context.globals.theme as ThemeChoice | undefined}>
         <Story />
       </StoryThemeShell>
     ),

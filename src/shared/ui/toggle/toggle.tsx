@@ -1,7 +1,7 @@
 import type { CSSProperties, MouseEvent, ReactNode } from "react";
 import { cls } from "../../lib";
-import { resolveSize, type SizeName } from "../sizes";
-import { mergeStyle } from "../tokens";
+import { resolveSize, type SizeName } from "../theme-context/sizes";
+import { mergeStyle } from "../theme-context/tokens";
 
 export type ToggleProps = {
   active?: boolean;

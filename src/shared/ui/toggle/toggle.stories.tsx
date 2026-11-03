@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { useArgs } from "storybook/preview-api";
-import { Main, Toggle, type ToggleProps } from "../index";
-import { importBlock, ROOT_NOTE } from "./docsFragments";
+import { Main, Toggle, type ToggleProps } from "../../../index";
+import { importBlock, ROOT_NOTE } from "../../../stories/docsFragments";
 
 function ToggleStory(args: ToggleProps) {
   const [, updateArgs] = useArgs<ToggleProps>();

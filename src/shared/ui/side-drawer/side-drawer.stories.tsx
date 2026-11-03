@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { useId, useState, type CSSProperties } from "react";
-import { Main, SideDrawer, SideDrawerCloseButton, tokens } from "../index";
-import { importBlock, ROOT_NOTE } from "./docsFragments";
+import { Main, SideDrawer, SideDrawerCloseButton, tokens } from "../../../index";
+import { importBlock, ROOT_NOTE } from "../../../stories/docsFragments";
 
 const bodyStyle: CSSProperties = { flex: 1, minHeight: 0 };
 const muted: CSSProperties = { color: tokens.textMuted, fontSize: 14, margin: 0 };

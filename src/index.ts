@@ -1,3 +1,3 @@
 export * from "./shared/ui";
-export { SiteModalHeader } from "./lib/components/SiteModalHeader";
-export type { SiteModalHeaderProps } from "./lib/components/SiteModalHeader";
+export { SiteModalHeader } from "./shared/ui/side-drawer/site-modal-header";
+export type { SiteModalHeaderProps } from "./shared/ui/side-drawer/site-modal-header";

@@ -1,5 +1,5 @@
 import { useEffect, useState, type CSSProperties, type HTMLAttributes, type ReactNode } from "react";
-import { mergeStyle } from "../tokens";
+import { mergeStyle } from "../theme-context/tokens";
 
 const LAYOUT_STYLE: CSSProperties = {
   display: "flex",

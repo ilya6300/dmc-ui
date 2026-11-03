@@ -7,7 +7,7 @@ import {
   type ReactElement,
   type ReactNode,
 } from "react";
-import { templateStore, useTemplateSlot, useTemplateVersion } from "../../contexts/template";
+import { templateStore, useTemplateSlot, useTemplateVersion } from "../../context/template";
 
 type TemplateProps = {
   slot?: string;

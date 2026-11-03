@@ -1,8 +1,8 @@
 import type { CSSProperties, ElementType } from "react";
 import { cls } from "../../lib";
-import { resolveSize, type SizeName } from "../sizes";
+import { resolveSize, type SizeName } from "../theme-context/sizes";
 import { useTheme } from "../theme-context";
-import { mergeStyle } from "../tokens";
+import { mergeStyle } from "../theme-context/tokens";
 
 type IconComponentSource = {
   component?: ElementType;

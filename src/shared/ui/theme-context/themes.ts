@@ -6,6 +6,7 @@ import { parseThemesFromCss } from "./parseStyleCss";
 const CARD_SHADOW_OFFSET_Y = 4;
 
 export type ThemeName = "light" | "dark" | "gray";
+export type ThemeChoice = ThemeName | "system";
 
 type SemanticColors = {
   background: string;
@@ -82,7 +83,8 @@ export const themes = buildThemes();
 export const MAST_BLUE = themes.light?.primary ?? "#2196f3";
 export const LIGHT_GREY = themes.light?.border ?? "#e2e8f0";
 
-export const THEME_OPTIONS: { value: ThemeName; label: string }[] = [
+export const THEME_OPTIONS: { value: ThemeChoice; label: string }[] = [
+  { value: "system", label: "Системная" },
   { value: "light", label: "Светлая" },
   { value: "dark", label: "Тёмная" },
   { value: "gray", label: "Серая" },

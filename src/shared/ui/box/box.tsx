@@ -1,6 +1,6 @@
 import type { CSSProperties, ElementType, HTMLAttributes, ReactNode } from "react";
 import { Unstyled } from "../../internal";
-import { mergeStyle } from "../tokens";
+import { mergeStyle } from "../theme-context/tokens";
 
 export type BoxProps = Omit<HTMLAttributes<HTMLDivElement>, "title"> & {
   children?: ReactNode;

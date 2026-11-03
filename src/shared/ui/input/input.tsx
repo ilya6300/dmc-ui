@@ -10,8 +10,8 @@ import {
 } from "react";
 import { Sections, Unstyled } from "../../internal";
 import { cls } from "../../lib";
-import { resolveSize, type SizeName } from "../sizes";
-import { mergeStyle } from "../tokens";
+import { resolveSize, type SizeName } from "../theme-context/sizes";
+import { mergeStyle } from "../theme-context/tokens";
 import "./input.css";
 
 /** Семантика пропа `type` → нативный `input.type`. */

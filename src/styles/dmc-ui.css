@@ -1,8 +1,8 @@
 @import "../../style.css";
 @import "./ds/theme.css";
 @import "./ds/scale.css";
-@import "./ds/toggle.css";
-@import "./ds/radio-btn.css";
+@import "../shared/ui/toggle/toggle.css";
+@import "../shared/ui/radio-btn/radio-btn.css";
 @import "../shared/ui/icon/icon.css";
 @import "../shared/ui/text/text.css";
 @import "./tokens.css";

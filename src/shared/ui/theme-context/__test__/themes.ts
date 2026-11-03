@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { getCardShadow, getThemeColors, themes } from "./themes";
+import { getCardShadow, getThemeColors, themes } from "../themes";
 
 describe("getThemeColors", () => {
   it("returns light palette by default", () => {

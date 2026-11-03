@@ -2,6 +2,7 @@ import {
   createContext,
   useCallback,
   useContext,
+  useEffect,
   useMemo,
   useRef,
   useState,
@@ -13,14 +14,31 @@ import {
   type ControlMetrics,
   type ScaleSizeKey,
   type SizeScale,
-} from "../metrics";
-import { getThemeColors, type ThemeColors, type ThemeName } from "../themes";
-import { buildRootCssVars } from "../themeCssVars";
+} from "./metrics";
+import { getThemeColors, type ThemeChoice, type ThemeColors, type ThemeName } from "./themes";
+import { buildRootCssVars } from "./themeCssVars";
 
-type ThemeUpdate = ThemeName | ((current: ThemeName) => ThemeName);
+type ThemeUpdate = ThemeChoice | ((current: ThemeChoice) => ThemeChoice);
+
+const COLOR_SCHEME_QUERY = "(prefers-color-scheme: dark)";
+
+function readSystemTheme(): "light" | "dark" {
+  if (typeof window === "undefined" || typeof window.matchMedia !== "function") {
+    return "light";
+  }
+  return window.matchMedia(COLOR_SCHEME_QUERY).matches ? "dark" : "light";
+}
+
+function resolveTheme(choice: ThemeChoice, systemTheme: "light" | "dark"): ThemeName {
+  if (choice === "system") return systemTheme;
+  return choice;
+}
 
 export type ThemeContextValue = {
+  /** Разрешённая палитра: light, dark или gray. */
   theme: ThemeName;
+  /** Выбранный пункт, включая system. */
+  preference: ThemeChoice;
   setTheme: (next: ThemeUpdate) => void;
   colors: ThemeColors;
   /** Read-only из CSS (`--dmc-spacing` по data-dmc-size). */
@@ -61,6 +79,7 @@ function useStableColorOverride(colors: Partial<ThemeColors> | undefined) {
 
 const ThemeContext = createContext<ThemeContextValue>({
   theme: "light",
+  preference: "light",
   setTheme: defaultSetTheme,
   colors: defaultColors,
   spacing: rootMetrics.spacing,
@@ -73,9 +92,9 @@ const ThemeContext = createContext<ThemeContextValue>({
 
 export type ThemeProviderProps = {
   children?: ReactNode;
-  theme?: ThemeName;
-  onThemeChange?: (theme: ThemeName) => void;
-  defaultTheme?: ThemeName;
+  theme?: ThemeChoice;
+  onThemeChange?: (theme: ThemeChoice) => void;
+  defaultTheme?: ThemeChoice;
   /** Переопределение цветов темы (CSS vars на корне + useTheme().colors). */
   colors?: Partial<ThemeColors>;
 };
@@ -88,25 +107,39 @@ export function ThemeProvider({
   colors: colorsOverride,
 }: ThemeProviderProps) {
   const stableColors = useStableColorOverride(colorsOverride);
-  const [internalTheme, setInternalTheme] = useState<ThemeName>(defaultTheme);
+  const [internalPreference, setInternalPreference] = useState<ThemeChoice>(defaultTheme);
+  const [systemTheme, setSystemTheme] = useState<"light" | "dark">(readSystemTheme);
   const isControlled = themeProp !== undefined;
-  const theme = isControlled ? themeProp : internalTheme;
+  const preference = isControlled ? themeProp : internalPreference;
+  const theme = resolveTheme(preference, systemTheme);
+
+  useEffect(() => {
+    if (preference !== "system" || typeof window.matchMedia !== "function") {
+      return;
+    }
+    const query = window.matchMedia(COLOR_SCHEME_QUERY);
+    const apply = () => setSystemTheme(query.matches ? "dark" : "light");
+    apply();
+    query.addEventListener("change", apply);
+    return () => query.removeEventListener("change", apply);
+  }, [preference]);
 
   const setTheme = useCallback(
     (next: ThemeUpdate) => {
-      const value = typeof next === "function" ? next(theme) : next;
+      const value = typeof next === "function" ? next(preference) : next;
       if (!isControlled) {
-        setInternalTheme(value);
+        setInternalPreference(value);
       }
       onThemeChange?.(value);
     },
-    [isControlled, onThemeChange, theme],
+    [isControlled, onThemeChange, preference],
   );
 
   const value = useMemo<ThemeContextValue>(() => {
     const baseColors = getThemeColors(theme);
     return {
       theme,
+      preference,
       setTheme,
       colors: stableColors ? { ...baseColors, ...stableColors } : baseColors,
       spacing: rootMetrics.spacing,
@@ -116,7 +149,7 @@ export function ThemeProvider({
       fontSize: rootMetrics.fontSize,
       sizes: controlSizes,
     };
-  }, [theme, setTheme, stableColors]);
+  }, [theme, preference, setTheme, stableColors]);
 
   const rootStyle = useMemo(() => buildRootCssVars(stableColors), [stableColors]);
 
