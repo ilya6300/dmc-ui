@@ -1,5 +1,5 @@
-import { useEffect, useState, type ReactNode } from "react";
 import type { Preview } from "@storybook/react-vite";
+import { useEffect, useState, type ReactNode } from "react";
 import { ThemeProvider, useTheme } from "../src/shared/ui/theme-context";
 import type { ThemeChoice } from "../src/shared/ui/theme-context/themes";
 import "../src/styles/dmc-ui.css";
@@ -76,6 +76,16 @@ const preview: Preview = {
     },
     docs: {
       toc: true,
+      /** Панель Code внизу на странице story (`?path=/story/...`). */
+      codePanel: true,
+      source: {
+        type: "code",
+        excludeDecorators: true,
+      },
+      canvas: {
+        /** Блок исходника под превью на странице Docs. */
+        sourceState: "shown",
+      },
     },
     a11y: {
       test: "todo",

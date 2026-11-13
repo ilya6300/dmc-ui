@@ -1,0 +1,103 @@
+.dmc-markup-table {
+  color: var(--dmc-color-text-primary);
+  font-size: var(--dmc-font-size);
+}
+
+.dmc-markup-table__table {
+  width: 100%;
+  border-collapse: collapse;
+  background: var(--dmc-color-surface);
+  color: inherit;
+  font-size: inherit;
+}
+
+.dmc-markup-table[data-layout="fixed"] .dmc-markup-table__table {
+  table-layout: fixed;
+}
+
+.dmc-markup-table[data-layout="auto"] .dmc-markup-table__table {
+  table-layout: auto;
+}
+
+.dmc-markup-table__th,
+.dmc-markup-table__td {
+  padding: var(--dmc-padding);
+  text-align: left;
+  vertical-align: middle;
+  background: transparent;
+}
+
+.dmc-markup-table--dense .dmc-markup-table__th,
+.dmc-markup-table--dense .dmc-markup-table__td {
+  padding: calc(var(--dmc-padding) / 2) calc(var(--dmc-padding) / 2);
+}
+
+.dmc-markup-table--dense .dmc-markup-table__tr > :first-child {
+  padding-left: var(--dmc-padding);
+}
+
+.dmc-markup-table--dense .dmc-markup-table__tr > :last-child {
+  padding-right: var(--dmc-padding);
+}
+
+.dmc-markup-table__th {
+  font-weight: 600;
+  background: color-mix(in srgb, var(--dmc-color-primary) 8%, var(--dmc-color-surface));
+}
+
+.dmc-markup-table__caption {
+  caption-side: bottom;
+  padding: var(--dmc-padding) 0 0;
+  text-align: left;
+  color: var(--dmc-color-text-secondary);
+}
+
+.dmc-markup-table__cell-title {
+  display: none;
+  color: var(--dmc-color-text-secondary);
+  font-size: 0.85em;
+}
+
+.dmc-markup-table--show-title .dmc-markup-table__cell-title {
+  display: block;
+}
+
+.dmc-markup-table--row-border .dmc-markup-table__th,
+.dmc-markup-table--row-border .dmc-markup-table__td {
+  border-bottom: 1px solid var(--dmc-color-border);
+}
+
+.dmc-markup-table--col-border .dmc-markup-table__th:not(:last-child),
+.dmc-markup-table--col-border .dmc-markup-table__td:not(:last-child) {
+  border-right: 1px solid var(--dmc-color-border);
+}
+
+.dmc-markup-table--border .dmc-markup-table__table {
+  border: 1px solid var(--dmc-color-border);
+}
+
+.dmc-markup-table--striped .dmc-markup-table__tbody .dmc-markup-table__tr:nth-child(even) {
+  background: color-mix(in srgb, var(--dmc-color-text-primary) 4%, transparent);
+}
+
+.dmc-markup-table--hover .dmc-markup-table__tbody .dmc-markup-table__tr:hover {
+  background: var(--dmc-color-focus-bg);
+}
+
+.dmc-markup-table__tr[data-selected="true"] {
+  background: color-mix(in srgb, var(--dmc-color-primary) 12%, transparent);
+}
+
+.dmc-markup-table[data-sticky] .dmc-markup-table__thead .dmc-markup-table__th {
+  position: sticky;
+  top: var(--dmc-markup-sticky-top, 0);
+  z-index: 1;
+}
+
+.dmc-markup-table__align-center {
+  text-align: center;
+}
+
+.dmc-markup-table__align-end {
+  text-align: right;
+}
