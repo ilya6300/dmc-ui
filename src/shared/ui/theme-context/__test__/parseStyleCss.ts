@@ -3,13 +3,13 @@ import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { describe, expect, it } from "vitest";
 import {
-  extractRootBlock,
-  extractThemeBlock,
-  listThemeIds,
-  parseRootMetrics,
-  parseScaleSizes,
-  parseThemeBlock,
-  parseThemesFromCss,
+    extractRootBlock,
+    extractThemeBlock,
+    listThemeIds,
+    parseRootMetrics,
+    parseScaleSizes,
+    parseThemeBlock,
+    parseThemesFromCss,
 } from "../parseStyleCss";
 
 const dir = dirname(fileURLToPath(import.meta.url));
