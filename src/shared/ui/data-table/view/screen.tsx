@@ -1,4 +1,4 @@
-import { Fragment, type DragEvent as ReactDragEvent, type ReactNode } from "react";
+import { Fragment, useMemo, type DragEvent as ReactDragEvent, type MouseEvent as ReactMouseEvent, type ReactNode } from "react";
 import { Button } from "../../button";
 import { Box } from "../../box";
 import { MarkupTable, type MarkupTableProps } from "../../markup-table";
@@ -13,6 +13,7 @@ import type {
   DataTableNode,
   DataTableRowAction,
   DataTableRowActionsPanelProps,
+  DataTableRowEvents,
   DataTableSortRule,
 } from "../types";
 import { FilterPanel } from "./filter-panel";
@@ -31,9 +32,17 @@ export type DataTableViewModel<T extends object> = {
   rowActionsPanel?: (props: DataTableRowActionsPanelProps<T>) => ReactNode;
   rowActionsAt: "start" | "end";
   rowActionsOnHover: boolean;
+  hasActionsColumn: boolean;
+  showHoverSlot: boolean;
+  hoverSlotStart: boolean;
+  hoverSlotEnd: boolean;
+  actionLeavesStart: DataTableLeaf<T>[];
+  actionLeavesEnd: DataTableLeaf<T>[];
+  dataSegments: import("../types").DataTableSegment<T>[];
   bulkActions?: DataTableBulkAction<T>[];
   breakpoint?: string;
-  layout?: (props: { nodes: DataTableNode<T>[]; columns: DataTableLeaf<T>[] }) => ReactNode;
+  layout?: (props: { nodes: DataTableNode<T>[]; columns: DataTableLeaf<T>[]; onRow?: DataTableRowEvents<T> }) => ReactNode;
+  onRow?: DataTableRowEvents<T>;
   maxBodyHeight?: number;
   limits: number[];
   groupLayout: DataTableGroupLayout;
@@ -92,7 +101,6 @@ export type DataTableViewModel<T extends object> = {
   setLimitState: (value: number) => void;
   setScrollTop: (value: number) => void;
   compact: boolean;
-  showActions: boolean;
   expanded: string[];
   markup?: Pick<
     MarkupTableProps,
@@ -130,9 +138,16 @@ export function DataTableView<T extends object>(model: DataTableViewModel<T>) {
     rowActionsPanel,
     rowActionsAt,
     rowActionsOnHover,
+    showHoverSlot,
+    hoverSlotStart,
+    hoverSlotEnd,
+    actionLeavesStart,
+    actionLeavesEnd,
+    dataSegments,
     bulkActions,
     breakpoint,
     layout,
+    onRow,
     maxBodyHeight,
     limits,
     groupLayout,
@@ -191,13 +206,21 @@ export function DataTableView<T extends object>(model: DataTableViewModel<T>) {
     setLimitState,
     setScrollTop,
     compact,
-    showActions,
     expanded,
     markup,
   } = model;
 
   const pageIndexes = leafNodes(pageNodes).map((node) => node.index);
   const allPageSelected = pageIndexes.length > 0 && pageIndexes.every((index) => selected.includes(index));
+  const resizeFields = useMemo(
+    () => ordered.filter((leaf) => !leaf.source.actions).map((leaf) => leaf.field),
+    [ordered],
+  );
+  const canPairResizeColumn = (field: string, resizable?: boolean) => {
+    if (!resizable) return false;
+    const index = resizeFields.indexOf(field);
+    return index >= 0 && index < resizeFields.length - 1;
+  };
 
   const toggleRow = (index: number | string) => {
     setSelected(selected.includes(index) ? selected.filter((item) => item !== index) : [...selected, index]);
@@ -247,20 +270,83 @@ export function DataTableView<T extends object>(model: DataTableViewModel<T>) {
 
   const visibleActions = (node: DataTableNode<T>) => (rowActions ?? []).filter((action) => !isActive(action.hidden, node));
 
+  const hasRowEditors = ordered.some((leaf) => leaf.source.editor);
+
+  const canRowEditFromAction = (node: DataTableNode<T>) =>
+    editMode === "row" && hasRowEditors && !node.isParent;
+
+  const beginEditFromAction = (node: DataTableNode<T>) => {
+    if (!canRowEditFromAction(node)) return;
+    if (edit?.index === node.index) return;
+    startEdit(node.data, node.index);
+  };
+
+  const isRowActionDisabled = (action: DataTableRowAction<T>, node: DataTableNode<T>) =>
+    isActive(action.disabled, node) || Boolean(action.edit && !canRowEditFromAction(node));
+
+  const handleRowActionClick = (action: DataTableRowAction<T>, node: DataTableNode<T>, event?: { stopPropagation: () => void }) => {
+    event?.stopPropagation();
+    if (action.edit) {
+      beginEditFromAction(node);
+      return;
+    }
+    action.onClick?.(node.data, node);
+  };
+
+  const isEditingRow = (node: DataTableNode<T>) => edit?.index === node.index && editMode === "row";
+
   const renderActions = (node: DataTableNode<T>, menu: boolean) => {
     const actions = visibleActions(node);
-    if (rowActionsPanel) return rowActionsPanel({ node, actions });
-    const buttons = actions.map((action) => (
+    const editingRow = isEditingRow(node);
+    const hasEditAction = actions.some((action) => action.edit);
+
+    if (rowActionsPanel) {
+      return rowActionsPanel({
+        node,
+        actions,
+        beginEdit: beginEditFromAction,
+        editingRow,
+        saveEdit: editingRow ? saveEdit : undefined,
+      });
+    }
+
+    const saveButton = (
       <Button
-        key={action.id}
+        key="__save__"
         type="button"
         variant="text"
-        disabled={isActive(action.disabled, node)}
-        onClick={() => action.onClick(node.data, node)}
+        onClick={(event) => {
+          event.stopPropagation();
+          saveEdit();
+        }}
       >
-        {action.label}
+        Сохранить
       </Button>
-    ));
+    );
+
+    const buttons =
+      editingRow && actions.length === 0
+        ? [saveButton]
+        : actions.map((action) => {
+            if (editingRow && action.edit) {
+              return saveButton;
+            }
+            return (
+              <Button
+                key={action.id}
+                type="button"
+                variant="text"
+                disabled={isRowActionDisabled(action, node)}
+                onClick={(event) => handleRowActionClick(action, node, event)}
+              >
+                {action.label}
+              </Button>
+            );
+          });
+
+    if (editingRow && !hasEditAction && actions.length > 0) {
+      buttons.push(saveButton);
+    }
     if (!menu) return buttons;
     const open = menuKey === node.expandKey;
     return (
@@ -280,8 +366,45 @@ export function DataTableView<T extends object>(model: DataTableViewModel<T>) {
   const leadingExtras =
     (groupLayout === "unified" && keys.length > 0 ? 1 : 0) +
     (selectable === "start" ? 1 : 0) +
-    (showActions && rowActionsAt === "start" ? 1 : 0);
-  const trailingExtras = (showActions && rowActionsAt === "end" ? 1 : 0) + (selectable === "end" ? 1 : 0);
+    actionLeavesStart.length +
+    (hoverSlotStart ? 1 : 0);
+  const trailingExtras = (hoverSlotEnd ? 1 : 0) + actionLeavesEnd.length + (selectable === "end" ? 1 : 0);
+
+  const actionAlign = (leaf: DataTableLeaf<T>) => ((leaf.source.actionsAt ?? rowActionsAt) === "start" ? "flex-start" : "flex-end");
+
+  const rowDomHandlers = (node: DataTableNode<T>) => ({
+    onClick: onRow?.onClick ? (event: ReactMouseEvent<HTMLTableRowElement>) => onRow.onClick!(event, node.data, node) : undefined,
+    onDoubleClick: (event: ReactMouseEvent<HTMLTableRowElement>) => {
+      if (editMode === "row") startEdit(node.data, node.index);
+      onRow?.onDoubleClick?.(event, node.data, node);
+    },
+    onMouseEnter: onRow?.onMouseEnter
+      ? (event: ReactMouseEvent<HTMLTableRowElement>) => onRow.onMouseEnter!(event, node.data, node)
+      : undefined,
+    onMouseLeave: onRow?.onMouseLeave
+      ? (event: ReactMouseEvent<HTMLTableRowElement>) => onRow.onMouseLeave!(event, node.data, node)
+      : undefined,
+    onContextMenu: onRow?.onContextMenu
+      ? (event: ReactMouseEvent<HTMLTableRowElement>) => onRow.onContextMenu!(event, node.data, node)
+      : undefined,
+  });
+
+  const cardDomHandlers = (node: DataTableNode<T>) => ({
+    onClick: onRow?.onClick ? (event: ReactMouseEvent<HTMLDivElement>) => onRow.onClick!(event, node.data, node) : undefined,
+    onDoubleClick: (event: ReactMouseEvent<HTMLDivElement>) => {
+      if (editMode === "row") startEdit(node.data, node.index);
+      onRow?.onDoubleClick?.(event, node.data, node);
+    },
+    onMouseEnter: onRow?.onMouseEnter
+      ? (event: ReactMouseEvent<HTMLDivElement>) => onRow.onMouseEnter!(event, node.data, node)
+      : undefined,
+    onMouseLeave: onRow?.onMouseLeave
+      ? (event: ReactMouseEvent<HTMLDivElement>) => onRow.onMouseLeave!(event, node.data, node)
+      : undefined,
+    onContextMenu: onRow?.onContextMenu
+      ? (event: ReactMouseEvent<HTMLDivElement>) => onRow.onContextMenu!(event, node.data, node)
+      : undefined,
+  });
 
   const renderLeafCell = (
     node: DataTableNode<T>,
@@ -297,19 +420,15 @@ export function DataTableView<T extends object>(model: DataTableViewModel<T>) {
         className={cls(
           leaf.source.align ? `dmc-data-table__align-${leaf.source.align}` : undefined,
           leaf.source.ellipsis ? "dmc-data-table__ellipsis" : undefined,
-          leaf.source.actions && rowActionsOnHover && !leaf.source.actionsMenu ? "dmc-data-table__actions" : undefined,
           indentPx > 0 ? "dmc-data-table__grouped-indent" : undefined,
         )}
         style={indentPx > 0 ? { paddingLeft: `${indentPx}px` } : undefined}
-        onClick={() => {
-          if (editMode === "cell" && leaf.source.editor) startEdit(node.data, node.index, leaf.field);
-        }}
         onDoubleClick={() => {
-          if (editMode === "row") startEdit(node.data, node.index);
+          if (editMode === "cell" && leaf.source.editor) startEdit(node.data, node.index, leaf.field);
         }}
       >
         {leaf.source.actions ? (
-          <span style={{ display: "flex", justifyContent: leaf.source.actionsAt === "start" ? "flex-start" : "flex-end" }}>
+          <span style={{ display: "flex", justifyContent: actionAlign(leaf) }}>
             {renderActions(node, Boolean(leaf.source.actionsMenu))}
           </span>
         ) : groupControl?.field === leaf.field ? (
@@ -370,49 +489,25 @@ export function DataTableView<T extends object>(model: DataTableViewModel<T>) {
     const arrayLeaves = nestLeaves.filter(
       (leaf) => leaf.source.group && !leaf.source.grouped && openArrays.includes(`${node.index}:${leaf.field}`),
     );
-    const leafCell = (leaf: DataTableLeaf<T>) => {
-      const index = nestLeaves.findIndex((item) => item.field === leaf.field);
-      return renderLeafCell(node, leaf, groupControl, inlineLayout, Math.max(0, index));
-    };
     return (
       <Fragment key={node.expandKey}>
-        <MarkupTable.Tr className={selected.includes(node.index) ? "dmc-data-table__row--selected" : undefined} data-selected={selected.includes(node.index) ? "true" : undefined}>
+        <MarkupTable.Tr
+          className={cls(
+            selected.includes(node.index) ? "dmc-data-table__row--selected" : undefined,
+            !inNested && (hoverSlotStart || hoverSlotEnd) ? "dmc-data-table__row--actions-hover" : undefined,
+          )}
+          data-selected={selected.includes(node.index) ? "true" : undefined}
+          {...rowDomHandlers(node)}
+        >
           {!inNested && groupLayout === "unified" && keys.length > 0 ? <MarkupTable.Td /> : null}
           {!inNested && selectable === "start" ? selectionCell(node.index) : null}
-          {!inNested && showActions && rowActionsAt === "start" ? actionsCell(node) : null}
-          {(nestLeaves === ordered
-            ? segments.flatMap((segment) =>
-                segment.kind === "split" ? (
-                  <MarkupTable.Td
-                    key={segment.id}
-                    colSpan={segmentSpan(segment)}
-                    className={cls(segment.source.align ? `dmc-data-table__align-${segment.source.align}` : undefined, segment.source.ellipsis ? "dmc-data-table__ellipsis" : undefined)}
-                    onClick={() => {
-                      if (editMode === "cell" && segment.source.editor) startEdit(row, node.index, segment.leaves[0].field);
-                    }}
-                    onDoubleClick={() => {
-                      if (editMode === "row") startEdit(row, node.index);
-                    }}
-                  >
-                    {renderValue(row, segment.leaves[0], node.index)}
-                  </MarkupTable.Td>
-                ) : (
-                  segment.leaves.map((leaf) => leafCell(leaf))
-                ),
-              )
-            : nestLeaves.map((leaf) => leafCell(leaf)))}
-          {!inNested && showActions && rowActionsAt === "end" ? actionsCell(node) : null}
+          {!inNested && nestLeaves === ordered ? actionLeavesStart.map((leaf) => renderLeafCell(node, leaf, groupControl, inlineLayout, 0)) : null}
+          {!inNested && hoverSlotStart ? hoverSlotCell(node, "start") : null}
+          {renderDataBodyCells(node, row, nestLeaves, groupControl, inlineLayout)}
+          {!inNested && hoverSlotEnd ? hoverSlotCell(node, "end") : null}
+          {!inNested && nestLeaves === ordered ? actionLeavesEnd.map((leaf) => renderLeafCell(node, leaf, groupControl, inlineLayout, 0)) : null}
           {!inNested && selectable === "end" ? selectionCell(node.index) : null}
         </MarkupTable.Tr>
-        {edit?.index === node.index && editMode === "row" ? (
-          <MarkupTable.Tr key={`${node.expandKey}-save`}>
-            <MarkupTable.Td colSpan={Math.max(nestLeaves.length + (inNested ? 0 : leadingExtras + trailingExtras), 1)}>
-              <Button type="button" onClick={saveEdit}>
-                Сохранить
-              </Button>
-            </MarkupTable.Td>
-          </MarkupTable.Tr>
-        ) : null}
         {arrayLeaves.map((leaf) => {
           const raw = (row as Record<string, unknown>)[leaf.field];
           const items = Array.isArray(raw) ? raw : [];
@@ -446,9 +541,52 @@ export function DataTableView<T extends object>(model: DataTableViewModel<T>) {
     );
   };
 
-  const actionsCell = (node: DataTableNode<T>) => (
-    <MarkupTable.Td className={rowActionsOnHover ? "dmc-data-table__actions" : undefined}>{renderActions(node, false)}</MarkupTable.Td>
-  );
+  const hoverSlotCell = (node: DataTableNode<T>, position: "start" | "end") => {
+    const showChrome = visibleActions(node).length > 0 || isEditingRow(node);
+    return (
+      <MarkupTable.Td key={`hover-${position}`} className="dmc-data-table__hover-slot">
+        {showChrome ? (
+          <div className="dmc-data-table__hover-overlay" data-position={position}>
+            {renderActions(node, false)}
+          </div>
+        ) : null}
+      </MarkupTable.Td>
+    );
+  };
+
+  const renderDataBodyCells = (
+    node: DataTableNode<T>,
+    row: T,
+    nestLeaves: DataTableLeaf<T>[],
+    groupControl?: { field: string; open: boolean },
+    inlineLayout?: GroupedInlineLayout,
+  ) => {
+    const leafCell = (leaf: DataTableLeaf<T>) => {
+      const index = nestLeaves.findIndex((item) => item.field === leaf.field);
+      return renderLeafCell(node, leaf, groupControl, inlineLayout, Math.max(0, index));
+    };
+    if (nestLeaves !== ordered) {
+      return nestLeaves.map((leaf) => leafCell(leaf));
+    }
+  const renderSegmentCells = (sourceSegments: typeof segments) =>
+      sourceSegments.flatMap((segment) =>
+        segment.kind === "split" ? (
+          <MarkupTable.Td
+            key={segment.id}
+            colSpan={segmentSpan(segment)}
+            className={cls(segment.source.align ? `dmc-data-table__align-${segment.source.align}` : undefined, segment.source.ellipsis ? "dmc-data-table__ellipsis" : undefined)}
+            onDoubleClick={() => {
+              if (editMode === "cell" && segment.source.editor) startEdit(row, node.index, segment.leaves[0].field);
+            }}
+          >
+            {renderValue(row, segment.leaves[0], node.index)}
+          </MarkupTable.Td>
+        ) : (
+          segment.leaves.map((leaf) => leafCell(leaf))
+        ),
+      );
+    return renderSegmentCells(dataSegments);
+  };
 
   const renderGrouped = (
     list: DataTableNode<T>[],
@@ -511,15 +649,20 @@ export function DataTableView<T extends object>(model: DataTableViewModel<T>) {
       return [parentRow, ...renderGrouped(node.nodes, nestLeaves, inNested, indentLevel + 1)];
     });
 
-  const hasSecondHeader = segments.some((segment) => segment.kind !== "leaf");
+  const hasSecondHeader = dataSegments.some((segment) => segment.kind !== "leaf");
+  const actionLeafHead = (leaf: DataTableLeaf<T>) => (
+    <MarkupTable.Th key={leaf.field} className="dmc-data-table__th" style={{ width: widths[leaf.field] ?? leaf.source.width }}>
+      {leafHead(leaf)}
+    </MarkupTable.Th>
+  );
   const sortMark = (field: string) => {
     const rule = rules.find((item) => item.key === field);
     if (!rule) return "⇅";
     return rule.descending ? "▼" : "▲";
   };
   const sortActive = (field: string) => rules.some((item) => item.key === field);
-  const sortBy = (field: string, shift: boolean) => {
-    commitRules(nextSortRules(rules, field, shift && multiSort));
+  const sortBy = (field: string) => {
+    commitRules(nextSortRules(rules, field, multiSort));
     setPage(1);
   };
   const dragHandle = (label: string, onDragStart: (event: ReactDragEvent<HTMLSpanElement>) => void) => (
@@ -556,7 +699,7 @@ export function DataTableView<T extends object>(model: DataTableViewModel<T>) {
                   type="button"
                   className={cls("dmc-data-table__sort", sortActive(leaf.field) ? "dmc-data-table__sort--on" : undefined)}
                   aria-label={`Сортировать ${title}`}
-                  onClick={(event) => sortBy(leaf.field, event.shiftKey)}
+                  onClick={() => sortBy(leaf.field)}
                 >
                   {sortMark(leaf.field)}
                 </button>
@@ -582,13 +725,22 @@ export function DataTableView<T extends object>(model: DataTableViewModel<T>) {
             </span>
           ) : null}
         </div>
-        {leaf.source.resizable ? (
+        {canPairResizeColumn(leaf.field, leaf.source.resizable) ? (
           <span
             className="dmc-data-table__resizer"
             role="separator"
             aria-orientation="vertical"
             aria-label={`Ширина ${title}`}
-            onPointerDown={(event) => startResize(leaf.field, event)}
+            onPointerDown={(event) => {
+              const handle = event.currentTarget;
+              handle.classList.add("dmc-data-table__resizer--active");
+              const clearActive = () => {
+                handle.classList.remove("dmc-data-table__resizer--active");
+              };
+              window.addEventListener("pointerup", clearActive, { once: true });
+              window.addEventListener("pointercancel", clearActive, { once: true });
+              startResize(leaf.field, event);
+            }}
           />
         ) : null}
         {openFilter === leaf.field ? (
@@ -610,7 +762,7 @@ export function DataTableView<T extends object>(model: DataTableViewModel<T>) {
       </>
     );
   };
-  const headerTop = segments.map((segment) => {
+  const headerTop = dataSegments.map((segment) => {
     const span = segmentSpan(segment);
     const sortableField = segment.leaves[0]?.field;
     const groupTitle = headerText(segment.header, sortableField ?? segment.id);
@@ -652,7 +804,7 @@ export function DataTableView<T extends object>(model: DataTableViewModel<T>) {
                     type="button"
                     className={cls("dmc-data-table__sort", sortActive(sortableField) ? "dmc-data-table__sort--on" : undefined)}
                     aria-label={`Сортировать ${groupTitle}`}
-                    onClick={(event) => sortBy(sortableField, event.shiftKey)}
+                    onClick={() => sortBy(sortableField)}
                   >
                     {sortMark(sortableField)}
                   </button>
@@ -673,7 +825,7 @@ export function DataTableView<T extends object>(model: DataTableViewModel<T>) {
       </MarkupTable.Th>
     );
   });
-  const headerSub = segments.flatMap((segment) => {
+  const headerSub = dataSegments.flatMap((segment) => {
     if (segment.kind === "leaf") return [];
     if (segment.kind === "split") {
       return segment.subheaders.map((header, index) => (
@@ -726,7 +878,7 @@ export function DataTableView<T extends object>(model: DataTableViewModel<T>) {
   const cards = (
     <div className="dmc-data-table__cards">
       {leafNodes(pageNodes).map((node) => (
-        <Box key={node.expandKey}>
+        <Box key={node.expandKey} style={{ cursor: onRow ? "pointer" : undefined }} {...cardDomHandlers(node)}>
           {ordered.map((leaf) => (
             <div key={leaf.field} className="dmc-data-table__card-row">
               <span>{headerText(leaf.header, leaf.field)}</span>
@@ -755,9 +907,11 @@ export function DataTableView<T extends object>(model: DataTableViewModel<T>) {
                   <input type="checkbox" aria-label="Выбрать строки страницы" checked={allPageSelected} onChange={togglePage} />
                 </MarkupTable.Th>
               ) : null}
-              {showActions && rowActionsAt === "start" ? <MarkupTable.Th rowSpan={hasSecondHeader ? 2 : undefined} /> : null}
+              {actionLeavesStart.map((leaf) => actionLeafHead(leaf))}
+              {hoverSlotStart ? <MarkupTable.Th className="dmc-data-table__hover-slot" rowSpan={hasSecondHeader ? 2 : undefined} aria-hidden /> : null}
               {headerTop}
-              {showActions && rowActionsAt === "end" ? <MarkupTable.Th rowSpan={hasSecondHeader ? 2 : undefined} /> : null}
+              {hoverSlotEnd ? <MarkupTable.Th className="dmc-data-table__hover-slot" rowSpan={hasSecondHeader ? 2 : undefined} aria-hidden /> : null}
+              {actionLeavesEnd.map((leaf) => actionLeafHead(leaf))}
               {selectable === "end" ? (
                 <MarkupTable.Th className="dmc-data-table__select" rowSpan={hasSecondHeader ? 2 : undefined}>
                   <input type="checkbox" aria-label="Выбрать строки страницы" checked={allPageSelected} onChange={togglePage} />
@@ -857,7 +1011,13 @@ export function DataTableView<T extends object>(model: DataTableViewModel<T>) {
           </div>
         ) : null}
       </div>
-      {showCards ? (layout ? layout({ nodes: pageNodes, columns: ordered }) : pageNodes.length === 0 ? <div className="dmc-data-table__empty">{noDataText}</div> : cards) : table}
+      {showCards
+        ? layout
+          ? layout({ nodes: pageNodes, columns: ordered, onRow })
+          : pageNodes.length === 0
+            ? <div className="dmc-data-table__empty">{noDataText}</div>
+            : cards
+        : table}
       {withPagination ? (
         <div className="dmc-data-table__pager">
           <Button type="button" variant="outline" disabled={safePage <= 1} onClick={() => setPage(safePage - 1)}>Назад</Button>

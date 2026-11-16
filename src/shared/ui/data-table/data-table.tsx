@@ -9,12 +9,35 @@ import {
 } from "react";
 import type { MarkupTableProps } from "../markup-table";
 import { useTheme } from "../theme-context";
-import { DataTableColumn, readColumns } from "./columns";
+import {
+  breakpointQuery,
+  collectLeaves,
+  collectSegments,
+  dataColumnsSpan,
+  dataSegmentsWithoutActions,
+  DataTableColumn,
+  orderSegments,
+  applyColumnResizePair,
+  partitionActionLeaves,
+  presentSegments,
+  readColumns,
+  MIN_COLUMN_WIDTH,
+} from "./columns";
 import { DataTableView } from "./view/screen";
-import { breakpointQuery, collectLeaves, collectSegments, orderSegments, presentSegments, segmentSpan } from "./columns";
 import { filterRows, groupNodes, leafNodes, paginateRows, sortRows, toCsv, windowRows } from "./pipeline";
 import { createTableStorage, readStored, type DataTableStorage } from "./storage";
-import type { DataTableBulkAction, DataTableFetcher, DataTableFilterValue, DataTableGroupLayout, DataTableLeaf, DataTableNode, DataTableRowAction, DataTableRowActionsPanelProps, DataTableSortRule } from "./types";
+import type {
+  DataTableBulkAction,
+  DataTableFetcher,
+  DataTableFilterValue,
+  DataTableGroupLayout,
+  DataTableLeaf,
+  DataTableNode,
+  DataTableRowAction,
+  DataTableRowActionsPanelProps,
+  DataTableRowEvents,
+  DataTableSortRule,
+} from "./types";
 import "./data-table.css";
 
 const ROW_HEIGHT = 40;
@@ -22,6 +45,7 @@ const ROW_HEIGHT = 40;
 export type DataTableLayout<T> = (props: {
   nodes: DataTableNode<T>[];
   columns: DataTableLeaf<T>[];
+  onRow?: DataTableRowEvents<T>;
 }) => ReactNode;
 
 /** Визуальные свойства MarkupTable. `layout` здесь — table-layout, не раскладка DataTable. */
@@ -86,6 +110,7 @@ export type DataTableProps<T extends object> = {
   bulkActions?: DataTableBulkAction<T>[];
   breakpoint?: string;
   layout?: DataTableLayout<T>;
+  onRow?: DataTableRowEvents<T>;
   /** Оформление таблицы: размер, зебра, границы, dense, stickyHeader. */
   markup?: DataTableMarkup;
   virtualizeThreshold?: number;
@@ -150,10 +175,11 @@ export function DataTable<T extends object>({
   rowActions,
   rowActionsPanel,
   rowActionsAt = "end",
-  rowActionsOnHover = true,
+  rowActionsOnHover,
   bulkActions,
   breakpoint,
   layout,
+  onRow,
   markup,
   virtualizeThreshold,
   maxBodyHeight,
@@ -248,10 +274,23 @@ export function DataTable<T extends object>({
   const built = useMemo(() => collectSegments(columns), [columns]);
   const segments = presentSegments(orderSegments(built, segmentState, order), hidden);
   const ordered = segments.flatMap((segment) => segment.leaves);
-  const bodySpan = segments.reduce((sum, segment) => sum + segmentSpan(segment), 0);
-  const actionsColumn = ordered.some((leaf) => leaf.source.actions);
-  const showActions = Boolean(rowActions?.length) && !actionsColumn;
-  const colSpan = bodySpan + (selectable ? 1 : 0) + (showActions ? 1 : 0) + (groupLayout === "unified" && keys.length > 0 ? 1 : 0);
+  const hasActionsColumn = ordered.some((leaf) => leaf.source.actions);
+  const resolvedRowActionsOnHover = rowActionsOnHover ?? (Boolean(rowActions?.length) && !hasActionsColumn);
+  const showHoverSlot = resolvedRowActionsOnHover && !hasActionsColumn && Boolean(rowActions?.length);
+  const editHoverSlot = editMode === "row" && edit !== null && !hasActionsColumn && !showHoverSlot;
+  const hoverSlotStart = (showHoverSlot && rowActionsAt === "start") || (editHoverSlot && rowActionsAt === "start");
+  const hoverSlotEnd = (showHoverSlot && rowActionsAt === "end") || (editHoverSlot && rowActionsAt === "end");
+  const { actionLeavesStart, actionLeavesEnd } = partitionActionLeaves(ordered, rowActionsAt);
+  const dataSegments = useMemo(() => dataSegmentsWithoutActions(segments), [segments]);
+  const dataBodySpan = dataColumnsSpan(segments);
+  const colSpan =
+    dataBodySpan +
+    (selectable ? 1 : 0) +
+    actionLeavesStart.length +
+    actionLeavesEnd.length +
+    (hoverSlotStart ? 1 : 0) +
+    (hoverSlotEnd ? 1 : 0) +
+    (groupLayout === "unified" && keys.length > 0 ? 1 : 0);
   const flatPage = leafNodes(pageNodes);
   const virtual =
     keys.length === 0 &&
@@ -330,16 +369,33 @@ export function DataTable<T extends object>({
 
   const startResize = (field: string, event: ReactPointerEvent<HTMLSpanElement>) => {
     event.preventDefault();
+    event.stopPropagation();
+    const resizeFields = ordered.filter((leaf) => !leaf.source.actions).map((leaf) => leaf.field);
+    const fieldIndex = resizeFields.indexOf(field);
+    const nextField = fieldIndex >= 0 ? resizeFields[fieldIndex + 1] : undefined;
+    if (!nextField) return;
+
     const startX = event.clientX;
-    const startWidth = widths[field] ?? leaves.find((leaf) => leaf.field === field)?.source.width ?? 160;
+    const leafWidth = (key: string) =>
+      widths[key] ?? leaves.find((leaf) => leaf.field === key)?.source.width ?? 160;
+    const startWidth = leafWidth(field);
+    const nextStartWidth = leafWidth(nextField);
+
+    const applySizes = (deltaX: number) => {
+      const { width, nextWidth } = applyColumnResizePair(startWidth, nextStartWidth, deltaX, MIN_COLUMN_WIDTH);
+      setWidthsState((current) => ({ ...current, [field]: width, [nextField]: nextWidth }));
+      return { width, nextWidth };
+    };
+
     const move = (moveEvent: PointerEvent) => {
-      const next = Math.max(80, startWidth + moveEvent.clientX - startX);
-      setWidthsState((current) => ({ ...current, [field]: next }));
+      applySizes(moveEvent.clientX - startX);
     };
     const up = (upEvent: PointerEvent) => {
-      const next = Math.max(80, startWidth + upEvent.clientX - startX);
-      onColumnResize?.(field, next);
-      store?.setItem(`columns.${field}.width`, next);
+      const { width, nextWidth } = applySizes(upEvent.clientX - startX);
+      onColumnResize?.(field, width);
+      onColumnResize?.(nextField, nextWidth);
+      store?.setItem(`columns.${field}.width`, width);
+      store?.setItem(`columns.${nextField}.width`, nextWidth);
       window.removeEventListener("pointermove", move);
       window.removeEventListener("pointerup", up);
     };
@@ -413,10 +469,18 @@ export function DataTable<T extends object>({
       rowActions={rowActions}
       rowActionsPanel={rowActionsPanel}
       rowActionsAt={rowActionsAt}
-      rowActionsOnHover={rowActionsOnHover}
+      rowActionsOnHover={resolvedRowActionsOnHover}
+      hasActionsColumn={hasActionsColumn}
+      showHoverSlot={showHoverSlot}
+      hoverSlotStart={hoverSlotStart}
+      hoverSlotEnd={hoverSlotEnd}
+      actionLeavesStart={actionLeavesStart}
+      actionLeavesEnd={actionLeavesEnd}
+      dataSegments={dataSegments}
       bulkActions={bulkActions}
       breakpoint={breakpoint}
       layout={layout}
+      onRow={onRow}
       maxBodyHeight={maxBodyHeight}
       limits={limits}
       groupLayout={groupLayout}
@@ -475,7 +539,6 @@ export function DataTable<T extends object>({
       setLimitState={setLimitState}
       setScrollTop={setScrollTop}
       compact={compact}
-      showActions={showActions}
       expanded={expanded}
       markup={markup}
     />

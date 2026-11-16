@@ -84,7 +84,7 @@ const data: Row[] = [
 |------|----------|
 | `rowActions` | Список действий (редактировать, удалить…) |
 | `rowActionsPanel` | Кастомный рендер панели |
-| `rowActionsOnHover` | Показывать при наведении (по умолчанию `true`, если нет колонки `actions`) |
+| `rowActionsOnHover` | Hover-панель без колонки `actions` (по умолчанию `true` при `rowActions` и без колонки `actions`) |
 | `rowActionsAt` | `'start'` \| `'end'` — позиция hover-панели |
 
 ### Группировка строк

@@ -172,10 +172,23 @@
 .dmc-data-table__resizer {
   position: absolute;
   top: 0;
-  right: 0;
-  width: 6px;
-  height: 100%;
+  bottom: 0;
+  right: -4px;
+  width: 8px;
+  z-index: 2;
   cursor: col-resize;
+  opacity: 0;
+  background-color: transparent;
+  transition:
+    opacity 0.2s ease,
+    background-color 0.2s ease;
+}
+
+.dmc-data-table__th:hover .dmc-data-table__resizer,
+.dmc-data-table__resizer--active,
+.dmc-data-table__resizer:hover {
+  opacity: 1;
+  background-color: color-mix(in srgb, var(--dmc-color-border) 70%, var(--dmc-color-primary));
 }
 
 .dmc-data-table__filter {
@@ -203,12 +216,59 @@
   color: var(--dmc-color-text-secondary);
 }
 
-.dmc-data-table__actions {
-  opacity: 0;
+.dmc-data-table__row--actions-hover {
+  position: relative;
 }
 
-.dmc-data-table__table tbody tr:hover .dmc-data-table__actions {
+.dmc-data-table__hover-slot,
+.dmc-data-table__table th.dmc-data-table__hover-slot {
+  width: 0 !important;
+  min-width: 0 !important;
+  max-width: 0 !important;
+  padding: 0 !important;
+  border-inline: none !important;
+  overflow: visible;
+  vertical-align: middle;
+  position: relative;
+}
+
+.dmc-data-table__hover-overlay {
+  position: absolute;
+  inset-block: 0;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding-inline: var(--dmc-padding);
+  background: linear-gradient(
+    to left,
+    var(--dmc-color-surface) 60%,
+    color-mix(in srgb, var(--dmc-color-surface) 80%, transparent)
+  );
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 150ms ease;
+  z-index: 2;
+  white-space: nowrap;
+}
+
+.dmc-data-table__hover-overlay[data-position="start"] {
+  inset-inline-start: 0;
+  background: linear-gradient(
+    to right,
+    var(--dmc-color-surface) 60%,
+    color-mix(in srgb, var(--dmc-color-surface) 80%, transparent)
+  );
+}
+
+.dmc-data-table__hover-overlay[data-position="end"] {
+  inset-inline-end: 0;
+}
+
+.dmc-data-table__row--actions-hover:hover .dmc-data-table__hover-overlay,
+.dmc-data-table__hover-overlay:focus-within,
+.dmc-data-table__hover-overlay:has(:hover) {
   opacity: 1;
+  pointer-events: auto;
 }
 
 .dmc-data-table__nested {

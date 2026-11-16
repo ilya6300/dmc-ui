@@ -1,4 +1,4 @@
-import type { ReactNode } from "react";
+import type { MouseEvent, ReactNode } from "react";
 
 export type DataTableAlign = "left" | "center" | "right";
 
@@ -93,17 +93,34 @@ export type DataTableNode<T> = {
   label?: string;
 };
 
+export type DataTableRowEvents<T> = {
+  onClick?: (event: MouseEvent, row: T, node: DataTableNode<T>) => void;
+  onDoubleClick?: (event: MouseEvent, row: T, node: DataTableNode<T>) => void;
+  onMouseEnter?: (event: MouseEvent, row: T, node: DataTableNode<T>) => void;
+  onMouseLeave?: (event: MouseEvent, row: T, node: DataTableNode<T>) => void;
+  onContextMenu?: (event: MouseEvent, row: T, node: DataTableNode<T>) => void;
+};
+
 export type DataTableRowAction<T> = {
   id: string;
   label: ReactNode;
   disabled?: boolean | ((node: DataTableNode<T>) => boolean);
   hidden?: boolean | ((node: DataTableNode<T>) => boolean);
-  onClick: (item: T, node: DataTableNode<T>) => void;
+  /** Встроенное редактирование строки — только при `editMode="row"` и колонках с `editor`. */
+  edit?: boolean;
+  /** Обработчик; не нужен при `edit: true`. */
+  onClick?: (item: T, node: DataTableNode<T>) => void;
 };
 
 export type DataTableRowActionsPanelProps<T> = {
   node: DataTableNode<T>;
   actions: DataTableRowAction<T>[];
+  /** Запускает редактирование строки (те же правила, что у действия с `edit: true`). */
+  beginEdit?: (node: DataTableNode<T>) => void;
+  /** Строка в режиме `editMode="row"`. */
+  editingRow?: boolean;
+  /** Сохранить правку текущей строки. */
+  saveEdit?: () => void;
 };
 
 export type DataTableBulkContext<T> = {

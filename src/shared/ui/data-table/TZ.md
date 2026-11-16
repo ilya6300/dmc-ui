@@ -226,6 +226,7 @@ Auto-detect: колонка с обоими флагами → unified nested ta
 | E-03 | Редактор через prop `editor` на `DataColumn` |
 | E-04 | `updateNode` обновляет локальный `data`; `commitEdit` вызывает `onRowEditComplete` |
 | E-05 | Group-container rows заблокированы для edit |
+| E-07 | `rowActions` с `edit: true` включает `editMode: 'row'` для текущей строки (нужны колонки с `editor`) |
 | E-06 | Edit context изолирован — перерисовка только затронутой строки |
 
 ### 3.16. Пагинация

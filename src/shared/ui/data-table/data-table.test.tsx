@@ -1,7 +1,7 @@
 import { act, type ReactNode } from "react";
 import { createRoot } from "react-dom/client";
 import { describe, expect, it } from "vitest";
-import { collectSegments } from "./columns";
+import { applyColumnResizePair, collectSegments } from "./columns";
 import {
   filterRows,
   groupNodes,
@@ -44,6 +44,18 @@ function mount(node: ReactNode) {
     },
   };
 }
+
+describe("column resize pair", () => {
+  it("shifts width to the next column", () => {
+    expect(applyColumnResizePair(200, 150, 40)).toEqual({ width: 240, nextWidth: 110 });
+    expect(applyColumnResizePair(200, 150, -40)).toEqual({ width: 160, nextWidth: 190 });
+  });
+
+  it("does not shrink below min width", () => {
+    expect(applyColumnResizePair(90, 200, -50, 80)).toEqual({ width: 80, nextWidth: 210 });
+    expect(applyColumnResizePair(200, 90, 50, 80)).toEqual({ width: 210, nextWidth: 80 });
+  });
+});
 
 describe("data table model", () => {
   const indexed = rows.map((row, index) => ({ row, index }));
@@ -421,6 +433,171 @@ describe("DataTable", () => {
     expect(headers).toEqual(["Отдел", "Сотрудник", "Должность", "Зарплата"]);
     expect(nested?.textContent).toContain("Аня");
     expect(nested?.textContent).toContain("Боря");
+    view.unmount();
+  });
+
+  it("accumulates sort rules when multiSort is enabled", () => {
+    const view = mount(
+      <DataTable data={rows} multiSort withPagination={false}>
+        <DataTable.Column<Row> field="city" header="Город" sortable />
+        <DataTable.Column<Row> field="name" header="Название" sortable />
+      </DataTable>,
+    );
+    const sorts = () => [...view.container.querySelectorAll(".dmc-data-table__sort")];
+    const rowText = () => [...view.container.querySelectorAll("tbody tr")].map((row) => row.textContent);
+    act(() => {
+      sorts()[0]?.dispatchEvent(new MouseEvent("click", { bubbles: true }));
+    });
+    expect(rowText()[0]).toContain("Казань");
+    act(() => {
+      sorts()[1]?.dispatchEvent(new MouseEvent("click", { bubbles: true }));
+    });
+    expect(rowText().map((text) => text?.replace(/\s+/g, " "))).toEqual([
+      expect.stringContaining("Казань"),
+      expect.stringContaining("Альфа"),
+      expect.stringContaining("Гамма"),
+    ]);
+    view.unmount();
+  });
+
+  it("starts cell edit on double click", () => {
+    const view = mount(
+      <DataTable
+        data={rows}
+        editMode="cell"
+        withPagination={false}
+        onRowEditComplete={() => undefined}
+      >
+        <DataTable.Column<Row>
+          field="name"
+          header="Название"
+          editor={(item, column, onChange) => (
+            <input aria-label="edit-name" value={String((item as Record<string, unknown>)[column.field!] ?? "")} onChange={(event) => onChange(event.target.value)} />
+          )}
+        />
+      </DataTable>,
+    );
+    const cell = view.container.querySelector("tbody td");
+    act(() => {
+      cell?.dispatchEvent(new MouseEvent("dblclick", { bubbles: true }));
+    });
+    expect(view.container.querySelector("[aria-label='edit-name']")).not.toBeNull();
+    view.unmount();
+  });
+
+  it("omits hover slot without rowActions", () => {
+    const view = mount(
+      <DataTable data={rows} withPagination={false}>
+        <DataTable.Column<Row> field="name" header="Название" />
+      </DataTable>,
+    );
+    expect(view.container.querySelector(".dmc-data-table__hover-slot")).toBeNull();
+    view.unmount();
+  });
+
+  it("places selection before hover slot at row start", () => {
+    const view = mount(
+      <DataTable
+        data={rows.slice(0, 1)}
+        selectable="start"
+        rowActions={[{ id: "a", label: "A", onClick: () => undefined }]}
+        rowActionsAt="start"
+        withPagination={false}
+      >
+        <DataTable.Column<Row> field="name" header="Название" />
+      </DataTable>,
+    );
+    const cells = view.container.querySelectorAll("tbody tr td");
+    expect(cells[0]?.querySelector("input[type='checkbox']")).not.toBeNull();
+    expect(cells[1]?.classList.contains("dmc-data-table__hover-slot")).toBe(true);
+    view.unmount();
+  });
+
+  it("starts row edit from rowActions edit action", () => {
+    const view = mount(
+      <DataTable
+        data={rows}
+        editMode="row"
+        withPagination={false}
+        onRowEditComplete={() => undefined}
+        rowActions={[{ id: "edit", label: "Изменить", edit: true }]}
+        rowActionsOnHover={false}
+      >
+        <DataTable.Column<Row>
+          field="name"
+          header="Название"
+          editor={(item, column, onChange) => (
+            <input aria-label="edit-name" value={String((item as Record<string, unknown>)[column.field!] ?? "")} onChange={(event) => onChange(event.target.value)} />
+          )}
+        />
+        <DataTable.Column<Row> field="_actions" actions header="" />
+      </DataTable>,
+    );
+    const editBtn = [...view.container.querySelectorAll("button")].find((button) => button.textContent === "Изменить");
+    act(() => {
+      editBtn?.dispatchEvent(new MouseEvent("click", { bubbles: true }));
+    });
+    expect(view.container.querySelector("[aria-label='edit-name']")).not.toBeNull();
+    const saveBtn = [...view.container.querySelectorAll("button")].find((button) => button.textContent === "Сохранить");
+    expect(saveBtn).not.toBeNull();
+    expect([...view.container.querySelectorAll("tbody tr")].some((row) => row.querySelector("td[colspan]")?.textContent === "Сохранить")).toBe(
+      false,
+    );
+    view.unmount();
+  });
+
+  it("disables rowActions edit when editMode is cell", () => {
+    const view = mount(
+      <DataTable
+        data={rows}
+        editMode="cell"
+        withPagination={false}
+        rowActions={[{ id: "edit", label: "Изменить", edit: true }]}
+        rowActionsOnHover={false}
+      >
+        <DataTable.Column<Row> field="name" header="Название" editor={() => null} />
+        <DataTable.Column<Row> field="_actions" actions header="" />
+      </DataTable>,
+    );
+    const editBtn = [...view.container.querySelectorAll("button")].find((button) => button.textContent === "Изменить");
+    expect((editBtn as HTMLButtonElement | undefined)?.disabled).toBe(true);
+    view.unmount();
+  });
+
+  it("pins actions column to end when actionsAt is end", () => {
+    const view = mount(
+      <DataTable
+        data={rows.slice(0, 1)}
+        rowActions={[{ id: "edit", label: "Изменить", onClick: () => undefined }]}
+        rowActionsOnHover={false}
+        withPagination={false}
+      >
+        <DataTable.Column<Row> field="_actions" actions actionsAt="end" header="" width={80} />
+        <DataTable.Column<Row> field="name" header="Название" />
+        <DataTable.Column<Row> field="city" header="Город" />
+      </DataTable>,
+    );
+    const rowText = view.container.querySelector("tbody tr")?.textContent ?? "";
+    expect(rowText.indexOf("Бета")).toBeLessThan(rowText.indexOf("Изменить"));
+    view.unmount();
+  });
+
+  it("calls onRow.onClick for a data row", () => {
+    let hit: string | null = null;
+    const view = mount(
+      <DataTable
+        data={rows}
+        withPagination={false}
+        onRow={{ onClick: (_event, row) => { hit = row.name; } }}
+      >
+        <DataTable.Column<Row> field="name" header="Название" />
+      </DataTable>,
+    );
+    const row = view.container.querySelector("tbody tr");
+    act(() => {
+      row?.dispatchEvent(new MouseEvent("click", { bubbles: true }));
+    });
+    expect(hit).toBe("Бета");
     view.unmount();
   });
 });

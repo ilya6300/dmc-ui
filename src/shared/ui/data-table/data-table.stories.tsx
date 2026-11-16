@@ -150,17 +150,65 @@ function cellEditor(item: CellEditRow, column: DataTableColumnProps<CellEditRow>
   return editorField(item, column, onChange, onSave, column.field === "qty");
 }
 
-function ActionsPanel({ node, actions }: DataTableRowActionsPanelProps<ActionRow>) {
+function ActionsPanel({ node, actions, beginEdit, editingRow, saveEdit }: DataTableRowActionsPanelProps<ActionRow>) {
   const { colors } = useTheme();
   return (
     <span style={{ display: "inline-flex", alignItems: "center", gap: 8 }}>
       <span style={{ color: colors.textSecondary }}>#{node.data.id}</span>
-      {actions.map((action) => (
-        <Button key={action.id} type="button" variant="text" onClick={() => action.onClick(node.data, node)}>
-          {action.label}
+      {actions.map((action) =>
+        editingRow && action.edit ? (
+          <Button
+            key="save"
+            type="button"
+            variant="text"
+            onClick={(event) => {
+              event.stopPropagation();
+              saveEdit?.();
+            }}
+          >
+            Сохранить
+          </Button>
+        ) : (
+          <Button
+            key={action.id}
+            type="button"
+            variant="text"
+            onClick={(event) => {
+              event.stopPropagation();
+              if (action.edit) {
+                beginEdit?.(node);
+                return;
+              }
+              action.onClick?.(node.data, node);
+            }}
+          >
+            {action.label}
+          </Button>
+        ),
+      )}
+      {editingRow && !actions.some((action) => action.edit) ? (
+        <Button
+          type="button"
+          variant="text"
+          onClick={(event) => {
+            event.stopPropagation();
+            saveEdit?.();
+          }}
+        >
+          Сохранить
         </Button>
-      ))}
+      ) : null}
     </span>
+  );
+}
+
+function actionNameEditor(item: ActionRow, column: DataTableColumnProps<ActionRow>, onChange: (value: unknown) => void) {
+  return (
+    <input
+      aria-label={`edit-${column.field}`}
+      value={String((item as Record<string, unknown>)[column.field!] ?? "")}
+      onChange={(event) => onChange(event.target.value)}
+    />
   );
 }
 
@@ -168,15 +216,7 @@ function useActionRows() {
   const [rows, setRows] = useState(actionSeed);
   const rowActions = useMemo<DataTableRowAction<ActionRow>[]>(
     () => [
-      {
-        id: "edit",
-        label: "Изменить",
-        onClick: (item) => {
-          const next = window.prompt("Имя", item.name);
-          if (next == null) return;
-          setRows((current) => current.map((row) => (row.id === item.id ? { ...row, name: next } : row)));
-        },
-      },
+      { id: "edit", label: "Изменить", edit: true },
       {
         id: "delete",
         label: "Удалить",
@@ -219,10 +259,15 @@ const meta = {
         "Legacy-раскладка. Канон: только grouped — та же таблица; group — вложенная таблица; group+grouped — группировка + вложенная таблица.",
     },
     groupAt: { description: "Кнопка раскрытия группы в ячейке колонки уровня: start или end.", options: ["start", "end"], control: "radio" },
-    editMode: { description: "Редактирование ячейки или строки.", options: ["cell", "row"], control: "radio" },
-    rowActions: { description: "Действия строки.", control: false },
+    editMode: { description: "Редактирование ячейки или строки; вход по двойному клику.", options: ["cell", "row"], control: "radio" },
+    multiSort: { description: "Клик по заголовкам добавляет поле в цепочку сортировки (без Shift)." },
+    onRow: { description: "События строки: onClick, onDoubleClick, onMouseEnter, onMouseLeave, onContextMenu.", control: false },
+    rowActions: { description: "Действия строки (редактирование, удаление и т.п.).", control: false },
     rowActionsPanel: { description: "Свой блок вместо кнопок действий.", control: false },
-    rowActionsAt: { description: "Сторона автоматической колонки действий, если нет колонки actions.", options: ["start", "end"], control: "radio" },
+    rowActionsOnHover: {
+      description: "Панель при наведении, если нет колонки actions. По умолчанию true при rowActions без actions-колонки.",
+    },
+    rowActionsAt: { description: "Сторона hover-слота или выравнивания actions-колонки (fallback для actionsAt).", options: ["start", "end"], control: "radio" },
     withExcelExport: { description: "Кнопка скачивания CSV." },
     markup: {
       control: false,
@@ -241,13 +286,15 @@ ${ROOT_NOTE}
 
 ${importBlock("DataTable", "Main")}
 
-**Состав:** \`data\` обязателен. Опционально \`storage\`, \`breakpoint\`, \`layout\`, \`groupKeys\`, \`groupAt\`, \`editMode\`, \`rowActions\`, \`rowActionsPanel\`, \`selectable\`, \`withExcelExport\`, \`markup\`.
+**Состав:** \`data\` обязателен. Опционально \`storage\`, \`breakpoint\`, \`layout\`, \`onRow\`, \`groupKeys\`, \`groupAt\`, \`editMode\`, \`multiSort\`, \`rowActions\`, \`rowActionsPanel\`, \`selectable\`, \`withExcelExport\`, \`markup\`.
+
+При \`multiSort\` каждый клик по sortable-заголовку добавляет поле в цепочку (⇅ → ▲ → ▼ → снять). Редактирование — двойной клик по ячейке (\`editMode="cell"\`) или по строке (\`editMode="row"\`). \`onRow\` вешается на строки таблицы и карточки; тот же объект передаётся в \`layout({ nodes, columns, onRow })\`.
 
 Оформление таблицы — \`markup\`: размер, зебра, границы, \`dense\`, \`stickyHeader\` (свойства MarkupTable). По умолчанию зебра, hover и границы строк.
 
 В заголовке колонки название слева; sort (⇅ / ▲ / ▼), filter, hide и drag-handle (⠿) — справа. Перетаскивание колонки только за handle.
 
-Колонка с \`actions\` размещает кнопки строки. \`actionsMenu\` открывает список. \`actionsAt\` выравнивает блок в ячейке.
+**Действия строки:** \`rowActions\` — список кнопок. Для встроенного редактирования — \`{ edit: true }\` при \`editMode="row"\` и \`editor\` на колонках. Три режима отображения: (1) hover — без колонки \`actions\`, панель в нулевом hover-слоте при наведении; (2) колонка \`actions\` + \`rowActionsOnHover={false}\`, позиция по порядку колонок и \`actionsAt\` (или \`rowActionsAt\`); (3) \`actionsMenu\` — выпадающее меню в колонке. Слева порядок: выбор → actions/hover → данные; справа: данные → hover/actions → выбор.
 
 \`\`\`jsx
 <DataTable data={rows} limit={15} storage="orders" breakpoint="s" selectable="start">
@@ -498,7 +545,7 @@ export const MultiSort: Story = {
     },
   },
   render: () => (
-    <StorySection title="Мульти-сортировка" description="Shift и клик добавляет поле в цепочку сортировки.">
+    <StorySection title="Мульти-сортировка" description="Клик по заголовкам по очереди добавляет поля в цепочку сортировки.">
       <DataTable data={multiGroupData} multiSort storage="storybook.table.multi-sort" limit={50}>
         <DataTable.Column<MultiGroupRow> field="region" header="Регион" sortable />
         <DataTable.Column<MultiGroupRow> field="category" header="Категория" sortable />
@@ -554,7 +601,10 @@ export const RowEdit: Story = {
     },
   },
   render: () => (
-    <StorySection title="Редактирование строк и вложенная группа" description="Enter в поле сохраняет строку.">
+    <StorySection
+      title="Редактирование строк и вложенная группа"
+      description="Двойной клик по строке открывает редактор; «Сохранить» в панели действий при наведении (или заменяет «Изменить»)."
+    >
       <RowEditDemo />
     </StorySection>
   ),
@@ -576,6 +626,39 @@ function RowActionsColumnDemo() {
     <DataTable data={rows} rowActions={rowActions} rowActionsOnHover={false} selectable="start" storage="storybook.table.row-actions-column" limit={50}>
       <DataTable.Column<ActionRow> field="name" header="Имя" sortable />
       <DataTable.Column<ActionRow> field="role" header="Роль" />
+      <DataTable.Column<ActionRow> field="_actions" actions actionsAt="end" header="" width={160} />
+    </DataTable>
+  );
+}
+
+function RowActionsEditDemo() {
+  const [rows, setRows] = useState(actionSeed);
+  const rowActions = useMemo<DataTableRowAction<ActionRow>[]>(
+    () => [
+      { id: "edit", label: "Изменить", edit: true },
+      {
+        id: "delete",
+        label: "Удалить",
+        onClick: (_item, node) => {
+          setRows((current) => current.filter((_row, index) => index !== Number(node.index)));
+        },
+      },
+    ],
+    [],
+  );
+  return (
+    <DataTable
+      data={rows}
+      rowActions={rowActions}
+      editMode="row"
+      rowActionsOnHover={false}
+      selectable="start"
+      storage="storybook.table.row-actions-edit"
+      limit={50}
+      onRowEditComplete={(item, index) => setRows((current) => current.map((row, i) => (i === index ? item : row)))}
+    >
+      <DataTable.Column<ActionRow> field="name" header="Имя" sortable editor={actionNameEditor} />
+      <DataTable.Column<ActionRow> field="role" header="Роль" editor={actionNameEditor} />
       <DataTable.Column<ActionRow> field="_actions" actions actionsAt="end" header="" width={160} />
     </DataTable>
   );
@@ -627,6 +710,12 @@ export const RowActions: Story = {
       </StorySection>
       <StorySection title="Колонка с меню">
         <RowActionsMenuDemo />
+      </StorySection>
+      <StorySection
+        title="Изменить через rowActions"
+        description='Действие с edit: true и editMode="row" открывает редакторы колонок. Без editMode или editor кнопка неактивна.'
+      >
+        <RowActionsEditDemo />
       </StorySection>
     </Sections>
   ),
@@ -795,7 +884,7 @@ export const CellEdit: Story = {
     },
   },
   render: () => (
-    <StorySection title="editMode: cell" description="Клик по ячейке с editor открывает поле. Enter сохраняет значение.">
+    <StorySection title="editMode: cell" description="Двойной клик по ячейке с editor открывает поле. Enter сохраняет значение.">
       <CellEditDemo />
     </StorySection>
   ),
