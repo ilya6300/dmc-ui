@@ -20,7 +20,7 @@
   background-color: transparent;
   cursor: pointer;
   margin: 0;
-  font-family: inherit;
+  font-family: Montserrat, sans-serif !important;
   box-sizing: border-box;
   transition:
     border-color 0.15s ease,

@@ -1,0 +1,65 @@
+.dmc-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  margin: 0;
+  padding: var(--dmc-control-padding-y, 8px) var(--dmc-control-padding-x, 12px);
+  min-height: var(--dmc-control-min-height, 40px);
+  height: auto;
+  border: none;
+  border-radius: 6px;
+  font-family: Montserrat, sans-serif !important;
+  font-size: var(--dmc-control-font-size, 14px);
+  font-weight: 500;
+  line-height: 1.35;
+  cursor: pointer;
+  outline: none;
+  transition: background-color 0.2s ease, border-color 0.2s ease, box-shadow 0.15s ease;
+}
+
+.dmc-button[data-dmc-variant="primary"] {
+  background-color: var(--dmc-blue-lg);
+  color: #fff;
+}
+
+.dmc-button[data-dmc-variant="primary"]:hover:not(:disabled) {
+  background-color: color-mix(in srgb, var(--dmc-blue-lg) 85%, #000);
+}
+
+.dmc-button[data-dmc-variant="error"] {
+  background-color: var(--dmc-error);
+  color: #fff;
+}
+
+.dmc-button[data-dmc-variant="error"]:hover:not(:disabled) {
+  background-color: color-mix(in srgb, var(--dmc-error) 85%, #000);
+}
+
+.dmc-button[data-dmc-variant="green"] {
+  background-color: var(--dmc-green);
+  color: #fff;
+}
+
+.dmc-button[data-dmc-variant="green"]:hover:not(:disabled) {
+  background-color: color-mix(in srgb, var(--dmc-green) 85%, #000);
+}
+
+.dmc-button[data-dmc-variant="outline"] {
+  background-color: transparent;
+  color: var(--dmc-color-text-primary);
+  border: 1px solid var(--dmc-color-chip-idle-border);
+}
+
+.dmc-button[data-dmc-variant="outline"]:hover:not(:disabled) {
+  background-color: var(--dmc-color-focus-bg);
+}
+
+.dmc-button:focus-visible {
+  box-shadow: var(--dmc-focus-ring);
+}
+
+.dmc-button[data-disabled="true"] {
+  cursor: not-allowed;
+  opacity: 0.55;
+}

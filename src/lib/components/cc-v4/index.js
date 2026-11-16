@@ -2,6 +2,7 @@ export { Box } from "./Box";
 export { Container } from "./Container";
 export { Layout } from "./Layout";
 export { Main } from "./Main";
+export { Button } from "./Button.jsx";
 export { Toggle } from "./Toggle";
 export { ThemeProvider, useTheme } from "./ThemeContext.jsx";
 export { ThemeSelect } from "./ThemeSelect.jsx";

@@ -1,9 +1,10 @@
-/* Legacy :root — значения задаются в style.css на [data-dmc-theme]; fallback для вне ThemeProvider */
+/* Литералы бренда и общие токены; style.css ссылается через var() на :root */
 
 :root {
-  --main-blue-1: #2196f3;
-  --mast-blue: #236192;
-  --mast-yellow: #f0b323;
-  --error: #df2727;
+  --dmc-blue-lg: #2196f3;
+  --dmc-blue: #236192;
+  --dmc-yellow: #f0b323;
+  --dmc-error: #df2727;
+  --dmc-green: #3cab42;
   --lgt-grey-border: 1px solid #0000001f;
 }

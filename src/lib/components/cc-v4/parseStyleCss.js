@@ -14,9 +14,25 @@ const CSS_VAR_TO_SEMANTIC = {
   "--dmc-color-input-text-muted": "inputTextMuted",
   "--dmc-color-focus-bg": "focusBg",
   "--dmc-card-shadow-color": "cardShadowColor",
-  "--mast-blue": "mastBlue",
-  "--mast-yellow": "mastYellow",
+  "--dmc-blue": "mastBlue",
+  "--dmc-yellow": "mastYellow",
 };
+
+export function extractRootBlock(css) {
+  const marker = ":root";
+  const start = css.indexOf(marker);
+  if (start === -1) return "";
+  const brace = css.indexOf("{", start);
+  let depth = 0;
+  for (let i = brace; i < css.length; i++) {
+    if (css[i] === "{") depth += 1;
+    if (css[i] === "}") {
+      depth -= 1;
+      if (depth === 0) return css.slice(brace + 1, i);
+    }
+  }
+  return "";
+}
 
 export function extractThemeBlock(css, themeId) {
   const marker = `[data-dmc-theme="${themeId}"]`;
@@ -53,11 +69,12 @@ function resolveVarValue(value, vars, depth = 0) {
   return resolveVarValue(target, vars, depth + 1);
 }
 
-export function parseThemeBlock(block) {
-  const vars = parseDeclarations(block);
+export function parseThemeBlock(block, rootVars = {}) {
+  const blockVars = parseDeclarations(block);
+  const vars = { ...rootVars, ...blockVars };
   const semantic = {};
   for (const [cssVar, jsKey] of Object.entries(CSS_VAR_TO_SEMANTIC)) {
-    const raw = vars[cssVar];
+    const raw = blockVars[cssVar] ?? rootVars[cssVar];
     if (raw === undefined) continue;
     semantic[jsKey] = resolveVarValue(raw, vars);
   }
@@ -75,11 +92,16 @@ export function listThemeIds(css) {
   return ids;
 }
 
+export function parseRootVars(css) {
+  return parseDeclarations(extractRootBlock(css));
+}
+
 export function parseThemesFromCss(css) {
+  const rootVars = parseRootVars(css);
   const themes = {};
   for (const themeId of listThemeIds(css)) {
     const block = extractThemeBlock(css, themeId);
-    themes[themeId] = parseThemeBlock(block);
+    themes[themeId] = parseThemeBlock(block, rootVars);
   }
   return themes;
 }

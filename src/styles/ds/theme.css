@@ -1,5 +1,18 @@
 /* Семантические цвета тем — style.css в корне пакета */
 
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,400;0,500;0,600;1,400&display=swap");
+
+[data-dmc-theme],
+[data-dmc-theme] *,
+.dmc-root,
+.dmc-root *,
+.dmc-story-canvas,
+.dmc-story-canvas *,
+.company-card-v4,
+.company-card-v4 * {
+  font-family: Montserrat, sans-serif !important;
+}
+
 .dmc-root {
   color: var(--dmc-color-text-primary);
 }

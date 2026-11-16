@@ -4,6 +4,7 @@ import react from "@vitejs/plugin-react";
 import { resolve } from "node:path";
 
 const styleCssPath = resolve(__dirname, "style.css");
+const tokensCssPath = resolve(__dirname, "src/styles/tokens.css");
 const VIRTUAL_STYLE_CSS = "virtual:dmc-style-css";
 
 function styleCssPlugin() {
@@ -16,7 +17,8 @@ function styleCssPlugin() {
     },
     load(id) {
       if (id === "\0" + VIRTUAL_STYLE_CSS) {
-        const css = readFileSync(styleCssPath, "utf8");
+        const css =
+          readFileSync(tokensCssPath, "utf8") + "\n" + readFileSync(styleCssPath, "utf8");
         return `export default ${JSON.stringify(css)}`;
       }
     },

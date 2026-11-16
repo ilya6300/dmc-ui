@@ -28,7 +28,7 @@
   border-radius: 6px;
   font-size: var(--dmc-control-font-size, 14px);
   line-height: 1.35;
-  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New", monospace;
+  font-family: Montserrat, sans-serif !important;
   color: var(--dmc-color-input-text-primary);
   background-color: var(--dmc-color-surface);
   outline: none;
@@ -67,7 +67,7 @@
   color: var(--dmc-color-input-text-muted);
   font-size: var(--dmc-control-font-size, 14px);
   line-height: 1.35;
-  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New", monospace;
+  font-family: Montserrat, sans-serif !important;
 }
 
 .dmc-input__error {
@@ -117,7 +117,7 @@
   color: var(--dmc-color-input-text-primary);
   font-size: var(--dmc-control-font-size, 14px);
   font-weight: 500;
-  font-family: inherit;
+  font-family: Montserrat, sans-serif !important;
   cursor: pointer;
   outline: none;
   box-shadow: none;

@@ -1,4 +1,6 @@
-/* Единственный источник литералов тем: CSS (dmc-*) и JS (useTheme / themes) читают отсюда. */
+/* Тема: переключаемые литералы здесь; бренд — src/styles/tokens.css (:root) */
+
+@import "./src/styles/tokens.css";
 
 [data-dmc-theme="light"] {
   --dmc-color-background: #ffffff;
@@ -6,8 +8,8 @@
   --dmc-color-text-primary: #1e293b;
   --dmc-color-text-secondary: #64748b;
   --dmc-color-border: #e2e8f0;
-  --dmc-color-primary: #2196f3;
-  --dmc-color-error: #df2727;
+  --dmc-color-primary: var(--dmc-blue-lg);
+  --dmc-color-error: var(--dmc-error);
   --dmc-color-toggle-track-off: #cbd5e1;
   --dmc-color-knob: #ffffff;
   --dmc-color-input-text-primary: #1e293b;
@@ -17,11 +19,6 @@
   --dmc-color-chip-idle-text: #1e293b;
   --dmc-focus-ring: 0 0 0 3px rgba(33, 150, 243, 0.15);
   --dmc-card-shadow-color: rgba(0, 0, 0, 0.25);
-  --main-blue-1: var(--dmc-color-primary);
-  --mast-blue: #236192;
-  --mast-yellow: #f0b323;
-  --error: var(--dmc-color-error);
-  --lgt-grey-border: 1px solid #0000001f;
 }
 
 [data-dmc-theme="dark"] {
@@ -30,8 +27,8 @@
   --dmc-color-text-primary: rgb(233, 233, 233);
   --dmc-color-text-secondary: rgb(233, 233, 233);
   --dmc-color-border: #383838;
-  --dmc-color-primary: #2196f3;
-  --dmc-color-error: #f87171;
+  --dmc-color-primary: var(--dmc-blue-lg);
+  --dmc-color-error: var(--dmc-error);
   --dmc-color-toggle-track-off: #475569;
   --dmc-color-knob: #ffffff;
   --dmc-color-input-text-primary: #ffffff;
@@ -41,11 +38,6 @@
   --dmc-color-chip-idle-text: rgb(233, 233, 233);
   --dmc-focus-ring: 0 0 0 3px rgba(33, 150, 243, 0.25);
   --dmc-card-shadow-color: rgba(0, 0, 0, 0.45);
-  --main-blue-1: var(--dmc-color-primary);
-  --mast-blue: #236192;
-  --mast-yellow: #f0b323;
-  --error: var(--dmc-color-error);
-  --lgt-grey-border: 1px solid #0000001f;
 }
 
 [data-dmc-theme="gray"] {
@@ -54,8 +46,8 @@
   --dmc-color-text-primary: #f8fafc;
   --dmc-color-text-secondary: #e2e8f0;
   --dmc-color-border: #475569;
-  --dmc-color-primary: #2196f3;
-  --dmc-color-error: #fca5a5;
+  --dmc-color-primary: var(--dmc-blue-lg);
+  --dmc-color-error: var(--dmc-error);
   --dmc-color-toggle-track-off: #475569;
   --dmc-color-knob: #ffffff;
   --dmc-color-input-text-primary: #ffffff;
@@ -65,9 +57,4 @@
   --dmc-color-chip-idle-text: #f8fafc;
   --dmc-focus-ring: 0 0 0 3px rgba(33, 150, 243, 0.22);
   --dmc-card-shadow-color: rgba(0, 0, 0, 0.35);
-  --main-blue-1: var(--dmc-color-primary);
-  --mast-blue: #236192;
-  --mast-yellow: #f0b323;
-  --error: var(--dmc-color-error);
-  --lgt-grey-border: 1px solid #0000001f;
 }
